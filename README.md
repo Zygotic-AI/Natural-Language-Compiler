@@ -136,4 +136,4 @@ Current ship: the latest `v*` tag on `main` (see `integrity/nlc-version.json`).
 
 ## Participate
 
-This README is how you **use** published [NLC](docs/TERMS.md#nlc) in an app. Changing *this* repository is a different job: the compiler is process engineering with AI, and edits have to keep that discipline. If you want to help, start at [Contributing](CONTRIBUTING.md).
+This README is how you **use** published [NLC](docs/TERMS.md#nlc) in an app. Changing *this* repository is a different job: the compiler is process engineering with AI, and edits have to keep that discipline. If you want to help, start at [Contributing](CONTRIBUTING.md). Ownership areas and current holders: [Contributors](CONTRIBUTORS.md).

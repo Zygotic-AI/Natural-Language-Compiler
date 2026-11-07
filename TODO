@@ -750,3 +750,8 @@ Upcoming list (full requirement import, trace graph, precise rewrite, constraint
 
 - ☐ Before public signed packs: majority-key / stolen-key / pack-withdrawal design recorded in FEATURES.md item 11 — solve it then, not now.
 - ☐ Pack install conflict resolution (company encryption vs PCI pack, human accepts or edits the resolution) lives under FEATURES.md item 8 — after we brownfield ourselves.
+- ☐ Tokens and cost of every agent/model call (FEATURES thinking list — not bundled with the graph).
+- ☐ Call envelopes: predefined JSON per call type; abandon and stop on nonconformance; file verify still wins.
+- ☐ `/nlc` skill routing so nothing in the system changes except through NLC.
+- ☐ Dirty predicates listed by `/release` when accept/code/recompile is still incomplete.
+- ☐ Constraint onboarding: each new constraint brings adjectives on data and verb bindings; rewrite existing units.

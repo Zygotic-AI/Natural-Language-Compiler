@@ -17,5 +17,9 @@ Short index—**full dictionary:** [`TERMS.md`](../../TERMS.md). Full intent spl
 | **[PLANIT](../../TERMS.md#planit)** | Load → [interview](../../TERMS.md#interview) → plan → bind → generate → [gate](../../TERMS.md#gate) → [prove](../../TERMS.md#prove). Slash: `/planit`. |
 | **[Prove](../../TERMS.md#prove)** | Machine fitness + adversarial [audit](../../TERMS.md#audit) — **compile** green. Not [ship](../../TERMS.md#ship). |
 | **[Ship](../../TERMS.md#ship)** | Human `Released-by:` (and `Ratified-by:` when required) after [prove](../../TERMS.md#prove). |
+| **[Accepted decision](../../TERMS.md#accepted-decision)** | Human-accepted law (an [ADR](../../TERMS.md#adr)). Kept when superseded. |
+| **[Chain choice](../../TERMS.md#chain-choice)** | An AI pick on the compile chain, recorded in the binding. |
+| **[Running app](../../TERMS.md#running-app)** | The compiled application while it is executing. Not NLC compile work. |
+| **[Dirty predicate](../../TERMS.md#dirty-predicate)** | Incomplete accept/code/recompile that `/release` must list. |
 
 [Quality](../../TERMS.md#quality) method names (DMAIC, DFSS, …): [QUALITY-PROCESSES.md](QUALITY-PROCESSES.md).

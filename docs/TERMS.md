@@ -14,6 +14,10 @@ After adding terms here, re-run `python3 tools/link-terms-dictionary.py` on reci
 
 Optional acronym for a **compiled system** artifact only—not the whole product. See [NAMES.md](nlc/compiler/NAMES.md).
 
+### Accepted decision
+
+Human-accepted law. In this hub, written as an **ADR**. Kept when superseded, not deleted. Distinct from a **chain choice**. Story: [`FEATURES.md`](nlc/FEATURES.md).
+
 ### Action
 
 Named unit of work with contracted I/O and a completion **gate**. See [ACTIONS.md](../integrity/ACTIONS.md).
@@ -24,7 +28,7 @@ The **tip** of every **lineage** — the only ADRs gates, overlay, audit, and RC
 
 ### ADR
 
-Architecture Decision Record—dated **why** for a choice; may reduce to **rules** when adopted. Policies compile into ADRs; ADRs form immutable **lineages** (ADR 0028).
+Architecture Decision Record—dated **why** for a choice; may reduce to **rules** when adopted. Policies compile into ADRs; ADRs form immutable **lineages** (ADR 0028). Product story name: **accepted decision**.
 
 ### Adopter
 
@@ -130,9 +134,21 @@ Hub skill: adversarial review citing **R** / **C** / **P**.
 
 Checklist line on one change (e.g. C24 release). See [NAMES.md](nlc/compiler/NAMES.md).
 
+### Call envelope
+
+Predefined JSON shape for one agent/harness call type. Nonconforming → abandon and stop. Does not replace file **verify**. Story: [`FEATURES.md`](nlc/FEATURES.md).
+
+### Call tokens and cost
+
+Tokens and cost of every agent/model call on a goal execution, stored on execution records (tied by ids). Not a harness hook. Story: [`FEATURES.md`](nlc/FEATURES.md).
+
 ### Call-tree pack
 
 **UC20**—inventory verb → interior **primitives**; parked.
+
+### Chain choice
+
+A pick the AI makes on the compile chain, recorded in the binding. Not an **accepted decision** unless promoted and the human accepts. Story: [`FEATURES.md`](nlc/FEATURES.md).
 
 ### Change adversarial
 
@@ -206,9 +222,13 @@ Quality metric: outcome that deviated from spec (FAIL, **handoff_refused**, erro
 
 `.nlc/delta-regen-queue.json`—ordered **UC9** rebuild steps; open queue blocks **verify**.
 
+### Dirty predicate
+
+Work that can look complete while a required accept, code, or recompile is still undone. `/release` lists these. Story: [`FEATURES.md`](nlc/FEATURES.md).
+
 ### Durability
 
-Runtime property of a **goal** (wait/retry/human)—not a fourth design primitive.
+Property of a **goal** (wait/retry/human)—not a fourth design primitive. Not the **running app**.
 
 ---
 
@@ -453,6 +473,10 @@ Constraint or policy in prose until **ADR** / **rule** adoption.
 ### Requirement pack
 
 Versioned ADR/rule bundle export/install (hub v0.2). See [REQUIREMENT-PACKS.md](nlc/REQUIREMENT-PACKS.md).
+
+### Running app
+
+The customer’s **compiled system** while it is executing. NLC interview, import, compile, verify, and ship are not called runtime. Story: [`FEATURES.md`](nlc/FEATURES.md).
 
 ### Rule
 

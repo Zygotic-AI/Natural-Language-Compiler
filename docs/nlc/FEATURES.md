@@ -8,13 +8,31 @@ This file is not an architecture decision record. Records that must be enforced 
 
 | Section | Meaning |
 | ------- | ------- |
+| [Words](#words) | Operator terms used in this file |
 | [Released](#released) | In the current ship (today **v0.5.0**) |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
+| [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-112) | Features we want, not ordered into 1–12 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
 Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-BE-DONE.md`](../JOBS-TO-BE-DONE.md), [`docs/USE-CASES.md`](../USE-CASES.md), [`FINDINGS.md`](../../FINDINGS.md), [`TODO`](../../TODO).
+
+**Dictionary:** [`docs/TERMS.md`](../TERMS.md) is the repo dictionary. Short consumer list: [`GLOSSARY.md`](compiler/GLOSSARY.md). Operator words for this product story also live in [Words](#words) so we do not reuse “runtime” or “decision record” for two different shapes.
+
+---
+
+## Words
+
+| Word | Meaning here |
+| ---- | ------------ |
+| **Policy / standard / etc** | The source you import constraints from (policy, standard, legal email, coding standard, compliance pack, …). Not every file is this. **Interview** is the path when there is no such source. |
+| **Accepted decision** | Human-accepted law. Today written as an ADR. Kept when superseded, not deleted. |
+| **Chain choice** | Any pick the AI makes on the compile chain (including which already-accepted constraints bind to this atomic action). Recorded in the binding / execution records. Not its own ADR file. If the pick changes law or resolves a pack conflict, it is **promoted**: the human accepts or edits it as an accepted decision. Silent accept is not the rule. |
+| **Running app** | The customer’s compiled application while it is executing. NLC work (interview, import/approve constraints, compile, verify, ship) is **not** called runtime. |
+| **Dirty predicate** | A step that can look finished while a required accept, code, or recompile is still undone. `/release` lists these instead of leaving the human to reconstruct the queue. |
+| **Call envelope** | Predefined JSON shape for that call type. Every agent/harness call uses one. Nonconforming → abandon that call and stop. File verify still wins if the envelope lies about files. |
+| **Call tokens and cost** | Tokens and cost of every agent/model call on the chain, stored on the execution records (tied by ids such as goal id). Not a Cursor hook. Not required to ship in the same slice as the graph. |
 
 ---
 
@@ -118,23 +136,33 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 ### 3. Full requirement import
 
-**What.** Any document becomes accepted goals and if/then constraints, each citing document, page, and line. The human edits and approves. The agent writes one chunk per pass (a section or a set of goals) and stops. Interview stays the path when there is no document.
+**What.** A **policy / standard / etc** becomes accepted goals and if/then constraints, each citing source, page, and line. The human edits and approves. The agent writes one chunk per pass (a section or a set of goals) and stops. **Interview** stays the path when there is no policy / standard / etc.
 
-**Use cases.** Drop a policy PDF/markdown in; do not play twenty questions inside the chunk. Approve or fix the slice. Repeat.
+**Constraint onboarding (part of this flow).** Each new constraint brings (a) new **adjectives** that need to be applied to data and (b) new **bindings to verbs**. That onboarding will often hit existing adjectives and verbs; those units are rewritten (precise rewrite), not patched by hand.
 
-**Why this order.** Dogfood of this repo is “import our own docs.” That import has to exist first. Pack ingest today produces candidates; this is the full job.
+**Use cases.** Drop a policy PDF/markdown in; do not play twenty questions inside the chunk. Approve or fix the slice. Repeat. The same chain (extract → codified constraint → bind → compile) is generated as part of adapting that policy / standard / etc.
+
+**Why this order.** Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first. Pack ingest today produces candidates; this is the full job.
 
 ### 4. Trace graph
 
-**What.** One link from intention to constraint to code. Three queries: from code back to the goal and the decisions; from a policy such as PCI to every place it is enforced; find every use of a library, component, or action.
+**What.** Compile chain for a goal: split into atomic changes/actions → bind to codified constraints → reverse adversarial check that applicable constraints were not left off → execute (emit) each action → adversarial check that the constraints landed in the code. Records are **tied together by ids** (goal id, atomic-action id, constraint id, and so on). Not one mega-file.
 
-**Use cases.** Site “security / auditability / reproducibility.” Fix a vulnerability in one accepted decision and see every location. Walk a suspicious file back to why it exists.
+**Graph.** All of those records feed **one graph**. You can query any recorded relationship. If the question has to walk several hops, that is normal. Example: “where is policy X implemented in the code?” walks policy → extraction → codified constraint → atomic action → exact code. The graph cannot invent a hop that was never written down.
 
-**Why this order.** Precise rewrite and “constraints become types and actions” need to know what a change touches. The v0.1.0 impact graph is goal→verb calls only.
+**First queries we care about** (not a ceiling): from code back to the goal and the accepted decisions / chain choices; from a policy such as PCI to every place it is enforced; find every use of a library, component, or action.
+
+**Use cases.** Site “security / auditability / reproducibility.” Fix a vulnerability in one accepted decision and see every location. Walk a suspicious file back to why it exists. Inspect an entire goal execution by following the ids.
+
+**Why this order.** Precise rewrite and “constraints become data types and enforced via code in the running app” need to know what a change touches. The v0.1.0 impact graph is goal→verb calls only.
 
 ### 5. Precise rewrite
 
 **What.** One accepted decision regenerates only the code it touches. Architecture swap (MySQL to Oracle) is an accepted decision plus recompile. Later edits replace those units. That is the no-code-slop rule.
+
+**Dirty predicates.** If a new policy / standard / etc is added but not fully accepted, coded, or otherwise complete, or a similar step can look done without triggering the needed recompile, that work is **dirty**. `/release` **lists the predicate steps** that still have to happen before release. The human is not left to reconstruct the queue.
+
+**Facts after generate.** Facts are bound before generate when we have them. If a new fact comes to light later, we know which code must be regenerated (same dirty / blast-radius path).
 
 **Convert language is not a separate feature.** Two paths, both already implied by other work:
 
@@ -145,13 +173,13 @@ A how-to can list those steps. We do not need `./nlc convert-language` unless we
 
 **Why this order.** Before we rewrite ourselves. After the graph, so the blast radius is real.
 
-### 6. Constraints become types and actions in the app
+### 6. Constraints become data types and enforced via code in the running app
 
-**What.** An accepted constraint becomes data types and actions the app enforces. A later policy change uses precise rewrite on those units. Adopters bring HIPAA / GDPR / PCI-DSS / FedRAMP packs. The hub does not ship those texts.
+**What.** Constraints become **data types** and are **enforced via code in the running app**. A later policy / standard / etc change uses precise rewrite on those units. Adopters bring HIPAA / GDPR / PCI-DSS / FedRAMP packs. The hub does not ship those texts.
 
-**Use cases.** Site “policy-as-code” full job. Policy changes, only the units that policy owns are rewritten.
+**Use cases.** Site “policy-as-code” full job. Policy changes, only the units that policy owns are rewritten. Constraint onboarding (item 3) is how new adjectives and verb bindings arrive.
 
-**Why this order.** Needs precise rewrite. Needed before we trust a self-rewrite of this repo.
+**Why this order.** Needs precise rewrite. Needed before we trust a self-rewrite of this repo. This is the **running app**, not an NLC compile step.
 
 ### 7. Brownfield ourselves (first cut) — this is dogfood
 
@@ -161,7 +189,7 @@ A how-to can list those steps. We do not need `./nlc convert-language` unless we
 
 **Use cases.** Prove we can take a real tree without starting over. Install-into-repo is already done (item 2), so we can pin the experiment.
 
-**Why this order.** After import, graph, precise rewrite, constraints-as-types, install-into-repo, and no editor hooks. Before we tell customers brownfield is done. Before we write the “rules that have to work together” combining logic, so we see real cases first.
+**Why this order.** After import, graph, precise rewrite, constraints as data types in the running app, install-into-repo, and no editor hooks. Before we tell customers brownfield is done. Before we write the “rules that have to work together” combining logic, so we see real cases first.
 
 **Why not cheat.** If the tool special-cases “this is the NLC hub, skip inventory,” we did not test brownfield. We tested a shortcut.
 
@@ -217,6 +245,28 @@ Different knobs (do not mash them):
 
 **Why last.** We will not know the real surface until the compile path we are actually shipping exists. Building a UI on the current first slices would freeze the wrong shape.
 
+### Also on the thinking list (not sequenced into 1–12)
+
+These are wanted. They are **not** required to land in the same slice as the graph.
+
+#### Tokens and cost of every agent/model call
+
+Record tokens and cost on the execution records (tied by ids such as goal id). Not a Cursor hook. Not bundled with “make the graph.”
+
+#### Call envelopes (predefined JSON per call type)
+
+Every agent/harness call uses a **predefined JSON shape** for that call type. The envelope lists what we can audit: files created / edited / deleted, constraints, data types, and the rest of that call’s contract. Audit the envelope for conformance **immediately**. Anything out of conformance is **abandoned** and we **stop**.
+
+This does **not** replace verify on the files. The envelope can claim files X and the tree can contain Y; the files win. This is an NLC call protocol, not an editor hook.
+
+#### Nothing changes except through NLC
+
+There is no change to anything in the system that is not done via NLC. A hand-prompt is caught and routed into an NLC skill or `nlc` command. Provide routing in an **`/nlc` skill** so prompts can always start there. File verify still catches edits that skipped the skill.
+
+#### Dirty predicates on `/release`
+
+See precise rewrite. `/release` always lists what still has to be done (accept, code, recompile, …) instead of leaving the human to figure out the queue.
+
 ---
 
 ## Milestones
@@ -249,3 +299,12 @@ Everything else in Upcoming stays on the thinking list. We will promote the next
 - Why no editor hooks? One rule. Verify on files. Do not marry a harness. Commodity models; RCA NLC before blaming the model.
 - Why wait to combine rules that are not head-on fights? So we write that logic from cases we saw on our own tree, including company policy vs PCI encryption, with a human-accepted resolution.
 - Why not solve stolen keys today? Signed public packs are not the next milestone. The majority-key sketch and the freeze-by-email path are recorded so we do not start pack signing without them.
+- Why “policy / standard / etc” instead of “document”? Document is ambiguous. Interview is the path when there is no policy / standard / etc to import.
+- Why two words for decisions? **Accepted decision** is human-accepted law (ADR, kept when superseded). **Chain choice** is an AI pick recorded in the binding. Overlapping encryption between packs is not a silent chain choice; the human accepts the resolution.
+- Why not one JSON file for a goal run? Records are tied by ids. One mega-file is not required.
+- Why query any relationship? “Where is policy X in the code?” has to walk policy → extraction → constraint → atomic action → code. Only recorded hops.
+- Why tokens/cost as its own thinking-list item? Useful even before the graph ships. Not a Cursor hook.
+- Why call envelopes *and* file verify? The envelope is audited immediately; the files can still disagree; files win; stop on a bad envelope.
+- Why `/nlc` routing? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips.
+- Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue.
+- Why “running app” not “runtime”? Runtime is easy to mix with NLC compile work. The customer’s compiled application while it is executing is the running app.

@@ -1,9 +1,10 @@
 # ADR 0048 — Executable shape
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-08
 - Redrafted: 2026-11-07
 - Deciders: Human manager
+- Ratified-by: Human manager (executable shape, 2026-11-07)
 - Class: C (goal shape) with class F enforcement
 - Corpus: nlc
 - Related: [ADR 0045](0045-hub-release-identity.md), [ADR 0049](0049-release-planner-owns-stops.md)
@@ -25,7 +26,7 @@ Boundary-Based Programming is the noun, verb, adjective, and goal practice. Boun
 
 4. **A thin entrypoint** may parse input, call one noun verb or goal, and report the result. It may not own policy or a state machine.
 
-5. **Worked example of 4.** `scripts/nlc-release.sh` is the thin entrypoint. Release policy lives in `goals/hub_release/execute.sh`. This amends [ADR 0045](0045-hub-release-identity.md) decision 2 only as to where the executor lives. The planner remains the only action selection. This example is not done until [ADR 0049](0049-release-planner-owns-stops.md) is accepted: a classified goal can still stop outside the planner.
+5. **Worked example of 4.** `scripts/nlc-release.sh` is the thin entrypoint. Release policy lives in `goals/hub_release/execute.sh`. This amends [ADR 0045](0045-hub-release-identity.md) decision 2 only as to where the executor lives. The planner remains the only action selection. [ADR 0049](0049-release-planner-owns-stops.md) is the separate law that a classified goal cannot stop outside the planner.
 
 6. **Kernel.** `tools/nouns/executable_shape/` checks the tree. An exemption list that names its own files fails.
 

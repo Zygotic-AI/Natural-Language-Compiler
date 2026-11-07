@@ -51,8 +51,8 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0043 | UC14 adopt-time composable v1 vs cross-primitive IR expansion | active | L-0043 |
 | 0046 | This repository's Planit skill is the one that plans | rejected | L-0046 |
 | 0047 | Active ADR approval is a hash receipt | superseded | L-0047 |
-| 0048 | Every executable file has one Boundary-Based shape | proposed | L-0048 |
-| 0049 | Release planner owns every intentional stop | proposed | L-0049 |
+| 0048 | Every executable file has one Boundary-Based shape | active | L-0048 |
+| 0049 | Release planner owns every intentional stop | active | L-0049 |
 | 0050 | Evidence binds to content fingerprints, not git commit ids | active | L-0050 |
 | 0051 | Hub-own produce principles SG1–SG3 | accepted | L-0051 |
 | 0052 | Owner OpenPGP ratification amends 0051 | accepted | L-0052 |

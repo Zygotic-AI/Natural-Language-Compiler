@@ -1,9 +1,10 @@
 # ADR 0049 — Release planner owns every intentional stop
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-09
 - Redrafted: 2026-11-07
 - Deciders: Human manager
+- Ratified-by: Human manager (release planner owns every intentional stop, 2026-11-07)
 - Class: A (release state), F (enforcement), and C (goal orchestration)
 - Corpus: nlc
 - RCA: [`docs/rca/2026-10-09-release-stops-outside-planner.md`](../docs/rca/2026-10-09-release-stops-outside-planner.md)

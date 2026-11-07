@@ -67,4 +67,4 @@ Deciders are role names (CG-R4). Person-to-role mapping lives outside SSOT.
 | [`0057-tag-time-checker-digest.md`](0057-tag-time-checker-digest.md) | One tag-time signature over the checker digest; branch suite does not require armor | Proposed |
 | [`0058-harness-and-model-agnostic.md`](0058-harness-and-model-agnostic.md) | Harness- and model-agnostic | Proposed |
 
-Record 0045 is not edited when a later record amends it. The readable result of decision 2 after record 0048 is [`docs/nlc/effective-decisions.md`](../docs/nlc/effective-decisions.md).
+Record 0045 is not edited when a later record amends it. The readable result of decision 2 after record 0048 is [`docs/nlc/effective-decisions.md`](../docs/nlc/effective-decisions.md). Record 0049 does not fold into record 0048. Record 0048's `./release` example is not done until record 0049 is accepted.

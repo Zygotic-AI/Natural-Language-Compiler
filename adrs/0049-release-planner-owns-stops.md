@@ -1,13 +1,14 @@
 # ADR 0049 — Release planner owns every intentional stop
 
 - Status: Proposed
-- Note: Pending a redraft; 0049 folds into 0048.
 - Date: 2026-10-09
+- Redrafted: 2026-11-07
 - Deciders: Human manager
-- Ratified-by: Human manager (release planner ownership and no automatic local-main repoint, 2026-10-09)
 - Class: A (release state), F (enforcement), and C (goal orchestration)
 - Corpus: nlc
 - RCA: [`docs/rca/2026-10-09-release-stops-outside-planner.md`](../docs/rca/2026-10-09-release-stops-outside-planner.md)
+- Related: [ADR 0039](0039-single-command-human-surfaces.md), [ADR 0040](0040-process-preflight-remediation.md), [ADR 0045](0045-hub-release-identity.md), [ADR 0048](0048-executable-shape.md)
+- Version class of this change: **minor** (new policy; not a published-contract break)
 
 ## Context
 
@@ -15,12 +16,18 @@
 [ADR 0040](0040-process-preflight-remediation.md) requires a real remediation for a
 release stop. [ADR 0045](0045-hub-release-identity.md) makes
 `tools/nouns/release_state/release_state.py` the only phase and action planner.
+[ADR 0048](0048-executable-shape.md) moves release policy into
+`goals/hub_release/execute.sh` and leaves `scripts/nlc-release.sh` as a thin
+entrypoint.
 
-The executor can still stop on checks that the planner does not observe. The
-operator can therefore run `./release`, follow a request to run `/verify`, and
-then encounter another stop whose proposed fix is fetch plus another
-`./release`. Fixing individual messages does not prevent another stop from
-being added outside the planner.
+That move is not enough. The goal can still stop on checks the planner does not
+observe. The operator can run `./release`, follow a request to run `/verify`,
+and then hit another stop whose proposed fix is fetch plus another `./release`.
+Fixing individual messages does not prevent another stop from being added
+outside the planner.
+
+This record does not fold into ADR 0048. File shape is every scanned file.
+Planner-owned stops are this goal.
 
 ## Decision
 
@@ -56,10 +63,10 @@ being added outside the planner.
    returns the closed blocker `BLOCKED_<ACTION>_STALLED`, kind
    `HUMAN_DECISION`.
 
-5. **Observations are closed, not generic.** There is no generic runtime-error
-   payload and no executor-supplied action kind. Each expected failure has a
-   named observation with a typed value. A missing required observation is
-   unknown and cannot produce PASS.
+5. **Observations are closed, not generic.** There is no generic error payload
+   and no executor-supplied action kind. Each expected failure has a named
+   observation with a typed value. A missing required observation is unknown
+   and cannot produce PASS.
 
 6. **Automatic mutations are allowlisted.** The executor may automatically run
    audits, write release notes, align the version, write the release record,
@@ -97,7 +104,7 @@ being added outside the planner.
    action-specific result boundary whose nonzero result becomes its named
    observation before re-planning.
 
-10. **Hub compile enforces the shape.** A release-planner-ownership fitness
+10. **Hub compile enforces this record.** A release-planner-ownership fitness
     fails when an intentional stop bypasses the planner, an action or fact is
     untyped, a forbidden mutation is reachable as automatic repair, context can
     fail open, or an action result can terminate the executor directly.
@@ -152,8 +159,18 @@ exits nonzero.
 
 ## Rejected
 
+- Folding this record into ADR 0048.
 - Improving one remediation message while leaving the stop outside the planner.
-- A generic runtime-error fact.
+- A generic error payload.
 - Static checks that only search for the name `release_fail`.
 - Automatic merge or destructive Git recovery.
 - Editing ADR 0045 in place.
+
+## Proposal (G-PROPOSE)
+
+- **Change class:** A, C, and F
+- **Nouns / verbs / goals touched:** `release_state`; `hub_release`. After accept: no new nouns; existing planner-ownership fitness stays the gate.
+- **Adjectives that must hold:** every intentional `./release` stop is a planner fact; no automatic local-`main` repoint.
+- **Non-goals:** file-shape classification (ADR 0048); editing ADR 0045 in place.
+- **Tests:** `tools/fitness-release-planner-ownership.py`; `tools/assert-release-planner-ownership-fails.py`.
+- **Impact:** `./release` cannot grow a hidden stop; the operator is not sent to `/verify` or a second release command to finish a known repair.

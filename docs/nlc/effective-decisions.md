@@ -2,7 +2,7 @@
 
 A later record can amend one decision without editing the earlier record. This page is the readable result. It is not a new decision.
 
-No new decision record: record 0045 stays as accepted. Record 0048 is still Proposed and says it amends only the executor location.
+No new decision record: record 0045 stays as accepted. Record 0048 is still Proposed and says it amends only the executor location. Record 0049 is a separate Proposed record: the `hub_release` goal still cannot stop outside the planner. It does not fold into record 0048.
 
 ## Record 0045 decision 2, as amended by record 0048 decision 5
 

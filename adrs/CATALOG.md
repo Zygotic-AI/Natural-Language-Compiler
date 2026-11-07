@@ -49,7 +49,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0041 | Product completion scope SSOT + hub pack registry v1 | active | L-0041 |
 | 0042 | Rule IR hub product boundary (ADR 0007 v1 vs semantic expansion) | active | L-0042 |
 | 0043 | UC14 adopt-time composable v1 vs cross-primitive IR expansion | active | L-0043 |
-| 0046 | This repository's Planit skill is the one that plans | proposed | L-0046 |
+| 0046 | This repository's Planit skill is the one that plans | rejected | L-0046 |
 | 0047 | Active ADR approval is a hash receipt | superseded | L-0047 |
 | 0048 | Every executable file has one Boundary-Based shape | proposed | L-0048 |
 | 0049 | Release planner owns every intentional stop | proposed | L-0049 |

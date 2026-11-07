@@ -6,6 +6,8 @@ Fork, make a focused change, and open a pull request. That part is ordinary.
 
 What is not ordinary is the bar. This tree is process engineering with AI: stated intent is compiled into gated work, or the compile **refuses**. A change that skips the process (silent patches, unbound new surfaces, “we’ll add the why later”) does not fit here, even if the code runs.
 
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for the areas of ownership and who currently holds them. We prefer long-term ownership of a specific area; contributions that meet the standards will still be considered.
+
 ## What we look for
 
 - **Intent first.** Say what must stay true. Then change the code. Do not edit generated output to quiet a gate.

@@ -79,7 +79,7 @@
       "expected_reason_substring": "integrity/gate-set-baseline.manifest.sha256",
       "known_bad_id": "KB-SG2-closure-member"
     },
-    "0051:AMEND-0047-1": {
+    "0051:L82": {
       "candidate": "tools/nouns/release_state/release_state.py",
       "verify_kind": "gate_set_tamper",
       "expected_reason_substring": "integrity/gate-set-baseline.manifest.sha256",
@@ -145,7 +145,7 @@
       "expected_reason_substring": "integrity/gate-set-baseline.manifest.sha256",
       "known_bad_id": "KB-SG2-closure-member"
     },
-    "0051:L110": {
+    "0051:L109": {
       "candidate": "tools/fixtures/hub-brief/missing-forbid-clause.json",
       "verify_kind": "hub_brief",
       "expected_reason_substring": "forbid clause",
@@ -157,43 +157,43 @@
       "expected_reason_substring": "missing adr-gates constraint row",
       "known_bad_id": "GAP-adr-gates-rows"
     },
-    "0051:REJ-116": {
+    "0051:REJ-115": {
       "candidate": "tools/fixtures/no-check-on-check/mutate-fitness-landmine.py",
       "verify_kind": "no_check_on_check",
       "expected_reason_substring": "mutates fitness/assert",
       "known_bad_id": "KB-check-on-check"
     },
-    "0051:REJ-117": {
+    "0051:REJ-116": {
       "candidate": "tools/fixtures/hub-own/invalid-hub-own-ci-only-exit.json",
       "verify_kind": "hub_exit",
       "expected_reason_substring": "R-HUB-EXIT",
       "known_bad_id": "KB-SG1-exit"
     },
-    "0051:REJ-118": {
+    "0051:REJ-117": {
       "candidate": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md",
       "verify_kind": "sidecar_p1",
       "expected_reason_substring": "missing sidecar",
       "known_bad_id": "GAP-0051-unsigned"
     },
-    "0051:REJ-119": {
+    "0051:REJ-118": {
       "candidate": "tools/fixtures/hub-own/invalid-hub-own-gate-subject-same-actor.json",
       "verify_kind": "role_separation",
       "expected_reason_substring": "HUB_GATE_DIFF",
       "known_bad_id": "GAP-self-declared-diff"
     },
-    "0052:L9": {
+    "0052:L10": {
       "candidate": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md",
       "verify_kind": "sidecar_p1",
       "expected_reason_substring": "missing sidecar",
       "known_bad_id": "GAP-0051-unsigned"
     },
-    "0052:L15": {
+    "0052:L16": {
       "candidate": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md",
       "verify_kind": "sidecar_p1",
       "expected_reason_substring": "missing sidecar",
       "known_bad_id": "KB-0052-unsigned"
     },
-    "0052:L27": {
+    "0052:L28": {
       "candidate": "tools/fixtures/owner-ratification-sidecar/wrong-decision-statement.txt",
       "document_rel": "tools/fixtures/owner-ratification-sidecar/stub-doc.md",
       "status": "Accepted",
@@ -251,19 +251,19 @@
       "expected_reason_substring": "missing sidecar",
       "known_bad_id": "KB-0052-unsigned"
     },
-    "0052:REJ-68": {
+    "0052:REJ-69": {
       "candidate": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md",
       "verify_kind": "sidecar_p1",
       "expected_reason_substring": "missing sidecar",
       "known_bad_id": "GAP-0051-unsigned"
     },
-    "0052:REJ-69": {
+    "0052:REJ-70": {
       "candidate": "tools/fixtures/no-tool-writes-ratification/write-approval-asc.py",
       "verify_kind": "no_tool_writes",
       "expected_reason_substring": "writes ratification sidecar",
       "known_bad_id": "KB-write-approval"
     },
-    "0052:REJ-70": {
+    "0052:REJ-71": {
       "candidate": "tools/fixtures/retired-key/trusted-contains-retired.txt",
       "verify_kind": "retired_key",
       "expected_reason_substring": "overlap",

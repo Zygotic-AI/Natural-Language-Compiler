@@ -4,10 +4,17 @@
     {
       "id": "adrs-pending",
       "stage": "requirements",
-      "label": "4 requirements unfinished \u2014 ratify",
+      "label": "3 requirements unfinished \u2014 ratify",
       "next": "/interview in your agent",
-      "detail": "0053-0051-0052-text-retrofit.md, 0056-per-file-adr-detached-signatures.md, 0057-tag-time-checker-digest.md, 0058-harness-and-model-agnostic.md",
+      "detail": "0056-per-file-adr-detached-signatures.md, 0057-tag-time-checker-digest.md, 0058-harness-and-model-agnostic.md",
       "priority": 10
+    },
+    {
+      "id": "verify-waiting",
+      "stage": "verify",
+      "label": "Verify before prod",
+      "next": "./nlc verify  (if fail: run the printed Reproduce command)",
+      "priority": 30
     }
   ]
 }

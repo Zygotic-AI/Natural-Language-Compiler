@@ -2,11 +2,12 @@
 
 - Status: Accepted
 - Date: 2026-10-11
+- Revision: 2
 - Deciders: Human manager
 - Class: F (integrity / hub produce)
 - Corpus: nlc
-- Amends: [ADR 0051](0051-hub-own-produce-principles.md) (SG2 ratification model and ADR 0047 receipt replacement when wired)
-- Supersedes in part: hash-only receipt semantics in [ADR 0047](0047-adr-approval-receipts.md) and gate-set receipt rows in ADR 0051 SG2 — **when codified constraints land** (step 2); ADR 0051 file text is unchanged.
+- Amends: [ADR 0051](0051-hub-own-produce-principles.md) (SG2 ratification model)
+- Supersedes in part: hash-only receipt semantics in [ADR 0047](history/0047-adr-approval-receipts-1.md) and the old gate-set receipt rows in ADR 0051 SG2. Hash-only receipt semantics in ADR 0047 and those gate-set rows are superseded in force.
 
 ## Context
 
@@ -37,7 +38,7 @@ The signed artifact is committed **unchanged** beside the document:
 
 Example: `adrs/0052-owner-openpgp-ratification-amends-0051.approval.asc` next to this file.
 
-**Zyprompt consistency:** The document **Status** line is **Accepted** before merge. After step 2 lands, CI marks NOT_MET any document whose Status is Accepted unless a sidecar file `<document-path>.approval.asc` sits beside it and all three hold: (a) the sidecar is a valid clearsignature from a pinned fingerprint; (b) the sidecar's Content-SHA256 equals the SHA-256 of the document file; (c) the sidecar's Decision equals the document's Status. Until step 2 lands, no CI check enforces this; the PM holds the merge of any Accepted document until its sidecar is committed and the PM has verified it with an out-of-repo copy of the owner key.
+**Zyprompt consistency:** The document **Status** line is **Accepted** before merge. Non-ADR Accepted documents need a sidecar `<document-path>.approval.asc` that is a valid clearsignature from a pinned fingerprint, whose Content-SHA256 equals the document bytes, and whose Decision equals Status (C6). Numbered ADRs are signed per revision under [ADR 0059](0059-adr-revision-and-history.md). Whether the branch suite verifies those ADR signatures is [ADR 0056](0056-per-file-adr-detached-signatures.md) / [ADR 0057](0057-tag-time-checker-digest.md).
 
 ## Decision
 
@@ -47,21 +48,21 @@ Example: `adrs/0052-owner-openpgp-ratification-amends-0051.approval.asc` next to
 
 3. **Key rotation / add:** A new fingerprint may enter `TRUSTED_FINGERPRINTS` only with a committed clearsigned statement **from a currently pinned key** authorizing the change, plus updated `.asc` if needed.
 
-4. **Stamp / fitness (completion confirmation only):** After step-2 wiring, checks verify: (a) valid clearsignature from a pinned fingerprint; (b) **Content-SHA256** in the statement matches the document (or manifest) bytes in the tree; (c) **Decision** matches the document **Status**. Unsigned, wrong key, hash mismatch, tampered manifest, or **pending** → **NOT_MET**. **No tool may write a ratified entry.**
+4. **Stamp / fitness (completion confirmation only):** Checks verify: (a) valid clearsignature from a pinned fingerprint; (b) **Content-SHA256** in the statement matches the document (or manifest) bytes in the tree; (c) **Decision** matches the document **Status**. Unsigned, wrong key, hash mismatch, tampered manifest, or **pending** → **NOT_MET**. **No tool may write a ratified entry.** Enforced for non-ADR Accepted documents by C6 (`fitness-adr-owner-sidecar`), C7 (`fitness-pending-ratification`), C8 (`fitness-no-tool-writes-ratification`), and for the gate-set batch by `fitness-gate-set-manifest`.
 
-5. **Replace hash-only receipts:** Supersedes ADR 0047 hash-only JSON and ADR 0051 SG2 hash-only gate-set receipts **when implemented** — same OpenPGP sidecar model for ADR files and gate-set batches (manifest + single-line signature when many paths).
+5. **Replace hash-only receipts:** The OpenPGP sidecar model replaces hash-only ADR 0047 JSON and ADR 0051 SG2 hash-only gate-set receipts. Gate-set batches use the signed manifest. Numbered ADR signatures follow ADR 0059 (each revision independently).
 
 6. **PM independent verify:** At each review and release, the PM re-verifies signatures with an **out-of-repo copy** of the owner public key (not only CI), before treating ratification as real.
 
-7. **Verifier implementation (step 2, not this PR):** Python-first hub verifier, self-contained: import key from `integrity/owner-keys/`, pin against `TRUSTED_FINGERPRINTS`, verify sidecars via **GnuPG** (`gpg --verify`) or **Sequoia** (`sqv`); choose simplest dependable option in implementation PR.
+7. **Verifier implementation.** The Python-first hub verifier is in force (`tools/nouns/owner_sidecar/`): import key from `integrity/owner-keys/`, pin against `TRUSTED_FINGERPRINTS`, verify sidecars via GnuPG.
 
 8. **Bootstrap:** First in-force ratification under this ADR is the owner's clearsigned statement for **this document** at PR head bytes, committed as this file's `.approval.asc`.
 
 ## Consequences
 
-- ADR 0051 remains Accepted; its ratified text and existing stamps are untouched.
-- Version class **minor** when fully wired.
-- Step 1 (this ADR + keys only): no fitness or receipt changes until owner signs and step 2 lands.
+- ADR 0051 remains Accepted and is revised under [ADR 0059](0059-adr-revision-and-history.md).
+- Version class **minor**.
+- The verifier and gate-set manifest checks are in force.
 
 ## Rejected
 
@@ -72,5 +73,5 @@ Example: `adrs/0052-owner-openpgp-ratification-amends-0051.approval.asc` next to
 ## Related
 
 - [ADR 0051](0051-hub-own-produce-principles.md) — hub-own produce (amended in force by this record)
-- [ADR 0047](0047-adr-approval-receipts.md) — prior hash receipt model (superseded when wired)
+- [ADR 0047](history/0047-adr-approval-receipts-1.md) — prior hash receipt model (superseded)
 - RCA 5 — kept outside this repository.

@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-10-11
+- Revision: 2
 - Deciders: Human manager
 - Ratified-by: Human manager (hub-own produce principles ADR, 2026-10-11)
 - Class: F (integrity / hub produce), A (release stabilization scope)
@@ -45,7 +46,9 @@ Sub-goals below use only [nouns](../docs/TERMS.md#noun), [verbs](../docs/TERMS.m
 | Exclusion registries | `integrity/*EXCLUSIONS*.md`, `integrity/*-exclusions*.json` (when present) |
 | Releasable profile SSOT | `integrity/releasable-gates.json` |
 
-Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gate-set members, unless promoted into the table above.
+The category table is historical. Membership is derived by `tools/nouns/gate_set/gate_set.py` (`derive_gate_set_paths`) from CI workflow seeds. The table is not a hand-kept allowlist.
+
+Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gate-set members, unless promoted into the derived set.
 
 ---
 
@@ -70,17 +73,13 @@ Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gat
 | **Principle** | Integrity P3 — Hard gates | “Every step and every [action](../docs/TERMS.md#action) has a hard [gate](../docs/TERMS.md#gate). The [gate](../docs/TERMS.md#gate) outcome is only **complete** or **incomplete**.” ([`integrity/PRINCIPLES.md`](../integrity/PRINCIPLES.md) lines 20–22) |
 | **Principle** | Charter R30 | “Every prescribed step or [action](../docs/TERMS.md#action) has a hard [gate](../docs/TERMS.md#gate) whose only outcomes are complete or incomplete, with evidence.” ([`CHARTER.md`](../CHARTER.md) line 297) |
 | **Policy** | **P-GATE-SET-RATIFY** | Gate-set member bytes are ratified; content hash change requires human manager receipt before merge. |
-| **Standard** | **S-GATE-SET-REGISTRY** | Registry `integrity/gate-change-receipts.json` keys each gate-set member path to SHA-256 of file contents (or declared bundle hash for split nouns), ratifier role, and date. |
+| **Standard** | **S-GATE-SET-REGISTRY** | The in-force registry is the signed gate-set manifest `integrity/gate-set-baseline.manifest.sha256` plus its OpenPGP sidecar. |
 | **Rule** | **R-GATE-SET-NO-SILENT-WEAKEN** | A produce package that changes gate-set member bytes without a matching receipt is incomplete (handoff REFUSE). |
-| **Codified constraint** | (to implement) `fitness-gate-change-receipt` | **Completion confirmation** (not a quality judgment on gate logic): confirms the gate-set bytes in the tree match the bytes the human manager ratified in `integrity/gate-change-receipts.json` (ratification is the start of the chain). NOT_MET when diff touches gate-set paths and receipt missing or hash mismatch; it does **not** evaluate whether a gate-set member’s grading logic is correct. Known-bad: diff without receipt Candidate. |
+| **Codified constraint** | `fitness-gate-set-manifest` | **Completion confirmation** (not a quality judgment on gate logic): confirms the gate-set bytes in the tree match the bytes the human manager ratified in the signed manifest. NOT_MET when the manifest is missing or hash-mismatched; it does **not** evaluate whether a gate-set member’s grading logic is correct. |
 
-### Amendment to [ADR 0047](0047-adr-approval-receipts.md)
+### Amendment to [ADR 0047](history/0047-adr-approval-receipts-1.md)
 
-[ADR 0047](0047-adr-approval-receipts.md) remains the SSOT for **ADR file** approval receipts in `integrity/adr-approval-receipts.json`. This ADR **extends the same receipt pattern** to gate-set members:
-
-1. Separate registry (`integrity/gate-change-receipts.json`); ADR 0047 JSON is unchanged.
-2. Same semantics as 0047 §Decision (1)–(3): hash-keyed receipt; edit without new receipt → `receipt_holds` false → hub compile NOT_MET when the codified constraint is wired.
-3. Receipt **writing** follows maintainer path after human manager ratification—produce roles do not hand-edit hashes (RCA 4 instance I1 class).
+[ADR 0047](history/0047-adr-approval-receipts-1.md) is superseded. Hash-only `integrity/adr-approval-receipts.json` is not ratification. Gate-set members use the signed manifest in `integrity/gate-set-baseline.manifest.sha256`. Produce roles do not hand-edit hashes.
 
 ---
 
@@ -101,15 +100,15 @@ Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gat
 1. Adopt **G0** with sub-goals **SG1**, **SG2**, **SG3** as binding hub-own produce law when this ADR is Accepted.
 2. Adopt **Rule against regress** and **known-bad case** requirements for all codified constraints under SG1–SG3.
 3. Define **gate set** paths in the table above.
-4. Extend [ADR 0047](0047-adr-approval-receipts.md) receipt **pattern** to gate-set registry without merging registries.
-5. **Implementation** of codified constraints is follow-on work; this Proposed record does not wire CI.
+4. Gate-set ratification uses the signed manifest, not a hash-only JSON registry.
+5. Codified constraints under SG1–SG3 are wired in hub fitness. This record is Accepted law, not a deferral.
 
 ## Consequences
 
 - When Accepted, version class **minor** (new policy surface on hub produce).
 - Stabilization briefs and cloud-agent instructions must align with **R-HUB-BRIEF-FORBID-WEAKEN** and **R-HUB-EXIT** before hub material PRs MET under the new profile.
 - Instance re-proof of stabilization PRs (RCA 4 batch 1/2) runs **last**, under SG1–SG3 plus human manager review—not via a separate instance-bundle fitness gate.
-- Binding matrix and `integrity/adr-gates.json` rows for new audits are added when codified constraints land (promote-only-when-bindable).
+- Binding matrix and `integrity/adr-gates.json` rows exist for the wired constraints.
 
 ## Rejected
 
@@ -122,7 +121,7 @@ Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gat
 
 - [ADR 0003](0003-systems-extension-agent-nouns.md) — produce ≠ audit ≠ ship
 - [ADR 0004](0004-produce-fitness-handoff.md) — produce handoff
-- [ADR 0047](0047-adr-approval-receipts.md) — receipt pattern extended for gate set
+- [ADR 0047](history/0047-adr-approval-receipts-1.md) — prior hash-receipt model (superseded)
 - [ADR 0050](0050-evidence-identity-content-not-history.md) — verdict pure function of tree + gate set
 - [`MANIFESTO.md`](../MANIFESTO.md) — dogfood and gate thesis
 - [`integrity/PRINCIPLES.md`](../integrity/PRINCIPLES.md) — P2, P3, P7

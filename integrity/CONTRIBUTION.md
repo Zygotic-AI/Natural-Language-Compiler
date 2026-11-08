@@ -37,7 +37,7 @@ Predictable paths and slugs:
 | Example | `examples/<name>/README.md` | Lowercase folder, README.md entry point |
 | Skill | `.agents/skills/<name>/SKILL.md` | Lowercase folder; YAML `name` matches folder; in-tree links only |
 
-Superseded documents retain their path with a `<!-- SUPERSEDED by ... -->` marker at the top (charter R22).
+Superseded ADRs are moved to `adrs/history/` with a revision suffix (charter R22, [ADR 0059](../adrs/0059-adr-revision-and-history.md)). Other superseded documents retain their path with a `<!-- SUPERSEDED by ... -->` marker at the top.
 
 ### 3. Lexicon
 
@@ -92,7 +92,7 @@ A tip without both is incomplete. See [`GATE.md`](GATE.md) design [rule](../docs
 
 ### 7. Supersede Rules
 
-Superseded content is marked, not deleted (charter R22).
+Superseded ADRs move to `adrs/history/` (charter R22, ADR 0059). Other superseded content is marked, not deleted.
 
 | [Action](../docs/TERMS.md#action) | How |
 |--------|-----|
@@ -229,5 +229,5 @@ For any contribution (add-X) to this repository:
 - [`PRINCIPLES.md`](PRINCIPLES.md) — practice [integrity](../docs/TERMS.md#integrity) principles (P1–P7)
 - [`../content-types/HOW-TO-ADD.md`](../content-types/HOW-TO-ADD.md) — [type recipe](../docs/TERMS.md#type-recipe) index
 - [`../CHARTER.md`](../CHARTER.md) §5.8 — practice [integrity](../docs/TERMS.md#integrity) rules
-- [`../CHARTER.md`](../CHARTER.md) R22 — superseded content marked, not deleted
+- [`../CHARTER.md`](../CHARTER.md) R22 — superseded ADRs in `adrs/history/`; other superseded content marked, not deleted
 - [`../AGENTS.md`](../AGENTS.md) — standing instructions for agents

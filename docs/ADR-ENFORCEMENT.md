@@ -53,6 +53,7 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0050 | `fitness-no-history-ids-in-evidence.py` + `fitness-landmine-self-contained.py` + history-rewrite invariant job + landmines | bound |
 | 0054 | `fitness-skill-author-check-presence.py` + `fitness-skill-author-checklist.py` + `fitness-skill-content-type.py` + `assert-skill-author-check-fails.py` | bound |
 | 0055 | `fitness-live-self-ref-activation.py` + `assert-live-self-ref-direct-edit-fails.py` | bound |
+| 0059 | `fitness-adr-history.py` + `assert-adr-history-fails.py` | bound |
 
 **0007/0009:** semantic rule application and the verb-to-primitive inventory are bound. The pan-return landmine and the inventory mismatch landmine are the failing fixtures. ADR 0023 marker emit stays bound via `rule-emit` / `goal-scaffold` / verify audit.
 

@@ -16,7 +16,7 @@ Optional acronym for a **compiled system** artifact only—not the whole product
 
 ### Accepted decision
 
-Human-accepted law. In this hub, written as an **ADR**. Kept when superseded, not deleted. Distinct from a **chain choice**. Story: [`FEATURES.md`](nlc/FEATURES.md).
+Human-accepted law. In this hub, written as an **ADR**. Current file is the law. Previous bytes stay in `adrs/history/` when superseded or rewritten (ADR 0059). Distinct from a **chain choice**. Story: [`FEATURES.md`](nlc/FEATURES.md).
 
 ### Action
 
@@ -28,7 +28,7 @@ The **tip** of every **lineage** — the only ADRs gates, overlay, audit, and RC
 
 ### ADR
 
-Architecture Decision Record—dated **why** for a choice; may reduce to **rules** when adopted. Policies compile into ADRs; ADRs form immutable **lineages** (ADR 0028). Product story name: **accepted decision**.
+Architecture Decision Record—dated **why** for a choice; may reduce to **rules** when adopted. Policies compile into ADRs; ADRs form **lineages** whose tip is the current file and whose previous bytes live in `adrs/history/` (ADR 0028, ADR 0059). Product story name: **accepted decision**.
 
 ### Adopter
 

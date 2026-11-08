@@ -27,7 +27,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 | Word | Meaning here |
 | ---- | ------------ |
 | **Policy / standard / etc** | The source you import constraints from (policy, standard, legal email, coding standard, compliance pack, …). Not every file is this. **Interview** is the path when there is no such source. |
-| **Accepted decision** | Human-accepted law. Today written as an ADR. Kept when superseded, not deleted. |
+| **Accepted decision** | Human-accepted law. Today written as an ADR. Current file is the law. Previous bytes stay in `adrs/history/` when superseded or rewritten. |
 | **Chain choice** | Any pick the AI makes on the compile chain (including which already-accepted constraints bind to this atomic action). Recorded in the binding / execution records. Not its own ADR file. If the pick changes law or resolves a pack conflict, it is **promoted**: the human accepts or edits it as an accepted decision. Silent accept is not the rule. |
 | **Running app** | The customer’s compiled application while it is executing. NLC work (interview, import/approve constraints, compile, verify, ship) is **not** called runtime. |
 | **Dirty predicate** | A step that can look finished while a required accept, code, or recompile is still undone. `/release` lists these instead of leaving the human to reconstruct the queue. |

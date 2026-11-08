@@ -15,19 +15,18 @@ policy document (regulation, standard, internal rule)
 1. **Extract.** A prompt reads the policy text and proposes candidate decisions, each anchored to exact page and line numbers.
 2. **Decide.** Each candidate becomes an ADR. The ADR records the source citation, the decision, and the if/then rules it produces.
 3. **Rule.** The ADR's rules enter the overlay: conditions over (datum tag, atomic verb) → obligations.
-4. **Change.** When the policy changes, a *new* ADR is written that references the old one. The old ADR is never edited.
+4. **Change.** When the policy changes, the current ADR is rewritten after a byte-for-byte copy of the previous file is stored under `adrs/history/`. Same number. Same path. [ADR 0059](../../adrs/0059-adr-revision-and-history.md).
 
 ## Lineage
 
 A lineage is a chain of immutable ADRs about one decision topic:
 
 ```text
-ADR-0041 (AES-256)  →  ADR-0098 (AES-512)  →  ADR-0142 (quantum-safe)
-         superseded            superseded              ← active tip
+adrs/history/0051-…-1.md  →  adrs/0051-….md (revision 2, current tip)
 ```
 
 - **Active set** = the tip of every lineage. Gates, overlay, audit, and RCA consult only tips.
-- **Full history** = every link, retained immutably in git. The ADR index surfaces tips; the chain is one lookup away.
+- **Full history** = every previous revision under `adrs/history/`, plus git. The ADR index surfaces tips.
 - **Retired** = a lineage whose policy was withdrawn. Tip marked retired; chain kept for audit; no gate consults it.
 
 ## What this solves
@@ -38,7 +37,7 @@ ADR-0041 (AES-256)  →  ADR-0098 (AES-512)  →  ADR-0142 (quantum-safe)
 
 ## What this rejects
 
-- **In-place edits** of accepted ADRs.
+- **Silent in-place edits** of accepted ADRs (no history copy).
 - **Superseded-but-active** ADRs lingering in the index "for reference."
 - **The policy document as runtime input** — the document is the source; the lineage is the law.
 

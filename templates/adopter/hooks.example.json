@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "note": "Harness hooks v2 — example only. Copy into your harness when supported; hub does not ship active Cursor wiring.",
+  "note": "NLC does not use harness hooks (ADR 0058). This file documents the before-generate command. Do not copy it into Cursor or any other editor as hook wiring.",
   "menu_actions": {
     "interview": "/interview",
     "planit": "/planit",
@@ -8,8 +8,7 @@
   },
   "uc18_before_generate": {
     "documented_in": "docs/nlc/HARNESS.md",
-    "agent_command": "./nlc maintainer guide before-generate --scope <topic>",
-    "optional_cursor_preToolUse": "Deny writes under goals/ until .nlc/before-generate-stamp.json is fresh (see hub HARNESS.md)."
+    "agent_command": "./nlc maintainer guide before-generate --scope <topic>"
   },
   "human_judgment": "docs/nlc/HUMAN-JUDGMENT-GATES.md"
 }

@@ -12,6 +12,7 @@ from pathlib import Path
 # SSOT prose: integrity/HUB-IN-FORCE-EXCLUSIONS.md
 EXCLUDED_PREFIXES: tuple[str, ...] = (
     "docs/history/",
+    "adrs/history/",
     "docs/rca/",
     "theory/history/",
     "examples/",
@@ -25,6 +26,10 @@ EXCLUDED_PREFIXES: tuple[str, ...] = (
 # Single-segment roots excluded entirely (session / review sandboxes).
 EXCLUDED_TOP_LEVEL: frozenset[str] = frozenset({"uploads"})
 
+# Tracked paths skipped by the CG-R4 person-name scan only (not in-force exclusions).
+# SSOT prose: integrity/HUB-IN-FORCE-EXCLUSIONS.md § Person-name scan exclusions
+PERSON_NAME_EXCLUDED_RELS: frozenset[str] = frozenset({"CONTRIBUTORS.md"})
+
 
 def is_excluded(rel_posix: str) -> bool:
     if not rel_posix or rel_posix == ".":
@@ -36,6 +41,11 @@ def is_excluded(rel_posix: str) -> bool:
         if rel_posix == prefix.rstrip("/") or rel_posix.startswith(prefix):
             return True
     return False
+
+
+def is_person_name_excluded(rel_posix: str) -> bool:
+    """True when CG-R4 person-name patterns must not scan this relative path."""
+    return rel_posix in PERSON_NAME_EXCLUDED_RELS
 
 
 def iter_in_force_files(root: Path, *, suffixes: tuple[str, ...]) -> list[Path]:

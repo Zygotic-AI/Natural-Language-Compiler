@@ -18,6 +18,7 @@ def main() -> int:
     for must_exclude in (
         "docs/rca/2026-09-01-example.md",
         "docs/history/foo.md",
+        "adrs/history/0001-sample-1.md",
         "examples/internal-link-landmine/broken.md",
     ):
         if not is_excluded(must_exclude):

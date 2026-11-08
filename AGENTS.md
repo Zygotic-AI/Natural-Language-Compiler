@@ -38,7 +38,7 @@ Before adding or amending content, follow the [shared docs standard](docs/TERMS.
 - [`integrity/LEXICON.md`](integrity/LEXICON.md) — locked term definitions
 - [`content-types/HOW-TO-ADD.md`](content-types/HOW-TO-ADD.md) — type recipes (ADR, integrity doc, agent noun, audit, example, Skill)
 
-[Contribution Gate](docs/TERMS.md#contribution-gate) [refuse](docs/TERMS.md#refuse) criteria (CG-R1 through CG-R7) apply to all [add-X](docs/TERMS.md#contribution-gate) contributions. No person names in SSOT surfaces (CG-R4); role language only.
+[Contribution Gate](docs/TERMS.md#contribution-gate) [refuse](docs/TERMS.md#refuse) criteria (CG-R1 through CG-R7) apply to all [add-X](docs/TERMS.md#contribution-gate) contributions. CG-R4: no person-as-actor in process/decision SSOT (use role language); contributor attribution (`CONTRIBUTORS.md`) is allowed.
 
 Do not invent empty “governance / compliance / risk” trees. Put real artifacts where they belong.
 
@@ -56,9 +56,12 @@ Skills and portable instructions live under [`.agents/`](.agents/). End-to-end c
 
 **Reply references (always):** Whenever you mention UC/ADR/P/R ids, paths, or hub jargon in user-facing text, include plain language **in the same message** — see [`.agents/instructions/reply-references-plain-language.md`](.agents/instructions/reply-references-plain-language.md). No bare id lists as explanation; applies to every reply, not only when asking the human to decide.
 
+**Product features SSOT (always):** What is released, what is upcoming, which slice is on a milestone, and **why** that order — [`docs/nlc/FEATURES.md`](docs/nlc/FEATURES.md). Write reasons next to the feature in the same change. Hard rules still go in [ADRs](docs/TERMS.md#adr). See [`.agents/instructions/product-features-ssot.md`](.agents/instructions/product-features-ssot.md).
+
 **Signature text (always):** Anytime you need a signature, give the exact text in that same message. In an IDE, put only that text in one fenced block so it can be copied. In a terminal, put a start marker line above it and an end marker line below it — see [`.agents/instructions/signature-text-handoff.md`](.agents/instructions/signature-text-handoff.md).
 
 ## Memory files
 
 - [`DESCRIBE.md`](DESCRIBE.md) — durable project facts for agents
 - [`TODO`](TODO) — task queue (`☐` open, `✔ … @done(YY-MM-DD HH:MM)` when done)
+- [`docs/nlc/FEATURES.md`](docs/nlc/FEATURES.md) — released / upcoming / milestones and the reasons

@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 RULES_REL = "integrity/adr-0051-0052-rules.json"
 DERIVE = ROOT / "tools" / "derive-adr-0051-0052-rules.py"
-OWNER_EXEMPT = frozenset({"0051:L25", "0052:DEC-6"})
+OWNER_EXEMPT = frozenset({"0051:L26", "0052:DEC-6"})
 KNOWN_BAD = ROOT / "tools/fixtures/adr-0051-0052-rules/missing-rule-id.json"
 
 

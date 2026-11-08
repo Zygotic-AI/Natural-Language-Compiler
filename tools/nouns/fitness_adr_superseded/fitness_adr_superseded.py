@@ -72,13 +72,22 @@ def check_adr_status_marked(content: str) -> bool:
     return any(p.search(content) for p in status_patterns)
 
 
+def _adr_candidates(adrs_dir: Path) -> list[Path]:
+    files = list(adrs_dir.glob("*.md"))
+    history = adrs_dir / "history"
+    if history.is_dir():
+        files.extend(history.glob("*.md"))
+    return files
+
+
 def find_adr_file(adrs_dir: Path, ref: str) -> Path | None:
-    """Find ADR file by reference (number or partial name)."""
-    for adr in adrs_dir.glob("*.md"):
+    """Find ADR file by reference (number or partial name). History is the trail."""
+    candidates = _adr_candidates(adrs_dir)
+    for adr in candidates:
         if ref in adr.stem:
             return adr
     ref_stripped = ref.lstrip("0")
-    for adr in adrs_dir.glob("*.md"):
+    for adr in candidates:
         if adr.stem.startswith(ref) or ref_stripped in adr.stem:
             return adr
     return None

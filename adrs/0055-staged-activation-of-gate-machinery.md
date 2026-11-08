@@ -2,10 +2,11 @@
 
 - Status: Accepted
 - Date: 2026-10-25
+- Revision: 2
 - Deciders: Human manager
 - Class: F (integrity / hub produce)
 - Corpus: nlc
-- Related: [ADR 0046](0046-repository-planit-identity.md) (repository Planit identity), [ADR 0051](0051-hub-own-produce-principles.md) (hub-own produce), [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md) (owner OpenPGP ratification), [ADR 0054](0054-published-skill-author-contract.md) (published-skill author contract)
+- Related: [ADR 0046](history/0046-repository-planit-identity-1.md) (repository Planit identity, rejected), [ADR 0051](0051-hub-own-produce-principles.md) (hub-own produce), [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md) (owner OpenPGP ratification), [ADR 0054](0054-published-skill-author-contract.md) (published-skill author contract)
 
 ## Context
 

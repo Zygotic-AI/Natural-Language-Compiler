@@ -62,24 +62,12 @@ def _identity(hub: Path) -> subprocess.CompletedProcess[str]:
     )
 
 
-def _hook(hub: Path) -> subprocess.CompletedProcess[str]:
-    return _run(
-        ["bash", str(hub / ".cursor" / "hooks" / "nlc-planit-identity.sh")],
-        hub,
-        env={"PATH": os.environ.get("PATH", "")},
-    )
-
-
 def _must_identity_met(hub: Path, label: str) -> list[str]:
     errors: list[str] = []
     ident = _identity(hub)
     out = (ident.stdout or "") + (ident.stderr or "")
     if ident.returncode != 0 or "PLANIT_IDENTITY:MET" not in out:
         errors.append(f"{label}: identity not MET\n{out[-800:]}")
-    hook = _hook(hub)
-    hook_out = (hook.stdout or "") + (hook.stderr or "")
-    if hook.returncode != 0 or '"permission":"allow"' not in hook_out:
-        errors.append(f"{label}: hook did not allow\n{hook_out[-800:]}")
     return errors
 
 

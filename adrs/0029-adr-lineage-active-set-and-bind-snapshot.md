@@ -1,6 +1,7 @@
 # ADR 0029 — ADR lineage, ACTIVE set, and bind snapshot
 
 Status: Accepted  
+Revision: 2  
 Date: 2026-09-22  
 Corpus: nlc  
 Origin: session decision — policy lineage and binding performance
@@ -36,14 +37,22 @@ Only the current ADR per lineage. This is the **only** file the binding process 
 
 ## Lineage rule
 
-When a policy changes:
+When a decision is rewritten (same law, new wording or a changed choice):
 
-1. A new ADR is written that references the old ADR (page, line, lineage id).
-2. The old ADR's status becomes `superseded` in INDEX.
-3. ACTIVE is updated: the old ADR is removed, the new one is added.
-4. The old ADR is never edited. Its text stays as the record of what was true then.
+1. Copy the current file byte-for-byte to `adrs/history/NNNN-slug-R.md` (`R` is the previous revision).
+2. Edit `adrs/NNNN-slug.md`. Increment `Revision:`. Same number. Same path.
+3. INDEX keeps that number. ACTIVE still lists it if it is law.
+4. Previous bytes stay in `adrs/history/`. They are not current law.
 
-Example: ADR-0142 says AES-256. Policy updates. ADR-0198 says AES-512, cites ADR-0142. ADR-0142 → superseded in INDEX, removed from ACTIVE, ADR-0198 → active in ACTIVE. One active rule, full history preserved.
+When a decision is revoked, superseded, rejected, or removed:
+
+1. Put that status in the header.
+2. Move the file to `adrs/history/` with the revision suffix. No current file remains in `adrs/`.
+3. INDEX keeps the row and the status. ACTIVE drops it.
+
+A new ADR number is a different decision, not a reword. How the copy, move, and independent signatures work is [ADR 0059](0059-adr-revision-and-history.md).
+
+Example: ADR 0051 revision 1 lives in `adrs/history/`. ADR 0051 revision 2 is `adrs/0051-hub-own-produce-principles.md`. One current file, past bytes available.
 
 ## Bind snapshot
 
@@ -60,7 +69,7 @@ INDEX and CATALOG could be merged, but they serve different jobs with different 
 ## Consequences
 
 - Binder reads only `adrs/ACTIVE.md`. No history traversal at bind time.
-- Retiring an ADR is a single, explicit operation: update INDEX status, update ACTIVE, write the successor.
+- Retiring an ADR is a single, explicit operation: set the header status, move the file to `adrs/history/`, update INDEX, drop it from ACTIVE.
 - Policy-to-ADR compilation (page/line extraction) remains a separate process; this ADR defines the storage and binding contract, not the extraction mechanism.
 - Tools (lineage resolver, ACTIVE freshness gate, bind snapshot) are gaps — law first, as usual.
 

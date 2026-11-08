@@ -1,3 +1,1 @@
-# fitness_goal_write_hook
-
-Registered goal-write hook (UC18 / O8).
+NLC must not register harness hooks as compile enforcement (ADR 0058).

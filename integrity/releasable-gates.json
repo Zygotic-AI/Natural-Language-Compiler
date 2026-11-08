@@ -76,7 +76,8 @@
     "fitness-derived-release-state.py",
     "fitness-control-lifecycle.py",
     "fitness-check-inputs-declaration.py",
-    "fitness-release-prep-script-match.py"
+    "fitness-release-prep-script-match.py",
+    "fitness-adr-history.py"
   ],
   "gates": {
     "pipeline-blockers": {

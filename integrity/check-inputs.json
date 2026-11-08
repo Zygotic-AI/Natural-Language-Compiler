@@ -51,6 +51,20 @@
       ]
     },
     {
+      "label": "assert-adr-history-fails",
+      "script": "tools/assert-adr-history-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-adr-history-fails.py",
+        "tools/nouns/assert_adr_history_fails/README.md",
+        "tools/nouns/assert_adr_history_fails/__init__.py",
+        "tools/nouns/assert_adr_history_fails/adjectives.txt",
+        "tools/nouns/assert_adr_history_fails/assert_adr_history_fails.py",
+        "tools/nouns/assert_adr_history_fails/fields.txt",
+        "tools/nouns/assert_adr_history_fails/schemas/verbs.schema.json"
+      ]
+    },
+    {
       "label": "assert-adr-status-heading-fails",
       "script": "tools/assert-adr-status-heading-fails.py",
       "kind": "landmine",
@@ -2549,7 +2563,6 @@
       "script": "tools/fitness-goal-write-hook.py",
       "kind": "fitness",
       "inputs": [
-        ".cursor/hooks/nlc-goal-write-gate.sh",
         "tools/fitness-goal-write-hook.py",
         "tools/nouns/fitness_goal_write_hook/README.md",
         "tools/nouns/fitness_goal_write_hook/__init__.py",
@@ -4988,6 +5001,20 @@
         "tools/nouns/assert_adr_detached_sig_fails/adjectives.txt",
         "tools/nouns/assert_adr_detached_sig_fails/assert_adr_detached_sig_fails.py",
         "tools/nouns/assert_adr_detached_sig_fails/fields.txt"
+      ]
+    },
+    {
+      "label": "tools/assert-adr-history-fails.py",
+      "script": "tools/assert-adr-history-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-adr-history-fails.py",
+        "tools/nouns/assert_adr_history_fails/README.md",
+        "tools/nouns/assert_adr_history_fails/__init__.py",
+        "tools/nouns/assert_adr_history_fails/adjectives.txt",
+        "tools/nouns/assert_adr_history_fails/assert_adr_history_fails.py",
+        "tools/nouns/assert_adr_history_fails/fields.txt",
+        "tools/nouns/assert_adr_history_fails/schemas/verbs.schema.json"
       ]
     },
     {

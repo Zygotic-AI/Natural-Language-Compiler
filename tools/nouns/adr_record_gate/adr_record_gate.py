@@ -71,7 +71,7 @@ def constraint_row_errors(root: Path, payload: dict[str, object] | None = None) 
     rows = rules_payload.get("rules") if isinstance(rules_payload, dict) else None
     if not isinstance(rows, list):
         return ["integrity/adr-0051-0052-rules.json rules must be array"]
-    exempt = {"0051:L25", "0052:DEC-6"}
+    exempt = {"0051:L26", "0052:DEC-6"}
     for row in rows:
         if not isinstance(row, dict):
             continue

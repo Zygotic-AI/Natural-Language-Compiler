@@ -153,18 +153,6 @@
       "gate_set_manifest",
       "install_hash"
     ],
-    ".cursor/hooks.json": [
-      "gate_set_manifest"
-    ],
-    ".cursor/hooks/nlc-goal-write-gate.sh": [
-      "gate_set_manifest"
-    ],
-    ".cursor/hooks/nlc-planit-identity.sh": [
-      "gate_set_manifest"
-    ],
-    ".cursor/hooks/nlc-session-remind.sh": [
-      "gate_set_manifest"
-    ],
     ".cursor/skills": [
       "gate_set_manifest"
     ],
@@ -583,7 +571,8 @@
       "owner_sidecar"
     ],
     "adrs/0058-harness-and-model-agnostic.md": [
-      "gate_set_manifest"
+      "gate_set_manifest",
+      "owner_sidecar"
     ],
     "adrs/0059-adr-revision-and-history.md": [
       "gate_set_manifest",

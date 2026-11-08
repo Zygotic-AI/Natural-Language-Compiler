@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-"""O8: goal-write hook registered and hooks.json references the script."""
+"""ADR 0058: NLC must not register harness hooks as compile enforcement."""
 
 from __future__ import annotations
 
@@ -10,36 +9,58 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-HOOKS = ROOT / ".cursor" / "hooks.json"
-SCRIPT = ROOT / ".cursor" / "hooks" / "nlc-goal-write-gate.sh"
+HOOKS_JSON = Path(".cursor") / "hooks.json"
+HOOKS_DIR = Path(".cursor") / "hooks"
+_EVENTS = (
+    "preToolUse",
+    "postToolUse",
+    "beforeSubmitPrompt",
+    "afterAgentResponse",
+    "preCompact",
+    "sessionStart",
+    "sessionEnd",
+)
+
+
+def nlc_harness_hook_errors(root: Path) -> list[str]:
+    errors: list[str] = []
+    hooks_path = root / HOOKS_JSON
+    if hooks_path.is_file():
+        try:
+            data = json.loads(hooks_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            return [f"{HOOKS_JSON.as_posix()}: invalid json ({exc})"]
+        hooks = data.get("hooks") if isinstance(data, dict) else None
+        if isinstance(hooks, dict):
+            for event in _EVENTS:
+                entries = hooks.get(event)
+                if isinstance(entries, list) and entries:
+                    errors.append(
+                        f"{HOOKS_JSON.as_posix()} registers {event} as NLC enforcement"
+                    )
+            extra = [str(k) for k in hooks if str(k) not in _EVENTS and hooks.get(k)]
+            for event in extra:
+                errors.append(
+                    f"{HOOKS_JSON.as_posix()} registers {event} as NLC enforcement"
+                )
+        elif hooks:
+            errors.append(f"{HOOKS_JSON.as_posix()} has hooks")
+    hooks_dir = root / HOOKS_DIR
+    if hooks_dir.is_dir():
+        for path in sorted(hooks_dir.iterdir()):
+            if path.is_file() and path.name.startswith("nlc-"):
+                errors.append(
+                    f"{path.relative_to(root).as_posix()} is an NLC harness hook script"
+                )
+    return errors
 
 
 def main() -> int:
-    _ = sys.argv[1:]
-    violations: list[str] = []
-    if not SCRIPT.is_file():
-        violations.append("missing .cursor/hooks/nlc-goal-write-gate.sh")
-    if not HOOKS.is_file():
-        violations.append("missing .cursor/hooks.json")
-    else:
-        data = json.loads(HOOKS.read_text(encoding="utf-8"))
-        hooks = data.get("hooks") if isinstance(data, dict) else None
-        pre = hooks.get("preToolUse") if isinstance(hooks, dict) else None
-        found = False
-        if isinstance(pre, list):
-            for entry in pre:
-                if not isinstance(entry, dict):
-                    continue
-                cmd = entry.get("command")
-                if cmd == ".cursor/hooks/nlc-goal-write-gate.sh":
-                    found = True
-                    if not entry.get("failClosed"):
-                        violations.append("goal-write hook must set failClosed: true")
-        if not found:
-            violations.append("hooks.json must register nlc-goal-write-gate.sh on preToolUse")
-    for msg in violations:
-        print(f"VIOLATION {msg}")
-    if violations:
+    root = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else ROOT
+    errors = nlc_harness_hook_errors(root)
+    if errors:
+        for item in errors:
+            print(f"VIOLATION {item}")
         print("RESULT:NOT_MET")
         return 1
     print("RESULT:MET")
@@ -47,4 +68,4 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

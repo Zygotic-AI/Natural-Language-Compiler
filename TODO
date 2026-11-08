@@ -731,16 +731,16 @@ v0.3.3 install copies skills whose `SKILL.md` YAML `name:` fields were rewritten
 
 SSOT with reasons: [`docs/nlc/FEATURES.md`](docs/nlc/FEATURES.md). Do not treat this TODO section as a second roadmap.
 
-## Next milestone — no editor hooks ([ADR 0058](adrs/0058-harness-and-model-agnostic.md) Proposed)
+## Done — no editor hooks ([ADR 0058](adrs/0058-harness-and-model-agnostic.md) Accepted)
 
 Law: no harness hooks; no required model or agent host; verify on the files is the notice path. Enabling a named harness later is its own accepted decisions (confirm that harness is in use, fail if not).
 
-- ☐ Accept [ADR 0058](adrs/0058-harness-and-model-agnostic.md) (human manager).
-- ☐ Remove in-tree Cursor hooks (`.cursor/hooks.json`, `.cursor/hooks/*`) and invert fitness that currently requires the Write/Delete hook (`fitness-goal-write-hook`, `assert-goal-write-hook-landmine`).
-- ☐ Stop telling adopters to copy Cursor hooks (`templates/adopter/hooks.example.json`, [`docs/nlc/HARNESS.md`](docs/nlc/HARNESS.md)).
-- ☐ Keep Planit-skill identity on repo gates, not on a Cursor prompt-submit hook.
+- ✔ Accept [ADR 0058](adrs/0058-harness-and-model-agnostic.md) (human manager). @done(26-11-07 19:15)
+- ✔ Remove in-tree Cursor hooks (`.cursor/hooks.json`, `.cursor/hooks/*`) and invert fitness that currently requires the Write/Delete hook (`fitness-goal-write-hook`, `assert-goal-write-hook-landmine`). @done(26-11-07 19:15)
+- ✔ Stop telling adopters to copy Cursor hooks (`templates/adopter/hooks.example.json`, [`docs/nlc/HARNESS.md`](docs/nlc/HARNESS.md)). @done(26-11-07 19:15)
+- ✔ Keep Planit-skill identity on repo gates, not on a Cursor prompt-submit hook. @done(26-11-07 19:15)
 
-## After that — install NLC into a specific repo
+## Next milestone — install NLC into a specific repo
 
 - ☐ Pin one app repo to an NLC copy so a global upgrade does not drag every repo along (greenfield and later brownfield). See FEATURES.md “Install NLC into a specific repo.”
 

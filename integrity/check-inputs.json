@@ -2563,7 +2563,6 @@
       "script": "tools/fitness-goal-write-hook.py",
       "kind": "fitness",
       "inputs": [
-        ".cursor/hooks/nlc-goal-write-gate.sh",
         "tools/fitness-goal-write-hook.py",
         "tools/nouns/fitness_goal_write_hook/README.md",
         "tools/nouns/fitness_goal_write_hook/__init__.py",

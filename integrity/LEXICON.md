@@ -92,7 +92,7 @@ The structure, naming, lexicon, evidence, role language, incomplete-packet [refu
 2. **Naming** — predictable file paths and slugs
 3. **Lexicon** — terms from this LEXICON.md carry stable meanings
 4. **Evidence** — claims cite audits, binders, or fixture references
-5. **Role language** — role names only (Quality Architect, Adversarial Auditor, etc.); no person names in SSOT surfaces
+5. **Role language** — in process and decision SSOT, role names only (Quality Architect, Adversarial Auditor, etc.); do not name a person as the actor. Contributor attribution pages are separate (CG-R4)
 6. **Incomplete-packet [refuse](../docs/TERMS.md#refuse)** — every gate/handoff tip documents [refuse](../docs/TERMS.md#refuse) criteria and an incomplete-packet fixture
 7. **Supersede rules** — superseded ADRs move to `adrs/history/` (charter R22, ADR 0059); other superseded content is marked, not deleted
 

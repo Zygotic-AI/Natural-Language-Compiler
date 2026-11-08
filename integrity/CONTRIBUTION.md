@@ -117,7 +117,7 @@ A contribution is **REFUSED** if any of the following hold:
 | CG-R1 | [Shared docs standard](../docs/TERMS.md#shared-docs-standard) not [met](../docs/TERMS.md#met) | Structure, naming, lexicon, evidence, role language, incomplete-packet [refuse](../docs/TERMS.md#refuse), or supersede rules violated |
 | CG-R2 | [Type recipe](../docs/TERMS.md#type-recipe) for [content type](../docs/TERMS.md#content-type) X not followed | Each [content type](../docs/TERMS.md#content-type) has prescribed steps; skipping a step = incomplete |
 | CG-R3 | [Type recipe](../docs/TERMS.md#type-recipe) for [content type](../docs/TERMS.md#content-type) X does not exist | Cannot [add-X](../docs/TERMS.md#contribution-gate) without a recipe; publish recipe first |
-| CG-R4 | Person names appear in SSOT surfaces | Role language only; no person names |
+| CG-R4 | Person named as process/decision actor in SSOT | Use role language in use cases, instructions, ADR Deciders, role SOPs, and similar. Do not write that a named person will run `./release`. Contributor attribution (`CONTRIBUTORS.md`) is out of scope for this refuse. |
 | CG-R5 | Required incomplete-packet fixture missing | Gate/handoff tips require a fixture |
 | CG-R6 | [SSOT exit evidence](../docs/TERMS.md#ssot-exit-evidence) missing | `ssot_leaf_ids` + `ssot_exit_status` required (S8, P-020) |
 | CG-R7 | [Gate](../docs/TERMS.md#gate) criteria incomplete (G1–G4 not addressed) | [Gate](../docs/TERMS.md#gate) documents must address all four criteria |
@@ -180,11 +180,13 @@ The [Contribution Gate](../docs/TERMS.md#contribution-gate) cannot evaluate whet
 **Scenario:** A producer contributes `adrs/0099-new-decision.md` with:
 - Correct path pattern
 - [ADR](../docs/TERMS.md#adr) [type recipe](../docs/TERMS.md#type-recipe) steps followed
-- `Deciders: Jane Doe, Bob Smith` (real names in SSOT surface)
+- `Deciders: Jane Doe, Bob Smith` (person named as decision actor)
 
-**Required outcome:** **[REFUSE](../docs/TERMS.md#refuse)** under CG-R4 (person names in SSOT).
+**Required outcome:** **[REFUSE](../docs/TERMS.md#refuse)** under CG-R4 (person-as-actor in process/decision SSOT).
 
-**Fix:** Use role names (`Deciders: Quality Architect, Standards Steward`) or pseudonymous handles. Person-to-role mapping lives outside SSOT.
+**Fix:** Use role names (`Deciders: Quality Architect, Standards Steward`). Who holds a role is recorded on [`CONTRIBUTORS.md`](../CONTRIBUTORS.md) (or equivalent attribution), not in ADR Deciders or instruction prose.
+
+**Out of scope:** Listing a contributor’s display name, GitHub profile, or portrait on `CONTRIBUTORS.md` is attribution, not CG-R4.
 
 ---
 
@@ -197,7 +199,7 @@ The adversarial half: can an incomplete contribution still slip through?
 | Add-X with no recipe | CG-R3 |
 | Add-X skipping recipe steps | CG-R2 |
 | Skill with `name:` as a markdown link | CG-R2 (`nlc-skill-author-check.py`) |
-| SSOT with person names | CG-R4 |
+| Process/decision SSOT with person-as-actor | CG-R4 |
 | [Gate](../docs/TERMS.md#gate) tip without [refuse](../docs/TERMS.md#refuse)+fixture | CG-R5, CG-R7 |
 | Missing [SSOT exit evidence](../docs/TERMS.md#ssot-exit-evidence) | CG-R6 (enforced at fitness) |
 | Violates structure/naming | CG-R1 |
@@ -213,7 +215,7 @@ For any contribution (add-X) to this repository:
 - [ ] CC1. [Content type](../docs/TERMS.md#content-type) X has a [type recipe](../docs/TERMS.md#type-recipe) in `content-types/HOW-TO-ADD.md`.
 - [ ] CC2. [Type recipe](../docs/TERMS.md#type-recipe) steps for X are followed.
 - [ ] CC3. [Shared docs standard](../docs/TERMS.md#shared-docs-standard) [met](../docs/TERMS.md#met) (structure, naming, lexicon, evidence, role language, incomplete-packet refuse, supersede rules).
-- [ ] CC4. No person names in SSOT surfaces.
+- [ ] CC4. No person-as-actor names in process/decision SSOT (CG-R4); contributor attribution pages are allowed.
 - [ ] CC5. If artifact is a gate/handoff tip: [refuse](../docs/TERMS.md#refuse) criteria + incomplete-packet fixture documented.
 - [ ] CC6. If artifact is a [gate](../docs/TERMS.md#gate) tip: [G1–G4](../docs/TERMS.md#g1g4) addressed.
 - [ ] CC7. [SSOT exit evidence](../docs/TERMS.md#ssot-exit-evidence) present (`ssot_leaf_ids`, `ssot_exit_status`).

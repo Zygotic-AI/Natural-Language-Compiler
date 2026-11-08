@@ -225,6 +225,10 @@
       "gate": "tools/fitness-derived-release-state.py",
       "fixture": "tools/assert-tag-digest-signature-required-fails.py"
     },
+    "0058": {
+      "gate": "tools/fitness-goal-write-hook.py",
+      "fixture": "tools/assert-goal-write-hook-landmine-passes.py"
+    },
     "0059": {
       "gate": "tools/fitness-adr-history.py",
       "fixture": "tools/assert-adr-history-fails.py"

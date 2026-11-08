@@ -1,8 +1,10 @@
 # ADR 0058 — Harness- and model-agnostic
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-11-07
+- Revision: 1
 - Deciders: Human manager
+- Ratified-by: Human manager (harness- and model-agnostic, 2026-11-07)
 - Class: F (process)
 - Corpus: nlc
 - Related: [ADR 0010](0010-gate-after-every-generate.md), [ADR 0021](0021-verify-fast-and-deep.md)

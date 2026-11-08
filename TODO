@@ -740,6 +740,17 @@ Law: no harness hooks; no required model or agent host; verify on the files is t
 - ✔ Stop telling adopters to copy Cursor hooks (`templates/adopter/hooks.example.json`, [`docs/nlc/HARNESS.md`](docs/nlc/HARNESS.md)). @done(26-11-07 19:15)
 - ✔ Keep Planit-skill identity on repo gates, not on a Cursor prompt-submit hook. @done(26-11-07 19:15)
 
+## Branch `cursor/nlc-planit-identity` — Planit identity after hook removal
+
+Context: Cloud Agent hit failClosed exit **127** on `.cursor/hooks/nlc-planit-identity.sh` (“No such file or directory”) after [ADR 0058](adrs/0058-harness-and-model-agnostic.md) deleted in-tree hooks. Cursor still tried to run the registered hook; missing script + `failClosed: true` blocked the session. ADR 0046 (repository Planit identity via that hook) is **Rejected**; identity must stay on repo gates (`integrity/planit-skill-registry.json`, `tools/fitness-planit-identity.py` / verify), not harness hooks.
+
+- ☐ **RCA** the Cloud Agent / Cursor failClosed-127 lockout (session registered hooks, then scripts/`hooks.json` gone; new session vs mid-session). File under `docs/rca/` with reproduce + prevention.
+- ☐ **Prevention:** no path where NLC (or leftover project config) can leave a failClosed hook command pointing at a missing script; fitness already refuses registered NLC harness hooks — confirm Cloud Agents on tip with no `.cursor/hooks.json` stay unblocked; document operator recovery (new agent session on tip).
+- ☐ **Sweep stale “live hook” prose** that still describes `.cursor/hooks/nlc-planit-identity.sh` / `beforeSubmitPrompt` as current enforcement (RCA, HARNESS, history cross-links ok if marked historical; operating docs must not).
+- ☐ **Prove Planit identity without the hook:** verify profile / `planit-skill-identity` gate + landmine (`assert-planit-other-skill-fails`) still refuse a wrong skill; skill-author / mandate path still moves `planit-skill-registry.json` when `SKILL.md` bytes change. Close any gap left by rejecting ADR 0046’s intake-hook decision.
+- ☐ **Optional harden:** if Cursor can keep failClosed hooks in memory after delete, add a short note in FEATURES or HARNESS under “no harness hooks” so operators know mid-session hook removal can lock Cloud Agents until a new session.
+- ☐ Ship on this branch when the above are MET (patch unless a new Accepted ADR is required).
+
 ## Next milestone — install NLC into a specific repo
 
 - ☐ Pin one app repo to an NLC copy so a global upgrade does not drag every repo along (greenfield and later brownfield). See FEATURES.md “Install NLC into a specific repo.”

@@ -579,7 +579,8 @@
       "gate_set_manifest"
     ],
     "adrs/0057-tag-time-checker-digest.md": [
-      "gate_set_manifest"
+      "gate_set_manifest",
+      "owner_sidecar"
     ],
     "adrs/0058-harness-and-model-agnostic.md": [
       "gate_set_manifest"

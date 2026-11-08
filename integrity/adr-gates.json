@@ -221,6 +221,10 @@
       "gate": "tools/fitness-adr-owner-sidecar.py",
       "fixture": "tools/assert-adr-detached-sig-fails.py"
     },
+    "0057": {
+      "gate": "tools/fitness-derived-release-state.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
+    },
     "0059": {
       "gate": "tools/fitness-adr-history.py",
       "fixture": "tools/assert-adr-history-fails.py"

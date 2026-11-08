@@ -63,6 +63,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0054 | L-0054 | RCA 2026-10-20 published-skill author contract | 2026-10-24 |
 | 0055 | L-0055 | RCA 2026-10-25 staged activation of gate machinery | 2026-10-25 |
 | 0056 | L-0056 | session | 2026-11-07 |
+| 0057 | L-0057 | session | 2026-11-07 |
 | 0059 | L-0059 | session | 2026-11-07 |
 
 When an ADR is superseded, remove it from this table and add its successor. Update INDEX status in the same change.

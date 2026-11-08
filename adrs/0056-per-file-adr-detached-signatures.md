@@ -1,8 +1,10 @@
 # ADR 0056 — Per-file detached owner signatures for ADRs
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-25
+- Revision: 1
 - Deciders: Human manager
+- Ratified-by: Human manager (per-file detached owner signatures, 2026-11-07)
 - Class: F (integrity / hub produce)
 - Corpus: nlc
 - Amends: [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md) (ADR-file ratification shape only)
@@ -30,8 +32,8 @@ The gate-set baseline manifest already uses a different, correct shape: one owne
 
 ### First catch-up (this change)
 
-1. Land the check, the script, the Proposed ADR, and the staged verifier candidate.
-2. Owner checks out the branch and runs `scripts/sign-adrs.sh` (one passphrase prompt at unlock; gpg-agent `default-cache-ttl` covers the rest of the run).
+1. Land the check, the script, this record, and the staged verifier candidate. Accepting this record does not turn the live numbered-ADR check on.
+2. At the walk-end signing step, the owner checks out the branch and runs `scripts/sign-adrs.sh` (one passphrase prompt at unlock; gpg-agent `default-cache-ttl` covers the rest of the run).
 3. Owner commits the new `*.md.asc` files and pushes.
 4. Owner clearsigns the regenerated gate-set manifest statement (one document, unchanged model) and pastes the armor. Agents never create that signature.
 
@@ -63,7 +65,7 @@ Key rotation stays ADR 0052 decision 3: a currently pinned key authorizes a new 
 
 - Version class **minor** (ratification policy for ADR files on the 0.4.0 line).
 - C8 is unchanged: no tracked Python tool writes created ratification armor. The bash script is owner-run.
-- CI stays red on missing owner signatures until the owner runs the script and signs the regenerated manifest.
+- Once the live numbered-ADR check is on, CI stays red on missing owner signatures until the owner runs the script and signs the regenerated manifest. This land does not turn that check on. The live skip stays until the walk-end signing step (decision 5).
 - `integrity/hub-content-tree-hash.txt` being in the gate set is a known open defect (PR #30). An ordinary doc-only PR after activation still changes that digest member, so the signed manifest is voided and the owner must re-sign the manifest. This record does not fix that defect.
 
 ## Rejected

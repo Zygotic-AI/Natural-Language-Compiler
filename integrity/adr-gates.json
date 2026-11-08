@@ -217,6 +217,10 @@
       "gate": "tools/fitness-live-self-ref-activation.py",
       "fixture": "tools/assert-live-self-ref-direct-edit-fails.py"
     },
+    "0056": {
+      "gate": "tools/fitness-adr-owner-sidecar.py",
+      "fixture": "tools/assert-adr-detached-sig-fails.py"
+    },
     "0059": {
       "gate": "tools/fitness-adr-history.py",
       "fixture": "tools/assert-adr-history-fails.py"

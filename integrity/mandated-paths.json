@@ -572,7 +572,8 @@
       "owner_sidecar"
     ],
     "adrs/0056-per-file-adr-detached-signatures.md": [
-      "gate_set_manifest"
+      "gate_set_manifest",
+      "owner_sidecar"
     ],
     "adrs/0056-per-file-adr-detached-signatures.md.asc": [
       "gate_set_manifest"

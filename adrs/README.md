@@ -63,7 +63,7 @@ Deciders are role names (CG-R4). Person-to-role mapping lives outside SSOT.
 | [`history/0053-0051-0052-text-retrofit-1.md`](history/0053-0051-0052-text-retrofit-1.md) | Text retrofit for stale 0051/0052 sentences | Rejected |
 | [`0054-published-skill-author-contract.md`](0054-published-skill-author-contract.md) | Published-skill author contract (one checklist, pre-release and post-install) | Accepted |
 | [`0055-staged-activation-of-gate-machinery.md`](0055-staged-activation-of-gate-machinery.md) | Staged activation of gate machinery | Accepted |
-| [`0056-per-file-adr-detached-signatures.md`](0056-per-file-adr-detached-signatures.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Proposed |
+| [`0056-per-file-adr-detached-signatures.md`](0056-per-file-adr-detached-signatures.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Accepted |
 | [`0057-tag-time-checker-digest.md`](0057-tag-time-checker-digest.md) | One tag-time signature over the checker digest; branch suite does not require armor | Proposed |
 | [`0058-harness-and-model-agnostic.md`](0058-harness-and-model-agnostic.md) | Harness- and model-agnostic | Proposed |
 | [`0059-adr-revision-and-history.md`](0059-adr-revision-and-history.md) | ADR revision and history | Accepted |

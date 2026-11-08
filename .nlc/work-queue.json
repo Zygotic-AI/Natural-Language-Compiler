@@ -4,9 +4,9 @@
     {
       "id": "adrs-pending",
       "stage": "requirements",
-      "label": "3 requirements unfinished \u2014 ratify",
+      "label": "2 requirements unfinished \u2014 ratify",
       "next": "/interview in your agent",
-      "detail": "0056-per-file-adr-detached-signatures.md, 0057-tag-time-checker-digest.md, 0058-harness-and-model-agnostic.md",
+      "detail": "0057-tag-time-checker-digest.md, 0058-harness-and-model-agnostic.md",
       "priority": 10
     },
     {

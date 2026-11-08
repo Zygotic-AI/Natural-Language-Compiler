@@ -12,6 +12,7 @@ from pathlib import Path
 # SSOT prose: integrity/HUB-IN-FORCE-EXCLUSIONS.md
 EXCLUDED_PREFIXES: tuple[str, ...] = (
     "docs/history/",
+    "adrs/history/",
     "docs/rca/",
     "theory/history/",
     "examples/",

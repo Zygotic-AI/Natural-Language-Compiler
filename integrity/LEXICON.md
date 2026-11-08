@@ -94,7 +94,7 @@ The structure, naming, lexicon, evidence, role language, incomplete-packet [refu
 4. **Evidence** — claims cite audits, binders, or fixture references
 5. **Role language** — role names only (Quality Architect, Adversarial Auditor, etc.); no person names in SSOT surfaces
 6. **Incomplete-packet [refuse](../docs/TERMS.md#refuse)** — every gate/handoff tip documents [refuse](../docs/TERMS.md#refuse) criteria and an incomplete-packet fixture
-7. **Supersede rules** — superseded content is marked, not deleted (charter R22)
+7. **Supersede rules** — superseded ADRs move to `adrs/history/` (charter R22, ADR 0059); other superseded content is marked, not deleted
 
 See [`CONTRIBUTION.md`](CONTRIBUTION.md) for full specification.
 

@@ -2,7 +2,7 @@
 
 Architecture Decision Records for this practice and for example systems that need recorded decisions.
 
-Naming: `NNNN-short-slug.md`. Superseded ADRs are marked superseded, not deleted (charter R22).
+Naming: `NNNN-short-slug.md`. Current law lives here. Previous bytes live in [`history/`](history/). Revoked, superseded, and rejected records are moved there (charter R22, [ADR 0059](0059-adr-revision-and-history.md)).
 
 Deciders are role names (CG-R4). Person-to-role mapping lives outside SSOT.
 
@@ -53,17 +53,19 @@ Deciders are role names (CG-R4). Person-to-role mapping lives outside SSOT.
 | [`0043-uc14-composable-adopt-boundary.md`](0043-uc14-composable-adopt-boundary.md) | UC14 adopt-time composable v1 | Accepted |
 | [`0044-hub-release-production-trunk.md`](0044-hub-release-production-trunk.md) | Production trunk: unreleased work stays off `main` | Accepted |
 | [`0045-hub-release-identity.md`](0045-hub-release-identity.md) | One release identity, one planner action | Accepted |
-| [`0046-repository-planit-identity.md`](0046-repository-planit-identity.md) | This repository's Planit skill is the one that plans | Proposed |
-| [`0047-adr-approval-receipts.md`](0047-adr-approval-receipts.md) | Active ADR approval is a hash receipt | Superseded |
-| [`0048-executable-shape.md`](0048-executable-shape.md) | Every executable file has one Boundary-Based shape | Proposed |
-| [`0049-release-planner-owns-stops.md`](0049-release-planner-owns-stops.md) | Release planner owns every intentional stop | Proposed |
+| [`history/0046-repository-planit-identity-1.md`](history/0046-repository-planit-identity-1.md) | This repository's Planit skill is the one that plans | Rejected |
+| [`history/0047-adr-approval-receipts-1.md`](history/0047-adr-approval-receipts-1.md) | Active ADR approval is a hash receipt | Superseded |
+| [`0048-executable-shape.md`](0048-executable-shape.md) | Every executable file has one Boundary-Based shape | Accepted |
+| [`0049-release-planner-owns-stops.md`](0049-release-planner-owns-stops.md) | Release planner owns every intentional stop | Accepted |
 | [`0050-evidence-identity-content-not-history.md`](0050-evidence-identity-content-not-history.md) | Evidence binds to content fingerprints, not commit ids | Accepted |
 | [`0051-hub-own-produce-principles.md`](0051-hub-own-produce-principles.md) | Hub-own produce principles (SG1–SG3) | Accepted |
 | [`0052-owner-openpgp-ratification-amends-0051.md`](0052-owner-openpgp-ratification-amends-0051.md) | Owner OpenPGP ratification (amends 0051) | Accepted |
-| [`0053-0051-0052-text-retrofit.md`](0053-0051-0052-text-retrofit.md) | Text retrofit for stale 0051/0052 sentences | Proposed |
+| [`history/0053-0051-0052-text-retrofit-1.md`](history/0053-0051-0052-text-retrofit-1.md) | Text retrofit for stale 0051/0052 sentences | Rejected |
 | [`0054-published-skill-author-contract.md`](0054-published-skill-author-contract.md) | Published-skill author contract (one checklist, pre-release and post-install) | Accepted |
 | [`0055-staged-activation-of-gate-machinery.md`](0055-staged-activation-of-gate-machinery.md) | Staged activation of gate machinery | Accepted |
-| [`0056-per-file-adr-detached-signatures.md`](0056-per-file-adr-detached-signatures.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Proposed |
-| [`0057-tag-time-checker-digest.md`](0057-tag-time-checker-digest.md) | One tag-time signature over the checker digest; branch suite does not require armor | Proposed |
+| [`0056-per-file-adr-detached-signatures.md`](0056-per-file-adr-detached-signatures.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Accepted |
+| [`0057-tag-time-checker-digest.md`](0057-tag-time-checker-digest.md) | One tag-time signature over the checker digest; branch suite does not require armor | Accepted |
+| [`0058-harness-and-model-agnostic.md`](0058-harness-and-model-agnostic.md) | Harness- and model-agnostic | Accepted |
+| [`0059-adr-revision-and-history.md`](0059-adr-revision-and-history.md) | ADR revision and history | Accepted |
 
-Record 0045 is not edited when a later record amends it. The readable result of decision 2 after record 0048 is [`docs/nlc/effective-decisions.md`](../docs/nlc/effective-decisions.md).
+Record 0045 is not edited when a later record amends it. The readable result of decision 2 after record 0048 is [`docs/nlc/effective-decisions.md`](../docs/nlc/effective-decisions.md). Record 0049 does not fold into record 0048.

@@ -6,7 +6,9 @@ Each entry: number, created date, origin (source, page, line), status, successor
 
 The binder does **not** read this file. It reads [ACTIVE.md](ACTIVE.md). This file exists for audit, traceability, and human investigation.
 
-See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
+Rejected, superseded, revoked, and removed files live under [history/](history/). Current files stay in this directory.
+
+See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](0059-adr-revision-and-history.md).
 
 | ADR | Created | Origin | Status | Successor | Lineage |
 |-----|---------|--------|--------|-----------|--------|
@@ -55,26 +57,28 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0043 | 2026-09-23 | session | active | — | L-0043 |
 | 0044 | 2026-09-25 | session | active | — | L-0044 |
 | 0045 | 2026-09-26 | session | active | — | L-0045 |
-| 0046 | 2026-10-08 | session | proposed | — | L-0046 |
+| 0046 | 2026-10-08 | session | rejected | — | L-0046 |
 | 0047 | 2026-10-08 | session | superseded | 0052 | L-0047 |
-| 0048 | 2026-10-08 | session | proposed | — | L-0048 |
-| 0049 | 2026-10-09 | RCA 2026-10-09 release stops outside planner | proposed | — | L-0049 |
+| 0048 | 2026-10-08 | session | active | — | L-0048 |
+| 0049 | 2026-10-09 | RCA 2026-10-09 release stops outside planner | active | — | L-0049 |
 | 0050 | 2026-10-10 | RCA 2026-10-10 SHA-pinned evidence / content identity | active | — | L-0050 |
 | 0051 | 2026-10-11 | hub-own produce principles | accepted | — | L-0051 |
 | 0052 | 2026-10-11 | owner OpenPGP ratification amends 0051 | accepted | — | L-0052 |
-| 0053 | 2026-10-13 | text retrofit for stale 0051/0052 sentences | proposed | — | L-0053 |
+| 0053 | 2026-10-13 | text retrofit for stale 0051/0052 sentences | rejected | — | L-0053 |
 | 0054 | 2026-10-24 | RCA 2026-10-20 published-skill author contract | active | — | L-0054 |
 | 0055 | 2026-10-25 | staged activation of gate machinery | active | — | L-0055 |
-| 0056 | 2026-10-25 | per-file detached owner signatures for ADRs | proposed | — | L-0056 |
-| 0057 | 2026-10-31 | one tag-time signature over the checker digest | proposed | — | L-0057 |
+| 0056 | 2026-10-25 | per-file detached owner signatures for ADRs | active | — | L-0056 |
+| 0057 | 2026-10-31 | one tag-time signature over the checker digest | active | — | L-0057 |
+| 0058 | 2026-11-07 | harness- and model-agnostic | active | — | L-0058 |
+| 0059 | 2026-11-07 | ADR revision and history | active | — | L-0059 |
 
 ## Lineage format
 
-When an ADR is superseded, add a row or update status:
+When an ADR is rewritten, copy it to [history/](history/) then edit in place (same number). When it is superseded or rejected, move it to history. INDEX keeps the row.
 
 ```
 | 0142 | 2026-03-01 | policy §4.2 p.12 | superseded | 0198 | L-0142 |
 | 0198 | 2026-09-01 | policy §4.2 p.14 | active | — | L-0142 |
 ```
 
-Same lineage id. Old ADR stays. New ADR cites it. ACTIVE reflects only the tip.
+Same lineage id when a different number replaces a withdrawn decision. ACTIVE reflects only the tip.

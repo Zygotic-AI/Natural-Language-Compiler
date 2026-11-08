@@ -1,8 +1,10 @@
 # ADR 0057 — One tag-time signature over the checker digest
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-10-31
+- Revision: 1
 - Deciders: Human manager
+- Ratified-by: Human manager (tag-time checker digest, 2026-11-07)
 - Class: F (integrity / hub produce)
 - Corpus: nlc
 - Supersedes in part: [ADR 0056](0056-per-file-adr-detached-signatures.md) (per-file ADR signatures are not a branch or tag requirement)
@@ -11,7 +13,7 @@
 
 ## Context
 
-The hub asked the owner to clearsign a 3,627-row gate-set manifest on every branch, and to detached-sign each Accepted architecture decision as well. Those decision records were already rows in the manifest, so each one was signed twice. ADR 0056, which requires the second signature, is still Proposed. A one-line instruction file was enough to void the manifest and turn the pull-request suite red.
+The hub asked the owner to clearsign a 3,627-row gate-set manifest on every branch, and to detached-sign each Accepted architecture decision as well. Those decision records were already rows in the manifest, so each one was signed twice. [ADR 0056](0056-per-file-adr-detached-signatures.md) names the per-file shape. This record says those files are not a branch or tag requirement. A one-line instruction file was enough to void the manifest and turn the pull-request suite red.
 
 The threat that remains is an agent editing the code that decides pass/fail and then reporting that the edit passed. One owner signature over those bytes, checked at tag time by the checker already on `main`, stops that. A pull request does not need the private key.
 

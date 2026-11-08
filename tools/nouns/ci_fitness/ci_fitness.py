@@ -858,6 +858,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "fitness-adr-0051-0052-rules.py")],
     )
     run(
+        "fitness-adr-history",
+        [sys.executable, str(TOOLS / "fitness-adr-history.py")],
+    )
+    run(
         "assert-gate-set-manifest-tamper",
         [sys.executable, str(TOOLS / "assert-gate-set-manifest-tamper-fails.py")],
     )

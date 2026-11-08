@@ -30,7 +30,8 @@ Architecture Decision Records capture ratified decisions for this practice or [a
 | Decision statement | Yes | The choice being made |
 | Context | Yes | Why the decision is needed |
 | Consequences | Yes | What changes as a result |
-| Status | Yes | Proposed / Accepted / Superseded |
+| Status | Yes | Proposed / Accepted / Superseded / Rejected |
+| Revision | Yes when Accepted | Integer; missing means 1. Previous bytes go to `adrs/history/` |
 | Deciders | Yes | Role names (not person names) |
 | Date | Yes | Decision date (YYYY-MM-DD) |
 
@@ -42,8 +43,9 @@ Architecture Decision Records capture ratified decisions for this practice or [a
    ```markdown
    # ADR NNNN — <Title>
 
-   - Status: Proposed | Accepted | Superseded by ADR NNNN
+   - Status: Proposed | Accepted | Superseded | Rejected
    - Date: YYYY-MM-DD
+   - Revision: 1
    - Deciders: <role names>
 
    ## Context
@@ -65,6 +67,8 @@ Architecture Decision Records capture ratified decisions for this practice or [a
 4. **Update `adrs/README.md`** — add row to [ADR](../docs/TERMS.md#adr) index table.
 5. **Cross-link** — update related documents that reference this decision.
 6. **Review [gate](../docs/TERMS.md#gate)** — submit for [Contribution Gate](../docs/TERMS.md#contribution-gate) (PR / fitness / audit).
+7. **Rewrite** — copy the current file byte-for-byte to `adrs/history/NNNN-slug-R.md`, then edit the current file and increment `Revision:` ([ADR 0059](../adrs/0059-adr-revision-and-history.md)).
+8. **Revoke / supersede / reject** — set that status in the header, then move the file to `adrs/history/` with the revision suffix. No current file remains in `adrs/`.
 
 ### [Gate](../docs/TERMS.md#gate) Criteria
 

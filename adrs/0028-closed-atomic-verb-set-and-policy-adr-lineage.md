@@ -2,6 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-09-22
+- Revision: 2
 - Deciders: Human manager
 - Class: B (emit shape / vocabulary) + F (process / enforcement)
 
@@ -34,21 +35,22 @@ A policy document (regulation, standard, internal rule) is **not** stored as a l
 1. The policy text is passed through a prompt that extracts candidate decisions.
 2. Each decision becomes an ADR that **cites the exact page and line numbers** of the source policy it implements.
 3. Each ADR produces the if/then **rule set** the overlay evaluates (datum tag × atomic verb → obligation).
-4. When the policy changes, the affected ADRs are revised by writing a **new ADR** that references the old one — the old ADR is never edited in place.
+4. When the policy changes, the current ADR is rewritten in place after a byte-for-byte copy of the previous current file is stored under `adrs/history/` with the same name and the previous revision at the end of the filename. Same number. Same path. How that copy and move work is [ADR 0059](0059-adr-revision-and-history.md).
 
-**Lineage, not accumulation.** An ADR that revises a prior decision does not merely mark the old one "superseded" and leave it in the active set. It forms a **lineage**: a chain of immutable records where only the tip is active. Readers and gates resolve to the tip; the chain is retained for audit.
+**Lineage, not accumulation.** An ADR that revises a prior decision does not leave a second current file in `adrs/`. Only the tip is active. Readers and gates resolve to the current file; previous bytes stay in `adrs/history/` for audit.
 
 - **Active set** = the tip of each lineage. This is what the overlay, audit, and RCA climb against.
-- **Full history** = every link in every lineage, retained immutably (git provides this; the ADR index surfaces only tips).
-- A lineage may be **retired** when the underlying policy is withdrawn — the tip is marked retired, the chain stays for audit, and no gate consults it.
+- **Full history** = every previous revision under `adrs/history/`, plus git. The ADR index surfaces tips.
+- A lineage may be **retired** when the underlying policy is withdrawn — the current file is marked retired or revoked, moved to history, and no gate consults it.
 
 **What this rejects:**
 
-- Editing an accepted ADR in place to change its decision.
-- Keeping superseded ADRs in the active set "for reference" — they belong in the lineage, not the active index.
+- Editing an accepted current file with no history copy.
+- Keeping superseded ADRs in the active set "for reference" — they belong in history, not the active index.
 - Treating the policy document itself as runtime input; the document is the *source*, the ADR lineage is the *law*.
+- A shadow ADR whose only job is the intended wording of another accepted ADR.
 
-**Open (deferred):** exact lineage data structure (file-per-link vs. index with parent pointers), retirement semantics, and how multi-policy conflicts resolve across lineages. Those are implementation details; the principle — immutable lineage, tip-is-active, policy-compiles-to-ADR — is settled here.
+**Open (deferred):** retirement retention windows, and how multi-policy conflicts resolve across lineages. Those are implementation details; the principle — immutable snapshots, tip-is-active, policy-compiles-to-ADR — is settled here.
 
 ## Consequences
 
@@ -62,5 +64,5 @@ A policy document (regulation, standard, internal rule) is **not** stored as a l
 
 - **Unlimited verb vocabulary** — defeats composition and overlay matching.
 - **Hub-owned verb set with no adopter extension** — blocks legitimate domain verbs.
-- **In-place ADR edits** — destroys the immutable decision record the no-blame RCA depends on.
-- **Superseded-but-active ADRs** — contradicts "only the applicable decision"; lineages solve this without deletion.
+- **Silent in-place ADR edits** — no history copy; destroys the snapshot the no-blame RCA depends on. A rewrite with a history copy is the allowed change.
+- **Superseded-but-active ADRs** — contradicts "only the applicable decision"; history solves this without deletion.

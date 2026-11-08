@@ -7,6 +7,7 @@ Gates **fitness-hub-public-self-contained** and **fitness-internal-links** treat
 | Prefix | Reason |
 |--------|--------|
 | `docs/history/` | Archived prose; not operating law |
+| `adrs/history/` | Previous ADR bytes; not current law (ADR 0059) |
 | `docs/rca/` | RCA instance records (may cite old paths and names) |
 | `theory/history/` | Frozen theory drafts |
 | `examples/` | Adopter fixtures and landmines |

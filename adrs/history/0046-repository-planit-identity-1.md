@@ -1,10 +1,10 @@
 # ADR 0046 — Repository Planit identity
 
-- Status: Proposed
-- Note: Pending a redraft.
+- Status: Rejected
 - Date: 2026-10-08
+- Rejected: 2026-11-07
 - Deciders: Human manager
-- Ratified-by: Human manager (practice-enforcement task list, 2026-10-08)
+- Rejected-by: Human manager
 - Class: F (process)
 - Corpus: nlc
 
@@ -30,3 +30,7 @@ Two Planit skills can share the name `planit`. A harness that loads a different 
 
 - Trusting the skill name without a content hash.
 - Letting a harness skip the check because it already has some Planit skill in context.
+
+## Why this record is Rejected
+
+The Cursor prompt-submit hook is not law (no harness hooks). A Planit path+hash pin on repo gates can be a later accepted decision; this record as written is not accepted.

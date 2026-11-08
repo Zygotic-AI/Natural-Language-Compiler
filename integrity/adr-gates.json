@@ -216,6 +216,22 @@
     "0055": {
       "gate": "tools/fitness-live-self-ref-activation.py",
       "fixture": "tools/assert-live-self-ref-direct-edit-fails.py"
+    },
+    "0056": {
+      "gate": "tools/fitness-adr-owner-sidecar.py",
+      "fixture": "tools/assert-adr-detached-sig-fails.py"
+    },
+    "0057": {
+      "gate": "tools/fitness-derived-release-state.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
+    },
+    "0058": {
+      "gate": "tools/fitness-goal-write-hook.py",
+      "fixture": "tools/assert-goal-write-hook-landmine-passes.py"
+    },
+    "0059": {
+      "gate": "tools/fitness-adr-history.py",
+      "fixture": "tools/assert-adr-history-fails.py"
     }
   },
   "constraints": {
@@ -271,17 +287,9 @@
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
     },
-    "0051:AMEND-0047-1": {
+    "0051:L82": {
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
-    },
-    "0051:AMEND-0047-2": {
-      "check": "fitness-gate-set-manifest",
-      "known_bad": "KB-SG2-closure-member"
-    },
-    "0051:AMEND-0047-3": {
-      "check": "C6",
-      "known_bad": "GAP-0051-unsigned"
     },
     "0051:P-HUB-ROLE-SEP": {
       "check": "C1",
@@ -315,45 +323,37 @@
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
     },
-    "0051:L110": {
+    "0051:L109": {
       "check": "C3",
       "known_bad": "KB-brief-forbid"
     },
-    "0051:L112": {
-      "check": "C10",
-      "known_bad": "GAP-adr-gates-rows"
-    },
-    "0051:REJ-116": {
+    "0051:REJ-115": {
       "check": "C4",
       "known_bad": "KB-check-on-check"
     },
-    "0051:REJ-117": {
+    "0051:REJ-116": {
       "check": "C1",
       "known_bad": "KB-SG1-exit"
     },
-    "0051:REJ-118": {
+    "0051:REJ-117": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0051:REJ-119": {
+    "0051:REJ-118": {
       "check": "C1",
       "known_bad": "GAP-self-declared-diff"
     },
-    "0052:L9": {
+    "0052:L10": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0052:L15": {
+    "0052:L16": {
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
     },
-    "0052:L27": {
+    "0052:L28": {
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
-    },
-    "0052:L40": {
-      "check": "C6",
-      "known_bad": "GAP-0051-unsigned"
     },
     "0052:DEC-1": {
       "check": "C6",
@@ -383,15 +383,15 @@
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
     },
-    "0052:REJ-68": {
+    "0052:REJ-69": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0052:REJ-69": {
+    "0052:REJ-70": {
       "check": "C8",
       "known_bad": "KB-write-approval"
     },
-    "0052:REJ-70": {
+    "0052:REJ-71": {
       "check": "C9",
       "known_bad": "KB-retired-trusted"
     }

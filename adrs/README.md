@@ -4,7 +4,7 @@ Architecture Decision Records for this practice and for example systems that nee
 
 Naming: `NNNN-short-slug.md`. Current law lives here. Previous bytes live in [`history/`](history/). Revoked, superseded, and rejected records are moved there (charter R22, [ADR 0059](0059-adr-revision-and-history.md)).
 
-Deciders are role names (CG-R4). Person-to-role mapping lives outside SSOT.
+Deciders are role names (CG-R4). Who holds a role is attribution (`CONTRIBUTORS.md`), not ADR Deciders text.
 
 | [ADR](../docs/TERMS.md#adr) | Title | Status |
 |-----|-------|--------|

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""O6: in-force surfaces must not depend on private repos or person names (CG-R4)."""
+"""O6: in-force surfaces must not depend on private repos; CG-R4 person-as-actor scan."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 from nouns.hub_in_force_surfaces.hub_in_force_surfaces import (  # noqa: E402
+    is_person_name_excluded,
     iter_in_force_files,
 )
 
@@ -68,8 +69,10 @@ def main() -> int:
             if marker in text:
                 violations.append(f"{rel}: forbidden marker {marker!r}")
     for path in _tracked_text_files():
+        rel = path.relative_to(ROOT).as_posix()
+        if is_person_name_excluded(rel):
+            continue
         text = path.read_text(encoding="utf-8", errors="replace")
-        rel = path.relative_to(ROOT)
         for pat in PERSON_PATTERNS:
             if pat.search(text):
                 violations.append(f"{rel}: person-name pattern {pat.pattern}")

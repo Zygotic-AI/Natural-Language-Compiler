@@ -1,0 +1,30 @@
+name: fresh-base
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  fresh-base:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Deploy git guard tests
+        run: python3 tools/assert-deploy-git-guard-passes.py
+
+      - name: Require PR head contains origin/main
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          if ! git merge-base --is-ancestor origin/main "${{ github.event.pull_request.head.sha }}"; then
+            echo "branch is behind main: run git fetch origin && git merge origin/main, rerun tests, push"
+            exit 1
+          fi

@@ -23,6 +23,11 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Deploy git guard (tag must be on origin/main)
+        env:
+          DEPLOY_GIT_REF: ${{ github.ref_name }}
+        run: bash tools/deploy_git_guard.sh
+
       - name: Hub fitness suite
         run: python3 tools/ci_fitness.py
 

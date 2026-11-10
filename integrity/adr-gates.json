@@ -232,6 +232,10 @@
     "0059": {
       "gate": "tools/fitness-adr-history.py",
       "fixture": "tools/assert-adr-history-fails.py"
+    },
+    "0060": {
+      "gate": "tools/fitness-install-scope.py",
+      "fixture": "tools/assert-install-local-dispatch-passes.py"
     }
   },
   "constraints": {

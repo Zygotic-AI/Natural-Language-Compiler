@@ -63,3 +63,4 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0057 | One tag-time signature over the checker digest | active | L-0057 |
 | 0058 | Harness- and model-agnostic | active | L-0058 |
 | 0059 | ADR revision and history | active | L-0059 |
+| 0060 | Install scope (global or local) and PATH dispatch | active | L-0060 |

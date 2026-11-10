@@ -57,6 +57,7 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0057 | `fitness-derived-release-state.py` + `assert-tag-digest-signature-required-fails.py` | bound |
 | 0058 | `fitness-goal-write-hook.py` + `assert-goal-write-hook-landmine-passes.py` | bound |
 | 0059 | `fitness-adr-history.py` + `assert-adr-history-fails.py` | bound |
+| 0060 | `fitness-install-scope.py` + `assert-install-local-dispatch-passes.py` + local-pin / outside-repo landmines | bound |
 
 **0007/0009:** semantic rule application and the verb-to-primitive inventory are bound. The pan-return landmine and the inventory mismatch landmine are the failing fixtures. ADR 0023 marker emit stays bound via `rule-emit` / `goal-scaffold` / verify audit.
 

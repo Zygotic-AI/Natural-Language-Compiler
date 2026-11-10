@@ -71,6 +71,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](
 | 0057 | 2026-10-31 | one tag-time signature over the checker digest | active | — | L-0057 |
 | 0058 | 2026-11-07 | harness- and model-agnostic | active | — | L-0058 |
 | 0059 | 2026-11-07 | ADR revision and history | active | — | L-0059 |
+| 0060 | 2026-11-10 | install scope global or local; PATH nlc execs the repo copy | active | — | L-0060 |
 
 ## Lineage format
 

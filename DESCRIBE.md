@@ -55,6 +55,8 @@ Same structural discipline applied to organizing **agent fleets** — durable ro
 | `content-types/HOW-TO-ADD.md` | Type recipes for adding content (ADR, integrity doc, agent noun, Skill, etc.) |
 | `TODO` | Task list (`☐` / `✔ @done(...)`) |
 | `docs/nlc/FEATURES.md` | Released / upcoming / milestones and the reasons (not an ADR) |
+| `goals/hub_install/` | Installer: global user store or local repo pin (ADR 0060) |
+| `scripts/nlc-launcher.sh` / `nlc-launcher.cmd` | PATH `nlc`: if this process is the global command and the current repo has `nlc`, exec that copy |
 | `AGENTS.md` | Cross-harness standing instructions |
 | `.agents/` | Portable skills / instructions |
 
@@ -113,7 +115,7 @@ Do not treat a percentage frozen in this file as live status. Run `python3 tools
 
 ## Current ship
 
-Last tagged ship is **v0.6.0**.
+Last tagged ship is **v0.7.0**.
 
 ## ADR 0051 / 0052 hub-own retrofit (C1–C11)
 

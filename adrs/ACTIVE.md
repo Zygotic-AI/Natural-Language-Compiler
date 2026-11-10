@@ -66,5 +66,6 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0057 | L-0057 | session | 2026-11-07 |
 | 0058 | L-0058 | session | 2026-11-07 |
 | 0059 | L-0059 | session | 2026-11-07 |
+| 0060 | L-0060 | session | 2026-11-10 |
 
 When an ADR is superseded, remove it from this table and add its successor. Update INDEX status in the same change.

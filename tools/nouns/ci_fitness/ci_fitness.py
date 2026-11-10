@@ -309,6 +309,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "fitness-distribution-binder.py")],
     )
     run(
+        "fitness-install-scope",
+        [sys.executable, str(TOOLS / "fitness-install-scope.py")],
+    )
+    run(
         "fitness-adr-0004-0005-binder",
         [sys.executable, str(TOOLS / "fitness-adr-0004-0005-binder.py")],
     )
@@ -413,6 +417,22 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
     run(
         "assert-piped-install-smoke",
         [sys.executable, str(TOOLS / "assert-piped-install-smoke-passes.py")],
+    )
+    run(
+        "assert-install-foreign-skills",
+        [sys.executable, str(TOOLS / "assert-install-foreign-skills-passes.py")],
+    )
+    run(
+        "assert-install-local-dispatch",
+        [sys.executable, str(TOOLS / "assert-install-local-dispatch-passes.py")],
+    )
+    run(
+        "assert-install-local-pin",
+        [sys.executable, str(TOOLS / "assert-install-local-pin-passes.py")],
+    )
+    run(
+        "assert-install-local-outside-repo",
+        [sys.executable, str(TOOLS / "assert-install-local-outside-repo-fails.py")],
     )
     run(
         "assert-project-lock-schema",

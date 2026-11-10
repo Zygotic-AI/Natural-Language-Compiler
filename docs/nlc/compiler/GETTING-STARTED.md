@@ -23,6 +23,8 @@
    irm https://raw.githubusercontent.com/Zygotic-AI/Natural-Language-Compiler/main/scripts/install.ps1 | iex
    ```
 
+   Piped install is **global** (this user). In a terminal the installer asks **global** or **local**. Local pins the current git repo (`.nlc/hub`, `./nlc`, skills in that repo). Non-interactive: `--global` / `--local`, or `NLC_INSTALL_SCOPE=global|local`. After a local pin, PATH `nlc` in that repo execs the repo copy and passes every argument through.
+
 2. **Open your [app repo](../../TERMS.md#adopter)** in Cursor (or work in this hub for charter/tool changes).
 
    From the repo root run **`./nlc`** (dashboard). See [`docs/nlc/MENU.md`](../MENU.md).

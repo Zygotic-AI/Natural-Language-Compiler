@@ -14,9 +14,13 @@ def help_new() -> int:
         ask="Which folder should we use?",
         choices=[
             "New empty folder → ./nlc new <folder> --name MyApp",
+            "Pin a hub copy in that folder → ./nlc new <folder> --name MyApp --store project",
             "You already have code → ./nlc adopt-existing .",
         ],
-        examples=["./nlc new ~/projects/my-app --name MyApp"],
+        examples=[
+            "./nlc new ~/projects/my-app --name MyApp",
+            "./nlc new ~/projects/my-app --name MyApp --store project",
+        ],
     )
 
 

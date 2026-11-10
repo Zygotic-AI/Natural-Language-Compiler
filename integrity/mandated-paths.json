@@ -581,6 +581,10 @@
       "gate_set_manifest",
       "owner_sidecar"
     ],
+    "adrs/0060-install-scope-and-path-dispatch.md": [
+      "gate_set_manifest",
+      "owner_sidecar"
+    ],
     "adrs/ACTIVE.md": [
       "gate_set_manifest"
     ],
@@ -760,6 +764,9 @@
       "gate_set_manifest"
     ],
     "docs/adoption/RELEASE-v0.6.0.md": [
+      "gate_set_manifest"
+    ],
+    "docs/adoption/RELEASE-v0.7.0.md": [
       "gate_set_manifest"
     ],
     "docs/adoption/RELEASE.md": [
@@ -1440,6 +1447,9 @@
     "migrations/0.5.0_to_0.6.0/migration.yaml": [
       "gate_set_manifest"
     ],
+    "migrations/0.6.0_to_0.7.0/migration.yaml": [
+      "gate_set_manifest"
+    ],
     "migrations/README.md": [
       "gate_set_manifest"
     ],
@@ -1471,6 +1481,12 @@
       "gate_set_manifest"
     ],
     "scripts/install.sh": [
+      "gate_set_manifest"
+    ],
+    "scripts/nlc-launcher.cmd": [
+      "gate_set_manifest"
+    ],
+    "scripts/nlc-launcher.sh": [
       "gate_set_manifest"
     ],
     "scripts/nlc-release-prep.sh": [
@@ -1777,6 +1793,18 @@
       "gate_set_manifest"
     ],
     "tools/assert-impact-graph-generated.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-install-foreign-skills-passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-install-local-dispatch-passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-install-local-outside-repo-fails.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-install-local-pin-passes.py": [
       "gate_set_manifest"
     ],
     "tools/assert-install-verify-passes.py": [
@@ -2502,6 +2530,9 @@
     "tools/fitness-human-surface-binder.py": [
       "gate_set_manifest"
     ],
+    "tools/fitness-install-scope.py": [
+      "gate_set_manifest"
+    ],
     "tools/fitness-integration-leaves-hygiene.py": [
       "gate_set_manifest"
     ],
@@ -2989,6 +3020,9 @@
       "gate_set_manifest"
     ],
     "tools/nlc-install-verify.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nlc-launch.py": [
       "gate_set_manifest"
     ],
     "tools/nlc-pack-export.py": [
@@ -4630,6 +4664,78 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_impact_graph_generated/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/assert_install_foreign_skills_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/assert_install_local_dispatch_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_dispatch_passes/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/assert_install_local_outside_repo_fails.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_outside_repo_fails/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/assert_install_local_pin_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_local_pin_passes/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_install_verify_passes/README.md": [
@@ -8124,6 +8230,24 @@
     "tools/nouns/fitness_human_surface_binder/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
+    "tools/nouns/fitness_install_scope/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/fitness_install_scope/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/fitness_install_scope/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/fitness_install_scope/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/fitness_install_scope/fitness_install_scope.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/fitness_install_scope/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
     "tools/nouns/fitness_integration_leaves_hygiene/README.md": [
       "gate_set_manifest"
     ],
@@ -10120,6 +10244,24 @@
       "gate_set_manifest"
     ],
     "tools/nouns/nlc_init/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/nlc_launch.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/nlc_launch/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
     "tools/nouns/nlc_outside_write_ast/__init__.py": [

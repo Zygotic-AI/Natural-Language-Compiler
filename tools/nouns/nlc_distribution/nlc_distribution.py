@@ -412,4 +412,7 @@ def resolve_install_root_for_lock(project_root: Path, lock: dict[str, object]) -
     raw = lock.get("store_path")
     if not raw:
         raise ValueError(f"lock store={store} requires store_path")
-    return Path(str(raw)).expanduser().resolve()
+    path = Path(str(raw)).expanduser()
+    if not path.is_absolute():
+        path = project_root / path
+    return path.resolve()

@@ -27,6 +27,7 @@
     "tools/nlc-fetch-hub.py": "b33d3dd8d64ee8c7c075ca17b719f258f0472be023faa4aac18ce45bec788059",
     "tools/nlc-impact-graph.py": "07b474a8b65a5e9377c3182bedbc6be0b938ce8d00eec4af6f275104678c31f2",
     "tools/nlc-install-hash-update.py": "04e93573f6b75e262ac7c11ecbd69e185fcd4bbe08850f46ffd1dfb5587ddb07",
+    "tools/nlc-launch.py": "36123ad039d90add09bbdcae02767f640da8ecea1d5ea08aae7f03eece062422",
     "tools/nlc-pack-export.py": "2df9eda5d8892730a5b20f082cecc3a24edea9ec180d52178fb35e5589cf76c3",
     "tools/nlc-pack-ingest.py": "c5e7cb2e4c9dbe2cef3be2bdb0598d0425aac90f3aba38d79e9d7a29b760e54f",
     "tools/nlc-pack-install.py": "f04ea2d4b4dd83e883f8fef641abd69462ccc083f341aa5c019e034126d43890",

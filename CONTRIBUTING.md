@@ -23,8 +23,6 @@ The machine and document gate is [`integrity/CONTRIBUTION.md`](integrity/CONTRIB
 python3 tools/ci_fitness.py
 ```
 
-**Stale-base and deploy guards.** Pull requests targeting `main` must include the current `origin/main` tip (CI job `fresh-base`); if it fails, run `git fetch origin && git merge origin/main`, rerun tests, and push. Tag-driven hub releases (`.github/workflows/release.yml`) and `tools/deploy_git_guard.sh` refuse unless the commit is `origin/main` HEAD or the tag points at a commit contained in `origin/main` — there is no override flag.
-
 Windows: `powershell -File tools/ci-fitness.ps1`.
 
 Hub versions ship with **`./release`** ([release guide](docs/adoption/RELEASE.md)), not ad-hoc tags.

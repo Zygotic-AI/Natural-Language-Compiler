@@ -9,7 +9,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | In the current ship (today **v0.5.0**) |
+| [Released](#released) | In the current ship (today **v0.6.0**) |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-112) | Features we want, not ordered into 1–12 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
@@ -38,7 +38,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 
 ## Released
 
-Current ship: **v0.5.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
+Current ship: **v0.6.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -91,7 +91,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | TypeScript adapter specimen | Teaching example only | Not “we convert languages.” |
 | Adopter CI template | `nlc-init` writes a verify workflow | PRs run `./nlc verify`. |
 
-### v0.3.0–v0.5.0 (current ship)
+### v0.3.0–v0.6.0 (current ship)
 
 | Feature | Version | What the customer gets | Why it is here |
 | ------- | ------- | ---------------------- | -------------- |

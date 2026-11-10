@@ -740,9 +740,14 @@ Law: no harness hooks; no required model or agent host; verify on the files is t
 - ✔ Stop telling adopters to copy Cursor hooks (`templates/adopter/hooks.example.json`, [`docs/nlc/HARNESS.md`](docs/nlc/HARNESS.md)). @done(26-11-07 19:15)
 - ✔ Keep Planit-skill identity on repo gates, not on a Cursor prompt-submit hook. @done(26-11-07 19:15)
 
-## Next milestone — full requirement import
+## Done — install NLC into a specific repo ([ADR 0060](adrs/0060-install-scope-and-path-dispatch.md) Accepted)
+
+A repo can pin its own NLC copy. PATH `nlc` that is the global command execs the repo copy and passes every argument through. Global upgrade does not drag a local pin.
 
 - ✔ Pin one app repo to an NLC copy so a global upgrade does not drag every repo along (greenfield and later brownfield). See FEATURES.md “Install NLC into a specific repo.” @done(26-11-10 21:45)
+
+## Next milestone — full requirement import
+
 - ☐ A **policy / standard / etc** becomes accepted goals and if/then constraints, each citing source, page, and line. See FEATURES.md “Full requirement import.”
 
 ## Recorded, not scheduled

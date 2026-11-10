@@ -1779,6 +1779,9 @@
     "tools/assert-impact-graph-generated.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-install-foreign-skills-passes.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-install-verify-passes.py": [
       "gate_set_manifest"
     ],
@@ -4630,6 +4633,12 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_impact_graph_generated/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_install_foreign_skills_passes/assert_install_foreign_skills_passes.py": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_install_verify_passes/README.md": [

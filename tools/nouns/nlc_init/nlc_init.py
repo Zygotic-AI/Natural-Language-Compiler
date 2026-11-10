@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from nlc_distribution import (  # noqa: E402
     default_install_root,
     hub_active_path,
+    install_hub_from_path,
     read_hub_version,
     write_project_lock,
 )
@@ -81,6 +82,12 @@ def main() -> int:
     parser.add_argument("target", type=Path, help="New empty directory to create")
     parser.add_argument("--name", default="MyApp", help="Project title for README")
     parser.add_argument("--force", action="store_true", help="Allow existing empty dirs only")
+    parser.add_argument(
+        "--store",
+        choices=("user", "project"),
+        default="user",
+        help="Lock store: user (default) or project (copy hub into this repo)",
+    )
     args = parser.parse_args()
     target = args.target.resolve()
 
@@ -117,11 +124,12 @@ def main() -> int:
         encoding="utf-8",
     )
     gitignore = target / ".gitignore"
-    extra = ".nlc/store/\n"
+    extra = ".nlc/store/\n.nlc/hub\n.nlc/versions/\n.nlc/current\n"
     if gitignore.is_file():
         text = gitignore.read_text(encoding="utf-8")
-        if ".nlc/store/" not in text:
-            gitignore.write_text(text.rstrip() + "\n" + extra, encoding="utf-8")
+        add = [line for line in extra.splitlines() if line and line not in text.splitlines()]
+        if add:
+            gitignore.write_text(text.rstrip() + "\n" + "\n".join(add) + "\n", encoding="utf-8")
     else:
         gitignore.write_text(
             "__pycache__/\n.venv/\nnode_modules/\n" + extra,
@@ -135,7 +143,13 @@ def main() -> int:
         if not (hub_root / "integrity" / "nlc-version.json").is_file():
             hub_root = ROOT
     hub_ver = read_hub_version(hub_root)
-    lock_path = write_project_lock(target, hub_version=hub_ver, store="user")
+    store_path = None
+    if args.store == "project":
+        install_hub_from_path(target / ".nlc", hub_root)
+        store_path = ".nlc"
+    lock_path = write_project_lock(
+        target, hub_version=hub_ver, store=args.store, store_path=store_path
+    )
     (target / ".nlc" / "work-queue.json").write_text(
         json.dumps({"schema": 1, "items": []}, indent=2) + "\n",
         encoding="utf-8",

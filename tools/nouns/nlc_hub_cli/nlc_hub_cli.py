@@ -34,13 +34,25 @@ from nlc_verify import emit_verify_fail, verify_deep, verify_fast  # noqa: E402
 
 def hub_root(project: Path | None = None) -> Path:
     """Compiler tree for tools: checkout when project is the hub (RCA-1 C3)."""
-    if os.environ.get("NLC_HUB"):
-        return Path(os.environ["NLC_HUB"]).resolve()
     from nlc_pipeline import is_hub_repo
 
     probe = (project or Path.cwd()).resolve()
     if is_hub_repo(probe):
         return ROOT
+    lock_path = probe / ".nlc" / "lock.json"
+    if lock_path.is_file():
+        try:
+            lock = json.loads(lock_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            lock = {}
+        if str(lock.get("store", "")) == "project":
+            from nlc_distribution import resolve_install_root_for_lock
+
+            active = hub_active_path(resolve_install_root_for_lock(probe, lock))
+            if (active / "tools" / "nlc.py").is_file():
+                return active
+    if os.environ.get("NLC_HUB"):
+        return Path(os.environ["NLC_HUB"]).resolve()
     active = hub_active_path(default_install_root())
     if (active / "tools" / "nlc.py").is_file():
         return active
@@ -142,9 +154,14 @@ def cmd_requirements(args: argparse.Namespace) -> int:
 def cmd_new(args: argparse.Namespace) -> int:
     if args.path is None:
         return help_new()
+    extra: list[str] = []
+    if getattr(args, "store", "user") and args.store != "user":
+        extra.extend(["--store", args.store])
     return run_tool(
         "nlc-init.py",
-        [str(args.path), "--name", args.name] + (["--force"] if args.force else []),
+        [str(args.path), "--name", args.name]
+        + (["--force"] if args.force else [])
+        + extra,
     )
 
 
@@ -459,6 +476,7 @@ def main() -> int:
     p_new.add_argument("path", type=Path, nargs="?", default=None)
     p_new.add_argument("--name", default="MyApp")
     p_new.add_argument("--force", action="store_true")
+    p_new.add_argument("--store", choices=("user", "project"), default="user")
     p_new.set_defaults(func=cmd_new)
 
     sub.add_parser("verify", help="Fast verify (fingerprints; CI-friendly)").set_defaults(

@@ -1,10 +1,30 @@
 #!/usr/bin/env bash
 # Natural Language Compiler — run from your app repo root: ./nlc
+# ADR 0060: honor .nlc/lock.json store=project before the user-store hub.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
-if [[ -n "${NLC_HUB:-}" ]]; then
+HUB=""
+if [[ -f "${ROOT}/.nlc/lock.json" ]]; then
+  HUB="$(python3 -c '
+import json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+data = json.loads((root / ".nlc" / "lock.json").read_text(encoding="utf-8"))
+if str(data.get("store", "")) != "project":
+    sys.exit(0)
+raw = str(data.get("store_path") or ".nlc")
+store = Path(raw).expanduser()
+if not store.is_absolute():
+    store = root / store
+py = store / "hub" / "tools" / "nlc.py"
+if py.is_file():
+    sys.stdout.write(str((store / "hub").resolve()))
+' "${ROOT}" || true)"
+fi
+if [[ -z "${HUB}" && -n "${NLC_HUB:-}" ]]; then
   HUB="${NLC_HUB}"
-else
+fi
+if [[ -z "${HUB}" ]]; then
   HUB="${HOME}/.local/share/nlc/hub"
 fi
 if [[ ! -f "${HUB}/tools/nlc.py" ]]; then

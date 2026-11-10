@@ -1,4 +1,4 @@
-"""ADR 0015: compiled-system .nlc/lock.json shape."""
+"""ADR 0015 / 0060: compiled-system .nlc/lock.json shape."""
 
 from __future__ import annotations
 
@@ -7,6 +7,8 @@ from typing import Any
 from nlc_distribution import LOCK_SCHEMA, normalize_version
 
 BOUNDARY = "bba-emit"
+
+_STORES = frozenset({"user", "workspace", "project"})
 
 
 def validate_lock(data: dict[str, Any]) -> tuple[bool, str]:
@@ -20,8 +22,8 @@ def validate_lock(data: dict[str, Any]) -> tuple[bool, str]:
     except ValueError:
         return False, f"lock hub not semver: {hub}"
     store = str(data.get("store", "user"))
-    if store not in {"user", "path"}:
+    if store not in _STORES:
         return False, f"lock store invalid: {store}"
-    if store == "path" and not str(data.get("store_path", "")).strip():
-        return False, "lock store=path requires store_path"
+    if store in {"workspace", "project"} and not str(data.get("store_path", "")).strip():
+        return False, f"lock store={store} requires store_path"
     return True, "lock valid"

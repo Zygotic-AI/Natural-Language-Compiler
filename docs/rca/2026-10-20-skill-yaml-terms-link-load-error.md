@@ -146,7 +146,7 @@ The Skill type recipe is still the one thing. The **step** that will grow is one
 | When | Command |
 | ---- | ------- |
 | Before release (`release-prep` / `full` audit) | `python3 tools/nlc-skill-author-check.py --root .agents/skills` |
-| After install (same list on the copied tree) | `python3 tools/nlc-skill-author-check.py --root ~/.agents/skills` |
+| After install (same list on the **hub copied** skills tree) | `python3 tools/nlc-skill-author-check.py --root <staging-copy-of-hub-.agents/skills>` — install uses this staging root, then overlays into `~/.agents/skills`. Do not grade mixed destination trees (GitHub issue 67). |
 
 Checklist SSOT: `integrity/skill-author-checklist.json`. Add a check id there, then implement it in `tools/nouns/skill_author_check/`. Demand: [ADR 0054](../../adrs/0054-published-skill-author-contract.md) (Accepted published-skill author contract), use-case `goals/hub_skill_author_check`, and `fitness-skill-author-check-presence.py` (install must still invoke that use-case). This is not helper code.
 

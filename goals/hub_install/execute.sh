@@ -70,10 +70,48 @@ else
   src_root="${INSTALL_ROOT}/hub"
 fi
 
+skills_src="${src_root}/.agents/skills"
+if [[ ! -d "${skills_src}" ]]; then
+  echo "Install could not find published skills in the hub copy." >&2
+  echo "  What's wrong: missing ${skills_src}" >&2
+  echo "  Fix: re-run install from a hub that includes .agents/skills." >&2
+  echo "INSTALL:NOT_MET missing hub skills" >&2
+  exit 1
+fi
+
+# ADR 0054: same CLI on the copied hub skills tree, not mixed ~/.agents/skills.
+if [[ -z "${tmpdir}" ]]; then
+  tmpdir="$(mktemp -d)"
+fi
+skills_staging="${tmpdir}/hub-skills"
+mkdir -p "${skills_staging}"
 if command -v rsync >/dev/null 2>&1; then
-  rsync -a "${src_root}/.agents/skills/" "${AGENTS_SKILLS}/"
+  rsync -a "${skills_src}/" "${skills_staging}/"
 else
-  cp -R "${src_root}/.agents/skills/." "${AGENTS_SKILLS}/"
+  cp -R "${skills_src}/." "${skills_staging}/"
+fi
+
+skill_check_goal="${INSTALL_ROOT}/hub/goals/hub_skill_author_check/execute.sh"
+if [[ ! -f "${skill_check_goal}" ]]; then
+  echo "Install could not confirm installed skills are authored correctly." >&2
+  echo "  What's wrong: missing goals/hub_skill_author_check/execute.sh" >&2
+  echo "  Fix: re-run install from a hub that includes the skill-author use-case." >&2
+  echo "INSTALL:NOT_MET missing skill author check" >&2
+  exit 1
+fi
+echo "  verify: skill author checklist"
+bash "${skill_check_goal}" --root "${skills_staging}" || {
+  echo "Install could not confirm the hub skills copy is authored correctly." >&2
+  echo "  What's wrong: published skill checklist failed on the hub skills copy (not other skills already in ${AGENTS_SKILLS})" >&2
+  echo "  Fix: repair the hub skills, then re-run install." >&2
+  echo "INSTALL:NOT_MET skill author checklist failed" >&2
+  exit 1
+}
+
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a "${skills_staging}/" "${AGENTS_SKILLS}/"
+else
+  cp -R "${skills_staging}/." "${AGENTS_SKILLS}/"
 fi
 
 if [[ -d "${HOME}/.cursor" ]]; then
@@ -86,23 +124,6 @@ if [[ -d "${HOME}/.cursor" ]]; then
   done
   echo "  cursor: copied repo-local BBP + planit skills"
 fi
-
-skill_check_goal="${INSTALL_ROOT}/hub/goals/hub_skill_author_check/execute.sh"
-if [[ ! -f "${skill_check_goal}" ]]; then
-  echo "Install could not confirm installed skills are authored correctly." >&2
-  echo "  What's wrong: missing goals/hub_skill_author_check/execute.sh" >&2
-  echo "  Fix: re-run install from a hub that includes the skill-author use-case." >&2
-  echo "INSTALL:NOT_MET missing skill author check" >&2
-  exit 1
-fi
-echo "  verify: skill author checklist"
-bash "${skill_check_goal}" --root "${AGENTS_SKILLS}" || {
-  echo "Install could not confirm installed skills are authored correctly." >&2
-  echo "  What's wrong: published skill checklist failed on ${AGENTS_SKILLS}" >&2
-  echo "  Fix: repair the hub skills, then re-run install." >&2
-  echo "INSTALL:NOT_MET skill author checklist failed" >&2
-  exit 1
-}
 
 if [[ -z "${NLC_SKIP_VERIFY:-}" ]] && [[ -f "${INSTALL_ROOT}/hub/tools/nlc-install-verify.py" ]]; then
   echo "  verify: hub file hashes"

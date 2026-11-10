@@ -415,6 +415,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-piped-install-smoke-passes.py")],
     )
     run(
+        "assert-install-foreign-skills",
+        [sys.executable, str(TOOLS / "assert-install-foreign-skills-passes.py")],
+    )
+    run(
         "assert-project-lock-schema",
         [sys.executable, str(TOOLS / "assert-project-lock-schema-passes.py")],
     )

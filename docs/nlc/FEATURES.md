@@ -46,7 +46,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 
 | Feature | What the customer gets | Why it is here |
 | ------- | ---------------------- | -------------- |
-| One-line install | curl on Linux/macOS/WSL; PowerShell on Windows | Front door. No product if they cannot install. |
+| One-line install | curl on Linux/macOS/WSL; PowerShell on Windows. Hub skills overlay into `~/.agents/skills` beside other portable skills; the author checklist grades the hub copy, not every skill already on the machine. | Front door. No product if they cannot install. Shared skill directories are normal (GitHub issue 67). |
 | Checksum-verified install | Tagged tarball into a local version store; bad download refuses | They should not run bytes we did not publish. |
 | Compiler lock | App repo pinned to one hub version | Upgrades are a choice, not a surprise. |
 | Greenfield app scaffold | `./nlc new` writes `./nlc`, lock, CI verify template | Empty-app path we trust more than existing-code path. |

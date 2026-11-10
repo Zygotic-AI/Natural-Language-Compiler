@@ -41,7 +41,37 @@ def main() -> int:
         if not ok:
             print(f"ASSERT:FAIL lock invalid: {reason}")
             return 1
-    print("ASSERT:PASS project lock schema (ADR 0015)")
+        pinned = Path(tmp) / "pinned"
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "tools" / "nlc-init.py"),
+                str(pinned),
+                "--name",
+                "PinTest",
+                "--store",
+                "project",
+            ],
+            cwd=str(ROOT),
+            env=env,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            print("ASSERT:FAIL nlc-init --store project", proc.stderr)
+            return 1
+        pin_lock = json.loads((pinned / ".nlc" / "lock.json").read_text(encoding="utf-8"))
+        ok, reason = validate_lock(pin_lock)
+        if not ok:
+            print(f"ASSERT:FAIL project lock invalid: {reason}")
+            return 1
+        if pin_lock.get("store") != "project" or pin_lock.get("store_path") != ".nlc":
+            print("ASSERT:FAIL --store project lock fields", pin_lock)
+            return 1
+        if not (pinned / ".nlc" / "hub" / "tools" / "nlc.py").is_file():
+            print("ASSERT:FAIL --store project missing copied hub")
+            return 1
+    print("ASSERT:PASS project lock schema (ADR 0015 / 0060)")
     return 0
 
 

@@ -10,6 +10,24 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 GUARD = ROOT / "tools" / "deploy_git_guard.sh"
+GIT_TEST_NAME = "guard test"
+GIT_TEST_EMAIL = "guard@test"
+
+
+def git_test_env() -> dict[str, str]:
+    """Git author/committer env for temp repos (no machine identity required)."""
+    merged = os.environ.copy()
+    merged["GIT_AUTHOR_NAME"] = GIT_TEST_NAME
+    merged["GIT_AUTHOR_EMAIL"] = GIT_TEST_EMAIL
+    merged["GIT_COMMITTER_NAME"] = GIT_TEST_NAME
+    merged["GIT_COMMITTER_EMAIL"] = GIT_TEST_EMAIL
+    return merged
+
+
+def configure_git_identity(cwd: Path) -> None:
+    """Set user.name and user.email on a temp repository."""
+    git(cwd, "config", "user.email", GIT_TEST_EMAIL)
+    git(cwd, "config", "user.name", GIT_TEST_NAME)
 
 
 def run_guard(
@@ -35,7 +53,14 @@ def run_guard(
 
 def git(cwd: Path, *args: str) -> None:
     """Run git in cwd; raise on failure."""
-    subprocess.run(["git", *args], cwd=str(cwd), check=True, capture_output=True, text=True)
+    subprocess.run(
+        ["git", *args],
+        cwd=str(cwd),
+        env=git_test_env(),
+        check=True,
+        capture_output=True,
+        text=True,
+    )
 
 
 def setup_pair(tmp: Path) -> tuple[Path, Path]:
@@ -44,16 +69,14 @@ def setup_pair(tmp: Path) -> tuple[Path, Path]:
     work = tmp / "work"
     work.mkdir()
     git(work, "init", "-b", "main")
-    git(work, "config", "user.email", "guard@test")
-    git(work, "config", "user.name", "guard test")
+    configure_git_identity(work)
     (work / "f").write_text("1\n", encoding="utf-8")
     git(work, "add", "f")
     git(work, "commit", "-m", "c1")
     git(work, "clone", "--bare", ".", str(bare))
     git(tmp, "clone", str(bare), "clone")
     clone = tmp / "clone"
-    git(clone, "config", "user.email", "guard@test")
-    git(clone, "config", "user.name", "guard test")
+    configure_git_identity(clone)
     return bare, clone
 
 
@@ -62,6 +85,7 @@ def advance_main_on_origin(bare: Path, extra_commit_msg: str) -> None:
     with tempfile.TemporaryDirectory() as td:
         w = Path(td) / "w"
         git(Path(td), "clone", str(bare), "w")
+        configure_git_identity(w)
         (w / "f").write_text(extra_commit_msg + "\n", encoding="utf-8")
         git(w, "add", "f")
         git(w, "commit", "-m", extra_commit_msg)
@@ -107,6 +131,7 @@ def main() -> int:
 
         orphan = tmp / "orphan"
         git(tmp, "clone", str(bare), "orphan")
+        configure_git_identity(orphan)
         git(orphan, "checkout", "--orphan", "side")
         (orphan / "x").write_text("orphan\n", encoding="utf-8")
         git(orphan, "add", "x")

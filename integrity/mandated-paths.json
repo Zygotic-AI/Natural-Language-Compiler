@@ -159,6 +159,9 @@
     ".github/workflows/fitness.yml": [
       "gate_set_manifest"
     ],
+    ".github/workflows/fresh-base.yml": [
+      "gate_set_manifest"
+    ],
     ".github/workflows/history-rewrite-invariant.yml": [
       "gate_set_manifest"
     ],
@@ -886,6 +889,9 @@
       "gate_set_manifest"
     ],
     "docs/spine/README.md": [
+      "gate_set_manifest"
+    ],
+    "goals/hub_deploy_git_guard/execute.sh": [
       "gate_set_manifest"
     ],
     "goals/hub_fitness_check1/execute.sh": [
@@ -1677,6 +1683,9 @@
     "tools/assert-delta-regen-orchestrate-passes.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-deploy-git-guard-passes.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-duplicated-adjective-fails.py": [
       "gate_set_manifest"
     ],
@@ -2236,6 +2245,9 @@
       "gate_set_manifest"
     ],
     "tools/ci_fitness.py": [
+      "gate_set_manifest"
+    ],
+    "tools/deploy_git_guard.sh": [
       "gate_set_manifest"
     ],
     "tools/derive-adr-0051-0052-rules.py": [
@@ -4201,6 +4213,12 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_delta_regen_orchestrate_passes/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_deploy_git_guard_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_deploy_git_guard_passes/assert_deploy_git_guard_passes.py": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_duplicated_adjective_fails/README.md": [

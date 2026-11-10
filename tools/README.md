@@ -35,7 +35,7 @@ Meta binders (hub ADR coverage): `fitness-adr-0004-0005-binder.py`, `fitness-adr
 
 Consumer naming (ADR 0011): landmine `assert-nlc-naming-passes.py`. Gate binder (ADR 0010): `fitness-harness-gate-binder-sync.py`, `assert-gate-record-describe-passes.py`. SSOT produce (ADR 0005): `fitness-produce-ssot-binder.py`. Verify skill (ADR 0021/0023): `fitness-verify-skill-binders.py`.
 
-Distribution (ADR 0015): `fitness-distribution-binder.py`; landmines install/lock/hermetic/smoke (see file). Release preflight (ADR 0014): `assert-release-preflight-passes.py`.
+Distribution (ADR 0015 / **ADR 0060**): `fitness-distribution-binder.py`, `fitness-install-scope.py`; landmines install/lock/local-dispatch/local-pin/outside-repo/foreign-skills/hermetic/smoke. Release preflight (ADR 0014): `assert-release-preflight-passes.py`.
 
 Binding matrix (ADR 0001): `fitness-adr-0001-binder.py`, `assert-binding-matrix-met.py`. P2 scope (ADR 0002): `assert-p2-hub-scope-passes.py`. Agent nouns (ADR 0003): `assert-agent-noun-structure-passes.py`, `assert-validate-agent-nouns-passes.py`. Quality handoff (ADR 0004/0005): `assert-quality-metric-passes.py`.
 

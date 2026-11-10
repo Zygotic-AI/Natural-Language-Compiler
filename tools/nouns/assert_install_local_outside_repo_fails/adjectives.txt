@@ -1,0 +1,1 @@
+# adjectives for assert_install_local_outside_repo_fails

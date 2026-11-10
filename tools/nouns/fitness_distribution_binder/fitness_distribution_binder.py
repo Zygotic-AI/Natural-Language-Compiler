@@ -17,6 +17,10 @@ LANDMINES = (
     "assert-project-lock-schema-passes.py",
     "assert-nlc-update-hermetic-passes.py",
     "assert-release-smoke-passes.py",
+    "assert-install-local-dispatch-passes.py",
+    "assert-install-local-pin-passes.py",
+    "assert-install-local-outside-repo-fails.py",
+    "assert-install-foreign-skills-passes.py",
 )
 
 

@@ -60,10 +60,10 @@ No next step until that artifact’s metrics pass.
 ### Adoption and distribution
 
 **J14 — [Greenfield](TERMS.md#greenfield) [app repo](TERMS.md#adopter) quickly**  
-Install, lock, scaffold, menu.
+Install, lock, scaffold, menu. Optional `--store project` / install `--local` pins a hub copy in that repo.
 
 **J15 — Upgrade [hub](TERMS.md#hub) semver safely**  
-Lock + migration chain.
+Lock + migration chain. A local pin stays put when the machine-wide install moves.
 
 **J16 — Import [requirement packs](TERMS.md#requirement-pack)**  
 Install and ratify **your** requirement bundles in **your** repo (export/consume).
@@ -106,8 +106,8 @@ Retries and verbs honor idempotency keys—checked in fitness.
 | J11 | Prove before ship | **Available** | `./nlc verify`; [`VERIFY-AND-SHIP.md`](nlc/VERIFY-AND-SHIP.md); [`release-audit.py`](../tools/release-audit.py). | — |
 | J12 | Defect upstream | **Available** | [UC10](TERMS.md#uc10); planit + regen path; charter defect policy. | — |
 | J13 | Gate after generate | **Available** | [ADR 0010](../adrs/0010-gate-after-every-generate.md); `gate-record`; `nlc verify`. | — |
-| J14 | Greenfield adopt | **Available** | [`nlc-init.py`](../tools/nlc-init.py); [`BOOTSTRAP.md`](adoption/BOOTSTRAP.md). | — |
-| J15 | Hub upgrade | **Available** | [`nlc-update.py`](../tools/nlc-update.py); [`migrations/`](../migrations/README.md). | — |
+| J14 | Greenfield adopt | **Available** | [`nlc-init.py`](../tools/nlc-init.py); [`BOOTSTRAP.md`](adoption/BOOTSTRAP.md); install `--local` ([ADR 0060](../adrs/0060-install-scope-and-path-dispatch.md)). | — |
+| J15 | Hub upgrade | **Available** | [`nlc-update.py`](../tools/nlc-update.py); [`migrations/`](../migrations/README.md); local pin does not follow a later global upgrade. | — |
 | J16 | Requirement packs | **Available** (v1) | export/install, [`pack-ingest`](../tools/nlc-pack-ingest.py), `/requirement-pack-ingest` | Consume/regen hook + optional registry ([`TODO`](../TODO) Hub v0.2). |
 | J17 | Adversarial before emit | **Available** | C23; [planit](../.agents/skills/planit/SKILL.md); [`bbp-reviewer`](../agents/). | — |
 | J18 | Produce ≠ audit ≠ ship | **Available** | [ADR 0003](../adrs/0003-systems-extension-agent-nouns.md); agent roles. | — |

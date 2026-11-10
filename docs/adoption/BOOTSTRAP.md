@@ -36,9 +36,9 @@ Refuses non-empty `domain/` or `goals/` (brownfield: [BROWNFIELD.md](BROWNFIELD.
    curl -fsSL https://raw.githubusercontent.com/Zygotic-AI/Natural-Language-Compiler/main/scripts/install.sh | bash
    ```
 
-   Remote install fetches the latest **semver release tarball** (or `NLC_VERSION` / `NLC_REF` override). [Hub](../TERMS.md#hub) lands in `~/.local/share/nlc/versions/<semver>/` with an active `hub` pointer. [Verify](../TERMS.md#verify): [`integrity/nlc-install-hashes.json`](../../integrity/nlc-install-hashes.json) unless `NLC_SKIP_VERIFY=1`.
+   Remote install fetches the latest **semver release tarball** (or `NLC_VERSION` / `NLC_REF` override). Piped install is **global**: [hub](../TERMS.md#hub) lands in `~/.local/share/nlc/versions/<semver>/` with an active `hub` pointer. A TTY prompt (or `--local` / `NLC_INSTALL_SCOPE=local`) pins the current git repo instead (`store: project`, `.nlc/hub`). PATH `nlc` that is the global command execs `./nlc` in that repo when it exists ([ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md)). [Verify](../TERMS.md#verify): [`integrity/nlc-install-hashes.json`](../../integrity/nlc-install-hashes.json) unless `NLC_SKIP_VERIFY=1`.
 
-   [Greenfield](../TERMS.md#greenfield) scaffold writes [`.nlc/lock.json`](../../integrity/schemas/nlc-lock.schema.json). Upgrade later: `python3 ~/.local/share/nlc/hub/tools/nlc-update.py` from the [app repo](../TERMS.md#adopter) (ADR 0014).
+   [Greenfield](../TERMS.md#greenfield) scaffold writes [`.nlc/lock.json`](../../integrity/schemas/nlc-lock.schema.json). Pin a hub copy in the new app: `python3 /path/to/nlc-hub/tools/nlc-init.py ~/projects/my-app --name MyApp --store project`. Upgrade later: `python3 ~/.local/share/nlc/hub/tools/nlc-update.py` from the [app repo](../TERMS.md#adopter) (ADR 0014).
 
 3. **Add [charter](../TERMS.md#charter)** — copy [`CHARTER.md`](../../CHARTER.md) or link in root `README.md` to the [hub](../TERMS.md#hub) revision you adopt.
 
@@ -62,7 +62,7 @@ Refuses non-empty `domain/` or `goals/` (brownfield: [BROWNFIELD.md](BROWNFIELD.
 | ------------ | ---------------- |
 | [Charter](../TERMS.md#charter) SSOT, [integrity](../TERMS.md#integrity) theory, `tools/` sources | Your `domain/`, `goals/`, app ADRs |
 | `examples/*` [gate](../TERMS.md#gate) specimens | Your [compiled system](../TERMS.md#compiled-system) |
-| Portable skills (install copies to `~/.agents/skills`) | Repo-specific fitness [binding](../TERMS.md#binding) (which tools scan which tree) |
+| Portable skills (global install copies to `~/.agents/skills`; local install copies into the repo) | Repo-specific fitness [binding](../TERMS.md#binding) (which tools scan which tree) |
 
 ## Still missing (honest)
 

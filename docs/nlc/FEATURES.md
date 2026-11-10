@@ -9,7 +9,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | In the current ship (today **v0.5.0**) |
+| [Released](#released) | In the current ship (today **v0.6.0**) |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-112) | Features we want, not ordered into 1–12 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
@@ -38,7 +38,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 
 ## Released
 
-Current ship: **v0.5.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
+Current ship: **v0.6.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -83,7 +83,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Emit pipeline gates | No emit if the action is not on the plan or decisions are unbound | Default-closed around emit. |
 | Semantic rule apply | Must/forbid on tagged Python goals | First slice. Combining across different actions is upcoming. |
 | Human ship check | `./nlc ship-check` | Promotion is human. |
-| Compiler upgrade | `./nlc upgrade` walks the version chain | Global upgrade exists; **per-repo install pin** is still upcoming. |
+| Compiler upgrade | `./nlc upgrade` walks the version chain | Global upgrade exists. Per-repo install pin is [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md). |
 | Install doctor | `./nlc doctor` / `doctor fix` | Repair without re-reading the README. |
 | Retry idempotency checks | Fail when a retry would double-apply | Fitness, not a dashboard feature. |
 | Quality as ops vs defects | Each gate is pass or fail | No partial scores. |
@@ -91,7 +91,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | TypeScript adapter specimen | Teaching example only | Not “we convert languages.” |
 | Adopter CI template | `nlc-init` writes a verify workflow | PRs run `./nlc verify`. |
 
-### v0.3.0–v0.5.0 (current ship)
+### v0.3.0–v0.6.0 (current ship)
 
 | Feature | Version | What the customer gets | Why it is here |
 | ------- | ------- | ---------------------- | -------------- |
@@ -101,6 +101,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Tag-time checker signature | v0.4.1 | Owner signs the checker digest at tag | Thinner than “customer proves the whole release is unedited.” |
 | GitHub product name | v0.5.0 | Install from `Zygotic-AI/Natural-Language-Compiler` | Rename. Old name redirects. |
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
+| Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
 
 ---
 
@@ -110,7 +111,7 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 ### 1. No editor hooks (harness- and model-agnostic)
 
-**Status.** Now in Released. Remaining upcoming starts at item 2.
+**Status.** Now in Released. Remaining upcoming starts at item 3.
 
 **What.** NLC does not ship or rely on editor/harness hooks. After the agent writes files, `./nlc verify` still fails if compiled files appeared without stamps and gates. No required model or agent host.
 
@@ -126,6 +127,8 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 ### 2. Install NLC into a specific repo
 
+**Status.** Now in Released. Remaining upcoming starts at item 3.
+
 **What.** A repo can pin its own NLC copy. The machine-wide install can move without dragging every repo along.
 
 **Use cases.**
@@ -134,7 +137,7 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 - The self-rewrite goes sideways. A repo stays on the last good pin.
 - A test repo pins the self-rewrite build without affecting everything else.
 
-**Why this order.** This is not only a brownfield surface. Greenfield needs it too. It has to exist **before** we brownfield ourselves, so a bad self-rewrite is survivable. Today install is per user (`~/.local/share/nlc`, `~/.local/bin`, `~/.agents/skills`).
+**Why this order.** This is not only a brownfield surface. Greenfield needs it too. It has to exist **before** we brownfield ourselves, so a bad self-rewrite is survivable. Law: [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) (Accepted). Installer prompt is global or local. Piped `curl | bash` stays global unless `--local` / `NLC_INSTALL_SCOPE=local`. PATH `nlc` that is the global command execs `./nlc` in the current repo when that file exists.
 
 ### 3. Full requirement import
 
@@ -277,9 +280,9 @@ Only slices we are scheduling. Confidence is highest in the next one.
 
 ### Next (high confidence)
 
-**Install NLC into a specific repo** (Upcoming item 2). Needed before we brownfield ourselves.
+**Full requirement import** (Upcoming item 3). Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first.
 
-Open work: [`TODO`](../../TODO) rows under “install NLC into a specific repo.”
+Open work: [`TODO`](../../TODO) rows under “full requirement import.”
 
 ### After that (medium confidence)
 

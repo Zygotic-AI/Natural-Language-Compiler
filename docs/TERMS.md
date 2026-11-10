@@ -328,7 +328,7 @@ Immutable chain of ADRs about one decision topic. Only the **tip** is in the **a
 
 ### Lock file
 
-`.nlc/lock.json` pins hub semver for an **adopter** (**ADR 0015**).
+`.nlc/lock.json` pins hub semver for an **adopter** (**ADR 0015**, **ADR 0060**). `store: user` is the machine-wide copy. `store: project` pins a hub copy under that repo (`.nlc/hub`). `store: workspace` remains named, not an install prompt.
 
 ---
 
@@ -600,7 +600,7 @@ Full **fitness** / release-audit path + refresh fingerprints (**ADR 0021**).
 
 ### Version store
 
-Hub semver trees under install root (**ADR 0015**).
+Hub semver trees under the install root (**ADR 0015**, **ADR 0060**). Global install uses `~/.local/share/nlc`. Local install uses `<repo>/.nlc`.
 
 ---
 

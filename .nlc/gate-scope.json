@@ -2,9 +2,13 @@
   "schema": 1,
   "artifacts": [
     "adrs/0049-release-planner-owns-stops.md",
+    "goals/hub_install/execute.ps1",
+    "goals/hub_install/execute.sh",
+    "tools/assert-install-foreign-skills-passes.py",
     "tools/assert-release-context-passes.py",
     "tools/assert-release-planner-ownership-fails.py",
     "tools/fitness-release-planner-ownership.py",
+    "tools/nouns/assert_install_foreign_skills_passes/assert_install_foreign_skills_passes.py",
     "tools/nouns/fitness_release_planner_ownership/fitness_release_planner_ownership.py"
   ]
 }

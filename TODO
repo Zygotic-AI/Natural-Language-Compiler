@@ -28,6 +28,7 @@ How to read red vs green (hub CI): designed red on its specimen → NOT_MET; ass
 
 - ✔ Consumer `README.md` rewrite @done(26-09-20 08:15)
 - ✔ [`scripts/install.sh`](scripts/install.sh) + curl one-liner (mac/linux/WSL) @done(26-09-20 08:15)
+- ✔ Piped install author checklist grades the hub copied skills tree only, not mixed `~/.agents/skills` (GitHub #67) @done(26-11-10 19:20)
 - ✔ [`scripts/install.ps1`](scripts/install.ps1) + README / GETTING-STARTED Windows install @done(26-09-20 08:25)
 - ✔ **Windows prove path** — [`tools/ci_fitness.py`](tools/ci_fitness.py), [`tools/ci-fitness.ps1`](tools/ci-fitness.ps1); `ci-fitness.sh` delegates @done(26-09-20 08:25)
 - ✔ Distribution v0 — ADR 0015, tarball fetch, version store, lock, `nlc-update`/`nlc-fetch-hub`, release workflow @done(26-09-20 09:30)

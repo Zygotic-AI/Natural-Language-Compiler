@@ -93,9 +93,38 @@ $SkillsSrc = Join-Path $SrcRoot '.agents\skills'
 if (-not (Test-Path -LiteralPath $SkillsSrc)) {
     Write-Error "missing $SkillsSrc"
 }
-Copy-Item -Path (Join-Path $SkillsSrc '*') -Destination $AgentsSkills -Recurse -Force
 
 $HubDest = $SrcRoot
+$SkillCheckGoal = Join-Path $HubDest 'goals\hub_skill_author_check\execute.ps1'
+if (-not (Test-Path -LiteralPath $SkillCheckGoal)) {
+    Write-Host 'Install could not confirm installed skills are authored correctly.' -ForegroundColor Red
+    Write-Host '  What''s wrong: missing goals/hub_skill_author_check/execute.ps1'
+    Write-Host '  Fix: re-run install from a hub that includes the skill-author use-case.'
+    [Console]::Error.WriteLine('INSTALL:NOT_MET missing skill author check')
+    exit 1
+}
+
+# ADR 0054: same CLI on the copied hub skills tree, not mixed ~/.agents/skills.
+$SkillsStaging = Join-Path ([System.IO.Path]::GetTempPath()) ('nlc-hub-skills-' + [guid]::NewGuid().ToString())
+New-Item -ItemType Directory -Path $SkillsStaging -Force | Out-Null
+try {
+    Copy-Item -Path (Join-Path $SkillsSrc '*') -Destination $SkillsStaging -Recurse -Force
+    Write-Host '  verify: skill author checklist'
+    & $SkillCheckGoal --root $SkillsStaging
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host 'Install could not confirm the hub skills copy is authored correctly.' -ForegroundColor Red
+        Write-Host "  What's wrong: published skill checklist failed on the hub skills copy (not other skills already in $AgentsSkills)"
+        Write-Host '  Fix: repair the hub skills, then re-run install.'
+        [Console]::Error.WriteLine('INSTALL:NOT_MET skill author checklist failed')
+        exit 1
+    }
+    Copy-Item -Path (Join-Path $SkillsStaging '*') -Destination $AgentsSkills -Recurse -Force
+}
+finally {
+    if (Test-Path -LiteralPath $SkillsStaging) {
+        Remove-Item -LiteralPath $SkillsStaging -Recurse -Force
+    }
+}
 
 $CursorHome = Join-Path $env:USERPROFILE '.cursor'
 if (Test-Path -LiteralPath $CursorHome) {
@@ -113,24 +142,6 @@ if (Test-Path -LiteralPath $CursorHome) {
         }
     }
     Write-Host '  cursor: copied repo-local BBP + planit skills'
-}
-
-$SkillCheckGoal = Join-Path $HubDest 'goals\hub_skill_author_check\execute.ps1'
-if (-not (Test-Path -LiteralPath $SkillCheckGoal)) {
-    Write-Host 'Install could not confirm installed skills are authored correctly.' -ForegroundColor Red
-    Write-Host '  What''s wrong: missing goals/hub_skill_author_check/execute.ps1'
-    Write-Host '  Fix: re-run install from a hub that includes the skill-author use-case.'
-    [Console]::Error.WriteLine('INSTALL:NOT_MET missing skill author check')
-    exit 1
-}
-Write-Host '  verify: skill author checklist'
-& $SkillCheckGoal --root $AgentsSkills
-if ($LASTEXITCODE -ne 0) {
-    Write-Host 'Install could not confirm installed skills are authored correctly.' -ForegroundColor Red
-    Write-Host "  What's wrong: published skill checklist failed on $AgentsSkills"
-    Write-Host '  Fix: repair the hub skills, then re-run install.'
-    [Console]::Error.WriteLine('INSTALL:NOT_MET skill author checklist failed')
-    exit 1
 }
 
 if (-not $env:NLC_SKIP_VERIFY) {

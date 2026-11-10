@@ -3,61 +3,36 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "rca-2026-10-09-release-stops-outside-planner"
+    "67"
   ],
-  "ssot_exit_status": "plan-audit-pass",
+  "ssot_exit_status": "open",
   "quality_snapshot": {
-    "opportunities": 10,
-    "ops": 10,
+    "opportunities": 11,
+    "ops": 11,
     "defects": 0,
     "quality": 1.0
   },
   "findings": [
     {
-      "id": "exact-rca-prevention",
+      "id": "GATE-STD",
       "result": "PASS"
     },
     {
-      "id": "hidden-bypasses",
+      "id": "ADR-0054-copied-tree",
       "result": "PASS"
     },
     {
-      "id": "god-facts",
+      "id": "no-second-checker",
       "result": "PASS"
     },
     {
-      "id": "action-taxonomy",
-      "result": "PASS"
-    },
-    {
-      "id": "false-context-acceptance",
-      "result": "PASS"
-    },
-    {
-      "id": "unsafe-automatic-git-mutation",
-      "result": "PASS"
-    },
-    {
-      "id": "negative-fixtures",
-      "result": "PASS"
-    },
-    {
-      "id": "gate-standard",
-      "result": "PASS"
-    },
-    {
-      "id": "class-correctness",
-      "result": "PASS"
-    },
-    {
-      "id": "amendment-required",
+      "id": "class-C",
       "result": "PASS"
     }
   ],
   "evidence": [
-    "docs/rca/2026-10-09-release-stops-outside-planner.md",
-    "adrs/0039-single-command-human-surfaces.md",
-    "adrs/0040-process-preflight-remediation.md",
-    "adrs/0045-hub-release-identity.md"
+    "goals/hub_install/execute.sh",
+    "adrs/0054-published-skill-author-contract.md",
+    "https://github.com/Zygotic-AI/Natural-Language-Compiler/issues/67"
   ]
 }

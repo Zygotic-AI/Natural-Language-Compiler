@@ -7,6 +7,20 @@
       "outcome": "PASS",
       "command": "proposal fields + default-closed gate check",
       "at": "2026-10-10T05:07:51Z"
+    },
+    {
+      "artifact": "goals/hub_install/execute.sh",
+      "gate_id": "skill-author-copied-tree",
+      "outcome": "PASS",
+      "command": "python3 tools/assert-install-foreign-skills-passes.py",
+      "at": "2026-11-10T19:03:32Z"
+    },
+    {
+      "artifact": "tools/assert-install-foreign-skills-passes.py",
+      "gate_id": "assert-install-foreign-skills",
+      "outcome": "PASS",
+      "command": "python3 tools/assert-install-foreign-skills-passes.py",
+      "at": "2026-11-10T19:03:32Z"
     }
   ]
 }

@@ -131,3 +131,4 @@ Release-tool existence and fact probes open a gate only when every check is a ha
 
 - Prefer promise chaining over `await`; `.catch()` instead of try/catch around chains; `async` on Promise-returning functions; JSDoc on methods (when JS/TS lands).
 - Portable agent SSOT: `.agents/` + `AGENTS.md`, not `.cursor/skills` as sole copy.
+- Post-install published-skill author check (ADR 0054) runs on a hub-only copy of `.agents/skills`, then overlays into `~/.agents/skills`. Other portable skills already in that directory are not graded by the hub checklist (GitHub issue 67).

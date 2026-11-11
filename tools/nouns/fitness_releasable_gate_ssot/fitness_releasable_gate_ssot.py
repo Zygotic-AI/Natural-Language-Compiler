@@ -79,6 +79,40 @@ def scan_ci_workflow_self_attesting() -> list[str]:
     return violations
 
 
+def scan_fitness_pull_request_only() -> list[str]:
+    """Refuse fitness.yml triggering on push (all four jobs share this `on:`)."""
+    rel = ".github/workflows/fitness.yml"
+    path = ROOT / rel
+    if not path.is_file():
+        return [f"missing {rel}"]
+    on_lines: list[str] = []
+    in_on = False
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        if line.startswith("on:"):
+            in_on = True
+            on_lines.append(line)
+            continue
+        if in_on:
+            if line.startswith("jobs:"):
+                break
+            if line and not line[0].isspace() and not line.startswith("#"):
+                break
+            on_lines.append(line)
+    block = "\n".join(on_lines)
+    violations: list[str] = []
+    if "pull_request:" not in block:
+        violations.append(f"{rel} must trigger on pull_request")
+    for line in on_lines:
+        stripped = line.split("#", 1)[0].strip()
+        if stripped == "push:" or stripped == "push":
+            violations.append(
+                f"{rel} must not trigger on push; fitness, piped-install-linux, "
+                "piped-install-macos, and piped-install-windows run on pull_request only"
+            )
+            break
+    return violations
+
+
 def scan_fitness_nlc_verify_always_runs() -> list[str]:
     """Refuse fitness.yml NLC verify skipped when an earlier step fails."""
     rel = ".github/workflows/fitness.yml"
@@ -172,6 +206,7 @@ def main() -> int:
     violations.extend(wired_to_runner())
     violations.extend(scan_ci_workflow_self_attesting())
     violations.extend(scan_fitness_nlc_verify_always_runs())
+    violations.extend(scan_fitness_pull_request_only())
     violations.extend(scan_verdict_branching_in_gate_code())
     for item in violations:
         print(f"VIOLATION {item}")

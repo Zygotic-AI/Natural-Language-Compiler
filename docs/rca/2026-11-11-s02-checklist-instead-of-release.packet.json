@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "After ship GO, the producer session printed a human checklist instead of invoking ./release.",
+  "unsuitable_process": "The release skill's Step 6 is prose that says run ./release and do not dump steps, but nothing refuses a chat checklist. A missing origin release/v* was treated as a reason to skip the orchestrator.",
+  "climb_steps": [
+    "Chat listed human steps instead of Planner stdout.",
+    "Skill Step 6 is a command fence with no machine refuse when chat substitutes a list.",
+    "CREATE_RELEASE_LINE does not require origin/release/v* to exist first.",
+    "ADR 0038 forbids memory rituals; ADR 0049 requires planner-owned stops."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0038", "0049", "0039"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-adr-0038-no-memory"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S02"
+}

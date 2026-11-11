@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Tag-time ./release graded containment on a local release/v0.7.0 that was behind origin, and reported NOT_MET while origin already contained main.",
+  "unsuitable_process": "nlc_release_context.main_context diffs origin/main against the local release/v* name. When origin/release/v* exists and is ahead, that local tip is the wrong input. ADR 0049 main_context is the ship line, which is origin when the remote-tracking ref exists.",
+  "climb_steps": [
+    "./release printed BLOCKED_MAIN_CONTEXT_NOT_CONTAINED on a stale local.",
+    "main_context uses ^rel_branch without origin/ prefix.",
+    "Containment is graded before FAST_FORWARD_LOCAL when relation is behind.",
+    "ADR 0049 main_context must reflect the release line being shipped."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_context"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S11"
+}

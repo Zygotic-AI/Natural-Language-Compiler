@@ -37,21 +37,20 @@ def _strip_pr_urls(text: str) -> str:
 
 
 def runs_block(runs: object) -> str | None:
-    """None when a push fitness run succeeded and every completed run succeeded."""
+    """None when no pull_request fitness run failed or is still running.
+
+    `.github/workflows/fitness.yml` runs only on pull_request (all four jobs).
+    A GitHub fitness run cannot exist until a pull request exists, so offer
+    does not require a completed run. Push-event runs are ignored.
+    """
     if not isinstance(runs, list):
         return "fitness run list unreadable"
     if any(not isinstance(item, dict) for item in runs):
         return "fitness run list unreadable"
-    if any(item.get("status") != "completed" for item in runs):
+    pr_runs = [item for item in runs if item.get("event") == "pull_request"]
+    if any(item.get("status") != "completed" for item in pr_runs):
         return "fitness run still in progress"
-    push_ok = [
-        item
-        for item in runs
-        if item.get("event") == "push" and item.get("conclusion") == "success"
-    ]
-    bad = [item for item in runs if item.get("conclusion") != "success"]
-    if not push_ok:
-        return "no successful push fitness run"
+    bad = [item for item in pr_runs if item.get("conclusion") != "success"]
     if bad:
         ids = ",".join(str(item.get("databaseId")) for item in bad)
         return f"completed fitness run not success {ids}"
@@ -196,7 +195,7 @@ def _self_test() -> int:
             False,
         ),
         (
-            "no-push",
+            "no-runs-yet",
             {
                 "stamp_ok": True,
                 "stamp_detail": "",
@@ -204,11 +203,11 @@ def _self_test() -> int:
                 "verify_text": "Verify passed.",
                 "runs": [],
             },
-            1,
-            False,
+            0,
+            True,
         ),
         (
-            "push-failed",
+            "push-ignored",
             {
                 "stamp_ok": True,
                 "stamp_detail": "",
@@ -216,8 +215,8 @@ def _self_test() -> int:
                 "verify_text": "Verify passed.",
                 "runs": [{"event": "push", "conclusion": "failure", "status": "completed", "databaseId": 41385442250}],
             },
-            1,
-            False,
+            0,
+            True,
         ),
         (
             "in-progress",
@@ -226,13 +225,13 @@ def _self_test() -> int:
                 "stamp_detail": "",
                 "verify_code": 0,
                 "verify_text": "Verify passed.",
-                "runs": [{"event": "push", "conclusion": "", "status": "in_progress", "databaseId": 2}],
+                "runs": [{"event": "pull_request", "conclusion": "", "status": "in_progress", "databaseId": 2}],
             },
             1,
             False,
         ),
         (
-            "mixed",
+            "pr-failed",
             {
                 "stamp_ok": True,
                 "stamp_detail": "",
@@ -254,7 +253,7 @@ def _self_test() -> int:
                 "verify_code": 0,
                 "verify_text": "Verify passed.",
                 "runs": [
-                    {"event": "push", "conclusion": "success", "status": "completed", "databaseId": 5},
+                    {"event": "pull_request", "conclusion": "success", "status": "completed", "databaseId": 5},
                 ],
             },
             0,

@@ -123,7 +123,7 @@ Do not run `gh pr create` yourself. Do not tell the operator a pull request is r
 python3 tools/pr-offer-gate.py --base main --head <branch> --title "<title>" --body "<body>"
 ```
 
-Non-zero output is `RESULT:NOT_MET` plus the violation. Stop on that output. The command runs `./nlc verify` and requires a successful push fitness run on that commit before it calls `gh pr create`.
+Non-zero output is `RESULT:NOT_MET` plus the violation. Stop on that output. The command runs `./nlc verify` on that commit before it calls `gh pr create`. Hub `fitness.yml` (all four jobs) runs only on `pull_request`, so a GitHub fitness run cannot exist until the pull request exists.
 
 ### 6 — Run `./release`
 

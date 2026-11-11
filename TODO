@@ -407,6 +407,36 @@ Machine: `FULL_NLC_AUDIT:MET`. Inference: **PASS with residuals**. RCA: [`docs/r
 
 Honest queue for active work. Do **not** `@done` until the stop predicate is MET. SSOT for X4 counts: [`integrity/hub-x4-remainder.json`](integrity/hub-x4-remainder.json); tranche ids: [`integrity/hub-x4-tranche-plan.json`](integrity/hub-x4-tranche-plan.json).
 
+### RCA — v0.7.0 ship session (one RCA per row)
+
+Working packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md).
+
+Run **every** id. Do not fold a later id into an earlier one. Do not name a producer session or a human manager as the cause ([ADR 0025](adrs/0025-belief-no-blame-climb.md) — defects name an unsuitable process). Do not ask for an owner signature to start.
+
+**Close a row only when all four are true:** instance record `docs/rca/YYYY-MM-DD-<slug>.md` with the ten sections in the RCA standard; `docs/rca/YYYY-MM-DD-<slug>.packet.json` prints `RCA_PACKET:MET` from `python3 tools/validate-rca-packet.py`; this line cites that record path; the record’s one preventive action is a **new** `TODO` row (implement only if the operator asks).
+
+Shared facts (tag `v0.7.0`, merge `2e868b1`, squash `cc43f3e`, PRs #69–#74) live in the packet.
+
+- ☐ **RCA-S01** — `gh workflow run start-release` returned HTTP 403; the producer then instructed a GitHub Actions click. Packet § RCA-S01.
+- ☐ **RCA-S02** — After ship authorization, the producer dumped a human checklist instead of invoking `./release`. Packet § RCA-S02.
+- ☐ **RCA-S03** — Ship pull request #71 was offered without a hard stop that a squash merge cannot be tagged. Packet § RCA-S03.
+- ☐ **RCA-S04** — After #71 merged, the producer said the next step was the tag while containment and the tag-time signature both refused. Packet § RCA-S04.
+- ☐ **RCA-S05** — The producer counted “one more merge” while pull request #73 was `CONFLICTING`. Packet § RCA-S05.
+- ☐ **RCA-S06** — After `RELEASE:AWAIT publication`, the producer did not resume when GitHub Release `v0.7.0` already existed. Packet § RCA-S06.
+- ☐ **RCA-S07** — Ship pull request #71 opened before the tag-time checker-digest owner signature existed (ADR 0057 — one owner signature over the pass/fail checkers at tag time). Packet § RCA-S07.
+- ☐ **RCA-S08** — Pull request #73 opened before `origin/main` was contained on `release/v0.7.0` (ADR 0049 `main_context`). Packet § RCA-S08.
+- ☐ **RCA-S09** — Prep surfaces written before planner `WRITE_RECORD`, then `BLOCKED_WRITE_RECORD_STALLED`. Packet § RCA-S09.
+- ☐ **RCA-S10** — Prep committed on local `release/v0.7.0`; `git push` of that ref rejected by ruleset `25824126`. Packet § RCA-S10. Recurrence of [`docs/rca/2026-10-31-release-line-push-without-pr.md`](docs/rca/2026-10-31-release-line-push-without-pr.md).
+- ☐ **RCA-S11** — Tag-time `./release` graded containment on a local `release/v0.7.0` behind origin. Packet § RCA-S11.
+- ☐ **RCA-S12** — First `WRITE_NOTES` stopped on empty Highlights (`RELEASE_NOTES:NOT_MET`). Packet § RCA-S12.
+- ☐ **RCA-S13** — `VERIFY_TARGET` failed after `ALIGN_VERSION` because FINDINGS / DESCRIBE / record still said 0.6.0. Packet § RCA-S13.
+- ☐ **RCA-S14** — Closeout `./nlc verify` failed on a stale unsigned gate-set manifest after TODO / FEATURES edits; proved twice. Packet § RCA-S14.
+- ☐ **RCA-S15** — Pull request #71 was squashed (`cc43f3e`, one parent) and could not be tagged. Packet § RCA-S15. Do not merge into RCA-S03.
+- ☐ **RCA-S16** — Tag-time signature landed in pull request #72 after the first ship pull request. Packet § RCA-S16. Do not merge into RCA-S07.
+- ☐ **RCA-S17** — Pull request #74 existed only to contain the #71 squash so #73 could merge. Packet § RCA-S17. Do not merge into RCA-S03 / S08 / S15.
+- ☐ **RCA-S18** — First land of the install-scope slice (ADR 0060 — pin NLC in one repo) failed hub fitness / CI (stamp, `hub_tool()`, untracked landmines). Packet § RCA-S18.
+- ☐ **RCA-S19** — `docs/nlc/FEATURES.md` still said current ship v0.5.0 while the tag and version file were v0.6.0. Packet § RCA-S19.
+
 ### Continuity (pre-ship)
 
 - ✔ Commit product batch @ `042e7d6` @done(26-09-24 18:00); next: [`/release`](.agents/skills/release/SKILL.md) → `./release` (human prompts only).

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "defect_summary": "Producer session ran gh workflow run start-release, got HTTP 403, then instructed an Actions click. Origin release/v* creation is not a ./release planner action.",
+  "unsuitable_process": "CREATE_RELEASE_LINE only creates a local git branch. Origin release/v* is required by the start-release workflow and GitHub ruleset 25824126, but that creation is not a planner REPAIR or HUMAN_DECISION, so a producer session fills the gap with a side-channel dispatch and a chat checklist.",
+  "climb_steps": [
+    "Chat instructed an Actions click after HTTP 403.",
+    "gh workflow run start-release is not an executor action and fails with 403 on an integration token.",
+    "CREATE_RELEASE_LINE in goals/hub_release/execute.sh only git checkout -b.",
+    "docs/adoption/RELEASE.md names the Actions tab but that sentence is not a planner stop.",
+    "ADR 0049 requires every intentional release stop to be a planner action."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049", "0038", "0039"],
+    "rule_ids": ["NLC-0025-01", "NLC-0025-02"],
+    "gate_ids": ["fitness-release-planner-ownership"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S01"
+}

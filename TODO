@@ -417,25 +417,44 @@ Run **every** id. Do not fold a later id into an earlier one. Do not name a prod
 
 Shared facts (tag `v0.7.0`, merge `2e868b1`, squash `cc43f3e`, PRs #69–#74) live in the packet.
 
-- ☐ **RCA-S01** — `gh workflow run start-release` returned HTTP 403; the producer then instructed a GitHub Actions click. Packet § RCA-S01.
-- ☐ **RCA-S02** — After ship authorization, the producer dumped a human checklist instead of invoking `./release`. Packet § RCA-S02.
-- ☐ **RCA-S03** — Ship pull request #71 was offered without a hard stop that a squash merge cannot be tagged. Packet § RCA-S03.
-- ☐ **RCA-S04** — After #71 merged, the producer said the next step was the tag while containment and the tag-time signature both refused. Packet § RCA-S04.
-- ☐ **RCA-S05** — The producer counted “one more merge” while pull request #73 was `CONFLICTING`. Packet § RCA-S05.
-- ☐ **RCA-S06** — After `RELEASE:AWAIT publication`, the producer did not resume when GitHub Release `v0.7.0` already existed. Packet § RCA-S06.
-- ☐ **RCA-S07** — Ship pull request #71 opened before the tag-time checker-digest owner signature existed (ADR 0057 — one owner signature over the pass/fail checkers at tag time). Packet § RCA-S07.
-- ☐ **RCA-S08** — Pull request #73 opened before `origin/main` was contained on `release/v0.7.0` (ADR 0049 `main_context`). Packet § RCA-S08.
-- ☐ **RCA-S09** — Prep surfaces written before planner `WRITE_RECORD`, then `BLOCKED_WRITE_RECORD_STALLED`. Packet § RCA-S09.
-- ☐ **RCA-S10** — Prep committed on local `release/v0.7.0`; `git push` of that ref rejected by ruleset `25824126`. Packet § RCA-S10. Recurrence of [`docs/rca/2026-10-31-release-line-push-without-pr.md`](docs/rca/2026-10-31-release-line-push-without-pr.md).
-- ☐ **RCA-S11** — Tag-time `./release` graded containment on a local `release/v0.7.0` behind origin. Packet § RCA-S11.
-- ☐ **RCA-S12** — First `WRITE_NOTES` stopped on empty Highlights (`RELEASE_NOTES:NOT_MET`). Packet § RCA-S12.
-- ☐ **RCA-S13** — `VERIFY_TARGET` failed after `ALIGN_VERSION` because FINDINGS / DESCRIBE / record still said 0.6.0. Packet § RCA-S13.
-- ☐ **RCA-S14** — Closeout `./nlc verify` failed on a stale unsigned gate-set manifest after TODO / FEATURES edits; proved twice. Packet § RCA-S14.
-- ☐ **RCA-S15** — Pull request #71 was squashed (`cc43f3e`, one parent) and could not be tagged. Packet § RCA-S15. Do not merge into RCA-S03.
-- ☐ **RCA-S16** — Tag-time signature landed in pull request #72 after the first ship pull request. Packet § RCA-S16. Do not merge into RCA-S07.
-- ☐ **RCA-S17** — Pull request #74 existed only to contain the #71 squash so #73 could merge. Packet § RCA-S17. Do not merge into RCA-S03 / S08 / S15.
-- ☐ **RCA-S18** — First land of the install-scope slice (ADR 0060 — pin NLC in one repo) failed hub fitness / CI (stamp, `hub_tool()`, untracked landmines). Packet § RCA-S18.
-- ☐ **RCA-S19** — `docs/nlc/FEATURES.md` still said current ship v0.5.0 while the tag and version file were v0.6.0. Packet § RCA-S19.
+- ✔ **RCA-S01** — `gh workflow run start-release` returned HTTP 403; the producer then instructed a GitHub Actions click. Record: [`docs/rca/2026-11-11-s01-start-release-dispatch.md`](docs/rca/2026-11-11-s01-start-release-dispatch.md). Packet MET. @done(26-11-11 02:45)
+- ☐ **RCA-S01 preventive** — Make origin `release/v*` creation a planner action (dispatch start-release or `HUMAN_DECISION` quoting `docs/adoption/RELEASE.md`). See S01 record §9.
+- ✔ **RCA-S02** — After ship authorization, the producer dumped a human checklist instead of invoking `./release`. Record: [`docs/rca/2026-11-11-s02-checklist-instead-of-release.md`](docs/rca/2026-11-11-s02-checklist-instead-of-release.md). Packet MET. @done(26-11-11 03:05)
+- ☐ **RCA-S02 preventive** — After Ship: GO, invoke `./release` before any human checklist; skill Step 6 must forbid skipping the orchestrator when origin `release/v*` is missing. See S02 record §9.
+- ✔ **RCA-S03** — Ship pull request #71 was offered without a hard stop that a squash merge cannot be tagged. Record: [`docs/rca/2026-11-11-s03-ship-pr-no-squash-stop.md`](docs/rca/2026-11-11-s03-ship-pr-no-squash-stop.md). Packet MET. @done(26-11-11 03:10)
+- ☐ **RCA-S03 preventive** — Lock merge method for `release/v*` → `main` to merge commit only (ruleset or API). See S03 record §9.
+- ✔ **RCA-S04** — After #71 merged, the producer said the next step was the tag while containment and the tag-time signature both refused. Record: [`docs/rca/2026-11-11-s04-tag-next-after-squash.md`](docs/rca/2026-11-11-s04-tag-next-after-squash.md). Packet MET. @done(26-11-11 03:10)
+- ☐ **RCA-S04 preventive** — Forbid “tag after merge” in CREATE_PR / offer bodies; after a ship PR merges, quote `./release` stdout only. See S04 record §9.
+- ✔ **RCA-S05** — The producer counted “one more merge” while pull request #73 was `CONFLICTING`. Record: [`docs/rca/2026-11-11-s05-one-more-merge-while-conflicting.md`](docs/rca/2026-11-11-s05-one-more-merge-while-conflicting.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S05 preventive** — Require a live `mergeable` observation before any remaining-merge count; `CONFLICTING` is not counted. See S05 record §9.
+- ✔ **RCA-S06** — After `RELEASE:AWAIT publication`, the producer did not resume when GitHub Release `v0.7.0` already existed. Record: [`docs/rca/2026-11-11-s06-await-publication-silence.md`](docs/rca/2026-11-11-s06-await-publication-silence.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S06 preventive** — After AWAIT publication, wake on GitHub Release existence (not `github:ci:branch`) and resume `./release`. See S06 record §9.
+- ✔ **RCA-S07** — Ship pull request #71 opened before the tag-time checker-digest owner signature existed (ADR 0057 — one owner signature over the pass/fail checkers at tag time). Record: [`docs/rca/2026-11-11-s07-ship-pr-before-digest-signature.md`](docs/rca/2026-11-11-s07-ship-pr-before-digest-signature.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S07 preventive** — CREATE_PR / `pr-offer-gate.py` refuse `release/v*` → `main` unless `check-checker-digest-signature.py` is MET. See S07 record §9.
+- ✔ **RCA-S08** — Pull request #73 opened before `origin/main` was contained on `release/v0.7.0` (ADR 0049 `main_context` — whether `main` is contained on the release line). Record: [`docs/rca/2026-11-11-s08-pr73-before-contain-main.md`](docs/rca/2026-11-11-s08-pr73-before-contain-main.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S08 preventive** — `pr-offer-gate.py` refuse `release/v*` → `main` unless `main_context` is `contained`. See S08 record §9.
+- ✔ **RCA-S09** — Prep surfaces written before planner `WRITE_RECORD`, then `BLOCKED_WRITE_RECORD_STALLED`. Record: [`docs/rca/2026-11-11-s09-prep-before-write-record-stall.md`](docs/rca/2026-11-11-s09-prep-before-write-record-stall.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S09 preventive** — Candidate FINDINGS / DESCRIBE / record writes belong only to planner PREP / WRITE_RECORD. See S09 record §9.
+- ✔ **RCA-S10** — Prep committed on local `release/v0.7.0`; `git push` of that ref rejected by ruleset `25824126`. Recurrence of [`docs/rca/2026-10-31-release-line-push-without-pr.md`](docs/rca/2026-10-31-release-line-push-without-pr.md). Record: [`docs/rca/2026-11-11-s10-release-line-push-rejected.md`](docs/rca/2026-11-11-s10-release-line-push-rejected.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S10 preventive** — Implement the 2026-10-31 action: first publication of `release/v*` commits is a non-release branch + PR, not `PUSH_FAST_FORWARD`. See S10 record §9.
+- ✔ **RCA-S11** — Tag-time `./release` graded containment on a local `release/v0.7.0` behind origin. Record: [`docs/rca/2026-11-11-s11-stale-local-release-branch.md`](docs/rca/2026-11-11-s11-stale-local-release-branch.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S11 preventive** — `main_context` must grade `origin/release/v*` when that remote-tracking ref exists. See S11 record §9.
+- ✔ **RCA-S12** — First `WRITE_NOTES` stopped on empty Highlights (`RELEASE_NOTES:NOT_MET`). Record: [`docs/rca/2026-11-11-s12-empty-highlights.md`](docs/rca/2026-11-11-s12-empty-highlights.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S12 preventive** — Missing Highlights is HUMAN_DECISION before WRITE_NOTES; do not emit a placeholder `check_notes` rejects. See S12 record §9.
+- ✔ **RCA-S13** — `VERIFY_TARGET` failed after `ALIGN_VERSION` because FINDINGS / DESCRIBE / record still said 0.6.0. Record: [`docs/rca/2026-11-11-s13-verify-target-after-align-version.md`](docs/rca/2026-11-11-s13-verify-target-after-align-version.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S13 preventive** — PREP / WRITE_RECORD (or ALIGN that writes those surfaces) before VERIFY_TARGET. See S13 record §9.
+- ✔ **RCA-S14** — Closeout `./nlc verify` failed on a stale unsigned gate-set manifest after TODO / FEATURES edits; proved twice. Record: [`docs/rca/2026-11-11-s14-closeout-verify-twice.md`](docs/rca/2026-11-11-s14-closeout-verify-twice.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S14 preventive** — Regen derived release state after TODO / FEATURES change, then prove once. See S14 record §9.
+- ✔ **RCA-S15** — Pull request #71 was squashed (`cc43f3e`, one parent) and could not be tagged. Record: [`docs/rca/2026-11-11-s15-squash-not-taggable.md`](docs/rca/2026-11-11-s15-squash-not-taggable.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S15 preventive** — GitHub ruleset on `main` for head `release/v*`: merge commit only. See S15 record §9.
+- ✔ **RCA-S16** — Tag-time signature landed in pull request #72 after the first ship pull request. Record: [`docs/rca/2026-11-11-s16-signature-in-pr72-after-ship.md`](docs/rca/2026-11-11-s16-signature-in-pr72-after-ship.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S16 preventive** — Owner-signature HUMAN_DECISION completes on the release line before any ship PR to `main`. See S16 record §9.
+- ✔ **RCA-S17** — Pull request #74 existed only to contain the #71 squash so #73 could merge. Record: [`docs/rca/2026-11-11-s17-containment-pr74.md`](docs/rca/2026-11-11-s17-containment-pr74.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S17 preventive** — After a squash ship merge, `not_contained` is HUMAN_DECISION (do not invent a containment PR). See S17 record §9.
+- ✔ **RCA-S18** — First land of the install-scope slice (ADR 0060 — pin NLC in one repo) failed hub fitness / CI (stamp, `hub_tool()`, untracked landmines). Record: [`docs/rca/2026-11-11-s18-install-scope-first-land-fitness.md`](docs/rca/2026-11-11-s18-install-scope-first-land-fitness.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S18 preventive** — Bind `pr-offer-gate.py` (verify MET before `gh pr create`) on all hub PR creates, including feature slices. See S18 record §9.
+- ✔ **RCA-S19** — `docs/nlc/FEATURES.md` still said current ship v0.5.0 while the tag and version file were v0.6.0. Record: [`docs/rca/2026-11-11-s19-features-current-ship-lag.md`](docs/rca/2026-11-11-s19-features-current-ship-lag.md). Packet MET. @done(26-11-11 03:40)
+- ☐ **RCA-S19 preventive** — F1 / release-prep must require FEATURES current-ship to match `integrity/nlc-version.json`. See S19 record §9.
 
 ### Continuity (pre-ship)
 

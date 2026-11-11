@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "First WRITE_NOTES wrote empty Highlights (placeholder) and the notes gate immediately refused RELEASE_NOTES:NOT_MET.",
+  "unsuitable_process": "build_draft emits HIGHLIGHTS_PLACEHOLDER, which check_notes is written to reject. WRITE_NOTES is a REPAIR whose progress fact is notes_valid; a known-invalid draft cannot move that fact. ADR 0049: Highlights are human-only; that decision must precede the write.",
+  "climb_steps": [
+    "check_notes failed Highlights section is empty / placeholder.",
+    "build_draft wrote the placeholder it then rejects.",
+    "WRITE_NOTES cannot set notes_valid with those bytes.",
+    "ADR 0049 repair must change its progress fact; Highlights are HUMAN_DECISION."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-release-planner-ownership"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S12"
+}

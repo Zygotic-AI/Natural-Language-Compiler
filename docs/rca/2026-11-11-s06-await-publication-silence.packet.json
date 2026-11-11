@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "After RELEASE:AWAIT publication, the producer session did not resume when GitHub Release v0.7.0 already existed.",
+  "unsuitable_process": "The executor prints AWAIT publication and exits 0 with no wake. The release skill does not subscribe to GitHub Release existence. A CI subscription on branch v0.7.0 cannot observe publication. ADR 0049 OBSERVE_PUBLISH expects a resume, not an unattended wait.",
+  "climb_steps": [
+    "Session stayed silent until a human poke about 90 minutes after publication.",
+    "execute.sh AWAIT exits 0 and says resume with ./release.",
+    "Skill has no Release-event or timer wake.",
+    "ADR 0049 AWAIT/OBSERVE_PUBLISH is a planner stop that requires a resume trigger."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-release-planner-ownership"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S06"
+}

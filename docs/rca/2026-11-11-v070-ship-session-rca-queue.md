@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-11
 **Context:** Natural Language Compiler hub. Ship of git tag `v0.7.0` (merge `2e868b1`, pull request #73).
-**Status:** queue only — one [RCA](../TERMS.md#rca) per row; no RCA written yet; no remediation in this file.
+**Status:** instance records + MET packets for RCA-S01…S19. Preventive TODO rows remain open. No remediation in those records.
 **Version class:** patch (work list). No new [requirement](../TERMS.md#requirement).
 
 Live checklist: root [`TODO`](../../TODO) section **RCA — v0.7.0 ship session**. Live gap pointer: [`FINDINGS.md`](../../FINDINGS.md) Housekeeping.
@@ -51,27 +51,27 @@ Related instance records (do not treat as done for this queue): [`2026-10-31-rel
 
 ## Index
 
-| Id | Error condition (one line) | Related (do not merge) |
-| -- | -------------------------- | ---------------------- |
-| RCA-S01 | `gh workflow run start-release` returned HTTP 403; the producer then instructed a click in Actions | |
-| RCA-S02 | After ship authorization, the producer dumped a human checklist instead of invoking `./release` | S01 |
-| RCA-S03 | Pull request #71 was offered without a hard stop that a squash merge cannot be tagged | S04, S15, S17 |
-| RCA-S04 | After #71 merged, the producer said the next step was the tag | S03, S07, S15 |
-| RCA-S05 | The producer counted “one more merge” while #73 was `CONFLICTING` | S08, S17 |
-| RCA-S06 | After `RELEASE:AWAIT publication`, the producer did not resume when the GitHub Release existed | |
-| RCA-S07 | The ship pull request to `main` (#71) was opened before the tag-time checker-digest signature existed | S04, S16 |
-| RCA-S08 | Pull request #73 (`release/v0.7.0` → `main`) was opened before `main` was contained on the release line | S05, S17 |
-| RCA-S09 | Prep surfaces were written before planner action `WRITE_RECORD`, then `BLOCKED_WRITE_RECORD_STALLED` | S13 |
-| RCA-S10 | Prep was committed on local `release/v0.7.0` and `git push` of that ref was rejected | S09 |
-| RCA-S11 | Tag-time `./release` used a local `release/v0.7.0` that was behind `origin/release/v0.7.0` | |
-| RCA-S12 | First `./release` on the line stopped on empty Highlights (`RELEASE_NOTES:NOT_MET`) | |
-| RCA-S13 | `VERIFY_TARGET` failed after `ALIGN_VERSION` because FINDINGS / DESCRIBE / record still said 0.6.0 | S09 |
-| RCA-S14 | Closeout `./nlc verify` failed on a stale unsigned gate-set manifest after TODO / FEATURES edits | S18, S19 |
-| RCA-S15 | Pull request #71 was squashed (`cc43f3e`, one parent) and could not be tagged | S03, S04 |
-| RCA-S16 | The tag-time signature landed in pull request #72, after the first ship pull request | S07 |
-| RCA-S17 | Pull request #74 existed only to contain the #71 squash so #73 could merge | S03, S05, S08, S15 |
-| RCA-S18 | First land of the install-scope slice failed hub fitness / CI (stamp, `hub_tool()`, untracked landmines) | S14 |
-| RCA-S19 | `docs/nlc/FEATURES.md` still said current ship **v0.5.0** while the tag and version file were **v0.6.0** | S14 |
+| Id | Status | Record | Related (do not merge) |
+| -- | ------ | ------ | ---------------------- |
+| RCA-S01 | done | [`2026-11-11-s01-start-release-dispatch.md`](2026-11-11-s01-start-release-dispatch.md) | |
+| RCA-S02 | done | [`2026-11-11-s02-checklist-instead-of-release.md`](2026-11-11-s02-checklist-instead-of-release.md) | S01 |
+| RCA-S03 | done | [`2026-11-11-s03-ship-pr-no-squash-stop.md`](2026-11-11-s03-ship-pr-no-squash-stop.md) | S04, S15, S17 |
+| RCA-S04 | done | [`2026-11-11-s04-tag-next-after-squash.md`](2026-11-11-s04-tag-next-after-squash.md) | S03, S07, S15 |
+| RCA-S05 | done | [`2026-11-11-s05-one-more-merge-while-conflicting.md`](2026-11-11-s05-one-more-merge-while-conflicting.md) | S08, S17 |
+| RCA-S06 | done | [`2026-11-11-s06-await-publication-silence.md`](2026-11-11-s06-await-publication-silence.md) | |
+| RCA-S07 | done | [`2026-11-11-s07-ship-pr-before-digest-signature.md`](2026-11-11-s07-ship-pr-before-digest-signature.md) | S04, S16 |
+| RCA-S08 | done | [`2026-11-11-s08-pr73-before-contain-main.md`](2026-11-11-s08-pr73-before-contain-main.md) | S05, S17 |
+| RCA-S09 | done | [`2026-11-11-s09-prep-before-write-record-stall.md`](2026-11-11-s09-prep-before-write-record-stall.md) | S13 |
+| RCA-S10 | done | [`2026-11-11-s10-release-line-push-rejected.md`](2026-11-11-s10-release-line-push-rejected.md) | S09 |
+| RCA-S11 | done | [`2026-11-11-s11-stale-local-release-branch.md`](2026-11-11-s11-stale-local-release-branch.md) | |
+| RCA-S12 | done | [`2026-11-11-s12-empty-highlights.md`](2026-11-11-s12-empty-highlights.md) | |
+| RCA-S13 | done | [`2026-11-11-s13-verify-target-after-align-version.md`](2026-11-11-s13-verify-target-after-align-version.md) | S09 |
+| RCA-S14 | done | [`2026-11-11-s14-closeout-verify-twice.md`](2026-11-11-s14-closeout-verify-twice.md) | S18, S19 |
+| RCA-S15 | done | [`2026-11-11-s15-squash-not-taggable.md`](2026-11-11-s15-squash-not-taggable.md) | S03, S04 |
+| RCA-S16 | done | [`2026-11-11-s16-signature-in-pr72-after-ship.md`](2026-11-11-s16-signature-in-pr72-after-ship.md) | S07 |
+| RCA-S17 | done | [`2026-11-11-s17-containment-pr74.md`](2026-11-11-s17-containment-pr74.md) | S03, S05, S08, S15 |
+| RCA-S18 | done | [`2026-11-11-s18-install-scope-first-land-fitness.md`](2026-11-11-s18-install-scope-first-land-fitness.md) | S14 |
+| RCA-S19 | done | [`2026-11-11-s19-features-current-ship-lag.md`](2026-11-11-s19-features-current-ship-lag.md) | S14 |
 
 ---
 
@@ -334,4 +334,6 @@ Pull requests in this session, in time order:
 
 ## Closeout of this queue (not an RCA)
 
-This queue file is done when every RCA-S01…S19 row has an instance record, a MET packet, and a `TODO` `@done` line with that path. Preventive actions may still be open as separate `TODO` rows.
+Every RCA-S01…S19 row has an instance record, a MET packet, and a `TODO` `@done` line with that path. Preventive actions remain open as separate `TODO` rows. No remediations were implemented in this pass.
+
+**No ADR, reason:** these records apply the existing Planit RCA standard and [ADR 0025](../../adrs/0025-belief-no-blame-climb.md) (defects name an unsuitable process). They do not change a published contract or mint a new requirement. Preventive work, if taken, may need ADRs later.

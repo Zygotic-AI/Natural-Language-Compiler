@@ -72,7 +72,7 @@ Promotion remains human (`ship-check`, not compile-green alone).
 | CHARTER / DESCRIBE door | **Done** — #38 NLC-first door (BBP body retained) |
 | README diagrams | **Done** — README product picture: generic intent and policies, and the same path with HIPAA and SEC named. |
 | UC18 goal-write hook coverage | **Removed.** [ADR 0058](adrs/0058-harness-and-model-agnostic.md) (harness- and model-agnostic) is Accepted. In-tree Cursor hooks are gone. Verify on the files is the notice path. Story: [`docs/nlc/FEATURES.md`](docs/nlc/FEATURES.md). |
-| v0.7.0 ship-session RCA queue | **Open.** Nineteen RCAs, one per misstep (RCA-S01…S19). Checklist: [`TODO`](TODO) section **RCA — v0.7.0 ship session**. Working packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md). Tag `v0.7.0` is already shipped; this queue is not a tag blocker. |
+| v0.7.0 ship-session RCA queue | **Records done.** RCA-S01…S19 each have an instance record and `RCA_PACKET:MET`. Preventive TODO rows remain open. Packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md). Tag `v0.7.0` is already shipped; this queue is not a tag blocker. |
 
 ---
 

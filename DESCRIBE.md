@@ -55,7 +55,7 @@ Same structural discipline applied to organizing **agent fleets** — durable ro
 | `content-types/HOW-TO-ADD.md` | Type recipes for adding content (ADR, integrity doc, agent noun, Skill, etc.) |
 | `TODO` | Task list (`☐` / `✔ @done(...)`) |
 | `docs/nlc/FEATURES.md` | Released / upcoming / milestones and the reasons (not an ADR); includes folded Planet tenets / observability / RCA manifests |
-| `docs/nlc/feature-narratives/` | One paragraph per feature, `01`–`46` released (explain-first, then dependency), `47`–`59` upcoming in dependency order |
+| `docs/nlc/feature-narratives/` | `00` overview plus `01`–`59` features. Each file labels **Summary** (one sentence) and **Paragraph**. `01`–`46` released; `47`–`59` upcoming |
 | `docs/nlc/FEATURES-AUDIT-PLAN.md` | Multi-turn Planit plan: audit Released claims + reorder remaining by deps/foundation |
 | `docs/nlc/FEATURES-AUDIT-REGISTER.md` | Living dispositions for FEATURES Released rows (Correct/Overclaim/Underclaim) |
 | `docs/nlc/concept-graph/` | Multi-level concept ontology SSOT (`path` vs `summary`; not runtime trace; do not mirror elsewhere) |

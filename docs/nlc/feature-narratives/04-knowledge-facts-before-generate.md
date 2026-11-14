@@ -2,11 +2,11 @@
 
 **Summary**
 
-Generation runs only from facts already bound, and it refuses a stale set.
+Interview produces a Knowledge fact and a Before-generate stamp, and the Gate allows Emit only from that stamp.
 
 **Paragraph**
 
-Facts about the system are bound before NLC generates code, and generation refuses to run on a stale set of facts. The compiler writes only from facts you have already established. If those facts are out of date, the build stops. The codebase stays tied to the record, and a review can see which facts were in force when the code was produced.
+Interview produces each Knowledge fact, and those facts produce the Before-generate stamp. The Gate sits between that stamp and Emit. The Gate allows Emit when the Before-generate stamp is the one Interview bound.
 
 **Graph**
 
@@ -29,6 +29,11 @@ Facts about the system are bound before NLC generates code, and generation refus
       "label": "Before-generate stamp"
     },
     {
+      "id": "gate",
+      "type": "concept",
+      "label": "Gate"
+    },
+    {
       "id": "emit",
       "type": "process-step",
       "label": "Emit"
@@ -47,6 +52,11 @@ Facts about the system are bound before NLC generates code, and generation refus
     },
     {
       "from": "before-generate-stamp",
+      "to": "gate",
+      "kind": "allows"
+    },
+    {
+      "from": "gate",
       "to": "emit",
       "kind": "allows"
     }

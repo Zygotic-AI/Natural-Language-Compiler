@@ -3,61 +3,56 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "rca-2026-10-09-release-stops-outside-planner"
+    "docs-nlc-FEATURES",
+    "docs-nlc-FEATURES-AUDIT-PLAN"
   ],
-  "ssot_exit_status": "plan-audit-pass",
+  "ssot_exit_status": "plan-audit-pass-features-audit-reorder-plan",
   "quality_snapshot": {
-    "opportunities": 10,
-    "ops": 10,
+    "opportunities": 7,
+    "ops": 7,
     "defects": 0,
     "quality": 1.0
   },
   "findings": [
     {
-      "id": "exact-rca-prevention",
-      "result": "PASS"
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "FEATURES-AUDIT-PLAN.md has default-closed Gate with testable rows; register Gate required when created"
     },
     {
-      "id": "hidden-bypasses",
-      "result": "PASS"
+      "id": "multi-turn-stages",
+      "result": "PASS",
+      "note": "Stages A\u2013G with stop predicates; one B-slice per turn preferred"
     },
     {
-      "id": "god-facts",
-      "result": "PASS"
+      "id": "no-silent-reorder",
+      "result": "PASS",
+      "note": "Stage F blocked until Stage E acceptance"
     },
     {
-      "id": "action-taxonomy",
-      "result": "PASS"
+      "id": "law-vs-story",
+      "result": "PASS",
+      "note": "Overclaims \u2192 FINDINGS/ADR; FEATURES not fake law"
     },
     {
-      "id": "false-context-acceptance",
-      "result": "PASS"
+      "id": "foundation-ordering-rules",
+      "result": "PASS",
+      "note": "Stage D scores foundation + deps; Planet/envelopes called out as retrofit-expensive"
     },
     {
-      "id": "unsafe-automatic-git-mutation",
-      "result": "PASS"
-    },
-    {
-      "id": "negative-fixtures",
-      "result": "PASS"
-    },
-    {
-      "id": "gate-standard",
-      "result": "PASS"
+      "id": "scope-no-implement",
+      "result": "PASS",
+      "note": "Plan audits and reorders story; does not implement missing features"
     },
     {
       "id": "class-correctness",
-      "result": "PASS"
-    },
-    {
-      "id": "amendment-required",
-      "result": "PASS"
+      "result": "PASS",
+      "note": "Charter C; version Assumption patch"
     }
   ],
   "evidence": [
-    "docs/rca/2026-10-09-release-stops-outside-planner.md",
-    "adrs/0039-single-command-human-surfaces.md",
-    "adrs/0040-process-preflight-remediation.md",
-    "adrs/0045-hub-release-identity.md"
+    "docs/nlc/FEATURES-AUDIT-PLAN.md",
+    "docs/nlc/FEATURES.md",
+    ".agents/instructions/product-features-ssot.md"
   ]
 }

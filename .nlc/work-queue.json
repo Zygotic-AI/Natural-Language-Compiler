@@ -2,6 +2,13 @@
   "schema": 1,
   "items": [
     {
+      "id": "planit-active",
+      "stage": "build",
+      "label": "audit FEATURES implemented + reorder remaining by deps",
+      "next": "/planit in your agent \u2014 pick up where you left off",
+      "priority": 12
+    },
+    {
       "id": "verify-waiting",
       "stage": "verify",
       "label": "Verify before prod",

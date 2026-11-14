@@ -54,7 +54,11 @@ Same structural discipline applied to organizing **agent fleets** — durable ro
 | `docs/OPERATING_BINDINGS.md` | Operating policy index (P-016…P-031 class); hub-local P-series prose |
 | `content-types/HOW-TO-ADD.md` | Type recipes for adding content (ADR, integrity doc, agent noun, Skill, etc.) |
 | `TODO` | Task list (`☐` / `✔ @done(...)`) |
-| `docs/nlc/FEATURES.md` | Released / upcoming / milestones and the reasons (not an ADR) |
+| `docs/nlc/FEATURES.md` | Released / upcoming / milestones and the reasons (not an ADR); includes folded Planet tenets / observability / RCA manifests |
+| `docs/nlc/FEATURES-AUDIT-PLAN.md` | Multi-turn Planit plan: audit Released claims + reorder remaining by deps/foundation |
+| `docs/nlc/FEATURES-AUDIT-REGISTER.md` | Living dispositions for FEATURES Released rows (Correct/Overclaim/Underclaim) |
+| `docs/nlc/concept-graph/` | Multi-level concept ontology SSOT (`path` vs `summary`; not runtime trace; do not mirror elsewhere) |
+| `docs/diagrams/nlc-concept-graph-spine.json` | React Flow seed for concept-graph spine (hub SSOT; filter via `filter-concept-graph-edges.mjs`) |
 | `goals/hub_install/` | Installer: global user store or local repo pin (ADR 0060) |
 | `scripts/nlc-launcher.sh` / `nlc-launcher.cmd` | PATH `nlc`: if this process is the global command and the current repo has `nlc`, exec that copy |
 | `AGENTS.md` | Cross-harness standing instructions |

@@ -7,3 +7,39 @@ Pull requests run the same verify that audits receipts and generated files.
 **Paragraph**
 
 The scaffold writes a workflow that runs verify on pull requests. Every proposed change is checked before it lands. The review in CI is the same automated audit of receipts and generated files, so a green pull request means the compiler's review of the codebase passed.
+
+**Graph**
+
+```json
+{
+  "nodes": [
+    {
+      "id": "ci-verify-workflow",
+      "type": "artifact",
+      "label": "CI verify workflow"
+    },
+    {
+      "id": "verify",
+      "type": "process-step",
+      "label": "Verify"
+    },
+    {
+      "id": "produced-code",
+      "type": "artifact",
+      "label": "Produced code"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ci-verify-workflow",
+      "to": "verify",
+      "kind": "allows"
+    },
+    {
+      "from": "produced-code",
+      "to": "verify",
+      "kind": "audited_by"
+    }
+  ]
+}
+```

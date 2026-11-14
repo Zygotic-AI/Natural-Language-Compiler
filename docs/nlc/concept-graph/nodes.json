@@ -1,6 +1,6 @@
 {
   "schema": "nlc-concept-graph-nodes/v0",
-  "description": "First-seed node set: compile spine + constraint chain + BBP core. Granularity L0–L11 matches the diagram-node catalog.",
+  "description": "Concept subjects: compile spine, constraint chain, BBP core, and the feature subjects a workflow or relationship diagram needs. Granularity L0–L11 matches the diagram-node catalog.",
   "nodes": [
     {
       "id": "nlc",
@@ -324,6 +324,233 @@
       "kind": "concept",
       "terms_anchor": null,
       "notes": "Released thinner cousin: goal→verb calls"
+    },
+    {
+      "id": "knowledge-fact",
+      "label": "Knowledge fact",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "knowledge-fact"
+    },
+    {
+      "id": "before-generate-stamp",
+      "label": "Before-generate stamp",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Generation refuses when this stamp is stale (UC18)"
+    },
+    {
+      "id": "verify",
+      "label": "Verify",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "verify"
+    },
+    {
+      "id": "harness",
+      "label": "Harness",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": null,
+      "notes": "Editor or agent host. NLC does not attach a hook to it."
+    },
+    {
+      "id": "install",
+      "label": "Install",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null
+    },
+    {
+      "id": "install-fingerprint",
+      "label": "Install fingerprint",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Published digest. Install refuses a download that misses it."
+    },
+    {
+      "id": "compiler-lock",
+      "label": "Compiler lock",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "lock-file",
+      "notes": "Pins an adopter repo to one compiler version, including a repo-local copy"
+    },
+    {
+      "id": "version-store",
+      "label": "Version store",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "version-store",
+      "notes": "Upgrade walks this chain from one pinned compiler to the next"
+    },
+    {
+      "id": "install-doctor",
+      "label": "Install doctor",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null
+    },
+    {
+      "id": "ci-verify-workflow",
+      "label": "CI verify workflow",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Adopter pull requests run verify"
+    },
+    {
+      "id": "pack-allow-list",
+      "label": "Pack allow-list",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Hub-local list. When it has entries, pack install stays inside it."
+    },
+    {
+      "id": "change-class",
+      "label": "Change class",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "change-class"
+    },
+    {
+      "id": "retry-check",
+      "label": "Retry check",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "Fails when a retry would apply the same change twice"
+    },
+    {
+      "id": "rca-packet",
+      "label": "RCA packet",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "rca"
+    },
+    {
+      "id": "interior-function",
+      "label": "Interior function",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "call-tree-pack",
+      "notes": "Python call tree continues from the verb into domain functions"
+    },
+    {
+      "id": "language",
+      "label": "Language",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Python is compiled and audited today. Other languages use this same subject when emit reaches them."
+    },
+    {
+      "id": "language-adapter",
+      "label": "Language adapter",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Shape of a non-Python adapter. The TypeScript tree is a teaching specimen of this subject."
+    },
+    {
+      "id": "brownfield-inventory",
+      "label": "Brownfield inventory",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "brownfield",
+      "notes": "As-is inventory, plan, and apply on a tree NLC did not originally write"
+    },
+    {
+      "id": "durable-engine",
+      "label": "Durable engine",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "durability"
+    },
+    {
+      "id": "checker-digest",
+      "label": "Checker digest",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null
+    },
+    {
+      "id": "checker-signature",
+      "label": "Checker signature",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Owner signature on the checker digest at tag"
+    },
+    {
+      "id": "artifact-manifest",
+      "label": "Artifact manifest",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "JSON that accompanies a work product. The audit reads it with the work."
+    },
+    {
+      "id": "run-level-index",
+      "label": "Run-level index",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null
+    },
+    {
+      "id": "model-call-record",
+      "label": "Model-call record",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "call-tokens-and-cost"
+    },
+    {
+      "id": "call-envelope",
+      "label": "Call envelope",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "call-envelope"
+    },
+    {
+      "id": "dirty-predicate",
+      "label": "Dirty predicate",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "dirty-predicate"
+    },
+    {
+      "id": "hand-prompt-route",
+      "label": "Hand-prompt route",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "A prompt that did not start in NLC is sent into a skill or nlc command"
+    },
+    {
+      "id": "pack-publisher",
+      "label": "Pack publisher",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null
+    },
+    {
+      "id": "signing-key",
+      "label": "Signing key",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Public-pack signing. How a stolen key is retired is still unsolved."
+    },
+    {
+      "id": "product-ui",
+      "label": "Product UI",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": null,
+      "notes": "Low-code surface on the same compile path"
     }
   ]
 }

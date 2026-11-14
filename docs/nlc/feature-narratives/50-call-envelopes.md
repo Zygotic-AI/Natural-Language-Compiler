@@ -7,3 +7,49 @@ Still ahead: every agent call uses a predefined envelope that NLC audits immedia
 **Paragraph**
 
 Still ahead, after Planet accounting and before more compile surface is added. Every agent call uses a predefined envelope for that kind of call, listing the files created, edited, or deleted and the constraints the call must honor. NLC audits the envelope immediately and abandons the call when it does not conform. The files in the tree remain the authority if the envelope disagrees with them. The envelope stops a bad call before it spends itself across the codebase the compiler manages.
+
+**Graph**
+
+```json
+{
+  "nodes": [
+    {
+      "id": "call-envelope",
+      "type": "artifact",
+      "label": "Call envelope"
+    },
+    {
+      "id": "audit",
+      "type": "concept",
+      "label": "Audit"
+    },
+    {
+      "id": "emit",
+      "type": "process-step",
+      "label": "Emit"
+    },
+    {
+      "id": "produced-code",
+      "type": "artifact",
+      "label": "Produced code"
+    }
+  ],
+  "edges": [
+    {
+      "from": "call-envelope",
+      "to": "audit",
+      "kind": "audited_by"
+    },
+    {
+      "from": "call-envelope",
+      "to": "emit",
+      "kind": "allows"
+    },
+    {
+      "from": "emit",
+      "to": "produced-code",
+      "kind": "produces"
+    }
+  ]
+}
+```

@@ -118,6 +118,18 @@
       "class": "summary",
       "arity": "binary",
       "description": "Realization bundle node outputs Produced code."
+    },
+    {
+      "id": "requires",
+      "class": "path",
+      "arity": "binary",
+      "description": "A subject requires a named peer. A bad pairing refuses (durable workflow requires an engine)."
+    },
+    {
+      "id": "writes",
+      "class": "path",
+      "arity": "binary",
+      "description": "A harness may write files. Those files are still Produced code and still go through verify."
     }
   ],
   "rules": [

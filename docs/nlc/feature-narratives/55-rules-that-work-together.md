@@ -7,3 +7,49 @@ Still ahead: rules that must both be true are shown as a resolution you accept, 
 **Paragraph**
 
 Still ahead, after we have brownfielded ourselves and have real cases. These are rules that are both required and are not a straight contradiction, including rules from two packs. Company encryption and a stricter pack's encryption are the example: NLC shows the overlap and a resolution, such as the stricter rule, and you accept that resolution or edit it and accept your edit. The accepted resolution becomes the decision the compiler writes into the code. We take this from cases on our own tree, so the combining logic matches a codebase we have already put under NLC.
+
+**Graph**
+
+```json
+{
+  "nodes": [
+    {
+      "id": "requirement-pack",
+      "type": "concept",
+      "label": "Requirement pack"
+    },
+    {
+      "id": "rule",
+      "type": "concept",
+      "label": "Rule"
+    },
+    {
+      "id": "accepted-decision",
+      "type": "concept",
+      "label": "Accepted decision"
+    },
+    {
+      "id": "produced-code",
+      "type": "artifact",
+      "label": "Produced code"
+    }
+  ],
+  "edges": [
+    {
+      "from": "requirement-pack",
+      "to": "rule",
+      "kind": "constrains"
+    },
+    {
+      "from": "accepted-decision",
+      "to": "rule",
+      "kind": "codifies_as"
+    },
+    {
+      "from": "rule",
+      "to": "produced-code",
+      "kind": "constrains"
+    }
+  ]
+}
+```

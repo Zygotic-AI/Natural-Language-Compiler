@@ -56,6 +56,7 @@ Same structural discipline applied to organizing **agent fleets** — durable ro
 | `TODO` | Task list (`☐` / `✔ @done(...)`) |
 | `docs/nlc/FEATURES.md` | Released / upcoming / milestones and the reasons (not an ADR); includes folded Planet tenets / observability / RCA manifests |
 | `docs/nlc/feature-narratives/` | `00` overview plus `01`–`59` features. Each file labels **Summary** (one sentence) and **Paragraph**. `01`–`46` released; `47`–`59` upcoming |
+| `docs/nlc/flows/` | One file per large flow, `01`–`27`. Each labels **Summary** and **Paragraph**. `01`–`14` have a written procedure today; `15`–`27` are still ahead |
 | `docs/nlc/FEATURES-AUDIT-PLAN.md` | Multi-turn Planit plan: audit Released claims + reorder remaining by deps/foundation |
 | `docs/nlc/FEATURES-AUDIT-REGISTER.md` | Living dispositions for FEATURES Released rows (Correct/Overclaim/Underclaim) |
 | `docs/nlc/concept-graph/` | Multi-level concept ontology SSOT (`path` vs `summary`; not runtime trace; do not mirror elsewhere) |

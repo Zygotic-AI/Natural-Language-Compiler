@@ -145,6 +145,8 @@ Downstream sites may *render* a checkout of these files; they must not become a 
 
 ## Scope
 
-**In seed v0:** compile spine, constraint chain, BBP core, realization bundle.
+**In the ontology:** compile spine, constraint chain, BBP core, realization bundle, and the feature subjects a workflow or relationship diagram needs (facts and stamp, verify and harness, install, fingerprint, lock, version store, doctor, CI verify, pack allow-list, change class, retry check, RCA packet, interior function, language and adapter, brownfield inventory, durable engine, checker digest and signature, artifact manifest, run-level index, model-call record, call envelope, dirty predicate, hand-prompt route, pack publisher, signing key, product UI).
 
-**Later:** full L0–L11 catalog coverage, auto-derived summaries, runtime instance store.
+The React Flow file is the compile-spine picture only. It does not draw every node.
+
+**Later:** auto-derived summaries, runtime instance store.

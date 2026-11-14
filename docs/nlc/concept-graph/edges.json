@@ -1,0 +1,245 @@
+{
+  "schema": "nlc-concept-graph-edges/v0",
+  "description": "Seed edges for compile spine (path) plus summary expansions. Same nodes appear on both levels.",
+  "edges": [
+    {
+      "id": "e-path-goal-comprises-aa",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "goal",
+      "target": "atomic-action"
+    },
+    {
+      "id": "e-path-aa-binds-constraint",
+      "class": "path",
+      "predicate": "binds",
+      "source": "atomic-action",
+      "target": "codified-constraint"
+    },
+    {
+      "id": "e-path-aa-precedes-bind-step",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "atomic-action",
+      "target": "constraint-bind"
+    },
+    {
+      "id": "e-path-bind-precedes-rev-audit",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "constraint-bind",
+      "target": "reverse-adversarial-audit"
+    },
+    {
+      "id": "e-path-rev-audit-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "reverse-adversarial-audit",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-emit-produces-code",
+      "class": "path",
+      "predicate": "produces",
+      "source": "emit",
+      "target": "produced-code"
+    },
+    {
+      "id": "e-path-code-audited-by",
+      "class": "path",
+      "predicate": "audited_by",
+      "source": "produced-code",
+      "target": "code-adversarial-audit"
+    },
+    {
+      "id": "e-path-policy-extracts-quote",
+      "class": "path",
+      "predicate": "extracts_to",
+      "source": "policy-standard-etc",
+      "target": "exact-quote"
+    },
+    {
+      "id": "e-path-quote-codifies",
+      "class": "path",
+      "predicate": "codifies_as",
+      "source": "exact-quote",
+      "target": "codified-constraint"
+    },
+    {
+      "id": "e-path-adr-to-rule",
+      "class": "path",
+      "predicate": "codifies_as",
+      "source": "adr",
+      "target": "rule",
+      "notes": "ADR reduces to if/then rule (UC4); rule aligns with codified-constraint shape"
+    },
+    {
+      "id": "e-path-rule-is-codified",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "rule",
+      "target": "codified-constraint",
+      "notes": "Adopted rule is the executable form used at bind"
+    },
+    {
+      "id": "e-path-bbp-blast",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "bbp",
+      "target": "blast-radius",
+      "notes": "BBP practice centers blast-radius minimization via noun/verb/goal shape"
+    },
+    {
+      "id": "e-path-goal-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "goal",
+      "target": "bbp"
+    },
+    {
+      "id": "e-path-noun-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "noun",
+      "target": "bbp"
+    },
+    {
+      "id": "e-path-verb-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "verb-on-noun",
+      "target": "bbp"
+    },
+    {
+      "id": "e-sum-goal-produces-code",
+      "class": "summary",
+      "predicate": "produces_summary",
+      "source": "goal",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-goal-comprises-aa",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ]
+    },
+    {
+      "id": "e-sum-adr-constrains-code",
+      "class": "summary",
+      "predicate": "constrains",
+      "source": "adr",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-adr-to-rule",
+        "e-path-rule-is-codified",
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "adr",
+        "rule",
+        "codified-constraint",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ]
+    },
+    {
+      "id": "e-sum-goal-bound-by-adr",
+      "class": "summary",
+      "predicate": "bound_by",
+      "source": "goal",
+      "target": "adr",
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "codified-constraint",
+        "rule",
+        "adr"
+      ],
+      "notes": "Coarse: goal work is under accepted decisions; expand via bind to codified form of ADR/rules"
+    },
+    {
+      "id": "e-sum-bundle-member-goal",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "goal",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-member-adr",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "adr",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-member-constraint",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "codified-constraint",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-produces-code",
+      "class": "summary",
+      "predicate": "bundle_produces",
+      "source": "compile-realization",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-goal-comprises-aa",
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ],
+      "notes": "Hyper-style coarse fact: Goal + ADR/codified constraints together realize Produced code"
+    },
+    {
+      "id": "e-sum-codified-constrains-code",
+      "class": "summary",
+      "predicate": "constrains",
+      "source": "codified-constraint",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ]
+    },
+    {
+      "id": "e-sum-code-audited-summary",
+      "class": "summary",
+      "predicate": "audited_by",
+      "source": "produced-code",
+      "target": "code-adversarial-audit",
+      "expanded_by": ["e-path-code-audited-by"],
+      "expanded_as_path": ["produced-code", "code-adversarial-audit"],
+      "notes": "Same relationship exists as path; summary view can show audit without the full spine"
+    }
+  ]
+}

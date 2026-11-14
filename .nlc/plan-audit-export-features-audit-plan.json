@@ -1,0 +1,58 @@
+{
+  "producer_role": "bbp-proposer",
+  "adversarial_auditor_role": "bbp-reviewer",
+  "verdict": "PASS",
+  "ssot_leaf_ids": [
+    "docs-nlc-FEATURES",
+    "docs-nlc-FEATURES-AUDIT-PLAN"
+  ],
+  "ssot_exit_status": "plan-audit-pass-features-audit-reorder-plan",
+  "quality_snapshot": {
+    "opportunities": 7,
+    "ops": 7,
+    "defects": 0,
+    "quality": 1.0
+  },
+  "findings": [
+    {
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "FEATURES-AUDIT-PLAN.md has default-closed Gate with testable rows; register Gate required when created"
+    },
+    {
+      "id": "multi-turn-stages",
+      "result": "PASS",
+      "note": "Stages A–G with stop predicates; one B-slice per turn preferred"
+    },
+    {
+      "id": "no-silent-reorder",
+      "result": "PASS",
+      "note": "Stage F blocked until Stage E acceptance"
+    },
+    {
+      "id": "law-vs-story",
+      "result": "PASS",
+      "note": "Overclaims → FINDINGS/ADR; FEATURES not fake law"
+    },
+    {
+      "id": "foundation-ordering-rules",
+      "result": "PASS",
+      "note": "Stage D scores foundation + deps; Planet/envelopes called out as retrofit-expensive"
+    },
+    {
+      "id": "scope-no-implement",
+      "result": "PASS",
+      "note": "Plan audits and reorders story; does not implement missing features"
+    },
+    {
+      "id": "class-correctness",
+      "result": "PASS",
+      "note": "Charter C; version Assumption patch"
+    }
+  ],
+  "evidence": [
+    "docs/nlc/FEATURES-AUDIT-PLAN.md",
+    "docs/nlc/FEATURES.md",
+    ".agents/instructions/product-features-ssot.md"
+  ]
+}

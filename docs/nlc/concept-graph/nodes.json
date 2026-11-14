@@ -1,0 +1,329 @@
+{
+  "schema": "nlc-concept-graph-nodes/v0",
+  "description": "First-seed node set: compile spine + constraint chain + BBP core. Granularity L0–L11 matches the diagram-node catalog.",
+  "nodes": [
+    {
+      "id": "nlc",
+      "label": "Natural Language Compiler",
+      "granularity": "L0",
+      "kind": "product",
+      "terms_anchor": "nlc"
+    },
+    {
+      "id": "bbp",
+      "label": "BBP",
+      "granularity": "L0",
+      "kind": "concept",
+      "terms_anchor": "bbp",
+      "notes": "Boundary-Based Programming — emit practice"
+    },
+    {
+      "id": "bba",
+      "label": "BBA",
+      "granularity": "L0",
+      "kind": "concept",
+      "terms_anchor": "bba",
+      "notes": "Boundary-Based Architecture — integrity architecture"
+    },
+    {
+      "id": "compiler",
+      "label": "Compiler",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "compiler",
+      "aliases": ["AI compiler", "ASC"]
+    },
+    {
+      "id": "hub",
+      "label": "Hub",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "hub"
+    },
+    {
+      "id": "adopter",
+      "label": "Adopter",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "adopter"
+    },
+    {
+      "id": "compiled-system",
+      "label": "Compiled system",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "compiled-system",
+      "aliases": ["ACS"]
+    },
+    {
+      "id": "running-app",
+      "label": "Running app",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "running-app"
+    },
+    {
+      "id": "noun",
+      "label": "Noun",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "noun"
+    },
+    {
+      "id": "verb-on-noun",
+      "label": "Verb (on noun)",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "verb-on-noun"
+    },
+    {
+      "id": "adjective",
+      "label": "Adjective",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "adjective"
+    },
+    {
+      "id": "goal",
+      "label": "Goal",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "goal"
+    },
+    {
+      "id": "workflow",
+      "label": "Workflow",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "workflow"
+    },
+    {
+      "id": "primitive",
+      "label": "Primitive",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "primitive"
+    },
+    {
+      "id": "tag",
+      "label": "Tag",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "tag"
+    },
+    {
+      "id": "blast-radius",
+      "label": "Blast radius",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "blast-radius"
+    },
+    {
+      "id": "boundary",
+      "label": "Boundary",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "boundary"
+    },
+    {
+      "id": "contract",
+      "label": "Contract",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "contract"
+    },
+    {
+      "id": "policy-standard-etc",
+      "label": "Policy / standard / etc",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "FEATURES umbrella for constraint sources"
+    },
+    {
+      "id": "requirement",
+      "label": "Requirement",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "requirement"
+    },
+    {
+      "id": "exact-quote",
+      "label": "Exact quote",
+      "granularity": "L3",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Extraction unit from a source constraint document"
+    },
+    {
+      "id": "codified-constraint",
+      "label": "Codified constraint",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Data type + if/then after quote; diagram alias for adopted rule/obligation shape"
+    },
+    {
+      "id": "adr",
+      "label": "ADR",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "adr"
+    },
+    {
+      "id": "accepted-decision",
+      "label": "Accepted decision",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "accepted-decision"
+    },
+    {
+      "id": "rule",
+      "label": "Rule",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "rule"
+    },
+    {
+      "id": "obligation",
+      "label": "Obligation",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "obligation"
+    },
+    {
+      "id": "requirement-pack",
+      "label": "Requirement pack",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "requirement-pack"
+    },
+    {
+      "id": "binding",
+      "label": "Binding",
+      "granularity": "L3",
+      "kind": "process-step",
+      "terms_anchor": "binding"
+    },
+    {
+      "id": "interview",
+      "label": "Interview",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "interview"
+    },
+    {
+      "id": "planit",
+      "label": "PLANIT",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "planit"
+    },
+    {
+      "id": "atomic-action",
+      "label": "Atomic action",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "atomic-action"
+    },
+    {
+      "id": "constraint-bind",
+      "label": "Constraint bind",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "binding",
+      "notes": "Spine step: bind atomic action to codified constraints"
+    },
+    {
+      "id": "reverse-adversarial-audit",
+      "label": "Reverse adversarial audit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "audit",
+      "notes": "Pre-emit: applicable constraints were not left off"
+    },
+    {
+      "id": "emit",
+      "label": "Emit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "Generate / execute atomic action; atomic verb emit"
+    },
+    {
+      "id": "produced-code",
+      "label": "Produced code",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Emitted artifact; participates in summary and path edges"
+    },
+    {
+      "id": "code-adversarial-audit",
+      "label": "Code adversarial audit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "audit",
+      "notes": "Post-emit: constraints landed in code"
+    },
+    {
+      "id": "gate",
+      "label": "Gate",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "gate"
+    },
+    {
+      "id": "prove",
+      "label": "Prove",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "prove"
+    },
+    {
+      "id": "ship",
+      "label": "Ship",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "ship"
+    },
+    {
+      "id": "audit",
+      "label": "Audit",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "audit"
+    },
+    {
+      "id": "produce-audit-ship",
+      "label": "Produce ≠ Audit ≠ Ship",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "produce-audit-ship"
+    },
+    {
+      "id": "compile-realization",
+      "label": "Compile realization",
+      "granularity": "L4",
+      "kind": "bundle",
+      "terms_anchor": null,
+      "notes": "Bundle node for Goal + ADR/codified constraints → Produced code (summary hyper-fact)"
+    },
+    {
+      "id": "trace-graph",
+      "label": "Trace graph",
+      "granularity": "L11",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "FEATURES upcoming: instance graph of recorded hops"
+    },
+    {
+      "id": "impact-graph",
+      "label": "Impact graph",
+      "granularity": "L4",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Released thinner cousin: goal→verb calls"
+    }
+  ]
+}

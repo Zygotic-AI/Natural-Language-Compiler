@@ -1,0 +1,3 @@
+# Trace graph
+
+Still ahead, after full requirement import. The trace graph ties the compile chain together by ids: a goal splits into atomic actions, those actions bind to constraints, a reverse check confirms applicable constraints were included, the compiler emits each action, and a further check confirms the constraints landed in the code. One graph answers where a policy is enforced by walking only links that were recorded. Code review, compliance review, and every other review of the code run as queries on that graph. NLC still manages the codebase the queries land on. Today's impact graph is the smaller map this extends.

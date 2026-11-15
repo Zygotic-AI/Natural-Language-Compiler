@@ -121,7 +121,7 @@ Do not treat a percentage frozen in this file as live status. Run `python3 tools
 
 ## Current ship
 
-Last tagged ship is **v0.7.0**.
+Last tagged ship is **v0.8.0**.
 
 ## ADR 0051 / 0052 hub-own retrofit (C1–C11)
 

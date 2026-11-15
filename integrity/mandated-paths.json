@@ -1735,6 +1735,9 @@
     "migrations/0.6.0_to_0.7.0/migration.yaml": [
       "gate_set_manifest"
     ],
+    "migrations/0.7.0_to_0.8.0/migration.yaml": [
+      "gate_set_manifest"
+    ],
     "migrations/README.md": [
       "gate_set_manifest"
     ],

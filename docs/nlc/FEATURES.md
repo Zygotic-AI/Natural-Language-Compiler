@@ -36,6 +36,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 | **Planet** | The NLC execution path that builds artifacts (compile / planit / leaf skills). Product story for how produced work is audited and accounted for — not a second product name for the hub repo. |
 | **Artifact manifest** | JSON that accompanies a work product and describes it. Post-production audit consumes the manifest **and** the work product. |
 | **Run-level index** | One JSON per Planet run that contains or indexes every artifact manifest from that run. |
+| **Lazy-load skills** | The install question `Lazy-load skills (disable-model-invocation)? y/N`. Yes writes `disable-model-invocation: true` on skills that install copies (slash-only). Default No writes `false` (the model may invoke them). |
 
 ---
 
@@ -105,6 +106,12 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | GitHub product name | v0.5.0 | Install from `Zygotic-AI/Natural-Language-Compiler` | Rename. Old name redirects. |
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
 | Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
+
+### Working tree, not in the v0.7.0 tag
+
+| Feature | What the customer gets | Why it is here |
+| ------- | ---------------------- | -------------- |
+| Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or no answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
 
 ---
 

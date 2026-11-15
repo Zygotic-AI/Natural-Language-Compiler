@@ -7,6 +7,20 @@
       "outcome": "PASS",
       "command": "proposal fields + default-closed gate check",
       "at": "2026-10-10T05:07:51Z"
+    },
+    {
+      "artifact": "goals/hub_install/execute.sh",
+      "gate_id": "install-lazy-load",
+      "outcome": "PASS",
+      "command": "python3 tools/assert-install-foreign-skills-passes.py",
+      "at": "2026-11-15T19:56:14Z"
+    },
+    {
+      "artifact": "goals/hub_install/execute.ps1",
+      "gate_id": "install-lazy-load",
+      "outcome": "PASS",
+      "command": "python3 tools/fitness-install-scope.py",
+      "at": "2026-11-15T19:56:14Z"
     }
   ]
 }

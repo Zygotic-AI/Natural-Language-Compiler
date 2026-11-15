@@ -52,6 +52,18 @@ if ($Scope -ne 'global' -and $Scope -ne 'local') {
     exit 1
 }
 
+# Same interactive rule as install scope: a pipe or CI must not block on a prompt.
+$Lazy = $false
+if (-not $env:CI -and [Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+    Write-Host 'Lazy-load skills (disable-model-invocation)? y/N ' -NoNewline
+    $entered = [Console]::ReadLine()
+    if ($entered) {
+        $token = $entered.Trim().ToLowerInvariant()
+        if ($token -eq 'y' -or $token -eq 'yes') { $Lazy = $true }
+    }
+}
+$LazyText = if ($Lazy) { 'true' } else { 'false' }
+
 $NlcRepoSlug = if ($env:NLC_REPO_SLUG) { $env:NLC_REPO_SLUG } else { 'Zygotic-AI/Natural-Language-Compiler' }
 $NlcRawBase = if ($env:NLC_RAW_BASE) { $env:NLC_RAW_BASE } else { "https://raw.githubusercontent.com/$NlcRepoSlug/main" }
 $Py = if (Get-Command python -ErrorAction SilentlyContinue) { 'python' } else { 'py' }
@@ -88,6 +100,7 @@ $CursorSkillsRepo = @('bbp-confirmer', 'bbp-proposer', 'bbp-recorder', 'bbp-revi
 
 Write-Host 'Natural Language Compiler — install'
 Write-Host "  scope: $Scope"
+Write-Host "  lazy-load: $LazyText"
 Write-Host "  target: $InstallRoot"
 Write-Host "  skills: $AgentsSkills"
 
@@ -162,11 +175,54 @@ if (-not (Test-Path -LiteralPath $SkillCheckGoal)) {
     exit 1
 }
 
+function Set-SkillInvocationFlag {
+    param([string]$Root)
+    if (-not (Test-Path -LiteralPath $Root)) { return }
+    $Va = @()
+    if ($Py -eq 'py') { $Va += '-3' }
+    $Va += '-'
+    $Va += $Root
+    $Va += $LazyText
+    @'
+import re
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+value = "true" if sys.argv[2] == "true" else "false"
+if not root.is_dir():
+    raise SystemExit(0)
+pat = re.compile(r"(?m)^disable-model-invocation:[ \t]*.*$")
+for skill in sorted(root.rglob("SKILL.md")):
+    text = skill.read_text(encoding="utf-8")
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].strip() != "---":
+        continue
+    end = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        continue
+    fm = "".join(lines[1:end])
+    if pat.search(fm):
+        fm = pat.sub(f"disable-model-invocation: {value}", fm, count=1)
+    else:
+        if fm and not fm.endswith(("\n", "\r\n")):
+            fm += "\n"
+        fm += f"disable-model-invocation: {value}\n"
+    skill.write_text("".join(lines[:1]) + fm + "".join(lines[end:]), encoding="utf-8")
+'@ | & $Py @Va
+    if ($LASTEXITCODE -ne 0) { throw 'skill invocation flag rewrite failed' }
+}
+
 # ADR 0054: same CLI on the copied hub skills tree, not mixed destination skills.
 $SkillsStaging = Join-Path ([System.IO.Path]::GetTempPath()) ('nlc-hub-skills-' + [guid]::NewGuid().ToString())
 New-Item -ItemType Directory -Path $SkillsStaging -Force | Out-Null
 try {
     Copy-Item -Path (Join-Path $SkillsSrc '*') -Destination $SkillsStaging -Recurse -Force
+    Set-SkillInvocationFlag -Root $SkillsStaging
     Write-Host '  verify: skill author checklist'
     & $SkillCheckGoal --root $SkillsStaging
     if ($LASTEXITCODE -ne 0) {
@@ -196,6 +252,7 @@ if (Test-Path -LiteralPath $CursorHome) {
                 Remove-Item -LiteralPath $Dest -Recurse -Force
             }
             Copy-Item -LiteralPath $From -Destination $Dest -Recurse -Force
+            Set-SkillInvocationFlag -Root $Dest
         }
     }
     Write-Host '  cursor: copied repo-local BBP + planit skills'

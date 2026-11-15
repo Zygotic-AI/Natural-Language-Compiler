@@ -3,13 +3,13 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "docs-nlc-FEATURES",
-    "docs-nlc-FEATURES-AUDIT-PLAN"
+    "goals-hub_install",
+    "docs-nlc-FEATURES"
   ],
-  "ssot_exit_status": "plan-audit-pass-features-audit-reorder-plan",
+  "ssot_exit_status": "plan-audit-pass-install-lazy-load",
   "quality_snapshot": {
-    "opportunities": 7,
-    "ops": 7,
+    "opportunities": 8,
+    "ops": 8,
     "defects": 0,
     "quality": 1.0
   },
@@ -17,42 +17,49 @@
     {
       "id": "GATE-STD",
       "result": "PASS",
-      "note": "FEATURES-AUDIT-PLAN.md has default-closed Gate with testable rows; register Gate required when created"
+      "note": "No new skill. Stop predicates are fitness-install-scope RESULT:MET and install asserts ASSERT:PASS. Default-closed: non-interactive writes false; y writes true."
     },
     {
-      "id": "multi-turn-stages",
+      "id": "R31-foreign-skills",
       "result": "PASS",
-      "note": "Stages A\u2013G with stop predicates; one B-slice per turn preferred"
+      "note": "ADR 0054: rewrite only the staged hub skill copy and the cursor skill dirs this install just copied. Do not walk the destination tree."
     },
     {
-      "id": "no-silent-reorder",
+      "id": "R30-no-pipe-hang",
       "result": "PASS",
-      "note": "Stage F blocked until Stage E acceptance"
+      "note": "ADR 0060 tty rule: prompt only when CI is unset and stdout is a terminal; read /dev/tty. Piped curl and CI stay false with no read."
     },
     {
-      "id": "law-vs-story",
+      "id": "hash-hub-untouched",
       "result": "PASS",
-      "note": "Overclaims \u2192 FINDINGS/ADR; FEATURES not fake law"
+      "note": "Do not rewrite INSTALL_ROOT/hub. Install hash verify still covers the hub tree."
     },
     {
-      "id": "foundation-ordering-rules",
+      "id": "class-C",
       "result": "PASS",
-      "note": "Stage D scores foundation + deps; Planet/envelopes called out as retrofit-expensive"
+      "note": "Charter class C use-case on goals/hub_install. Version class minor. No new noun, no Ratified-by line."
     },
     {
-      "id": "scope-no-implement",
+      "id": "default-false",
       "result": "PASS",
-      "note": "Plan audits and reorders story; does not implement missing features"
+      "note": "Empty, n, or non-interactive sets disable-model-invocation false. y or yes sets true. Prompt text is the operator string."
     },
     {
-      "id": "class-correctness",
+      "id": "source-skills-unchanged",
       "result": "PASS",
-      "note": "Charter C; version Assumption patch"
+      "note": "Hub source SKILL.md stays disable-model-invocation true. The choice is applied to the installed copy."
+    },
+    {
+      "id": "CONTROL-LIFECYCLE",
+      "result": "PASS",
+      "note": "N/A: not a pin, sidecar, hook, verifier, or trusted-key list."
     }
   ],
   "evidence": [
-    "docs/nlc/FEATURES-AUDIT-PLAN.md",
-    "docs/nlc/FEATURES.md",
-    ".agents/instructions/product-features-ssot.md"
+    "goals/hub_install/execute.sh",
+    "goals/hub_install/execute.ps1",
+    "adrs/0060-install-scope-and-path-dispatch.md",
+    "adrs/0054-published-skill-author-contract.md",
+    "docs/nlc/FEATURES.md"
   ]
 }

@@ -23,7 +23,7 @@
    irm https://raw.githubusercontent.com/Zygotic-AI/Natural-Language-Compiler/main/scripts/install.ps1 | iex
    ```
 
-   Piped install is **global** (this user). In a terminal the installer asks **global** or **local**. Local pins the current git repo (`.nlc/hub`, `./nlc`, skills in that repo). Non-interactive: `--global` / `--local`, or `NLC_INSTALL_SCOPE=global|local`. After a local pin, PATH `nlc` in that repo execs the repo copy and passes every argument through.
+   Piped install is **global** (this user). In a terminal the installer asks **global** or **local**. Local pins the current git repo (`.nlc/hub`, `./nlc`, skills in that repo). Non-interactive: `--global` / `--local`, or `NLC_INSTALL_SCOPE=global|local`. After a local pin, PATH `nlc` in that repo execs the repo copy and passes every argument through. On an interactive terminal it also asks `Lazy-load skills (disable-model-invocation)? y/N`. Default **N** (and any non-interactive install, including piped `curl` and CI) writes `disable-model-invocation: false` on the skills this install copies. `y` writes `true`. Skills already present that this install did not copy are left alone.
 
 2. **Open your [app repo](../../TERMS.md#adopter)** in Cursor (or work in this hub for charter/tool changes).
 

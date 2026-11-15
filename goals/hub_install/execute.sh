@@ -56,6 +56,21 @@ if [[ "${SCOPE}" != "global" && "${SCOPE}" != "local" ]]; then
   exit 1
 fi
 
+# Same interactive rule as install scope: a pipe or CI must not block on a prompt.
+LAZY=false
+if [[ -z "${CI:-}" && -t 1 ]]; then
+  printf 'Lazy-load skills (disable-model-invocation)? y/N '
+  lazy_ans=""
+  if [[ -r /dev/tty ]]; then
+    read -r lazy_ans < /dev/tty || lazy_ans=""
+  fi
+  lazy_ans="$(printf '%s' "${lazy_ans}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
+  case "${lazy_ans}" in
+    y|yes) LAZY=true ;;
+    *) LAZY=false ;;
+  esac
+fi
+
 NLC_REPO_SLUG="${NLC_REPO_SLUG:-Zygotic-AI/Natural-Language-Compiler}"
 NLC_RAW_BASE="${NLC_RAW_BASE:-https://raw.githubusercontent.com/${NLC_REPO_SLUG}/main}"
 NLC_REF="${NLC_REF:-}"
@@ -97,6 +112,7 @@ trap cleanup EXIT
 
 echo "Natural Language Compiler — install"
 echo "  scope: ${SCOPE}"
+echo "  lazy-load: ${LAZY}"
 echo "  target: ${INSTALL_ROOT}"
 echo "  skills: ${AGENTS_SKILLS}"
 
@@ -135,6 +151,42 @@ if [[ ! -d "${skills_src}" ]]; then
   exit 1
 fi
 
+# Set disable-model-invocation on SKILL.md frontmatter under one copied tree.
+apply_skill_invocation_flag() {
+  local root="$1"
+  python3 - "${root}" "${LAZY}" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+value = "true" if sys.argv[2] == "true" else "false"
+if not root.is_dir():
+    raise SystemExit(0)
+pat = re.compile(r"(?m)^disable-model-invocation:[ \t]*.*$")
+for skill in sorted(root.rglob("SKILL.md")):
+    text = skill.read_text(encoding="utf-8")
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].strip() != "---":
+        continue
+    end = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            end = i
+            break
+    if end is None:
+        continue
+    fm = "".join(lines[1:end])
+    if pat.search(fm):
+        fm = pat.sub(f"disable-model-invocation: {value}", fm, count=1)
+    else:
+        if fm and not fm.endswith(("\n", "\r\n")):
+            fm += "\n"
+        fm += f"disable-model-invocation: {value}\n"
+    skill.write_text("".join(lines[:1]) + fm + "".join(lines[end:]), encoding="utf-8")
+PY
+}
+
 # ADR 0054: same CLI on the copied hub skills tree, not mixed destination skills.
 if [[ -z "${tmpdir}" ]]; then
   tmpdir="$(mktemp -d)"
@@ -146,6 +198,7 @@ if command -v rsync >/dev/null 2>&1; then
 else
   cp -R "${skills_src}/." "${skills_staging}/"
 fi
+apply_skill_invocation_flag "${skills_staging}"
 
 skill_check_goal="${INSTALL_ROOT}/hub/goals/hub_skill_author_check/execute.sh"
 if [[ ! -f "${skill_check_goal}" ]]; then
@@ -176,6 +229,7 @@ if [[ -d "${CURSOR_HOME}" ]]; then
     if [[ -d "${src_root}/.cursor/skills/${skill}" ]]; then
       rm -rf "${CURSOR_SKILLS}/${skill}"
       cp -R "${src_root}/.cursor/skills/${skill}" "${CURSOR_SKILLS}/${skill}"
+      apply_skill_invocation_flag "${CURSOR_SKILLS}/${skill}"
     fi
   done
   echo "  cursor: copied repo-local BBP + planit skills"

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Pull request #74 existed only to contain the #71 squash so #73 could merge. That PR is not part of the v0.6.0 ship shape.",
+  "unsuitable_process": "After a squash on main, the session opened a containment PR (merge main into release/v*) as the next ship step. ADR 0049 forbids automatic merge and has no CREATE_CONTAINMENT_PR. not_contained is HUMAN_DECISION, not a recipe to merge main into the release line.",
+  "climb_steps": [
+    "#74 merged d188058 to contain main on release/v0.7.0.",
+    "Planner ACTION_KINDS has no containment merge.",
+    "ADR 0049 automatic merge is forbidden.",
+    "v0.6.0 ship shape had no such PR; this session normalized one."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049", "0044"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_context"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S17"
+}

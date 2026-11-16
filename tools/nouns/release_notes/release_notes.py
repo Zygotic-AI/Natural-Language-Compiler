@@ -81,18 +81,30 @@ def diff_stat(from_ref: str, to_ref: str) -> str:
     return proc.stdout.strip()
 
 
-def build_draft(version: str, to_ref: str, from_tag: str | None) -> str:
-    ver = version.lstrip("v")
-    if from_tag:
-        commits = commit_lines(from_tag, to_ref)
-        heading = f"## Changes since {from_tag}"
-        stat = diff_stat(from_tag, to_ref)
-    else:
-        proc = _git("log", to_ref, "--pretty=format:- %s (`%h`)", "-n", "50")
-        commits = [ln for ln in (proc.stdout or "").splitlines() if ln.strip()]
-        heading = "## Changes (no prior semver tag in repo)"
-        stat = ""
+_COMMIT_BULLET = re.compile(r"(?m)^- .+\(`[0-9a-f]{7,}`\)\s*$")
 
+
+def _changes_heading(from_tag: str | None) -> str:
+    if from_tag:
+        return f"## Changes since {from_tag}"
+    return "## Changes (no prior semver tag in repo)"
+
+
+def _release_changes_block(from_tag: str | None) -> str:
+    """Release-level Changes section. Never a commit list or a diff stat."""
+    return (
+        _changes_heading(from_tag)
+        + "\n\nDescribed in Highlights. This file records the release, not each commit.\n"
+    )
+
+
+def _is_commit_log(section: str) -> bool:
+    return "### Diff stat" in section or _COMMIT_BULLET.search(section) is not None
+
+
+def build_draft(version: str, to_ref: str, from_tag: str | None) -> str:
+    _ = to_ref
+    ver = version.lstrip("v")
     body_lines = [
         f"# Natural Language Compiler hub v{ver}",
         "",
@@ -100,16 +112,9 @@ def build_draft(version: str, to_ref: str, from_tag: str | None) -> str:
         "",
         f"<!-- {HIGHLIGHTS_PLACEHOLDER} -->",
         "",
-        heading,
+        _release_changes_block(from_tag).rstrip("\n"),
         "",
     ]
-    if commits:
-        body_lines.extend(commits)
-    else:
-        body_lines.append("_No commits in range._")
-    body_lines.append("")
-    if stat:
-        body_lines.extend(["### Diff stat", "", "```", stat, "```", ""])
     return "\n".join(body_lines) + "\n"
 
 
@@ -122,32 +127,16 @@ _CHANGES_SECTION_ALT = re.compile(
 
 
 def refresh_changes_section(text: str, version: str, to_ref: str, from_tag: str | None) -> str:
-    ver = version.lstrip("v")
-    if from_tag:
-        commits = commit_lines(from_tag, to_ref)
-        heading = f"## Changes since {from_tag}"
-        stat = diff_stat(from_tag, to_ref)
-    else:
-        proc = _git("log", to_ref, "--pretty=format:- %s (`%h`)", "-n", "50")
-        commits = [ln for ln in (proc.stdout or "").splitlines() if ln.strip()]
-        heading = "## Changes (no prior semver tag in repo)"
-        stat = ""
-
-    block_lines = [heading, ""]
-    if commits:
-        block_lines.extend(commits)
-    else:
-        block_lines.append("_No commits in range._")
-    block_lines.append("")
-    if stat:
-        block_lines.extend(["### Diff stat", "", "```", stat, "```", ""])
-    new_block = "\n".join(block_lines)
-
+    """Drop a generated commit log. Leave a hand-written release summary alone."""
+    _ = (version, to_ref)
+    match = _CHANGES_SECTION.search(text) or _CHANGES_SECTION_ALT.search(text)
+    if match and not _is_commit_log(match.group(0)):
+        return text
+    new_block = _release_changes_block(from_tag).rstrip("\n")
     if _CHANGES_SECTION.search(text):
         return _CHANGES_SECTION.sub(new_block + "\n", text, count=1)
     if _CHANGES_SECTION_ALT.search(text):
         return _CHANGES_SECTION_ALT.sub(new_block + "\n", text, count=1)
-    # Append if structure unexpected
     return text.rstrip() + "\n\n" + new_block + "\n"
 
 
@@ -188,7 +177,11 @@ def main() -> int:
     parser.add_argument("--previous-tag", action="store_true", help="Print previous tag and exit")
     parser.add_argument("--write-draft", action="store_true", help="Write draft file if missing")
     parser.add_argument("--force", action="store_true", help="Overwrite file with full draft")
-    parser.add_argument("--refresh-changes", action="store_true", help="Update Changes section only")
+    parser.add_argument(
+        "--refresh-changes",
+        action="store_true",
+        help="Remove a commit log from Changes. Leave a hand-written release summary.",
+    )
     parser.add_argument("--check", action="store_true", help="Validate Highlights; exit 1 if not met")
     parser.add_argument("--print-draft", action="store_true", help="Print draft to stdout")
     args = parser.parse_args()

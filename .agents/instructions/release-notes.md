@@ -9,7 +9,7 @@ VER=0.2.0   # match integrity/nlc-version.json after bump
 python3 tools/nlc_release_notes.py --write-draft --version "${VER}" --to HEAD
 ```
 
-Replace the Highlights comment with adopter-facing summary. Refresh commit list only:
+Replace the Highlights comment with the release summary. Highlights is the record of what changed in this release. Do not list commits or a diff stat. `--refresh-changes` only removes a generated commit log; it leaves a hand-written Changes section:
 
 ```bash
 python3 tools/nlc_release_notes.py --refresh-changes --version "${VER}" --to HEAD

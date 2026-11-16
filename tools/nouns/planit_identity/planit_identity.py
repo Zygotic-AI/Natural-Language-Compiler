@@ -99,6 +99,26 @@ def prove(root: Path, loaded_path: str) -> list[str]:
     return identity_errors(registry, loaded_path, loaded)
 
 
+def loaded_skill_errors(hub: Path, loaded_file: Path) -> list[str]:
+    """Hash the skill file the agent loaded against the registry in the hub.
+
+    The product repo is not a registry location. A non-hub project is not a skip.
+    """
+    registry_path = hub / REGISTRY_REL
+    if not registry_path.is_file():
+        return [f"missing hub registry {registry_path}"]
+    try:
+        registry = load_registry(hub)
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        return [f"hub registry unreadable {registry_path}: {exc}"]
+    if not loaded_file.is_file():
+        return [f"loaded Planit skill missing {loaded_file}"]
+    expected = registry.get("content_sha256")
+    if content_hash(loaded_file.read_bytes()) != expected:
+        return [f"loaded Planit skill hash does not match hub registry {registry_path}"]
+    return []
+
+
 def resolve_root(argv: list[str]) -> Path:
     """Hub tree under test: optional path argv before flags."""
     args = list(argv)

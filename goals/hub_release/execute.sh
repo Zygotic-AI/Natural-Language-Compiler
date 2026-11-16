@@ -339,7 +339,7 @@ dispatch_release_plan() {
       if [[ "${NO_PUSH}" -eq 1 ]]; then
         echo "RELEASE:READY_LOCAL pull-request=${branch}"
       else
-        gh pr create \
+        python3 tools/pr-offer-gate.py \
           --base "${BASE_BRANCH}" \
           --head "${branch}" \
           --title "Release v${desired}" \

@@ -18,9 +18,9 @@ error_condition: In a new repo with a local install of Natural Language Compiler
 
 Evidence (observed, 2026-11-16):
 
-- Session: `bug.txt`. Repo: `/home/rpickett/workspace/richardpickett/upgrade-your-prompt`. `.nlc/current` is `0.7.0`. `.nlc/hub` → `.nlc/versions/0.7.0`.
+- Session: `bug.txt`. Repo: `upgrade-your-prompt` (a new product repo with a local v0.7.0 install). `.nlc/current` is `0.7.0`. `.nlc/hub` → `.nlc/versions/0.7.0`.
 - The installed Planit skill (`.agents/skills/planit/SKILL.md` line 44) says, as a blocking intake check: run `python3 tools/fitness-planit-identity.py --skill-only --loaded .agents/skills/planit/SKILL.md`, and names `integrity/planit-skill-registry.json` as the registry. The same sentence is in the v0.7.0 hub copy and in this repo’s `.agents/skills/planit/SKILL.md`.
-- That command, from the product root, exited 2: `python3: can't open file '/home/rpickett/workspace/richardpickett/upgrade-your-prompt/tools/fitness-planit-identity.py': [Errno 2] No such file or directory`.
+- That command, from the product root, exited 2: `python3: can't open file 'upgrade-your-prompt/tools/fitness-planit-identity.py': [Errno 2] No such file or directory`.
 - `ls integrity/planit-skill-registry.json` at the product root exited 2: `No such file or directory`. `CHARTER.md` at that root is an adopter stub, not the hub charter.
 - The product root has no `tools/` directory. `is_hub_repo` on that root is false. `is_hub_repo` on `.nlc/versions/0.7.0` is true.
 - The registry exists at `.nlc/versions/0.7.0/integrity/planit-skill-registry.json`. `content_sha256` is `4c395de82ca8f1a88d9f337b3675bc97d197243e12934116a9dd6e5e5a7e5b8c`, the same hash the session recorded for `.agents/skills/planit/SKILL.md`.

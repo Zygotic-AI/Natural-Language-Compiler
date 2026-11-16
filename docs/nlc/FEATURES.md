@@ -13,7 +13,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
-| [Outstanding branches](#outstanding-branches) | Git branches whose work is not already on a release: what each one implements, and whether that work is done. Not Upcoming. Already-released branch names are not listed. |
+| [Outstanding branches](#outstanding-branches) | Branch tips that are not `main` and not a release line. Empty when those names have been deleted. Not Upcoming. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
@@ -296,23 +296,16 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 
 ## Outstanding branches
 
-Git branch tips that are not contained in `origin/release/v0.8.0` and whose work is **not** already on a release, reviewed 2026-11-16. Already-released work is omitted here even when the old branch name still exists. These rows are not [Upcoming](#upcoming) items 1–13 and they are not milestones. Merging the branch would replay an old tree onto the release.
+Reviewed 2026-11-16. `origin` has `main` and the release lines only. No other branch name belongs, so there is no table.
 
-The v0.7.0 ship-session root-cause notes and the three older notes are on this release through merged pull request #79. Those branch names are not listed.
+These names were deleted because they do not belong:
 
-Three October branches were reviewed on 2026-11-16 and not merged. A merge would replay that old tree onto this release.
-
-`cursor/o10-findings-gap-ssot-4623` makes `FINDINGS.md` the only live gap list and adds a checker for that. The release already says that. The checker also turns the task list, `HOLES.md`, and the session follow-through file into short stubs and demands October gap markers such as "368 of 370". The task list stays a log because the product-use-case check reads its open rows. Those stubs were not copied.
-
-`cursor/o11-terms-glossary-ssot-4623` collapses the dictionary into `docs/TERMS.md` and contains the gap-list commits. The locked definitions and their audit lines already live in `integrity/LEXICON.md`. The short consumer list stays `docs/nlc/compiler/GLOSSARY.md`. The branch also redefines Goal so it no longer calls verbs. This release still uses that wording, so the rewrite was not copied.
-
-`nlc-diagram-info` is an older component diagram. The release picture is newer and keeps the return to Interview. The external person-name path on that branch stays out. One sentence from the branch is now in `docs/diagrams/nlc-components.md`: a gate checks the one artifact just generated, and verify is the later compile check.
-
-| Branch | What it implements | Completion |
-| --- | --- | --- |
-| `cursor/nlc-planit-identity` | The Planit skill identity check, plus an old task-list insert. | The check passes on this release. Six leftover checkboxes on the branch (a root-cause note, a prevention check, a prose sweep, a prove step, an operator note, and a ship line) were not copied. Do not merge the branch. |
-| `cursor/fitness-binder-debug` | A six-line debug change that renames exempt id `0051:L26` to `0051:L25`. | Not done, and it should stay that way. The release rule file still says `0051:L26`. Do not merge. |
-| `cursor/o4-sync-up-review-4623` | A v0.3.0 review appendix (`tools/fitness-sync-up-review-appendix.py`). | Not done. That file is absent. Not an Upcoming item. Revive only as a new change if that review is still required. Do not merge. |
+- `cursor/nlc-planit-identity`. The Planit identity check is already on this release. The branch only added six unchecked task-list boxes about a deleted harness hook. Those boxes were not done.
+- `cursor/fitness-binder-debug`. It would rename exempt rule id `0051:L26` to `0051:L25`. The release rule file still says `0051:L26`.
+- `cursor/o4-sync-up-review-4623`. An October review packet for the already-shipped v0.3.0 line, including `tools/fitness-sync-up-review-appendix.py`. Not an upcoming feature.
+- `cursor/o10-findings-gap-ssot-4623`. `FINDINGS.md` is already the only live gap list. The branch checker would stub the task list and restore October gap markers.
+- `cursor/o11-terms-glossary-ssot-4623`. The locked definitions already live in `integrity/LEXICON.md`. The branch would also redefine Goal so it no longer calls verbs.
+- `nlc-diagram-info`. Older component diagram. The one kept sentence is in `docs/diagrams/nlc-components.md`: a gate checks the one artifact just generated, and verify is the later compile check.
 
 ---
 
@@ -338,4 +331,4 @@ Three October branches were reviewed on 2026-11-16 and not merged. A merge would
 - Why `/nlc` routing before self-brownfield? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips. Dogfood should not practice a back door.
 - Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue. Spec’d with precise rewrite.
 - Why “running app” not “runtime”? Runtime is easy to mix with NLC compile work. The customer’s compiled application while it is executing is the running app.
-- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. The row says what the branch implemented and whether that work is already done.
+- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. When the work is already on a release, or the branch must not be replayed, the name is deleted and the section stays empty.

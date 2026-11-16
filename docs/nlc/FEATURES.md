@@ -296,16 +296,12 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 
 ## Outstanding branches
 
-Git branch tips that are not contained in `origin/release/v0.8.0` and whose work is **not** already on a release, reviewed 2026-11-15. Already-released work is omitted here even when the old branch name still exists. These rows are not [Upcoming](#upcoming) items 1–13 and they are not milestones. Merging the branch would replay an old tree onto the release.
+Git branch tips that are not contained in `origin/release/v0.8.0` and whose work is **not** already on a release, reviewed 2026-11-16. Already-released work is omitted here even when the old branch name still exists. These rows are not [Upcoming](#upcoming) items 1–13 and they are not milestones. Merging the branch would replay an old tree onto the release.
 
-Open pull request #79 (`v080-rca-notes`) is only the hand copy of the root-cause notes. It is not one of these branches, and it is not merged.
+The v0.7.0 ship-session root-cause notes and the three older notes are on this release through merged pull request #79. Those branch names are not listed.
 
 | Branch | What it implements | Completion |
 | --- | --- | --- |
-| `cursor/v070-session-rca-queue-326d` | Nineteen root-cause notes from the v0.7.0 ship session, plus the task-list queue. | Notes are copied in open pull request #79, not on `origin/release/v0.8.0` until that merges. The branch also removes the fitness push trigger and rewrites the release skill and the pull-request offer gate; those edits were not copied. Preventive task-list rows are still open. Do not merge the branch. |
-| `cursor/pr38-masked-shape-rca-8ecd` | One root-cause note: pull request #38 reached an owner signature with a hidden shape failure. | The note is in pull request #79 (`docs/rca/2026-10-27-pr38-masked-shape-failure.md`). Not on origin until that merges. Do not merge the branch. |
-| `cursor/rca-ci-hang-per-file-sigs-ab5c` | One root-cause note: CI time exploded after per-file decision signatures. | The note is in pull request #79 (`docs/rca/2026-10-25-ci-hang-per-file-sigs.md`). Not on origin until that merges. Do not merge the branch. |
-| `cursor/rca-start-release-gh-missing-fail-open-ade1` | One root-cause note: start-release required `gh`, which the runner lacked, and the existence checks failed open. | The note is in pull request #79 (`docs/rca/2026-10-25-start-release-gh-missing-fail-open.md`). Not on origin until that merges. Do not merge the branch. |
 | `cursor/nlc-planit-identity` | The Planit skill identity check, plus an old task-list insert. | The check passes on this release. Six leftover checkboxes on the branch (a root-cause note, a prevention check, a prose sweep, a prove step, an operator note, and a ship line) were not copied. Do not merge the branch. |
 | `cursor/fitness-binder-debug` | A six-line debug change that renames exempt id `0051:L26` to `0051:L25`. | Not done, and it should stay that way. The release rule file still says `0051:L26`. Do not merge. |
 | `cursor/o4-sync-up-review-4623` | A v0.3.0 review appendix (`tools/fitness-sync-up-review-appendix.py`). | Not done. That file is absent. Not an Upcoming item. Revive only as a new change if that review is still required. Do not merge. |

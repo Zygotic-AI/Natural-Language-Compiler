@@ -13,7 +13,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
-| [Outstanding branches](#outstanding-branches) | Git branches whose tips are not on a release line: what each one implements, and whether that work is done. Not Upcoming. |
+| [Outstanding branches](#outstanding-branches) | Git branches whose work is not already on a release: what each one implements, and whether that work is done. Not Upcoming. Already-released branch names are not listed. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
@@ -296,21 +296,12 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 
 ## Outstanding branches
 
-Git branch tips that are not contained in `origin/release/v0.8.0`, reviewed 2026-11-15. These are not [Upcoming](#upcoming) items 1–13 and they are not milestones. The work is either already on a release under a later commit, or it is a note that has to be copied by hand. Merging the branch would replay an old tree onto the release. None of these branches are scheduled.
+Git branch tips that are not contained in `origin/release/v0.8.0` and whose work is **not** already on a release, reviewed 2026-11-15. Already-released work is omitted here even when the old branch name still exists. These rows are not [Upcoming](#upcoming) items 1–13 and they are not milestones. Merging the branch would replay an old tree onto the release.
 
 Open pull request #79 (`v080-rca-notes`) is only the hand copy of the root-cause notes. It is not one of these branches, and it is not merged.
 
 | Branch | What it implements | Completion |
 | --- | --- | --- |
-| `cursor/adr-0051-codified-constraints-6117` | Hub-owned fitness modules for accepted decision [0051](../../adrs/0051-hub-own-produce-principles.md) (the hub produces its own checks). | Done. Those modules match `origin/release/v0.8.0`, and decision 0051 is Accepted, revision 2. Do not merge. |
-| `cursor/hub-own-produce-adr-0051-6117` | Older text of the same hub-own-produce decision. | Done on the release as revision 2. Do not merge the older text. |
-| `cursor/adr-0052-openpgp-ratification-c301` | Owner OpenPGP ratification for this hub (accepted decision [0052](../../adrs/0052-owner-openpgp-ratification-amends-0051.md)). Not public pack signing (Upcoming 12). | Done on the release as revision 2. The branch copy has no revision line. Do not merge. |
-| `cursor/install-local-or-global-326d` | Install into one repo or install globally (accepted decision [0060](../../adrs/0060-install-scope-and-path-dispatch.md)). | Released. Do not merge. |
-| `cursor/install-foreign-skills-check-326d` | Installer author check that grades copied hub skills and leaves foreign skills alone. | Done. The release test is `tools/nouns/assert_install_foreign_skills_passes/`. Pull request #68 was closed without merging. Do not merge. |
-| `cursor/six-step-unsigned-release-33f3` | Draft of a six-step unsigned hub release. | Superseded by accepted decision [0058](../../adrs/0058-harness-and-model-agnostic.md) (harness- and model-agnostic, not this draft). Do not merge. |
-| `cursor/v041-gh-token` | A `gh` token fix from the v0.4.1 line. | Done. The same patch is already on `release/v0.4.1`. Do not merge. |
-| `cursor/v070-release-prep-326d` | The v0.7.0 release-prep commit. | Done. That release is already cut. Merging would rewrite version files back to 0.7.0. Do not merge. |
-| `cursor/post-v032-residuals-ff99` | Post-v0.3.2 residual patch. | Done. The same patch is already on a release line. Do not merge. |
 | `cursor/v070-session-rca-queue-326d` | Nineteen root-cause notes from the v0.7.0 ship session, plus the task-list queue. | Notes are copied in open pull request #79, not on `origin/release/v0.8.0` until that merges. The branch also removes the fitness push trigger and rewrites the release skill and the pull-request offer gate; those edits were not copied. Preventive task-list rows are still open. Do not merge the branch. |
 | `cursor/pr38-masked-shape-rca-8ecd` | One root-cause note: pull request #38 reached an owner signature with a hidden shape failure. | The note is in pull request #79 (`docs/rca/2026-10-27-pr38-masked-shape-failure.md`). Not on origin until that merges. Do not merge the branch. |
 | `cursor/rca-ci-hang-per-file-sigs-ab5c` | One root-cause note: CI time exploded after per-file decision signatures. | The note is in pull request #79 (`docs/rca/2026-10-25-ci-hang-per-file-sigs.md`). Not on origin until that merges. Do not merge the branch. |
@@ -318,7 +309,6 @@ Open pull request #79 (`v080-rca-notes`) is only the hand copy of the root-cause
 | `cursor/nlc-planit-identity` | The Planit skill identity check, plus an old task-list insert. | The check passes on this release. Six leftover checkboxes on the branch (a root-cause note, a prevention check, a prose sweep, a prove step, an operator note, and a ship line) were not copied. Do not merge the branch. |
 | `cursor/fitness-binder-debug` | A six-line debug change that renames exempt id `0051:L26` to `0051:L25`. | Not done, and it should stay that way. The release rule file still says `0051:L26`. Do not merge. |
 | `cursor/o4-sync-up-review-4623` | A v0.3.0 review appendix (`tools/fitness-sync-up-review-appendix.py`). | Not done. That file is absent. Not an Upcoming item. Revive only as a new change if that review is still required. Do not merge. |
-| `cursor/o6-adr-ratification-4623` | October edits to accepted decisions 0001, 0002, 0003, and 0050. | Those decisions are already ratified in later text. Do not merge over the current text. |
 | `cursor/o10-findings-gap-ssot-4623` | Make `FINDINGS.md` the sole live gap queue and add a fitness file for that. | Partly reflected: `FINDINGS.md` already says it is the sole live gap queue. The branch fitness file is absent, and `HOLES.md` is still on the release. Do not merge this October branch. A new feature-list row is required before anyone builds that fitness. |
 | `cursor/o11-terms-glossary-ssot-4623` | Collapse the dictionary files into one. Also contains the O10 commits. | Not done. `docs/TERMS.md`, `integrity/LEXICON.md`, and `docs/nlc/compiler/GLOSSARY.md` all still exist. Do not merge. |
 | `nlc-diagram-info` | Older diagram JSON and `architecture.png`. | Not done as a merge. The release diagrams are newer. This is not the low-code UI (Upcoming 13). Do not merge. |

@@ -454,6 +454,27 @@ def cmd_language_scan(args: argparse.Namespace) -> int:
     return run_tool("nlc_language_scan.py", [str(root)])
 
 
+def cmd_planit_identity(args: argparse.Namespace) -> int:
+    """Run the Planit identity check. Nothing else invokes it."""
+    project = project_root(args.project)
+    hub = hub_root(project)
+    loaded = Path(args.loaded) if args.loaded else project / ".agents" / "skills" / "planit" / "SKILL.md"
+    if not loaded.is_absolute():
+        loaded = (project / loaded).resolve()
+    else:
+        loaded = loaded.resolve()
+    from nouns.planit_identity.planit_identity import loaded_skill_errors
+
+    errors = loaded_skill_errors(hub, loaded)
+    if errors:
+        for item in errors:
+            print(f"VIOLATION {item}")
+        print("PLANIT_IDENTITY:NOT_MET")
+        return 1
+    print("PLANIT_IDENTITY:MET")
+    return 0
+
+
 def main() -> int:
     hub_tool()
     parser = argparse.ArgumentParser(
@@ -658,6 +679,17 @@ def main() -> int:
     p_cba.add_argument("--requirement", default=None)
     p_cba.add_argument("--accepted-by", required=True)
     p_cba.set_defaults(func=cmd_contract_break_accept)
+
+    p_pi = sub.add_parser(
+        "planit-identity",
+        help="Hash the loaded Planit skill against the hub registry",
+    )
+    p_pi.add_argument(
+        "--loaded",
+        default=None,
+        help="Planit SKILL.md this session loaded (default: .agents/skills/planit/SKILL.md)",
+    )
+    p_pi.set_defaults(func=cmd_planit_identity)
 
     p_pa = msub.add_parser("plan-audit", help="Install bbp-reviewer plan audit JSON")
     p_pa.add_argument("--from", dest="src", type=Path, required=True)

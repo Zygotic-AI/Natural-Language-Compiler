@@ -33,7 +33,7 @@ if (-not $Scope) {
     if ($env:CI) {
         $Scope = 'global'
     }
-    elseif ([Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+    elseif ([Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected) {
         Write-Host 'Install where?'
         Write-Host '  global — this user (~/.local/share/nlc, ~/.agents/skills)'
         Write-Host '  local  — this repo (.nlc/hub, ./nlc)'
@@ -54,7 +54,7 @@ if ($Scope -ne 'global' -and $Scope -ne 'local') {
 
 # Same interactive rule as install scope: a pipe or CI must not block on a prompt.
 $Lazy = $false
-if (-not $env:CI -and [Environment]::UserInteractive -and -not [Console]::IsOutputRedirected) {
+if (-not $env:CI -and [Environment]::UserInteractive -and -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected) {
     Write-Host 'Lazy-load skills (disable-model-invocation)? y/N ' -NoNewline
     $entered = [Console]::ReadLine()
     if ($entered) {

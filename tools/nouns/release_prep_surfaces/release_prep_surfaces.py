@@ -26,6 +26,11 @@ _LAST_TAGGED_SHIP = re.compile(
     r"(Last tagged ship is\s+\*{0,2})v\d+\.\d+\.\d+(\*{0,2})",
     re.I,
 )
+_RELEASE_LINE = re.compile(
+    r"(?:This release line is \*{0,2}v\d+\.\d+\.\d+\*{0,2}\. It is not tagged yet\. "
+    r"|release line \*{0,2}v\d+\.\d+\.\d+\*{0,2}, not tagged yet\. )",
+    re.I,
+)
 _CURRENT_SHIP = re.compile(r"^##\s+Current ship\s*$", re.I)
 _HASH_LINE = (
     "`last_pass_tree_hash:` see [`integrity/hub-content-tree-hash.txt`]"
@@ -79,9 +84,22 @@ def record_bytes(version: str, release_branch: str) -> bytes:
     return (json.dumps(payload, indent=2) + "\n").encode("utf-8")
 
 
+def _untagged_line_prefix(version: str) -> str:
+    return f"This release line is **v{version}**. It is not tagged yet. "
+
+
 def render_findings(text: str, version: str) -> str:
-    out = _SHIPPED_GIT_TAG.sub(rf"\1v{version}\2", text)
-    out = _LAST_TAGGED_SHIP.sub(rf"\1v{version}\2", out)
+    # Shipped git tag stays the last real tag. Do not rewrite it to the
+    # untagged release line. If the file already says the line is untagged,
+    # leave that sentence. Otherwise put the release-line sentence in front
+    # of the shipped-tag phrase once.
+    out = text
+    if not _RELEASE_LINE.search(out):
+        out = _SHIPPED_GIT_TAG.sub(
+            lambda m: _untagged_line_prefix(version) + m.group(0),
+            out,
+            count=1,
+        )
     if "hub-content-tree-hash.txt" not in out:
         lines = out.splitlines()
         insert_at = 1 if lines else 0
@@ -94,26 +112,29 @@ def render_findings(text: str, version: str) -> str:
 
 
 def render_describe(text: str, version: str) -> str:
-    out = _LAST_TAGGED_SHIP.sub(rf"\1v{version}\2", text)
-    lines = out.splitlines()
+    # Do not retarget "Last tagged ship". On an untagged release line that
+    # sentence is the previous tag. Insert the release-line sentence once
+    # when the Current ship section does not already say it.
+    prefix = _untagged_line_prefix(version)
+    if _RELEASE_LINE.search(text):
+        return text
+    lines = text.splitlines()
     start = None
     for i, line in enumerate(lines):
         if _CURRENT_SHIP.match(line):
             start = i
             break
     if start is None:
-        if out and not out.endswith("\n"):
-            out += "\n"
-        out += f"\n## Current ship\n\nLast tagged ship is **v{version}**.\n"
-        return out
-    end = len(lines)
-    for j in range(start + 1, len(lines)):
-        if lines[j].startswith("## "):
-            end = j
-            break
-    body = ["", f"Last tagged ship is **v{version}**.", ""]
-    new_lines = lines[: start + 1] + body + lines[end:]
-    rendered = "\n".join(new_lines)
+        if text and not text.endswith("\n"):
+            text += "\n"
+        text += f"\n## Current ship\n\n{prefix.rstrip()}\n"
+        return text
+    insert_at = start + 1
+    while insert_at < len(lines) and lines[insert_at] == "":
+        insert_at += 1
+    lines.insert(insert_at, prefix.rstrip())
+    lines.insert(insert_at + 1, "")
+    rendered = "\n".join(lines)
     if text.endswith("\n"):
         rendered += "\n"
     return rendered

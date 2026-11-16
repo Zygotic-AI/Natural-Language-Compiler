@@ -35,7 +35,7 @@ for arg in "$@"; do
 done
 SCOPE="$(printf '%s' "${SCOPE}" | tr '[:upper:]' '[:lower:]' | tr -d '[:space:]')"
 if [[ -z "${SCOPE}" ]]; then
-  if [[ -z "${CI:-}" && -t 1 ]]; then
+  if [[ -z "${CI:-}" && -t 0 ]]; then
     echo "Install where?"
     echo "  global — this user (~/.local/share/nlc, ~/.agents/skills)"
     echo "  local  — this repo (.nlc/hub, ./nlc)"
@@ -58,7 +58,7 @@ fi
 
 # Same interactive rule as install scope: a pipe or CI must not block on a prompt.
 LAZY=false
-if [[ -z "${CI:-}" && -t 1 ]]; then
+if [[ -z "${CI:-}" && -t 0 ]]; then
   printf 'Lazy-load skills (disable-model-invocation)? y/N '
   lazy_ans=""
   if [[ -r /dev/tty ]]; then

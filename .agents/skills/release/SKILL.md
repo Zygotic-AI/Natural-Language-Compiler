@@ -46,7 +46,7 @@ git tag -l
 git ls-remote --tags origin 'v*' 2>/dev/null | tail -5
 ```
 
-- **What is shipped?** = semver tag reachable from `origin/main` + `integrity/nlc-version.json` + `integrity/hub-release-record.json` at that commit. `FINDINGS.md` is gap narrative only and must not contradict those three. `DESCRIBE.md` “Current ship” is narrative and must not contradict them either. Disagreement is a factory FAIL, not a reader FAIL.
+- **What is shipped?** On `main`, the tag reachable from `origin/main`, `integrity/nlc-version.json`, and `integrity/hub-release-record.json` are the same ship. On a `release/v*` line the version file and the release record are the line being cut and may be ahead of that tag. `FINDINGS.md` and `DESCRIBE.md` Current ship must not call the untagged version the tagged ship, and must not name a tag that is not on `origin/main`. That is a factory FAIL, not a reader FAIL.
 - **`tag` / `planned_tag` in JSON** = name `./release` would create — **not** an existing ref unless **`git_tag_on_merge`** is true.
 - **`stale_release_branches`:** merged `release/v*` **without** `hub-release-record.json` on the merge commit (RCA 26-09-24) — agent **deletes** those refs in Step 1A when fixing resume hygiene.
 - **`closed_release_branches`:** shipped release lines (git tag exists for that version) — **do not delete**; resume skips them for the next `./release`. Keep branch history unless the user asks to prune.

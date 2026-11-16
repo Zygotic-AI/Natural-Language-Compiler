@@ -969,6 +969,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-planit-other-skill-fails.py")],
     )
     run(
+        "assert-planit-identity-loaded-skill",
+        [sys.executable, str(TOOLS / "assert-planit-identity-loaded-skill.py")],
+    )
+    run(
         "fitness-live-self-ref-activation",
         [sys.executable, str(TOOLS / "fitness-live-self-ref-activation.py")],
     )

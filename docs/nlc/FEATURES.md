@@ -9,11 +9,11 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | In the current ship (today **v0.7.0**) |
+| [Released](#released) | On this release line (today **v0.8.0**, not tagged yet). Last tagged ship is **v0.7.0**. |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
-| [Outstanding branches](#outstanding-branches) | Branch tips that are not `main` and not a release line. Empty when those names have been deleted. Not Upcoming. |
+| [Outstanding branches](#outstanding-branches) | Branch tips that are not `main` and not a release line. When none remain, the section lists the deleted names and why, and has no open table. Not Upcoming. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
@@ -37,13 +37,13 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 | **Planet** | The NLC execution path that builds artifacts (compile / planit / leaf skills). Product story for how produced work is audited and accounted for — not a second product name for the hub repo. |
 | **Artifact manifest** | JSON that accompanies a work product and describes it. Post-production audit consumes the manifest **and** the work product. |
 | **Run-level index** | One JSON per Planet run that contains or indexes every artifact manifest from that run. |
-| **Lazy-load skills** | The install question `Lazy-load skills (disable-model-invocation)? y/N`. Yes writes `disable-model-invocation: true` on skills that install copies (slash-only). Default No writes `false` (the model may invoke them). |
+| **Lazy-load skills** | The install question `Lazy-load skills (disable-model-invocation)? y/N`. `y` or `yes` writes `disable-model-invocation: true` on skills that install copies (slash-only). Enter, `n`, or any other answer writes `false` (the model may invoke them). |
 
 ---
 
 ## Released
 
-Current ship: **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
+This release line is **v0.8.0**. It is not tagged yet. Last tagged ship is **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -96,7 +96,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | TypeScript adapter specimen | Teaching example only | Not “we convert languages.” |
 | Adopter CI template | `nlc-init` writes a verify workflow | PRs run `./nlc verify`. |
 
-### v0.3.0–v0.7.0 (current ship)
+### v0.3.0–v0.7.0 (already tagged)
 
 | Feature | Version | What the customer gets | Why it is here |
 | ------- | ------- | ---------------------- | -------------- |
@@ -108,11 +108,12 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
 | Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
 
-### Working tree, not in the v0.7.0 tag
+### v0.8.0 (this release line, not tagged yet)
 
 | Feature | What the customer gets | Why it is here |
 | ------- | ---------------------- | -------------- |
-| Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or no answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
+| Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or any other answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
+| Product story pack | Feature narratives, operator flows, and the concept graph for what is already tagged and what is still upcoming | One story file, so a later reader does not re-derive the order. Upcoming items stay upcoming. |
 
 ---
 
@@ -331,4 +332,4 @@ These names were deleted because they do not belong:
 - Why `/nlc` routing before self-brownfield? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips. Dogfood should not practice a back door.
 - Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue. Spec’d with precise rewrite.
 - Why “running app” not “runtime”? Runtime is easy to mix with NLC compile work. The customer’s compiled application while it is executing is the running app.
-- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. When the work is already on a release, or the branch must not be replayed, the name is deleted and the section stays empty.
+- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. When the work is already on a release, or the branch must not be replayed, the name is deleted. The section then lists those deleted names and why. There is no open table.

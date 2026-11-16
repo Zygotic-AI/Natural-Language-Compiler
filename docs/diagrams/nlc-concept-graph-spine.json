@@ -1,0 +1,366 @@
+{
+  "id": "nlc-concept-graph-spine",
+  "name": "NLC concept graph — compile spine",
+  "description": "Multi-level concept graph seed (hub SSOT only). Path edges solid = fine spine; summary edges dashed = coarse Goal/ADR→code. Filter: node docs/diagrams/filter-concept-graph-edges.mjs. Ontology: docs/nlc/concept-graph/.",
+  "sampleRevision": 1,
+  "updatedAt": "2026-11-09T03:00:00.000Z",
+  "defaultEdgeFilter": "both",
+  "nodes": [
+    {
+      "id": "goal",
+      "type": "diagram",
+      "position": { "x": 40, "y": 200 },
+      "data": {
+        "label": "Goal",
+        "subtitle": "L2 · named outcome",
+        "kind": "primary",
+        "colorToken": "primary",
+        "conceptId": "goal",
+        "granularity": "L2"
+      }
+    },
+    {
+      "id": "adr",
+      "type": "diagram",
+      "position": { "x": 40, "y": 40 },
+      "data": {
+        "label": "ADR",
+        "subtitle": "L3 · accepted decision",
+        "kind": "surface",
+        "colorToken": "muted",
+        "conceptId": "adr",
+        "granularity": "L3"
+      }
+    },
+    {
+      "id": "atomic-action",
+      "type": "diagram",
+      "position": { "x": 280, "y": 200 },
+      "data": {
+        "label": "Atomic action",
+        "subtitle": "L4 · comprises",
+        "kind": "accent",
+        "colorToken": "primary",
+        "conceptId": "atomic-action",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "codified-constraint",
+      "type": "diagram",
+      "position": { "x": 280, "y": 40 },
+      "data": {
+        "label": "Codified constraint",
+        "subtitle": "L3 · bind target",
+        "kind": "surface",
+        "colorToken": "muted",
+        "conceptId": "codified-constraint",
+        "granularity": "L3"
+      }
+    },
+    {
+      "id": "constraint-bind",
+      "type": "diagram",
+      "position": { "x": 520, "y": 200 },
+      "data": {
+        "label": "Constraint bind",
+        "subtitle": "L4 · spine",
+        "kind": "accent",
+        "colorToken": "primary",
+        "conceptId": "constraint-bind",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "reverse-adversarial-audit",
+      "type": "diagram",
+      "position": { "x": 760, "y": 200 },
+      "data": {
+        "label": "Reverse adversarial audit",
+        "subtitle": "L4 · pre-emit",
+        "kind": "accent",
+        "colorToken": "primary",
+        "conceptId": "reverse-adversarial-audit",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "emit",
+      "type": "diagram",
+      "position": { "x": 1000, "y": 200 },
+      "data": {
+        "label": "Emit",
+        "subtitle": "L4 · generate",
+        "kind": "accent",
+        "colorToken": "primary",
+        "conceptId": "emit",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "produced-code",
+      "type": "diagram",
+      "position": { "x": 1240, "y": 200 },
+      "data": {
+        "label": "Produced code",
+        "subtitle": "L4 · summary + path hub",
+        "kind": "primary",
+        "colorToken": "primary",
+        "status": "active",
+        "conceptId": "produced-code",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "code-adversarial-audit",
+      "type": "diagram",
+      "position": { "x": 1480, "y": 200 },
+      "data": {
+        "label": "Code adversarial audit",
+        "subtitle": "L4 · post-emit",
+        "kind": "accent",
+        "colorToken": "primary",
+        "conceptId": "code-adversarial-audit",
+        "granularity": "L4"
+      }
+    },
+    {
+      "id": "compile-realization",
+      "type": "diagram",
+      "position": { "x": 760, "y": 40 },
+      "data": {
+        "label": "Compile realization",
+        "subtitle": "L4 · bundle (hyper)",
+        "kind": "surface",
+        "colorToken": "muted",
+        "conceptId": "compile-realization",
+        "granularity": "L4"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-path-goal-comprises-aa",
+      "type": "diagram",
+      "source": "goal",
+      "target": "atomic-action",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "comprises",
+        "label": "comprises",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-aa-binds-constraint",
+      "type": "diagram",
+      "source": "atomic-action",
+      "target": "codified-constraint",
+      "sourceHandle": "top-source",
+      "targetHandle": "bottom-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "binds",
+        "label": "binds",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-aa-precedes-bind-step",
+      "type": "diagram",
+      "source": "atomic-action",
+      "target": "constraint-bind",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "precedes",
+        "label": "precedes",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-bind-precedes-rev-audit",
+      "type": "diagram",
+      "source": "constraint-bind",
+      "target": "reverse-adversarial-audit",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "precedes",
+        "label": "precedes",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-rev-audit-allows-emit",
+      "type": "diagram",
+      "source": "reverse-adversarial-audit",
+      "target": "emit",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "allows",
+        "label": "allows",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-emit-produces-code",
+      "type": "diagram",
+      "source": "emit",
+      "target": "produced-code",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "produces",
+        "label": "produces",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-path-code-audited-by",
+      "type": "diagram",
+      "source": "produced-code",
+      "target": "code-adversarial-audit",
+      "sourceHandle": "right-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#4A4A55", "strokeWidth": 1.5 },
+      "markerEnd": { "type": "arrowclosed", "color": "rgb(74,74,85)", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "path",
+        "predicate": "audited_by",
+        "label": "audited_by",
+        "colorToken": "muted",
+        "strokeWidth": 1.5,
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-sum-goal-produces-code",
+      "type": "diagram",
+      "source": "goal",
+      "target": "produced-code",
+      "sourceHandle": "bottom-source",
+      "targetHandle": "bottom-target",
+      "style": { "stroke": "#F34213", "strokeWidth": 1.5, "strokeDasharray": "6 4" },
+      "markerEnd": { "type": "arrowclosed", "color": "#F34213", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "summary",
+        "predicate": "produces_summary",
+        "label": "produces (summary)",
+        "colorToken": "accent",
+        "strokeWidth": 1.5,
+        "strokeDasharray": "6 4",
+        "pathMarkers": "none",
+        "expandedAsPath": ["goal", "atomic-action", "constraint-bind", "reverse-adversarial-audit", "emit", "produced-code"]
+      }
+    },
+    {
+      "id": "e-sum-adr-constrains-code",
+      "type": "diagram",
+      "source": "adr",
+      "target": "produced-code",
+      "sourceHandle": "right-source",
+      "targetHandle": "top-target",
+      "style": { "stroke": "#F34213", "strokeWidth": 1.5, "strokeDasharray": "6 4" },
+      "markerEnd": { "type": "arrowclosed", "color": "#F34213", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "summary",
+        "predicate": "constrains",
+        "label": "constrains (summary)",
+        "colorToken": "accent",
+        "strokeWidth": 1.5,
+        "strokeDasharray": "6 4",
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-sum-bundle-member-goal",
+      "type": "diagram",
+      "source": "goal",
+      "target": "compile-realization",
+      "sourceHandle": "top-source",
+      "targetHandle": "left-target",
+      "style": { "stroke": "#F34213", "strokeWidth": 1.25, "strokeDasharray": "6 4" },
+      "markerEnd": { "type": "arrowclosed", "color": "#F34213", "width": 14, "height": 14 },
+      "data": {
+        "edgeClass": "summary",
+        "predicate": "member_of",
+        "label": "member_of",
+        "colorToken": "accent",
+        "strokeWidth": 1.25,
+        "strokeDasharray": "6 4",
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-sum-bundle-member-adr",
+      "type": "diagram",
+      "source": "adr",
+      "target": "compile-realization",
+      "sourceHandle": "bottom-source",
+      "targetHandle": "top-target",
+      "style": { "stroke": "#F34213", "strokeWidth": 1.25, "strokeDasharray": "6 4" },
+      "markerEnd": { "type": "arrowclosed", "color": "#F34213", "width": 14, "height": 14 },
+      "data": {
+        "edgeClass": "summary",
+        "predicate": "member_of",
+        "label": "member_of",
+        "colorToken": "accent",
+        "strokeWidth": 1.25,
+        "strokeDasharray": "6 4",
+        "pathMarkers": "none"
+      }
+    },
+    {
+      "id": "e-sum-bundle-produces-code",
+      "type": "diagram",
+      "source": "compile-realization",
+      "target": "produced-code",
+      "sourceHandle": "right-source",
+      "targetHandle": "top-target",
+      "style": { "stroke": "#F34213", "strokeWidth": 1.5, "strokeDasharray": "6 4" },
+      "markerEnd": { "type": "arrowclosed", "color": "#F34213", "width": 16, "height": 16 },
+      "data": {
+        "edgeClass": "summary",
+        "predicate": "bundle_produces",
+        "label": "realizes (bundle)",
+        "colorToken": "accent",
+        "strokeWidth": 1.5,
+        "strokeDasharray": "6 4",
+        "pathMarkers": "none",
+        "expandedAsPath": ["goal", "atomic-action", "constraint-bind", "reverse-adversarial-audit", "emit", "produced-code"]
+      }
+    }
+  ]
+}

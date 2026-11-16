@@ -1,0 +1,54 @@
+{
+  "producer_role": "bbp-proposer",
+  "adversarial_auditor_role": "bbp-reviewer",
+  "verdict": "PASS",
+  "ssot_leaf_ids": [
+    "docs-nlc-FEATURES",
+    "docs-nlc-FEATURES-DRAFT-NOVEMBER"
+  ],
+  "ssot_exit_status": "plan-audit-pass-features-draft-fold",
+  "quality_snapshot": {
+    "opportunities": 6,
+    "ops": 6,
+    "defects": 0,
+    "quality": 1.0
+  },
+  "findings": [
+    {
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "FEATURES.md remains product-story SSOT; draft retires to tombstone; no new gateless control surfaces"
+    },
+    {
+      "id": "law-vs-story",
+      "result": "PASS",
+      "note": "Planet tenets stay story/upcoming in FEATURES; no ADR invented this change (P* honesty)"
+    },
+    {
+      "id": "no-duplicate-ssot",
+      "result": "PASS",
+      "note": "Fold draft into FEATURES; remove living second copy"
+    },
+    {
+      "id": "scope-cluster-1-only",
+      "result": "PASS",
+      "note": "Execute cluster 1 only; clusters 2–10 not in this generate"
+    },
+    {
+      "id": "class-correctness",
+      "result": "PASS",
+      "note": "Charter class C docs/story; version class Assumption: patch; no ship"
+    },
+    {
+      "id": "operator-words",
+      "result": "PASS",
+      "note": "Keep Planet and draft wording; FEATURES Words gains Planet/manifest/run-level index"
+    }
+  ],
+  "evidence": [
+    "docs/nlc/FEATURES.md",
+    "docs/nlc/FEATURES-DRAFT-NOVEMBER.md",
+    ".agents/instructions/product-features-ssot.md",
+    "AGENTS.md"
+  ]
+}

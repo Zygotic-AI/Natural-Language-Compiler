@@ -5,7 +5,7 @@
 ## Your workflow (seven steps)
 
 1. **Never commit to `main`** — only merges (use branch protection).
-2. **`main` HEAD = last tagged release** — no unreleased work on `main`. What is shipped? = semver tag reachable from `origin/main` + `integrity/nlc-version.json` + `integrity/hub-release-record.json` at that commit. `FINDINGS.md` is gap narrative only and must not contradict those three. `DESCRIBE.md` “Current ship” is narrative and must not contradict them either. Disagreement is a factory FAIL, not a reader FAIL.
+2. **`main` HEAD = last tagged release** — no unreleased work on `main`. On `main`, the tag reachable from `origin/main`, `integrity/nlc-version.json`, and `integrity/hub-release-record.json` are the same ship. On a `release/v*` line the version file and the release record are the line being cut and may be ahead of that tag. `FINDINGS.md` and `DESCRIBE.md` Current ship must not call the untagged version the tagged ship, and must not name a tag that is not on `origin/main`. That is a factory FAIL, not a reader FAIL.
 3. **Branch from `main`:** `git checkout main && git pull && git checkout -b my-work` (any branch name).
 4. **Do all ship work on your branch** (or on `release/v*` after `./release` normalizes the line).
 5. **When another release ships:** `git fetch origin main && git merge origin/main` on your release line.

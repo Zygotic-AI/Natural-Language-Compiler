@@ -41,7 +41,7 @@ PLANIT is the compile process; BBP is the shape (`docs/nlc/compiler/MERGE.md`). 
 | Blocking gaps | yes | No unresolved blocking ambiguity; numbered questions asked and **stopped** if still open | Chat turn state |
 | Secrets | yes | No real credentials solicited in chat | Procedure compliance |
 
-**Identity (blocking).** Canonical path: `.agents/skills/planit/SKILL.md`. Registry: `integrity/planit-skill-registry.json` (path + content hash). Before planning, run `python3 tools/fitness-planit-identity.py --skill-only --loaded .agents/skills/planit/SKILL.md`. Intake fails when the loaded bytes do not match. Every Planit handoff records `planit_skill_path` and `planit_skill_sha256` from that registry.
+**Identity (blocking).** This check is `planit-skill-identity`. Before planning, run `./nlc planit-identity --loaded .agents/skills/planit/SKILL.md` on the Planit file this session loaded. That command is the only run of the check. It hashes that file against `integrity/planit-skill-registry.json` in the hub `./nlc` resolves. Intake fails when the command exits non-zero. If the command is not run, the check has not run. Do not look for that registry in the product repo. Every Planit handoff records `planit_skill_path` and `planit_skill_sha256` from the hub registry.
 
 ## Gate — CONTROL-LIFECYCLE (control or gate design)
 

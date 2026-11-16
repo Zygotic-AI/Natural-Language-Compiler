@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Tag-time checker-digest signature landed in pull request #72 after ship pull request #71 had already merged.",
+  "unsuitable_process": "The owner-signature round-trip (ADR 0057) is requested as a follow-up PR after a ship merge. There is no HUMAN_DECISION that must complete before CREATE_PR to main. v0.6.0 landed armor on the line before the ship PR; this session inverted that order.",
+  "climb_steps": [
+    "#72 merged after #71 with armor bd50f45.",
+    "Signature was requested after the ship PR existed.",
+    "Planner has no AWAIT_SIGNATURE before CREATE_PR.",
+    "ADR 0057 / ADR 0049: owner signature is HUMAN_DECISION before the tag candidate is offered to main."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0057", "0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_tag_gate"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S16"
+}

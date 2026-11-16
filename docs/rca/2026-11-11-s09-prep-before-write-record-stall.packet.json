@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Prep surfaces were written with nlc_release_prep_surfaces.py --write before planner WRITE_RECORD, then ./release stalled BLOCKED_WRITE_RECORD_STALLED.",
+  "unsuitable_process": "Candidate FINDINGS/DESCRIBE/hub-release-record.json writes are allowed outside planner PREP/WRITE_RECORD. ADR 0049 treats an unchanged repair fact tuple as BLOCKED_<ACTION>_STALLED, so a side-channel write makes WRITE_RECORD a no-op.",
+  "climb_steps": [
+    "./release printed BLOCKED_WRITE_RECORD_STALLED.",
+    "nlc_release_prep_surfaces.py --write already set record version/branch.",
+    "WRITE_RECORD progress facts could not change.",
+    "ADR 0049: repairs that do not move their fact tuple stall."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-release-planner-ownership"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S09"
+}

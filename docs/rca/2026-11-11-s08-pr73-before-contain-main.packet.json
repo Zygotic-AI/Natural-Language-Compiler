@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Pull request #73 (release/v0.7.0 to main) opened before origin/main was contained on the release line.",
+  "unsuitable_process": "The planner blocks CREATE_PR when main_context is not contained, but pr-offer-gate.py (the skill's only allowed gh pr create) does not call main_context. ADR 0049 treats a squash on main as not_contained.",
+  "climb_steps": [
+    "#73 opened while CONFLICTING after the #71 squash.",
+    "pr-offer-gate.py does not grade nlc_release_context.main_context.",
+    "Planner would have returned BLOCKED_MAIN_CONTEXT_NOT_CONTAINED.",
+    "ADR 0049 requires contained before a ship merge path."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_context"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S08"
+}

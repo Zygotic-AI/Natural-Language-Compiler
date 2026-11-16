@@ -769,6 +769,9 @@
     "docs/adoption/RELEASE-v0.7.0.md": [
       "gate_set_manifest"
     ],
+    "docs/adoption/RELEASE-v0.8.0.md": [
+      "gate_set_manifest"
+    ],
     "docs/adoption/RELEASE.md": [
       "gate_set_manifest"
     ],
@@ -779,6 +782,15 @@
       "gate_set_manifest"
     ],
     "docs/nlc/EMIT-FROM-PROSE.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/FEATURES-AUDIT-PLAN.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/FEATURES-AUDIT-REGISTER.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/FEATURES-DRAFT-NOVEMBER.md": [
       "gate_set_manifest"
     ],
     "docs/nlc/FEATURES.md": [
@@ -883,10 +895,283 @@
     "docs/nlc/compiler/README.md": [
       "gate_set_manifest"
     ],
+    "docs/nlc/concept-graph/README.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/concept-graph/edge-types.json": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/concept-graph/edges.json": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/concept-graph/nodes.json": [
+      "gate_set_manifest"
+    ],
     "docs/nlc/effective-decisions.md": [
       "gate_set_manifest"
     ],
     "docs/nlc/emit-manifest.schema.json": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/00-natural-language-compiler.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/01-plain-english-interview.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/02-policy-to-decisions-to-rules.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/03-decision-log.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/04-knowledge-facts-before-generate.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/05-incremental-compile.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/06-tightly-scoped-emit-and-refuse.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/07-emit-pipeline-gates.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/08-gate-after-every-generate.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/09-impact-graph.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/10-verify-path.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/11-adversarial-review.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/12-defects-go-upstream.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/13-delta-regeneration.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/14-one-line-install.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/15-checksum-verified-install.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/16-compiler-lock.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/17-install-into-a-specific-repo.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/18-compiler-upgrade.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/19-install-doctor.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/20-loadable-published-skills.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/21-greenfield-app-scaffold.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/22-human-cli-dashboard.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/23-adopter-ci-template.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/24-requirement-packs.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/25-hub-local-pack-list.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/26-rule-receipts-in-code.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/27-rules-that-fight.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/28-semantic-rule-apply.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/29-closed-set-expansion.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/30-breaking-contract-acceptance.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/31-change-class-a-f.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/32-produce-audit-ship-roles.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/33-human-ship-check.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/34-quality-pass-or-fail.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/35-retry-idempotency.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/36-rca-packet.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/37-no-editor-hooks.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/38-python-call-tree.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/39-language-inventory-scan.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/40-python-first.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/41-typescript-adapter-specimen.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/42-brownfield-inventory-beta.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/43-durable-workflows.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/44-tag-time-checker-signature.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/45-zero-parameter-hub-release.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/46-github-product-name.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/47-full-requirement-import.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/48-trace-graph.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/49-planet-produce-audit-accounting.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/50-call-envelopes.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/51-precise-rewrite.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/52-constraints-as-data-types.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/53-nothing-changes-except-through-nlc.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/54-brownfield-ourselves.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/55-rules-that-work-together.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/56-brownfield-other-repos.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/57-other-languages.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/58-public-packs-signing.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/feature-narratives/59-low-code-ui.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/01-interview.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/02-planit.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/03-emit-pipeline.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/04-compile-spine.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/05-constraint-chain.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/06-install-and-first-app.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/07-verify-and-ship.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/08-hub-charter-change.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/09-hub-release.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/10-requirement-pack.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/11-delta-regeneration.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/12-brownfield-beta.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/13-rca.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/14-full-hub-continuity-audit.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/15-full-requirement-import.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/16-trace-graph-run.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/17-planet-run.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/18-call-envelopes.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/19-precise-rewrite.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/20-constraints-in-running-app.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/21-changes-only-through-nlc.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/22-brownfield-ourselves.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/23-rules-that-work-together.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/24-brownfield-other-repos.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/25-other-languages.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/26-public-packs.md": [
+      "gate_set_manifest"
+    ],
+    "docs/nlc/flows/27-low-code-ui.md": [
       "gate_set_manifest"
     ],
     "docs/spine/IMPACT-GRAPH.md": [
@@ -1450,6 +1735,9 @@
     "migrations/0.6.0_to_0.7.0/migration.yaml": [
       "gate_set_manifest"
     ],
+    "migrations/0.7.0_to_0.8.0/migration.yaml": [
+      "gate_set_manifest"
+    ],
     "migrations/README.md": [
       "gate_set_manifest"
     ],
@@ -1550,6 +1838,9 @@
       "gate_set_manifest"
     ],
     "tools/assert-adjective-locality-violation-fails.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-adopter-pin-examples-skipped-passes.py": [
       "gate_set_manifest"
     ],
     "tools/assert-adopter-verify-fast-green-passes.py": [
@@ -1868,6 +2159,9 @@
       "gate_set_manifest"
     ],
     "tools/assert-piped-install-smoke-passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-planit-identity-loaded-skill.py": [
       "gate_set_manifest"
     ],
     "tools/assert-planit-other-skill-fails.py": [
@@ -3443,6 +3737,24 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_adjective_locality_violation_fails/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/assert_adopter_pin_examples_skipped_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_adopter_verify_fast_green_passes/README.md": [
@@ -5090,6 +5402,12 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_piped_install_smoke/assert_piped_install_smoke.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_planit_identity_loaded_skill/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_planit_identity_loaded_skill/assert_planit_identity_loaded_skill.py": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_produce_handoff_refused/README.md": [

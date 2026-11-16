@@ -1,0 +1,500 @@
+{
+  "schema": "nlc-concept-graph-edges/v0",
+  "description": "Seed edges for compile spine (path) plus summary expansions. Same nodes appear on both levels.",
+  "edges": [
+    {
+      "id": "e-path-goal-comprises-aa",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "goal",
+      "target": "atomic-action"
+    },
+    {
+      "id": "e-path-aa-binds-constraint",
+      "class": "path",
+      "predicate": "binds",
+      "source": "atomic-action",
+      "target": "codified-constraint"
+    },
+    {
+      "id": "e-path-aa-precedes-bind-step",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "atomic-action",
+      "target": "constraint-bind"
+    },
+    {
+      "id": "e-path-bind-precedes-rev-audit",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "constraint-bind",
+      "target": "reverse-adversarial-audit"
+    },
+    {
+      "id": "e-path-rev-audit-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "reverse-adversarial-audit",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-emit-produces-code",
+      "class": "path",
+      "predicate": "produces",
+      "source": "emit",
+      "target": "produced-code"
+    },
+    {
+      "id": "e-path-code-audited-by",
+      "class": "path",
+      "predicate": "audited_by",
+      "source": "produced-code",
+      "target": "code-adversarial-audit"
+    },
+    {
+      "id": "e-path-policy-extracts-quote",
+      "class": "path",
+      "predicate": "extracts_to",
+      "source": "policy-standard-etc",
+      "target": "exact-quote"
+    },
+    {
+      "id": "e-path-quote-codifies",
+      "class": "path",
+      "predicate": "codifies_as",
+      "source": "exact-quote",
+      "target": "codified-constraint"
+    },
+    {
+      "id": "e-path-adr-to-rule",
+      "class": "path",
+      "predicate": "codifies_as",
+      "source": "adr",
+      "target": "rule",
+      "notes": "ADR reduces to if/then rule (UC4); rule aligns with codified-constraint shape"
+    },
+    {
+      "id": "e-path-rule-is-codified",
+      "class": "path",
+      "predicate": "precedes",
+      "source": "rule",
+      "target": "codified-constraint",
+      "notes": "Adopted rule is the executable form used at bind"
+    },
+    {
+      "id": "e-path-bbp-blast",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "bbp",
+      "target": "blast-radius",
+      "notes": "BBP practice centers blast-radius minimization via noun/verb/goal shape"
+    },
+    {
+      "id": "e-path-goal-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "goal",
+      "target": "bbp"
+    },
+    {
+      "id": "e-path-noun-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "noun",
+      "target": "bbp"
+    },
+    {
+      "id": "e-path-verb-part-of-bbp",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "verb-on-noun",
+      "target": "bbp"
+    },
+    {
+      "id": "e-sum-goal-produces-code",
+      "class": "summary",
+      "predicate": "produces_summary",
+      "source": "goal",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-goal-comprises-aa",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ]
+    },
+    {
+      "id": "e-sum-adr-constrains-code",
+      "class": "summary",
+      "predicate": "constrains",
+      "source": "adr",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-adr-to-rule",
+        "e-path-rule-is-codified",
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "adr",
+        "rule",
+        "codified-constraint",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ]
+    },
+    {
+      "id": "e-sum-goal-bound-by-adr",
+      "class": "summary",
+      "predicate": "bound_by",
+      "source": "goal",
+      "target": "adr",
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "codified-constraint",
+        "rule",
+        "adr"
+      ],
+      "notes": "Coarse: goal work is under accepted decisions; expand via bind to codified form of ADR/rules"
+    },
+    {
+      "id": "e-sum-bundle-member-goal",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "goal",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-member-adr",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "adr",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-member-constraint",
+      "class": "summary",
+      "predicate": "member_of",
+      "source": "codified-constraint",
+      "target": "compile-realization"
+    },
+    {
+      "id": "e-sum-bundle-produces-code",
+      "class": "summary",
+      "predicate": "bundle_produces",
+      "source": "compile-realization",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-goal-comprises-aa",
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ],
+      "expanded_as_path": [
+        "goal",
+        "atomic-action",
+        "constraint-bind",
+        "reverse-adversarial-audit",
+        "emit",
+        "produced-code"
+      ],
+      "notes": "Hyper-style coarse fact: Goal + ADR/codified constraints together realize Produced code"
+    },
+    {
+      "id": "e-sum-codified-constrains-code",
+      "class": "summary",
+      "predicate": "constrains",
+      "source": "codified-constraint",
+      "target": "produced-code",
+      "expanded_by": [
+        "e-path-aa-binds-constraint",
+        "e-path-aa-precedes-bind-step",
+        "e-path-bind-precedes-rev-audit",
+        "e-path-rev-audit-allows-emit",
+        "e-path-emit-produces-code"
+      ]
+    },
+    {
+      "id": "e-sum-code-audited-summary",
+      "class": "summary",
+      "predicate": "audited_by",
+      "source": "produced-code",
+      "target": "code-adversarial-audit",
+      "expanded_by": ["e-path-code-audited-by"],
+      "expanded_as_path": ["produced-code", "code-adversarial-audit"],
+      "notes": "Same relationship exists as path; summary view can show audit without the full spine"
+    },
+    {
+      "id": "e-path-interview-produces-fact",
+      "class": "path",
+      "predicate": "produces",
+      "source": "interview",
+      "target": "knowledge-fact"
+    },
+    {
+      "id": "e-path-fact-produces-stamp",
+      "class": "path",
+      "predicate": "produces",
+      "source": "knowledge-fact",
+      "target": "before-generate-stamp"
+    },
+    {
+      "id": "e-path-stamp-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "before-generate-stamp",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-code-audited-by-verify",
+      "class": "path",
+      "predicate": "audited_by",
+      "source": "produced-code",
+      "target": "verify"
+    },
+    {
+      "id": "e-path-harness-writes-code",
+      "class": "path",
+      "predicate": "writes",
+      "source": "harness",
+      "target": "produced-code",
+      "notes": "A harness can write files. Verify still audits them. There is no hook node."
+    },
+    {
+      "id": "e-path-fingerprint-allows-install",
+      "class": "path",
+      "predicate": "allows",
+      "source": "install-fingerprint",
+      "target": "install"
+    },
+    {
+      "id": "e-path-install-produces-store",
+      "class": "path",
+      "predicate": "produces",
+      "source": "install",
+      "target": "version-store"
+    },
+    {
+      "id": "e-path-lock-part-of-adopter",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "compiler-lock",
+      "target": "adopter"
+    },
+    {
+      "id": "e-path-store-part-of-hub",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "version-store",
+      "target": "hub"
+    },
+    {
+      "id": "e-path-doctor-allows-install",
+      "class": "path",
+      "predicate": "allows",
+      "source": "install-doctor",
+      "target": "install"
+    },
+    {
+      "id": "e-path-ci-allows-verify",
+      "class": "path",
+      "predicate": "allows",
+      "source": "ci-verify-workflow",
+      "target": "verify"
+    },
+    {
+      "id": "e-path-allow-list-allows-pack",
+      "class": "path",
+      "predicate": "allows",
+      "source": "pack-allow-list",
+      "target": "requirement-pack"
+    },
+    {
+      "id": "e-path-change-class-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "change-class",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-retry-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "retry-check",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-audit-produces-rca",
+      "class": "path",
+      "predicate": "produces",
+      "source": "audit",
+      "target": "rca-packet"
+    },
+    {
+      "id": "e-path-rca-allows-interview",
+      "class": "path",
+      "predicate": "allows",
+      "source": "rca-packet",
+      "target": "interview",
+      "notes": "The fix goes back to the interview or the decision, then the compiler regenerates"
+    },
+    {
+      "id": "e-path-verb-comprises-function",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "verb-on-noun",
+      "target": "interior-function"
+    },
+    {
+      "id": "e-path-system-comprises-language",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "compiled-system",
+      "target": "language"
+    },
+    {
+      "id": "e-path-adapter-part-of-compiler",
+      "class": "path",
+      "predicate": "part_of",
+      "source": "language-adapter",
+      "target": "compiler"
+    },
+    {
+      "id": "e-path-brownfield-allows-goal",
+      "class": "path",
+      "predicate": "allows",
+      "source": "brownfield-inventory",
+      "target": "goal"
+    },
+    {
+      "id": "e-path-workflow-requires-engine",
+      "class": "path",
+      "predicate": "requires",
+      "source": "workflow",
+      "target": "durable-engine"
+    },
+    {
+      "id": "e-path-store-comprises-digest",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "version-store",
+      "target": "checker-digest"
+    },
+    {
+      "id": "e-path-digest-produces-signature",
+      "class": "path",
+      "predicate": "produces",
+      "source": "checker-digest",
+      "target": "checker-signature"
+    },
+    {
+      "id": "e-path-signature-allows-verify",
+      "class": "path",
+      "predicate": "allows",
+      "source": "checker-signature",
+      "target": "verify"
+    },
+    {
+      "id": "e-path-emit-produces-manifest",
+      "class": "path",
+      "predicate": "produces",
+      "source": "emit",
+      "target": "artifact-manifest"
+    },
+    {
+      "id": "e-path-manifest-audited",
+      "class": "path",
+      "predicate": "audited_by",
+      "source": "artifact-manifest",
+      "target": "audit"
+    },
+    {
+      "id": "e-path-index-comprises-manifest",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "run-level-index",
+      "target": "artifact-manifest"
+    },
+    {
+      "id": "e-path-index-comprises-model-call",
+      "class": "path",
+      "predicate": "comprises",
+      "source": "run-level-index",
+      "target": "model-call-record"
+    },
+    {
+      "id": "e-path-envelope-audited",
+      "class": "path",
+      "predicate": "audited_by",
+      "source": "call-envelope",
+      "target": "audit"
+    },
+    {
+      "id": "e-path-envelope-allows-emit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "call-envelope",
+      "target": "emit"
+    },
+    {
+      "id": "e-path-dirty-allows-ship",
+      "class": "path",
+      "predicate": "allows",
+      "source": "dirty-predicate",
+      "target": "ship",
+      "notes": "Ship lists unfinished predicate steps and stays closed until they are clear"
+    },
+    {
+      "id": "e-path-route-allows-interview",
+      "class": "path",
+      "predicate": "allows",
+      "source": "hand-prompt-route",
+      "target": "interview"
+    },
+    {
+      "id": "e-path-route-allows-planit",
+      "class": "path",
+      "predicate": "allows",
+      "source": "hand-prompt-route",
+      "target": "planit"
+    },
+    {
+      "id": "e-path-publisher-produces-pack",
+      "class": "path",
+      "predicate": "produces",
+      "source": "pack-publisher",
+      "target": "requirement-pack"
+    },
+    {
+      "id": "e-path-key-allows-pack",
+      "class": "path",
+      "predicate": "allows",
+      "source": "signing-key",
+      "target": "requirement-pack"
+    },
+    {
+      "id": "e-path-ui-allows-interview",
+      "class": "path",
+      "predicate": "allows",
+      "source": "product-ui",
+      "target": "interview"
+    }
+  ]
+}

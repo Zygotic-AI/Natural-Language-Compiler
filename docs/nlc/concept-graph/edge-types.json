@@ -1,0 +1,141 @@
+{
+  "schema": "nlc-concept-graph-edge-types/v0",
+  "description": "Allowed predicates for the NLC concept ontology. Edge class path = fine composition/sequence; summary = coarse fact that may expand into a path.",
+  "edge_classes": {
+    "path": {
+      "description": "Ordered fine steps or part-whole composition. Shown when drilling into a summary edge."
+    },
+    "summary": {
+      "description": "Coarse relationship true because a path exists (or asserted for docs). May declare expanded_by or expanded_as_path."
+    }
+  },
+  "predicates": [
+    {
+      "id": "comprises",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "part_of",
+      "description": "Whole contains part (Goal comprises Atomic action)."
+    },
+    {
+      "id": "part_of",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "comprises",
+      "description": "Part belongs to whole."
+    },
+    {
+      "id": "binds",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "bound_to",
+      "description": "Atomic action binds to a codified constraint / rule / ADR obligation."
+    },
+    {
+      "id": "bound_to",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "binds",
+      "description": "Constraint is bound onto an atomic action."
+    },
+    {
+      "id": "precedes",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "follows",
+      "description": "Strict sequence: step A immediately precedes step B on the compile spine."
+    },
+    {
+      "id": "follows",
+      "class": "path",
+      "arity": "binary",
+      "inverse": "precedes",
+      "description": "Strict sequence inverse."
+    },
+    {
+      "id": "allows",
+      "class": "path",
+      "arity": "binary",
+      "description": "Gate/audit outcome permits the next step (weaker than precedes when refusal is possible)."
+    },
+    {
+      "id": "produces",
+      "class": "path",
+      "arity": "binary",
+      "description": "Emit/generate produces an artifact (e.g. Produced code)."
+    },
+    {
+      "id": "audited_by",
+      "class": "path",
+      "arity": "binary",
+      "description": "Artifact or plan is subject to an adversarial audit step."
+    },
+    {
+      "id": "extracts_to",
+      "class": "path",
+      "arity": "binary",
+      "description": "Source constraint document yields an exact quote."
+    },
+    {
+      "id": "codifies_as",
+      "class": "path",
+      "arity": "binary",
+      "description": "Exact quote becomes a codified constraint (data type + if/then)."
+    },
+    {
+      "id": "constrains",
+      "class": "summary",
+      "arity": "binary",
+      "description": "Coarse: ADR / rule / pack constrains produced code or a goal."
+    },
+    {
+      "id": "produces_summary",
+      "class": "summary",
+      "arity": "binary",
+      "predicate_alias": "produces",
+      "description": "Coarse produces (Goal produces Produced code). Prefer expanded_by to the fine path."
+    },
+    {
+      "id": "bound_by",
+      "class": "summary",
+      "arity": "binary",
+      "description": "Coarse: Goal is bound by an ADR or requirement pack."
+    },
+    {
+      "id": "realizes",
+      "class": "summary",
+      "arity": "nary",
+      "description": "Hyper-style: Goal + ADR/codified constraints together realize Produced code. Use a bundle node or reified edge record."
+    },
+    {
+      "id": "member_of",
+      "class": "summary",
+      "arity": "binary",
+      "description": "Participant belongs to a realization / bundle node."
+    },
+    {
+      "id": "bundle_produces",
+      "class": "summary",
+      "arity": "binary",
+      "description": "Realization bundle node outputs Produced code."
+    },
+    {
+      "id": "requires",
+      "class": "path",
+      "arity": "binary",
+      "description": "A subject requires a named peer. A bad pairing refuses (durable workflow requires an engine)."
+    },
+    {
+      "id": "writes",
+      "class": "path",
+      "arity": "binary",
+      "description": "A harness may write files. Those files are still Produced code and still go through verify."
+    }
+  ],
+  "rules": [
+    "Every summary edge in a published diagram MUST set expanded_by (edge ids) or expanded_as_path (node ids), OR asserted_without_path: true (docs-only, rare).",
+    "path edges claiming the FEATURES compile spine MUST NOT skip required spine steps (Goal → Atomic action → Bind → Reverse adversarial audit → Emit → Produced code → Code adversarial audit).",
+    "Do not invent hops: ontology may declare allowed types; runtime instance graphs only write recorded ids.",
+    "predicate produces on class path is fine-grained (Emit → code); summary Goal → code uses produces_summary or a realizes bundle."
+  ]
+}

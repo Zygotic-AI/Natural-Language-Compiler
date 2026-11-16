@@ -9,10 +9,11 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | In the current ship (today **v0.7.0**) |
+| [Released](#released) | On this release line (today **v0.8.0**, not tagged yet). Last tagged ship is **v0.7.0**. |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
-| [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-112) | Features we want, not ordered into 1–12 yet |
+| [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
+| [Outstanding branches](#outstanding-branches) | Branch tips that are not `main` and not a release line. When none remain, the section lists the deleted names and why, and has no open table. Not Upcoming. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
@@ -32,13 +33,17 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 | **Running app** | The customer’s compiled application while it is executing. NLC work (interview, import/approve constraints, compile, verify, ship) is **not** called runtime. |
 | **Dirty predicate** | A step that can look finished while a required accept, code, or recompile is still undone. `/release` lists these instead of leaving the human to reconstruct the queue. |
 | **Call envelope** | Predefined JSON shape for that call type. Every agent/harness call uses one. Nonconforming → abandon that call and stop. File verify still wins if the envelope lies about files. |
-| **Call tokens and cost** | Tokens and cost of every agent/model call on the chain, stored on the execution records (tied by ids such as goal id). Not a Cursor hook. Not required to ship in the same slice as the graph. |
+| **Call tokens and cost** | Tokens and cost of every agent/model call on the chain, stored on the execution records (tied by ids such as goal id). Not a Cursor hook. Sequenced with Planet produce/audit accounting (Upcoming item 3), after the graph. |
+| **Planet** | The NLC execution path that builds artifacts (compile / planit / leaf skills). Product story for how produced work is audited and accounted for — not a second product name for the hub repo. |
+| **Artifact manifest** | JSON that accompanies a work product and describes it. Post-production audit consumes the manifest **and** the work product. |
+| **Run-level index** | One JSON per Planet run that contains or indexes every artifact manifest from that run. |
+| **Lazy-load skills** | The install question `Lazy-load skills (disable-model-invocation)? y/N`. `y` or `yes` writes `disable-model-invocation: true` on skills that install copies (slash-only). Enter, `n`, or any other answer writes `false` (the model may invoke them). |
 
 ---
 
 ## Released
 
-Current ship: **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter tag story, it is listed as current ship.
+This release line is **v0.8.0**. It is not tagged yet. Last tagged ship is **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -91,7 +96,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | TypeScript adapter specimen | Teaching example only | Not “we convert languages.” |
 | Adopter CI template | `nlc-init` writes a verify workflow | PRs run `./nlc verify`. |
 
-### v0.3.0–v0.7.0 (current ship)
+### v0.3.0–v0.7.0 (already tagged)
 
 | Feature | Version | What the customer gets | Why it is here |
 | ------- | ------- | ---------------------- | -------------- |
@@ -103,43 +108,24 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
 | Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
 
+### v0.8.0 (this release line, not tagged yet)
+
+| Feature | What the customer gets | Why it is here |
+| ------- | ---------------------- | -------------- |
+| Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or any other answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
+| Product story pack | Feature narratives, operator flows, and the concept graph for what is already tagged and what is still upcoming | One story file, so a later reader does not re-derive the order. Upcoming items stay upcoming. |
+
 ---
 
 ## Upcoming
 
-Intended sequence. More items than we will put on milestones. Convert-language is **not** its own product command; it is explained under Precise rewrite and Brownfield so we do not pretend there is `./nlc convert-language`.
+Intended sequence (1–13). More items than we will put on milestones. Convert-language is **not** its own product command; it is explained under Precise rewrite and Brownfield so we do not pretend there is `./nlc convert-language`.
 
-### 1. No editor hooks (harness- and model-agnostic)
+**Already Released (not re-sequenced here).** No editor hooks ([ADR 0058](../../adrs/0058-harness-and-model-agnostic.md)) and install into a specific repo ([ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md)) — see [Released](#released). They remain prerequisites for self-brownfield.
 
-**Status.** Now in Released. Remaining upcoming starts at item 3.
+Order accepted 2026-11-14 in [`FEATURES-AUDIT-REGISTER.md`](FEATURES-AUDIT-REGISTER.md) Stage E: keep the dogfood spine, promote Planet accounting and call envelopes after the trace graph so manifests/ids/envelopes are not bolted onto a finished emit surface.
 
-**What.** NLC does not ship or rely on editor/harness hooks. After the agent writes files, `./nlc verify` still fails if compiled files appeared without stamps and gates. No required model or agent host.
-
-**Use cases.**
-
-- Same compile rules in Cursor, Claude Code, Codex, Copilot, and anything else common.
-- An agent writes generated files with a shell redirect, a helper agent, or a tool connection. Verify still catches it.
-- A common model does poorly. We RCA NLC first. We only name a model or harness “not recommended” after we can show the expectation is reasonable and that setup still will not meet it.
-
-**Why this order.** It is a single rule: no hooks. The alternative is “hooks if you remember, verify if you do not,” which is hope. We should not marry one editor before we brownfield ourselves. Law: [ADR 0058](../../adrs/0058-harness-and-model-agnostic.md) (Accepted). In-tree Cursor hooks are removed.
-
-**Later, not now.** A milestone may **enable a named harness**. That work adds accepted decisions for that harness, including “confirm this is the harness in use, error if it is not.” Until then, no hooks.
-
-### 2. Install NLC into a specific repo
-
-**Status.** Now in Released. Remaining upcoming starts at item 3.
-
-**What.** A repo can pin its own NLC copy. The machine-wide install can move without dragging every repo along.
-
-**Use cases.**
-
-- Several greenfield apps. Upgrade the global install. Leave one app on the older pin because it is not ready.
-- The self-rewrite goes sideways. A repo stays on the last good pin.
-- A test repo pins the self-rewrite build without affecting everything else.
-
-**Why this order.** This is not only a brownfield surface. Greenfield needs it too. It has to exist **before** we brownfield ourselves, so a bad self-rewrite is survivable. Law: [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) (Accepted). Installer prompt is global or local. Piped `curl | bash` stays global unless `--local` / `NLC_INSTALL_SCOPE=local`. PATH `nlc` that is the global command execs `./nlc` in the current repo when that file exists.
-
-### 3. Full requirement import
+### 1. Full requirement import
 
 **What.** A **policy / standard / etc** becomes accepted goals and if/then constraints, each citing source, page, and line. The human edits and approves. The agent writes one chunk per pass (a section or a set of goals) and stops. **Interview** stays the path when there is no policy / standard / etc.
 
@@ -149,7 +135,7 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 **Why this order.** Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first. Pack ingest today produces candidates; this is the full job.
 
-### 4. Trace graph
+### 2. Trace graph
 
 **What.** Compile chain for a goal: split into atomic changes/actions → bind to codified constraints → reverse adversarial check that applicable constraints were not left off → execute (emit) each action → adversarial check that the constraints landed in the code. Records are **tied together by ids** (goal id, atomic-action id, constraint id, and so on). Not one mega-file.
 
@@ -159,7 +145,34 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 **Use cases.** Site “security / auditability / reproducibility.” Fix a vulnerability in one accepted decision and see every location. Walk a suspicious file back to why it exists. Inspect an entire goal execution by following the ids.
 
-**Why this order.** Precise rewrite and “constraints become data types and enforced via code in the running app” need to know what a change touches. The v0.1.0 impact graph is goal→verb calls only.
+**Why this order.** Precise rewrite, Planet accounting, and “constraints become data types and enforced via code in the running app” need stable ids and blast radius. The v0.1.0 impact graph is goal→verb calls only.
+
+### 3. Planet produce / audit accounting
+
+**What.** The produce → manifest → audit shape for Planet (compile / planit / leaf skills), plus the accounting and run reconstruction that hang on the same ids as the trace graph. Becomes enforceable law (ADR/rules), not FEATURES-only wishes.
+
+**Tenets.**
+
+1. **Everything produced gets an audit.** Any artifact Planet builds is followed by an audit that confirms it was produced correctly.
+2. **Every artifact ships with a JSON manifest** (artifact manifest). The manifest accompanies the work product and describes it.
+3. **The audit consumes both.** The post-production audit receives the manifest and the work product, and uses both to verify correctness.
+4. **One run-level index JSON.** When Planet is executed, it creates a single JSON that either contains or indexes all the manifest JSONs produced during that run.
+5. **ADR binding records decisions.** When ADRs are bound, Planet lists every ADR it considered applicable and writes a decision record for each one into the JSON manifest, indicating why it decided to keep or refuse it.
+6. **Model-call accounting.** Every model call records the model, the provider, the harness in use, tokens consumed, and cost when the model returns it. A reserved slot holds accounting data even when the model does not return it. Not a Cursor hook.
+
+**Run-level observability** (on the run-level index, not every leaf call): timestamps with durations; parent-child run ID; environment fingerprint; input hashes; human actor on every approval or refusal.
+
+**RCA and inference producers.** Root-cause analysis gets the same manifest treatment (failure path is not exempt). Inference-backed producers that need manifests: proposer, reviewer, confirmer, recorder, planit; also audit, adopt, policy ingest; verify-deep only if it uses an LLM. Deterministic gates (impact walks, rule matching, basic verify) do **not**.
+
+**Why this order.** High foundation: expensive to retrofit after emit volume grows. After the graph so manifests and accounting use real ids. Before precise rewrite and later emit surfaces so new producers inherit the shape.
+
+### 4. Call envelopes
+
+**What.** Every agent/harness call uses a **predefined JSON shape** for that call type. The envelope lists what we can audit: files created / edited / deleted, constraints, data types, and the rest of that call’s contract. Audit the envelope for conformance **immediately**. Anything out of conformance is **abandoned** and we **stop**.
+
+This does **not** replace verify on the files. The envelope can claim files X and the tree can contain Y; the files win. This is an NLC call protocol, not an editor hook.
+
+**Why this order.** High foundation; pairs with harness-agnostic Released work. Before more harness/emit surface so bad calls stop early instead of painting the tree.
 
 ### 5. Precise rewrite
 
@@ -176,29 +189,35 @@ Intended sequence. More items than we will put on milestones. Convert-language i
 
 A how-to can list those steps. We do not need `./nlc convert-language` unless we later want a wrapper. Language conversion of a foreign app is brownfield, so it waits on brownfield. Architecture (and language) as an accepted decision plus recompile can exist for apps already in NLC without being its own command.
 
-**Why this order.** Before we rewrite ourselves. After the graph, so the blast radius is real.
+**Why this order.** Before we rewrite ourselves. After the graph (blast radius) and Planet/envelopes (emit already accountable). Dirty predicates ship with this slice.
 
 ### 6. Constraints become data types and enforced via code in the running app
 
 **What.** Constraints become **data types** and are **enforced via code in the running app**. A later policy / standard / etc change uses precise rewrite on those units. Adopters bring HIPAA / GDPR / PCI-DSS / FedRAMP packs. The hub does not ship those texts.
 
-**Use cases.** Site “policy-as-code” full job. Policy changes, only the units that policy owns are rewritten. Constraint onboarding (item 3) is how new adjectives and verb bindings arrive.
+**Use cases.** Site “policy-as-code” full job. Policy changes, only the units that policy owns are rewritten. Constraint onboarding (item 1) is how new adjectives and verb bindings arrive.
 
 **Why this order.** Needs precise rewrite. Needed before we trust a self-rewrite of this repo. This is the **running app**, not an NLC compile step.
 
-### 7. Brownfield ourselves (first cut) — this is dogfood
+### 7. Nothing changes except through NLC
+
+**What.** There is no change to anything in the system that is not done via NLC. A hand-prompt is caught and routed into an NLC skill or `nlc` command. Provide routing in an **`/nlc` skill** so prompts can always start there. File verify still catches edits that skipped the skill.
+
+**Why this order.** After envelopes (call protocol) and before self-brownfield, so dogfood is not practiced with a back-door edit path. Complements Released “no hooks” and verify-on-files.
+
+### 8. Brownfield ourselves (first cut) — this is dogfood
 
 **What.** Treat **this** repository like we did not write it. Inventory, plan, apply. Do not cheat by reading our own goals as if that were the import. This is how we learn brownfield: a first cut that works on us, then we refine on later repos until it is actually right.
 
 **As-is source reading (what we used to isolate as “scanners”) lives here**, not as a greenfield extra. If emit is correct, compiled source is already documented. Reading as-is files is for code NLC did not produce. On a first-cut self-brownfield we pretend we did not produce it.
 
-**Use cases.** Prove we can take a real tree without starting over. Install-into-repo is already done (item 2), so we can pin the experiment.
+**Use cases.** Prove we can take a real tree without starting over. Install-into-repo is already Released, so we can pin the experiment.
 
-**Why this order.** After import, graph, precise rewrite, constraints as data types in the running app, install-into-repo, and no editor hooks. Before we tell customers brownfield is done. Before we write the “rules that have to work together” combining logic, so we see real cases first.
+**Why this order.** After import, graph, Planet accounting, envelopes, precise rewrite, constraints as data types in the running app, NLC-only routing, install-into-repo, and no editor hooks. Before we tell customers brownfield is done. Before we write the “rules that have to work together” combining logic, so we see real cases first.
 
 **Why not cheat.** If the tool special-cases “this is the NLC hub, skip inventory,” we did not test brownfield. We tested a shortcut.
 
-### 8. Rules that have to work together, not just fight
+### 9. Rules that have to work together, not just fight
 
 **What is already shipped.** Two accepted rules that are a straight contradiction on the **same** thing fail when you accept them. Example: “never return the card number” vs “must export the card number.”
 
@@ -208,13 +227,13 @@ A how-to can list those steps. We do not need `./nlc convert-language` unless we
 
 **Why this order.** After we have brownfielded ourselves. If we invent the combining rules first, we will be stuck dogfooding inside a guess. Head-on fights-at-accept-time stay as they are.
 
-### 9. Brownfield on other people’s repos
+### 10. Brownfield on other people’s repos
 
 **What.** The same inventory / plan / apply path on trees we did not write, until it is correct. As-is source reading for those languages as they show up.
 
 **Why this order.** First cut on us, then other repos. We do not claim brownfield done from one tree.
 
-### 10. Other languages besides Python
+### 11. Other languages besides Python
 
 **What.** Emit and check languages other than Python. Companies can adopt NLC in the language they already use.
 
@@ -222,11 +241,11 @@ A how-to can list those steps. We do not need `./nlc convert-language` unless we
 
 **Not bundled with the public pack list.** Packs are not tied to a language. We still sequence pack sharing **after** other languages for the adoption reason above, as two different upcoming items.
 
-### 11. Public packs, signing, and registering with the NLC effort
+### 12. Public packs, signing, and registering with the NLC effort
 
 **What.** A group registers a public key with the NLC effort. We check the email. They upload a signed bundle we can check file-by-file (a signed inventory of every file in that exact bundle) before we list it. We may run security checks. Users should still check what they use.
 
-**Why this order.** After other languages, for the adoption reason in item 10. Not bundled *as the same work* as language emit.
+**Why this order.** After other languages, for the adoption reason in item 11. Not bundled *as the same work* as language emit.
 
 **Problem that must be solved before this ships (not today).** Stolen signing keys and how a legitimate group rotates a key without letting a thief vote in a replacement.
 
@@ -244,33 +263,15 @@ Different knobs (do not mash them):
 - **This key may no longer sign new things** (leak). Old reviewed bundles can remain; new signatures from that key do not.
 - **This is still the same group, new keys** (laptop died). Recovery cannot be “the stolen key said so.”
 
-### 12. Finished low-code UI
+### 13. Finished low-code UI
 
 **What.** A product UI on the same compile path. Until then: commands plus the agent.
 
 **Why last.** We will not know the real surface until the compile path we are actually shipping exists. Building a UI on the current first slices would freeze the wrong shape.
 
-### Also on the thinking list (not sequenced into 1–12)
+### Also on the thinking list (not sequenced into 1–13)
 
-These are wanted. They are **not** required to land in the same slice as the graph.
-
-#### Tokens and cost of every agent/model call
-
-Record tokens and cost on the execution records (tied by ids such as goal id). Not a Cursor hook. Not bundled with “make the graph.”
-
-#### Call envelopes (predefined JSON per call type)
-
-Every agent/harness call uses a **predefined JSON shape** for that call type. The envelope lists what we can audit: files created / edited / deleted, constraints, data types, and the rest of that call’s contract. Audit the envelope for conformance **immediately**. Anything out of conformance is **abandoned** and we **stop**.
-
-This does **not** replace verify on the files. The envelope can claim files X and the tree can contain Y; the files win. This is an NLC call protocol, not an editor hook.
-
-#### Nothing changes except through NLC
-
-There is no change to anything in the system that is not done via NLC. A hand-prompt is caught and routed into an NLC skill or `nlc` command. Provide routing in an **`/nlc` skill** so prompts can always start there. File verify still catches edits that skipped the skill.
-
-#### Dirty predicates on `/release`
-
-See precise rewrite. `/release` always lists what still has to be done (accept, code, recompile, …) instead of leaving the human to figure out the queue.
+**None currently.** Planet tenets, model-call accounting, run-level observability, RCA/producer manifests, call envelopes, NLC-only routing, and dirty predicates on `/release` were promoted into Upcoming 3–7 / item 5 per Stage E acceptance (2026-11-14). Add new unsequenced wants here when they appear; do not leave them only in a draft file.
 
 ---
 
@@ -280,23 +281,38 @@ Only slices we are scheduling. Confidence is highest in the next one.
 
 ### Next (high confidence)
 
-**Full requirement import** (Upcoming item 3). Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first.
+**Full requirement import** (Upcoming item 1). Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first.
 
 Open work: [`TODO`](../../TODO) rows under “full requirement import.”
 
 ### After that (medium confidence)
 
-Promote the next Upcoming slice when we are close enough that the reasons will still be true.
+Promote the next Upcoming slice when we are close enough that the reasons will still be true. Next candidates after import are the **trace graph**, then **Planet produce/audit accounting** (high foundation).
 
 ### Not a milestone yet
 
-Everything else in Upcoming stays on the thinking list. Enabling a named harness is a future milestone of its own; “no hooks” is the default ([ADR 0058](../../adrs/0058-harness-and-model-agnostic.md)).
+Everything else in Upcoming stays off the milestone list until scheduled. Enabling a named harness is a future milestone of its own; “no hooks” is the default ([ADR 0058](../../adrs/0058-harness-and-model-agnostic.md)).
+
+---
+
+## Outstanding branches
+
+Reviewed 2026-11-16. `origin` has `main` and the release lines only. No other branch name belongs, so there is no table.
+
+These names were deleted because they do not belong:
+
+- `cursor/nlc-planit-identity`. The Planit identity check is already on this release. The branch only added six unchecked task-list boxes about a deleted harness hook. Those boxes were not done.
+- `cursor/fitness-binder-debug`. It would rename exempt rule id `0051:L26` to `0051:L25`. The release rule file still says `0051:L26`.
+- `cursor/o4-sync-up-review-4623`. An October review packet for the already-shipped v0.3.0 line, including `tools/fitness-sync-up-review-appendix.py`. Not an upcoming feature.
+- `cursor/o10-findings-gap-ssot-4623`. `FINDINGS.md` is already the only live gap list. The branch checker would stub the task list and restore October gap markers.
+- `cursor/o11-terms-glossary-ssot-4623`. The locked definitions already live in `integrity/LEXICON.md`. The branch would also redefine Goal so it no longer calls verbs.
+- `nlc-diagram-info`. Older component diagram. The one kept sentence is in `docs/diagrams/nlc-components.md`: a gate checks the one artifact just generated, and verify is the later compile check.
 
 ---
 
 ## Questions this file should answer without a new interview
 
-- Why is install-into-a-repo before we brownfield ourselves? Because greenfield apps need a pin too, and a bad self-rewrite must be survivable.
+- Why is install-into-a-repo before we brownfield ourselves? Because greenfield apps need a pin too, and a bad self-rewrite must be survivable. (Released; still a dogfood prerequisite.)
 - Why is dogfood brownfield on us, not a separate “rewrite from docs while skipping inventory”? Because that is how we learn brownfield without cheating.
 - Why are as-is source readers part of brownfield? Because greenfield emit should already document the source.
 - Why is convert-language not a feature? Because it is either “accept output language and recompile” or “brownfield then emit in the new language.”
@@ -308,8 +324,12 @@ Everything else in Upcoming stays on the thinking list. Enabling a named harness
 - Why two words for decisions? **Accepted decision** is human-accepted law (ADR, kept when superseded). **Chain choice** is an AI pick recorded in the binding. Overlapping encryption between packs is not a silent chain choice; the human accepts the resolution.
 - Why not one JSON file for a goal run? Records are tied by ids. One mega-file is not required.
 - Why query any relationship? “Where is policy X in the code?” has to walk policy → extraction → constraint → atomic action → code. Only recorded hops.
-- Why tokens/cost as its own thinking-list item? Useful even before the graph ships. Not a Cursor hook.
+- Why Planet accounting right after the graph? High foundation; uses graph ids; expensive to retrofit after emit volume grows. Must still become ADR/rules before ship.
+- Why run-level observability separate from per-call records? Auditors reconstruct a run; the lean per-call row stays model/provider/harness/tokens/cost; fingerprints and human actors sit on the run-level index.
+- Why RCA needs a manifest too? It is an inference-backed record artifact on the failure path; skipping it creates an unauditable hole.
+- Why list inference-backed producers? So deterministic gates are not wrapped in fake manifests and inference producers are not exempt.
 - Why call envelopes *and* file verify? The envelope is audited immediately; the files can still disagree; files win; stop on a bad envelope.
-- Why `/nlc` routing? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips.
-- Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue.
+- Why `/nlc` routing before self-brownfield? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips. Dogfood should not practice a back door.
+- Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue. Spec’d with precise rewrite.
 - Why “running app” not “runtime”? Runtime is easy to mix with NLC compile work. The customer’s compiled application while it is executing is the running app.
+- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. When the work is already on a release, or the branch must not be replayed, the name is deleted. The section then lists those deleted names and why. There is no open table.

@@ -3,61 +3,50 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "rca-2026-10-09-release-stops-outside-planner"
+    "tools-fitness-c10-schema-files"
   ],
-  "ssot_exit_status": "plan-audit-pass",
+  "ssot_exit_status": "plan-audit-pass-skip-nlc-in-schema-files",
   "quality_snapshot": {
-    "opportunities": 10,
-    "ops": 10,
+    "opportunities": 6,
+    "ops": 6,
     "defects": 0,
     "quality": 1.0
   },
   "findings": [
     {
-      "id": "exact-rca-prevention",
-      "result": "PASS"
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "The guard exits 0 only when schema_files returns the product schema and no path part is .nlc, and acceptance_blockers and contract_change_blockers are empty."
     },
     {
-      "id": "hidden-bypasses",
-      "result": "PASS"
+      "id": "CONTROL-LIFECYCLE",
+      "result": "PASS",
+      "note": "fitness_c10.py is not in the self-ref set. The existing staging landmine stays. The gate-set manifest moves in the same change. ADR 0057: owner signature is the tag gate, not a branch incomplete."
     },
     {
-      "id": "god-facts",
-      "result": "PASS"
+      "id": "oracle",
+      "result": "PASS",
+      "note": "The guard checks path parts from schema_files. It does not match the rel() string, which is examples/... when the walker is loaded from the pin."
     },
     {
-      "id": "action-taxonomy",
-      "result": "PASS"
+      "id": "runner",
+      "result": "PASS",
+      "note": "assert-*-passes.py wired from ci_fitness. Not pytest. Not assert-*-fails.py."
     },
     {
-      "id": "false-context-acceptance",
-      "result": "PASS"
+      "id": "skip-set",
+      "result": "PASS",
+      "note": "Add .nlc only. Do not copy verify.py's set. dist and venv stay as they are."
     },
     {
-      "id": "unsafe-automatic-git-mutation",
-      "result": "PASS"
-    },
-    {
-      "id": "negative-fixtures",
-      "result": "PASS"
-    },
-    {
-      "id": "gate-standard",
-      "result": "PASS"
-    },
-    {
-      "id": "class-correctness",
-      "result": "PASS"
-    },
-    {
-      "id": "amendment-required",
-      "result": "PASS"
+      "id": "schema-identity",
+      "result": "PASS",
+      "note": "fitness_schema_identity is out of scope. Adopter fast verify does not call it."
     }
   ],
   "evidence": [
-    "docs/rca/2026-10-09-release-stops-outside-planner.md",
-    "adrs/0039-single-command-human-surfaces.md",
-    "adrs/0040-process-preflight-remediation.md",
-    "adrs/0045-hub-release-identity.md"
+    "docs/rca/2026-11-16-adopter-verify-walks-pin-examples.md",
+    "tools/nouns/fitness_c10/fitness_c10.py",
+    "tools/nouns/contract_change/contract_change.py"
   ]
 }

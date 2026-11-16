@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "docs/nlc/FEATURES.md still said current ship v0.5.0 at git tag v0.6.0 while nlc-version.json was 0.6.0.",
+  "unsuitable_process": "F1 fitness grades FINDINGS and DESCRIBE only. Release-prep does not write FEATURES current-ship. product-features-ssot.md is chat-only. No binder ties FEATURES current-ship to the tagged version.",
+  "climb_steps": [
+    "git grep at v0.6.0 shows FEATURES current ship v0.5.0.",
+    "fitness-findings-shipped-tag-sync.py reads FINDINGS and DESCRIBE only.",
+    "PREP/WRITE_RECORD do not update FEATURES.",
+    "Product-features SSOT instruction has no fitness partner."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0050"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-findings-shipped-tag-sync"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S19"
+}

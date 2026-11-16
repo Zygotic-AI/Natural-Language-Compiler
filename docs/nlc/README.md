@@ -32,6 +32,7 @@ This repo is the **[hub](../TERMS.md#hub)**: the [compiler](../TERMS.md#compiler
 | Diagram | Files |
 | ------- | ----- |
 | Component map (compiler, gates, compiled system) | [`nlc-components.md`](../diagrams/nlc-components.md), React Flow seed [`nlc-components.json`](../diagrams/nlc-components.json) |
+| Concept graph (coarse summary + fine path spine) | [`concept-graph/`](concept-graph/), React Flow seed [`nlc-concept-graph-spine.json`](../diagrams/nlc-concept-graph-spine.json) |
 
 ## Compile spine (tools)
 

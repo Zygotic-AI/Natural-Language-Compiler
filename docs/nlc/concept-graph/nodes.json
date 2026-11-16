@@ -1,0 +1,556 @@
+{
+  "schema": "nlc-concept-graph-nodes/v0",
+  "description": "Concept subjects: compile spine, constraint chain, BBP core, and the feature subjects a workflow or relationship diagram needs. Granularity L0–L11 matches the diagram-node catalog.",
+  "nodes": [
+    {
+      "id": "nlc",
+      "label": "Natural Language Compiler",
+      "granularity": "L0",
+      "kind": "product",
+      "terms_anchor": "nlc"
+    },
+    {
+      "id": "bbp",
+      "label": "BBP",
+      "granularity": "L0",
+      "kind": "concept",
+      "terms_anchor": "bbp",
+      "notes": "Boundary-Based Programming — emit practice"
+    },
+    {
+      "id": "bba",
+      "label": "BBA",
+      "granularity": "L0",
+      "kind": "concept",
+      "terms_anchor": "bba",
+      "notes": "Boundary-Based Architecture — integrity architecture"
+    },
+    {
+      "id": "compiler",
+      "label": "Compiler",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "compiler",
+      "aliases": ["AI compiler", "ASC"]
+    },
+    {
+      "id": "hub",
+      "label": "Hub",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "hub"
+    },
+    {
+      "id": "adopter",
+      "label": "Adopter",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "adopter"
+    },
+    {
+      "id": "compiled-system",
+      "label": "Compiled system",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "compiled-system",
+      "aliases": ["ACS"]
+    },
+    {
+      "id": "running-app",
+      "label": "Running app",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": "running-app"
+    },
+    {
+      "id": "noun",
+      "label": "Noun",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "noun"
+    },
+    {
+      "id": "verb-on-noun",
+      "label": "Verb (on noun)",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "verb-on-noun"
+    },
+    {
+      "id": "adjective",
+      "label": "Adjective",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "adjective"
+    },
+    {
+      "id": "goal",
+      "label": "Goal",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "goal"
+    },
+    {
+      "id": "workflow",
+      "label": "Workflow",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "workflow"
+    },
+    {
+      "id": "primitive",
+      "label": "Primitive",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "primitive"
+    },
+    {
+      "id": "tag",
+      "label": "Tag",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "tag"
+    },
+    {
+      "id": "blast-radius",
+      "label": "Blast radius",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "blast-radius"
+    },
+    {
+      "id": "boundary",
+      "label": "Boundary",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "boundary"
+    },
+    {
+      "id": "contract",
+      "label": "Contract",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "contract"
+    },
+    {
+      "id": "policy-standard-etc",
+      "label": "Policy / standard / etc",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "FEATURES umbrella for constraint sources"
+    },
+    {
+      "id": "requirement",
+      "label": "Requirement",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "requirement"
+    },
+    {
+      "id": "exact-quote",
+      "label": "Exact quote",
+      "granularity": "L3",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Extraction unit from a source constraint document"
+    },
+    {
+      "id": "codified-constraint",
+      "label": "Codified constraint",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Data type + if/then after quote; diagram alias for adopted rule/obligation shape"
+    },
+    {
+      "id": "adr",
+      "label": "ADR",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "adr"
+    },
+    {
+      "id": "accepted-decision",
+      "label": "Accepted decision",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "accepted-decision"
+    },
+    {
+      "id": "rule",
+      "label": "Rule",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "rule"
+    },
+    {
+      "id": "obligation",
+      "label": "Obligation",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "obligation"
+    },
+    {
+      "id": "requirement-pack",
+      "label": "Requirement pack",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "requirement-pack"
+    },
+    {
+      "id": "binding",
+      "label": "Binding",
+      "granularity": "L3",
+      "kind": "process-step",
+      "terms_anchor": "binding"
+    },
+    {
+      "id": "interview",
+      "label": "Interview",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "interview"
+    },
+    {
+      "id": "planit",
+      "label": "PLANIT",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "planit"
+    },
+    {
+      "id": "atomic-action",
+      "label": "Atomic action",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "atomic-action"
+    },
+    {
+      "id": "constraint-bind",
+      "label": "Constraint bind",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "binding",
+      "notes": "Spine step: bind atomic action to codified constraints"
+    },
+    {
+      "id": "reverse-adversarial-audit",
+      "label": "Reverse adversarial audit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "audit",
+      "notes": "Pre-emit: applicable constraints were not left off"
+    },
+    {
+      "id": "emit",
+      "label": "Emit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "Generate / execute atomic action; atomic verb emit"
+    },
+    {
+      "id": "produced-code",
+      "label": "Produced code",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Emitted artifact; participates in summary and path edges"
+    },
+    {
+      "id": "code-adversarial-audit",
+      "label": "Code adversarial audit",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "audit",
+      "notes": "Post-emit: constraints landed in code"
+    },
+    {
+      "id": "gate",
+      "label": "Gate",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "gate"
+    },
+    {
+      "id": "prove",
+      "label": "Prove",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "prove"
+    },
+    {
+      "id": "ship",
+      "label": "Ship",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "ship"
+    },
+    {
+      "id": "audit",
+      "label": "Audit",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "audit"
+    },
+    {
+      "id": "produce-audit-ship",
+      "label": "Produce ≠ Audit ≠ Ship",
+      "granularity": "L5",
+      "kind": "concept",
+      "terms_anchor": "produce-audit-ship"
+    },
+    {
+      "id": "compile-realization",
+      "label": "Compile realization",
+      "granularity": "L4",
+      "kind": "bundle",
+      "terms_anchor": null,
+      "notes": "Bundle node for Goal + ADR/codified constraints → Produced code (summary hyper-fact)"
+    },
+    {
+      "id": "trace-graph",
+      "label": "Trace graph",
+      "granularity": "L11",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "FEATURES upcoming: instance graph of recorded hops"
+    },
+    {
+      "id": "impact-graph",
+      "label": "Impact graph",
+      "granularity": "L4",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Released thinner cousin: goal→verb calls"
+    },
+    {
+      "id": "knowledge-fact",
+      "label": "Knowledge fact",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "knowledge-fact"
+    },
+    {
+      "id": "before-generate-stamp",
+      "label": "Before-generate stamp",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Generation refuses when this stamp is stale (UC18)"
+    },
+    {
+      "id": "verify",
+      "label": "Verify",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": "verify"
+    },
+    {
+      "id": "harness",
+      "label": "Harness",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": null,
+      "notes": "Editor or agent host. NLC does not attach a hook to it."
+    },
+    {
+      "id": "install",
+      "label": "Install",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null
+    },
+    {
+      "id": "install-fingerprint",
+      "label": "Install fingerprint",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Published digest. Install refuses a download that misses it."
+    },
+    {
+      "id": "compiler-lock",
+      "label": "Compiler lock",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "lock-file",
+      "notes": "Pins an adopter repo to one compiler version, including a repo-local copy"
+    },
+    {
+      "id": "version-store",
+      "label": "Version store",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "version-store",
+      "notes": "Upgrade walks this chain from one pinned compiler to the next"
+    },
+    {
+      "id": "install-doctor",
+      "label": "Install doctor",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null
+    },
+    {
+      "id": "ci-verify-workflow",
+      "label": "CI verify workflow",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Adopter pull requests run verify"
+    },
+    {
+      "id": "pack-allow-list",
+      "label": "Pack allow-list",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Hub-local list. When it has entries, pack install stays inside it."
+    },
+    {
+      "id": "change-class",
+      "label": "Change class",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "change-class"
+    },
+    {
+      "id": "retry-check",
+      "label": "Retry check",
+      "granularity": "L5",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "Fails when a retry would apply the same change twice"
+    },
+    {
+      "id": "rca-packet",
+      "label": "RCA packet",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "rca"
+    },
+    {
+      "id": "interior-function",
+      "label": "Interior function",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "call-tree-pack",
+      "notes": "Python call tree continues from the verb into domain functions"
+    },
+    {
+      "id": "language",
+      "label": "Language",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Python is compiled and audited today. Other languages use this same subject when emit reaches them."
+    },
+    {
+      "id": "language-adapter",
+      "label": "Language adapter",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": null,
+      "notes": "Shape of a non-Python adapter. The TypeScript tree is a teaching specimen of this subject."
+    },
+    {
+      "id": "brownfield-inventory",
+      "label": "Brownfield inventory",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": "brownfield",
+      "notes": "As-is inventory, plan, and apply on a tree NLC did not originally write"
+    },
+    {
+      "id": "durable-engine",
+      "label": "Durable engine",
+      "granularity": "L2",
+      "kind": "concept",
+      "terms_anchor": "durability"
+    },
+    {
+      "id": "checker-digest",
+      "label": "Checker digest",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null
+    },
+    {
+      "id": "checker-signature",
+      "label": "Checker signature",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Owner signature on the checker digest at tag"
+    },
+    {
+      "id": "artifact-manifest",
+      "label": "Artifact manifest",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "JSON that accompanies a work product. The audit reads it with the work."
+    },
+    {
+      "id": "run-level-index",
+      "label": "Run-level index",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null
+    },
+    {
+      "id": "model-call-record",
+      "label": "Model-call record",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "call-tokens-and-cost"
+    },
+    {
+      "id": "call-envelope",
+      "label": "Call envelope",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": "call-envelope"
+    },
+    {
+      "id": "dirty-predicate",
+      "label": "Dirty predicate",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": "dirty-predicate"
+    },
+    {
+      "id": "hand-prompt-route",
+      "label": "Hand-prompt route",
+      "granularity": "L4",
+      "kind": "process-step",
+      "terms_anchor": null,
+      "notes": "A prompt that did not start in NLC is sent into a skill or nlc command"
+    },
+    {
+      "id": "pack-publisher",
+      "label": "Pack publisher",
+      "granularity": "L3",
+      "kind": "concept",
+      "terms_anchor": null
+    },
+    {
+      "id": "signing-key",
+      "label": "Signing key",
+      "granularity": "L4",
+      "kind": "artifact",
+      "terms_anchor": null,
+      "notes": "Public-pack signing. How a stolen key is retired is still unsolved."
+    },
+    {
+      "id": "product-ui",
+      "label": "Product UI",
+      "granularity": "L1",
+      "kind": "system",
+      "terms_anchor": null,
+      "notes": "Low-code surface on the same compile path"
+    }
+  ]
+}

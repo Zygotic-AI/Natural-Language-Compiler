@@ -34,12 +34,26 @@ def main() -> int:
         (
             "goals/hub_install/execute.sh",
             sh,
-            ("--local", "--global", "NLC_INSTALL_SCOPE", "/dev/tty", "rev-parse --show-toplevel", "skills_staging"),
+            (
+                "--local",
+                "--global",
+                "NLC_INSTALL_SCOPE",
+                "/dev/tty",
+                "rev-parse --show-toplevel",
+                "skills_staging",
+                "Lazy-load skills (disable-model-invocation)? y/N",
+            ),
         ),
         (
             "goals/hub_install/execute.ps1",
             ps1,
-            ("NLC_INSTALL_SCOPE", "local", "SkillsStaging", "nlc-launcher.cmd"),
+            (
+                "NLC_INSTALL_SCOPE",
+                "local",
+                "SkillsStaging",
+                "nlc-launcher.cmd",
+                "Lazy-load skills (disable-model-invocation)? y/N",
+            ),
         ),
         (
             "scripts/nlc-launcher.sh",

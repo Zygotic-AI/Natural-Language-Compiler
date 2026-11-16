@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Ship pull request #71 was offered while GitHub still allowed squash onto main.",
+  "unsuitable_process": "CREATE_PR and the offer body do not lock merge-commit-only. The repo allows squash, merge, and rebase. ADR 0044 requires the tag on a merge commit, but that is not a GitHub merge-method constraint.",
+  "climb_steps": [
+    "PR #71 body mentioned tagging a merge commit but did not lock the method.",
+    "allow_squash_merge is true on the hub repo.",
+    "CREATE_PR calls gh pr create directly, not pr-offer-gate.py.",
+    "ADR 0044 tag-on-merge-commit is policy without a merge-method gate."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0044", "0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_context"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S03"
+}

@@ -18,7 +18,7 @@ Do not treat [`HOLES.md`](HOLES.md), root [`TODO`](TODO), or [`docs/USE-CASES.md
 
 `last_pass_tree_hash:` see [`integrity/hub-content-tree-hash.txt`](integrity/hub-content-tree-hash.txt) (ADR 0050 content fingerprint; not a commit id).
 
-Last pass (26-11-03): `/release` closeout for the v0.5.0 line. Shipped git tag **`v0.7.0`**. Inference: [`integrity/full-nlc-audit-inference-record.json`](integrity/full-nlc-audit-inference-record.json). UC14/16/20 expansion remains parked. README diagrams are in the README product picture.
+Last pass (26-11-15): release line **v0.8.0**, not tagged yet. Shipped git tag **`v0.7.0`**. Inference: [`integrity/full-nlc-audit-inference-record.json`](integrity/full-nlc-audit-inference-record.json). UC14/16/20 expansion remains parked. README diagrams are in the README product picture.
 
 ---
 
@@ -72,6 +72,7 @@ Promotion remains human (`ship-check`, not compile-green alone).
 | CHARTER / DESCRIBE door | **Done** — #38 NLC-first door (BBP body retained) |
 | README diagrams | **Done** — README product picture: generic intent and policies, and the same path with HIPAA and SEC named. |
 | UC18 goal-write hook coverage | **Removed.** [ADR 0058](adrs/0058-harness-and-model-agnostic.md) (harness- and model-agnostic) is Accepted. In-tree Cursor hooks are gone. Verify on the files is the notice path. Story: [`docs/nlc/FEATURES.md`](docs/nlc/FEATURES.md). |
+| v0.7.0 ship-session RCA queue | **Records done.** RCA-S01…S19 each have an instance record and `RCA_PACKET:MET`. Preventive TODO rows remain open. Packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md). Tag `v0.7.0` is already shipped; this queue is not a tag blocker. |
 
 ---
 

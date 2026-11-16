@@ -485,6 +485,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-adopter-verify-fast-green-passes.py")],
     )
     run(
+        "assert-adopter-pin-examples-skipped",
+        [sys.executable, str(TOOLS / "assert-adopter-pin-examples-skipped-passes.py")],
+    )
+    run(
         "assert-interview-packet-fails",
         [sys.executable, str(TOOLS / "assert-interview-packet-fails.py")],
     )
@@ -967,6 +971,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
     run(
         "assert-planit-other-skill",
         [sys.executable, str(TOOLS / "assert-planit-other-skill-fails.py")],
+    )
+    run(
+        "assert-planit-identity-loaded-skill",
+        [sys.executable, str(TOOLS / "assert-planit-identity-loaded-skill.py")],
     )
     run(
         "fitness-live-self-ref-activation",

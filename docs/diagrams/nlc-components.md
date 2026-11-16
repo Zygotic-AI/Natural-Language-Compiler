@@ -52,6 +52,8 @@ Side path: Conduct-RCA, Raise-Readiness (P-030), HITL Root-Approve, then back to
 
 Produce, Audit, and Ship are different roles. Audit does not authorize release. Verify (`./nlc verify` / `verify-deep`) is compile. Ship (`./nlc ship-check` after `Released-by:`) is release.
 
+A gate checks the one artifact just generated. Verify is the later compile check. Fitness is its machine half. Adversarial audit is its other half. A failed gate or audit still returns to Interview.
+
 ## Diagram
 
 ```mermaid

@@ -18,7 +18,7 @@ Do not treat [`HOLES.md`](HOLES.md), root [`TODO`](TODO), or [`docs/USE-CASES.md
 
 `last_pass_tree_hash:` see [`integrity/hub-content-tree-hash.txt`](integrity/hub-content-tree-hash.txt) (ADR 0050 content fingerprint; not a commit id).
 
-Last pass (26-11-15): release line **v0.8.0**, not tagged yet. Shipped git tag **`v0.7.0`**. Inference: [`integrity/full-nlc-audit-inference-record.json`](integrity/full-nlc-audit-inference-record.json). UC14/16/20 expansion remains parked. README diagrams are in the README product picture.
+Last pass (26-11-16): release line **v0.8.0**, not tagged yet. Shipped git tag **`v0.8.0`**. Inference: [`integrity/full-nlc-audit-inference-record.json`](integrity/full-nlc-audit-inference-record.json). UC14/16/20 expansion remains parked. README diagrams are in the README product picture.
 
 ---
 

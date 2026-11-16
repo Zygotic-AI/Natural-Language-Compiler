@@ -2158,6 +2158,9 @@
     "tools/assert-piped-install-smoke-passes.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-planit-identity-loaded-skill.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-planit-other-skill-fails.py": [
       "gate_set_manifest"
     ],

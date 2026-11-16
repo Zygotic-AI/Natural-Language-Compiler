@@ -485,6 +485,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-adopter-verify-fast-green-passes.py")],
     )
     run(
+        "assert-adopter-pin-examples-skipped",
+        [sys.executable, str(TOOLS / "assert-adopter-pin-examples-skipped-passes.py")],
+    )
+    run(
         "assert-interview-packet-fails",
         [sys.executable, str(TOOLS / "assert-interview-packet-fails.py")],
     )

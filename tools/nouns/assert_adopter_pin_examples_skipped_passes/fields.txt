@@ -1,0 +1,1 @@
+# fields for assert_adopter_pin_examples_skipped_passes

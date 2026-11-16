@@ -3660,6 +3660,20 @@
       ]
     },
     {
+      "label": "no-noun-field-writes adopter-ignores-pin-examples",
+      "script": "tools/fitness-no-noun-field-writes.py",
+      "kind": "fitness",
+      "inputs": [
+        "tools/fitness-no-noun-field-writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/README.md",
+        "tools/nouns/fitness_no_noun_field_writes/__init__.py",
+        "tools/nouns/fitness_no_noun_field_writes/adjectives.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fields.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fitness_no_noun_field_writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/schemas/verbs.schema.json"
+      ]
+    },
+    {
       "label": "no-noun-field-writes adopter-verify-fast-green",
       "script": "tools/fitness-no-noun-field-writes.py",
       "kind": "fitness",

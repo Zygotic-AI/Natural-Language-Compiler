@@ -1840,6 +1840,9 @@
     "tools/assert-adjective-locality-violation-fails.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-adopter-pin-examples-skipped-passes.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-adopter-verify-fast-green-passes.py": [
       "gate_set_manifest"
     ],
@@ -3734,6 +3737,24 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_adjective_locality_violation_fails/schemas/verbs.schema.json": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/README.md": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/adjectives.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/assert_adopter_pin_examples_skipped_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/fields.txt": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_adopter_pin_examples_skipped_passes/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_adopter_verify_fast_green_passes/README.md": [

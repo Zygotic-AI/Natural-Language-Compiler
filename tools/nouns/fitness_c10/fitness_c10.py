@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-SKIP_DIR_NAMES = {".git", "node_modules", "dist", "__pycache__", ".venv", "venv"}
+SKIP_DIR_NAMES = {".git", ".nlc", "node_modules", "dist", "__pycache__", ".venv", "venv"}
 SCHEMA_NAMES = {"input.schema.json", "output.schema.json", "failure.schema.json", "verbs.schema.json"}
 
 

@@ -3,13 +3,12 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "goals-hub_install",
-    "docs-nlc-FEATURES"
+    "tools-fitness-c10-schema-files"
   ],
-  "ssot_exit_status": "plan-audit-pass-install-lazy-load",
+  "ssot_exit_status": "plan-audit-pass-skip-nlc-in-schema-files",
   "quality_snapshot": {
-    "opportunities": 8,
-    "ops": 8,
+    "opportunities": 6,
+    "ops": 6,
     "defects": 0,
     "quality": 1.0
   },
@@ -17,49 +16,37 @@
     {
       "id": "GATE-STD",
       "result": "PASS",
-      "note": "No new skill. Stop predicates are fitness-install-scope RESULT:MET and install asserts ASSERT:PASS. Default-closed: non-interactive writes false; y writes true."
-    },
-    {
-      "id": "R31-foreign-skills",
-      "result": "PASS",
-      "note": "ADR 0054: rewrite only the staged hub skill copy and the cursor skill dirs this install just copied. Do not walk the destination tree."
-    },
-    {
-      "id": "R30-no-pipe-hang",
-      "result": "PASS",
-      "note": "ADR 0060 tty rule: prompt only when CI is unset and stdout is a terminal; read /dev/tty. Piped curl and CI stay false with no read."
-    },
-    {
-      "id": "hash-hub-untouched",
-      "result": "PASS",
-      "note": "Do not rewrite INSTALL_ROOT/hub. Install hash verify still covers the hub tree."
-    },
-    {
-      "id": "class-C",
-      "result": "PASS",
-      "note": "Charter class C use-case on goals/hub_install. Version class minor. No new noun, no Ratified-by line."
-    },
-    {
-      "id": "default-false",
-      "result": "PASS",
-      "note": "Empty, n, or non-interactive sets disable-model-invocation false. y or yes sets true. Prompt text is the operator string."
-    },
-    {
-      "id": "source-skills-unchanged",
-      "result": "PASS",
-      "note": "Hub source SKILL.md stays disable-model-invocation true. The choice is applied to the installed copy."
+      "note": "The guard exits 0 only when schema_files returns the product schema and no path part is .nlc, and acceptance_blockers and contract_change_blockers are empty."
     },
     {
       "id": "CONTROL-LIFECYCLE",
       "result": "PASS",
-      "note": "N/A: not a pin, sidecar, hook, verifier, or trusted-key list."
+      "note": "fitness_c10.py is not in the self-ref set. The existing staging landmine stays. The gate-set manifest moves in the same change. ADR 0057: owner signature is the tag gate, not a branch incomplete."
+    },
+    {
+      "id": "oracle",
+      "result": "PASS",
+      "note": "The guard checks path parts from schema_files. It does not match the rel() string, which is examples/... when the walker is loaded from the pin."
+    },
+    {
+      "id": "runner",
+      "result": "PASS",
+      "note": "assert-*-passes.py wired from ci_fitness. Not pytest. Not assert-*-fails.py."
+    },
+    {
+      "id": "skip-set",
+      "result": "PASS",
+      "note": "Add .nlc only. Do not copy verify.py's set. dist and venv stay as they are."
+    },
+    {
+      "id": "schema-identity",
+      "result": "PASS",
+      "note": "fitness_schema_identity is out of scope. Adopter fast verify does not call it."
     }
   ],
   "evidence": [
-    "goals/hub_install/execute.sh",
-    "goals/hub_install/execute.ps1",
-    "adrs/0060-install-scope-and-path-dispatch.md",
-    "adrs/0054-published-skill-author-contract.md",
-    "docs/nlc/FEATURES.md"
+    "docs/rca/2026-11-16-adopter-verify-walks-pin-examples.md",
+    "tools/nouns/fitness_c10/fitness_c10.py",
+    "tools/nouns/contract_change/contract_change.py"
   ]
 }

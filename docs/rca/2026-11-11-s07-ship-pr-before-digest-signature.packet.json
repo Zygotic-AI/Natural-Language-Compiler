@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Ship pull request #71 opened to main before the tag-time checker-digest owner signature existed on that HEAD.",
+  "unsuitable_process": "CREATE_PR and pr-offer-gate do not require CHECKER_DIGEST_SIGNATURE:MET. ALIGN_VERSION regenerates digest bytes; ADR 0057 armor is checked only at CREATE_LOCAL_TAG. There is no planner action that blocks OPEN_PR_TO_MAIN on a stale signature.",
+  "climb_steps": [
+    "#71 merged without bd50f45 on the tree.",
+    "pr-offer-gate and CREATE_PR do not run check-checker-digest-signature.py.",
+    "ALIGN_VERSION regenerates integrity/checker-digest.sha256.",
+    "ADR 0057 requires the tagged commit to carry current armor."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0057", "0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_tag_gate"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S07"
+}

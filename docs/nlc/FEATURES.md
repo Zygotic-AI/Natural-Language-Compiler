@@ -13,6 +13,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
+| [Outstanding branches](#outstanding-branches) | Git branches whose work is not already on a release: what each one implements, and whether that work is done. Not Upcoming. Already-released branch names are not listed. |
 
 When a reason or use case is spoken in planning, it is written here in the same change.
 
@@ -293,6 +294,27 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 
 ---
 
+## Outstanding branches
+
+Git branch tips that are not contained in `origin/release/v0.8.0` and whose work is **not** already on a release, reviewed 2026-11-15. Already-released work is omitted here even when the old branch name still exists. These rows are not [Upcoming](#upcoming) items 1–13 and they are not milestones. Merging the branch would replay an old tree onto the release.
+
+Open pull request #79 (`v080-rca-notes`) is only the hand copy of the root-cause notes. It is not one of these branches, and it is not merged.
+
+| Branch | What it implements | Completion |
+| --- | --- | --- |
+| `cursor/v070-session-rca-queue-326d` | Nineteen root-cause notes from the v0.7.0 ship session, plus the task-list queue. | Notes are copied in open pull request #79, not on `origin/release/v0.8.0` until that merges. The branch also removes the fitness push trigger and rewrites the release skill and the pull-request offer gate; those edits were not copied. Preventive task-list rows are still open. Do not merge the branch. |
+| `cursor/pr38-masked-shape-rca-8ecd` | One root-cause note: pull request #38 reached an owner signature with a hidden shape failure. | The note is in pull request #79 (`docs/rca/2026-10-27-pr38-masked-shape-failure.md`). Not on origin until that merges. Do not merge the branch. |
+| `cursor/rca-ci-hang-per-file-sigs-ab5c` | One root-cause note: CI time exploded after per-file decision signatures. | The note is in pull request #79 (`docs/rca/2026-10-25-ci-hang-per-file-sigs.md`). Not on origin until that merges. Do not merge the branch. |
+| `cursor/rca-start-release-gh-missing-fail-open-ade1` | One root-cause note: start-release required `gh`, which the runner lacked, and the existence checks failed open. | The note is in pull request #79 (`docs/rca/2026-10-25-start-release-gh-missing-fail-open.md`). Not on origin until that merges. Do not merge the branch. |
+| `cursor/nlc-planit-identity` | The Planit skill identity check, plus an old task-list insert. | The check passes on this release. Six leftover checkboxes on the branch (a root-cause note, a prevention check, a prose sweep, a prove step, an operator note, and a ship line) were not copied. Do not merge the branch. |
+| `cursor/fitness-binder-debug` | A six-line debug change that renames exempt id `0051:L26` to `0051:L25`. | Not done, and it should stay that way. The release rule file still says `0051:L26`. Do not merge. |
+| `cursor/o4-sync-up-review-4623` | A v0.3.0 review appendix (`tools/fitness-sync-up-review-appendix.py`). | Not done. That file is absent. Not an Upcoming item. Revive only as a new change if that review is still required. Do not merge. |
+| `cursor/o10-findings-gap-ssot-4623` | Make `FINDINGS.md` the sole live gap queue and add a fitness file for that. | Partly reflected: `FINDINGS.md` already says it is the sole live gap queue. The branch fitness file is absent, and `HOLES.md` is still on the release. Do not merge this October branch. A new feature-list row is required before anyone builds that fitness. |
+| `cursor/o11-terms-glossary-ssot-4623` | Collapse the dictionary files into one. Also contains the O10 commits. | Not done. `docs/TERMS.md`, `integrity/LEXICON.md`, and `docs/nlc/compiler/GLOSSARY.md` all still exist. Do not merge. |
+| `nlc-diagram-info` | Older diagram JSON and `architecture.png`. | Not done as a merge. The release diagrams are newer. This is not the low-code UI (Upcoming 13). Do not merge. |
+
+---
+
 ## Questions this file should answer without a new interview
 
 - Why is install-into-a-repo before we brownfield ourselves? Because greenfield apps need a pin too, and a bad self-rewrite must be survivable. (Released; still a dogfood prerequisite.)
@@ -315,3 +337,4 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 - Why `/nlc` routing before self-brownfield? No change in the system except through NLC. Hand-prompts redirect. File verify still catches skips. Dogfood should not practice a back door.
 - Why dirty predicates on `/release`? So release always lists what is left instead of making the human reconstruct the queue. Spec’d with precise rewrite.
 - Why “running app” not “runtime”? Runtime is easy to mix with NLC compile work. The customer’s compiled application while it is executing is the running app.
+- Why list outstanding branches if they are not features? So a later merge does not replay an old tree. The row says what the branch implemented and whether that work is already done.

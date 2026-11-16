@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "First land of the install-scope slice offered pull request #68 on a HEAD whose hub fitness failed (content-tree stamp, unsigned gate-set manifest, new landmine not in the snapshot).",
+  "unsuitable_process": "Feature produce can gh pr create without pr-offer-gate.py / ./nlc verify MET on that HEAD. The 2026-11-02 RCA bound that refuse to the release skill; it is not bound on feature slices. Derived stamp and gate-set updates happened after the offer.",
+  "climb_steps": [
+    "PR #68 first fitness runs 42882750057 and 42882799213 failed.",
+    "Follow-up commit added the landmine to the gate-set snapshot.",
+    "pr-offer-gate.py is the release-skill path only.",
+    "2026-11-02 RCA: offer before verify MET is the process defect."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0050"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-mandate-inheritance"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S18"
+}

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Closeout ./nlc verify failed on a stale unsigned gate-set manifest after TODO/FEATURES edits, then derived regen and a second prove.",
+  "unsuitable_process": "Release skill Step 1A says prove once but does not regenerate derived release state after TODO/FEATURES (content-tree / gate-set members) change. ADR 0050 derived stamps belong in the same commit as those edits, before the single verify.",
+  "climb_steps": [
+    "First closeout verify failed on derived unsigned manifest / stamp.",
+    "regen-derived-release-state.py was run after that fail.",
+    "Step 1A.6 is prove once; Step 1A.3 syncs content-tree only.",
+    "ADR 0050: content-tree hash is part of the ship tree, not a retry."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0050"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-mandate-inheritance"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S14"
+}

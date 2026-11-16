@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "The producer session counted one remaining merge while pull request #73 was CONFLICTING.",
+  "unsuitable_process": "The release skill allows a remaining-merge count without a live GitHub mergeable observation. ADR 0038 forbids memory counts; ADR 0049 requires the next stop from planner or observed facts, not a guessed click tally.",
+  "climb_steps": [
+    "Chat counted one remaining merge (#73).",
+    "No gh pr view --json mergeable,mergeStateStatus before that sentence.",
+    "Release skill has no mergeability probe.",
+    "ADR 0038 / ADR 0049: process must quote live observations, not remembered counts."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0038", "0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-adr-0038-no-memory"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S05"
+}

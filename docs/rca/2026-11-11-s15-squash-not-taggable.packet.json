@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Pull request #71 was stored as squash cc43f3e (one parent) and could not be tagged.",
+  "unsuitable_process": "The hub repo allows squash onto main for a release/v* ship PR. ADR 0044 requires a merge commit; nlc_release_context detects a one-parent object after it exists. No ruleset makes squash illegal on that path.",
+  "climb_steps": [
+    "cc43f3e has one parent and is not taggable.",
+    "GitHub allow_squash_merge is true.",
+    "Containment reports not a merge commit after the object lands.",
+    "ADR 0044 tag-on-merge-commit is policy without a store-time lock."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0044", "0049"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_context"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S15"
+}

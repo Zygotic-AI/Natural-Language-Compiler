@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Prep was committed on local release/v0.7.0 and git push of that ref was rejected by ruleset 25824126. Recurrence of the 2026-10-31 PUSH_FAST_FORWARD defect.",
+  "unsuitable_process": "The planner still chooses PUSH_FAST_FORWARD (git push of release/v*) when the local release branch is ahead. The 2026-10-31 preventive action was not implemented. Ruleset 25824126 requires a pull request and fitness before those commits may move the ref.",
+  "climb_steps": [
+    "git push origin release/v0.7.0 was rejected.",
+    "PUSH_FAST_FORWARD in execute.sh is still git push of the release branch.",
+    "2026-10-31 RCA named this and was not implemented.",
+    "docs/github-ruleset-release.md forbids producer push of release/* as first publication."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049", "0044"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-release-planner-ownership"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S10"
+}

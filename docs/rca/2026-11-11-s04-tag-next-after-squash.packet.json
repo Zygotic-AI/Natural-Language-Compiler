@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "After PR #71 merged, the producer session said the next step was the tag while containment and the checker-digest signature both refused.",
+  "unsuitable_process": "The ship-PR offer body pre-commits an unconditional tag-after-merge sentence. The session did not re-run ./release to print tag-gate NOT_MET before instructing the human manager.",
+  "climb_steps": [
+    "Chat promised a tag after #71.",
+    "Offer body already said ./release tags on that merge commit.",
+    "Tag gate and main_context would refuse cc43f3e.",
+    "ADR 0049: the next stop must come from planner stdout."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0049", "0057", "0044"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["nlc_release_tag_gate"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-11",
+  "queue_id": "RCA-S04"
+}

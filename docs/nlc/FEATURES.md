@@ -300,14 +300,19 @@ Git branch tips that are not contained in `origin/release/v0.8.0` and whose work
 
 The v0.7.0 ship-session root-cause notes and the three older notes are on this release through merged pull request #79. Those branch names are not listed.
 
+Three October branches were reviewed on 2026-11-16 and not merged. A merge would replay that old tree onto this release.
+
+`cursor/o10-findings-gap-ssot-4623` makes `FINDINGS.md` the only live gap list and adds a checker for that. The release already says that. The checker also turns the task list, `HOLES.md`, and the session follow-through file into short stubs and demands October gap markers such as "368 of 370". The task list stays a log because the product-use-case check reads its open rows. Those stubs were not copied.
+
+`cursor/o11-terms-glossary-ssot-4623` collapses the dictionary into `docs/TERMS.md` and contains the gap-list commits. The locked definitions and their audit lines already live in `integrity/LEXICON.md`. The short consumer list stays `docs/nlc/compiler/GLOSSARY.md`. The branch also redefines Goal so it no longer calls verbs. This release still uses that wording, so the rewrite was not copied.
+
+`nlc-diagram-info` is an older component diagram. The release picture is newer and keeps the return to Interview. The external person-name path on that branch stays out. One sentence from the branch is now in `docs/diagrams/nlc-components.md`: a gate checks the one artifact just generated, and verify is the later compile check.
+
 | Branch | What it implements | Completion |
 | --- | --- | --- |
 | `cursor/nlc-planit-identity` | The Planit skill identity check, plus an old task-list insert. | The check passes on this release. Six leftover checkboxes on the branch (a root-cause note, a prevention check, a prose sweep, a prove step, an operator note, and a ship line) were not copied. Do not merge the branch. |
 | `cursor/fitness-binder-debug` | A six-line debug change that renames exempt id `0051:L26` to `0051:L25`. | Not done, and it should stay that way. The release rule file still says `0051:L26`. Do not merge. |
 | `cursor/o4-sync-up-review-4623` | A v0.3.0 review appendix (`tools/fitness-sync-up-review-appendix.py`). | Not done. That file is absent. Not an Upcoming item. Revive only as a new change if that review is still required. Do not merge. |
-| `cursor/o10-findings-gap-ssot-4623` | Make `FINDINGS.md` the sole live gap queue and add a fitness file for that. | Partly reflected: `FINDINGS.md` already says it is the sole live gap queue. The branch fitness file is absent, and `HOLES.md` is still on the release. Do not merge this October branch. A new feature-list row is required before anyone builds that fitness. |
-| `cursor/o11-terms-glossary-ssot-4623` | Collapse the dictionary files into one. Also contains the O10 commits. | Not done. `docs/TERMS.md`, `integrity/LEXICON.md`, and `docs/nlc/compiler/GLOSSARY.md` all still exist. Do not merge. |
-| `nlc-diagram-info` | Older diagram JSON and `architecture.png`. | Not done as a merge. The release diagrams are newer. This is not the low-code UI (Upcoming 13). Do not merge. |
 
 ---
 

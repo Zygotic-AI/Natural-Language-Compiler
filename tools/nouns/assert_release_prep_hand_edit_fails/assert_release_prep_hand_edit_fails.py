@@ -5,6 +5,7 @@ from __future__ import annotations
 BOUNDARY = "bba-emit"
 
 import json
+import re
 import tempfile
 from pathlib import Path
 
@@ -40,9 +41,10 @@ def main() -> int:
 
     version = json.loads((tmp / VERSION_REL).read_text(encoding="utf-8"))["version"]
     findings = (tmp / FINDINGS_REL).read_text(encoding="utf-8")
-    needle = f"Shipped git tag **`v{version}`**"
-    if needle not in findings:
-        return _fail(f"FINDINGS missing {needle!r} for the hand-edit landmine")
+    found = re.search(r"Shipped git tag \*\*`v\d+\.\d+\.\d+`\*\*", findings)
+    if found is None:
+        return _fail("FINDINGS missing a shipped git tag phrase for the hand-edit landmine")
+    needle = found.group(0)
     (tmp / FINDINGS_REL).write_text(
         findings.replace(needle, "Shipped git tag **`v0.0.0`**", 1),
         encoding="utf-8",

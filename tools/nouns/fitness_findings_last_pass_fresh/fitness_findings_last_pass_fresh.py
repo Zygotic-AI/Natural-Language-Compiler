@@ -24,7 +24,14 @@ from nouns.evidence_ref.sync_content_tree_hash import (  # noqa: E402
 def _porcelain(root: Path) -> tuple[int, str]:
     """Return git status porcelain (empty string means a clean HEAD)."""
     proc = subprocess.run(
-        ["git", "status", "--porcelain"],
+        [
+            "git",
+            "-c",
+            "core.untrackedCache=false",
+            "status",
+            "--porcelain",
+            "-uall",
+        ],
         cwd=str(root),
         capture_output=True,
         text=True,

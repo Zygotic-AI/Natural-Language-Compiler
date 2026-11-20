@@ -412,6 +412,11 @@ Honest queue for active work. Do **not** `@done` until the stop predicate is MET
 - ✔ **RCA-ADR-0018-verify-fail-shape** — On client `upgrade-your-prompt` (pin v0.8.0), `./nlc verify` printed two labels (`New requirements — what you're building`; `no fingerprint record — run ./nlc verify-deep once`) and `Reproduce: ./nlc verify`. That is not [ADR 0018](adrs/0018-human-cli-interview-on-gap.md) (problem, what’s missing, ask, remediation choices, copy-paste next step). Record: [`docs/rca/2026-11-20-adr-0018-verify-fail-shape.md`](docs/rca/2026-11-20-adr-0018-verify-fail-shape.md). Packet MET. @done(26-11-20 22:55)
 - ✔ **RCA-ADR-0018 preventive** — Bind `emit_verify_fail` to `emit_gap`; list `tools/nlc_verify.py` in `fitness_interview_gap_shape`; landmine captured stderr (`What's wrong:` / `Option:` / `Example:`; no `Reproduce:` lead). Already landed at `204c120`: `tools/nouns/verify/verify.py`, `tools/nouns/fitness_interview_gap_shape/fitness_interview_gap_shape.py`, `tools/nouns/assert_interview_packet_fails/assert_interview_packet_fails.py`. Verify: `python3 tools/assert-interview-packet-fails.py` → `ASSERT:PASS`. @done(26-11-20 22:55)
 
+### RCA — hub prove METs a dirty tree GitHub will not grade
+
+- ✔ **RCA-VERIFY-PROCESS-DIRTY-TREE** — Why local hub prove keeps MET then GitHub fitness goes red on the content-tree stamp (this class: `c321b42` hash `b938ecd5…` ≠ digest `c17252f2…`). Operator framing: the entire release verification process is too complicated, not correctly documented, and defective. Record: [`docs/rca/2026-11-20-verify-process-dirty-tree-met.md`](docs/rca/2026-11-20-verify-process-dirty-tree-met.md). Packet MET. @done(26-11-20 23:15)
+- ☐ **RCA-VERIFY-PROCESS-DIRTY-TREE preventive** — Hub `./nlc verify` / `ci_fitness.py` NOT_MET when `git status --porcelain` is non-empty, so prove grades the committed tree CI grades. Landmine: untracked digest-eligible file cannot MET last-pass-fresh. See record §9. Do not implement until asked.
+
 ### RCA — v0.7.0 ship session (one RCA per row)
 
 Working packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md).

@@ -1,0 +1,61 @@
+{
+  "producer_role": "bbp-proposer",
+  "adversarial_auditor_role": "bbp-reviewer",
+  "verdict": "PASS",
+  "ssot_leaf_ids": [
+    "fitness-findings-last-pass-fresh-porcelain",
+    "assert-porcelain-dirty-fails",
+    "gitignore-planit-in-progress",
+    "docs-nlc-VERIFY-AND-SHIP-hub-porcelain"
+  ],
+  "ssot_exit_status": "plan-audit-pass-porcelain-refuse",
+  "quality_snapshot": {
+    "opportunities": 7,
+    "ops": 7,
+    "defects": 0,
+    "quality": 1.0
+  },
+  "findings": [
+    {
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "last-pass-fresh porcelain refuse is a machine gate (RESULT:MET/NOT_MET). Landmine is ASSERT:PASS/FAIL. Docs name the same stop predicate."
+    },
+    {
+      "id": "CONTROL-LIFECYCLE",
+      "result": "N/A",
+      "note": "Extends an existing fitness binder. No new pin, sidecar, hook, verifier, registry, or trusted-key list. Planit SKILL.md is not edited so the identity registry is not rewritten."
+    },
+    {
+      "id": "one-thing-porcelain",
+      "result": "PASS",
+      "note": "Scope is the RCA one thing: hub verify NOT_MET unless git status --porcelain is empty. Not a regen checklist. Not hashing untracked files into the digest."
+    },
+    {
+      "id": "session-gitignore",
+      "result": "PASS",
+      "note": "gitignore .nlc/planit-in-progress.json so a live Planit session can prove a clean HEAD. Porcelain already omits gitignored paths."
+    },
+    {
+      "id": "no-planit-skill-identity",
+      "result": "PASS",
+      "note": "PROCESS.md and VERIFY-AND-SHIP document the gate. Planit SKILL.md stays unedited to avoid planit-skill-registry pin churn."
+    },
+    {
+      "id": "no-release-on-feature-branch",
+      "result": "PASS",
+      "note": "No merge to main, no ./release, no nlc-version bump."
+    },
+    {
+      "id": "charter-class-C",
+      "result": "PASS",
+      "note": "Tightens existing hub verify around ADR 0050 content freshness. No new noun, verb, or charter rule. No new ADR."
+    }
+  ],
+  "evidence": [
+    "docs/rca/2026-11-20-verify-process-dirty-tree-met.md",
+    "adrs/0050-evidence-identity-content-not-history.md",
+    "tools/nouns/fitness_findings_last_pass_fresh/fitness_findings_last_pass_fresh.py",
+    "docs/nlc/VERIFY-AND-SHIP.md"
+  ]
+}

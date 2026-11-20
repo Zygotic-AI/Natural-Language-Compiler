@@ -81,7 +81,7 @@ This applies to code, skills, prompts, and docs [PLANIT](../../TERMS.md#planit) 
 
 Both required. This is **compile**, not [ship](../../TERMS.md#ship). [Adopter](../../TERMS.md#adopter) shell: `./nlc verify` (packet before compile; fingerprints after). `./nlc verify-deep` refreshes fingerprints on a compiled tree. See [`APP-VERIFY.md`](../APP-VERIFY.md).
 
-1. **Machine [gate](../../TERMS.md#gate)** — [hub](../../TERMS.md#hub): `python3 tools/ci_fitness.py` (full confirmer suite, not “check 1 only”). [Adopter](../../TERMS.md#adopter): `./nlc verify` (and `./nlc verify-deep` after compile). Exit non-zero = fail.
+1. **Machine [gate](../../TERMS.md#gate)** — [hub](../../TERMS.md#hub): `python3 tools/ci_fitness.py` (full confirmer suite, not “check 1 only”). Hub MET requires empty `git status --porcelain` (prove the committed tree). [Adopter](../../TERMS.md#adopter): `./nlc verify` (and `./nlc verify-deep` after compile). Exit non-zero = fail.
 2. **Adversarial [audit](../../TERMS.md#audit)** — a different pass than the generator: statements done, bound reqs/ADRs/rules held, no second copy of an [adjective](../../TERMS.md#adjective) inside a [goal](../../TERMS.md#goal). Human judgment gates: [`HUMAN-JUDGMENT-GATES.md`](../HUMAN-JUDGMENT-GATES.md).
 
 Fail → step 1 or 5, then step 6 again.

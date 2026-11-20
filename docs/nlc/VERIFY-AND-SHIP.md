@@ -22,7 +22,7 @@ On [verify](../TERMS.md#verify) failure: **`/verify`** in your agent — not a p
 
 ## [Hub](../TERMS.md#hub) vs [app repo](../TERMS.md#adopter)
 
-- **[Hub](../TERMS.md#hub)** — `./nlc verify` runs `ci_fitness.py`.
+- **[Hub](../TERMS.md#hub)** — `./nlc verify` runs `ci_fitness.py`. MET only when `git status --porcelain` is empty: prove grades the committed tree GitHub grades.
 - **[App repo](../TERMS.md#adopter)** — packet before compile; fingerprints after. `ship-check` is hub `release-audit.py`. Template `templates/adopter/github-workflows-nlc-verify.yml`.
 
 [Verify](../TERMS.md#verify) PASS is compile-ready. [Ship](../TERMS.md#ship) needs human `Released-by:` on `CONFIRM.md` when your class requires it.

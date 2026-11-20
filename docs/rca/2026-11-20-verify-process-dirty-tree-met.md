@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-20
 **Queue id:** RCA-VERIFY-PROCESS-DIRTY-TREE
-**Status:** open (RCA only; no remediation in this record)
+**Status:** closed (record + packet; preventive landed on this branch)
 **Skill:** Planit RCA standard. No `/rca` SKILL.md in this hub.
 
 **Scope (user words):** why this sort of mistake keeps happening — from the perspective I think the entire release verification process is too complicated, not correctly documented, and defective.
@@ -108,7 +108,7 @@ If that refuse had been in place before this session proved, `python3 tools/ci_f
 | Owner | hub maintainer |
 | Path | `tools/nouns/fitness_findings_last_pass_fresh/fitness_findings_last_pass_fresh.py` (or a sibling fitness both `ci_fitness.py` and hub `./nlc verify` always run). Gitignore or exclude `.nlc/planit-in-progress.json` so session state is not porcelain. |
 | Verification | Reproduction in §1: untracked probe + `fitness-findings-last-pass-fresh.py` → `RESULT:NOT_MET` (today it is `RESULT:MET`). Clean HEAD still `RESULT:MET`. GitHub checkout remains MET. |
-| Implementation route | not in this record |
+| Implementation route | Landed: porcelain check in `fitness_findings_last_pass_fresh`; landmine `assert-porcelain-dirty-fails`; gitignore `.nlc/planit-in-progress.json`. |
 
 ---
 

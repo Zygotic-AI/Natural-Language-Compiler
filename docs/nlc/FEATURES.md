@@ -115,6 +115,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or any other answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
 | Product story pack | Feature narratives, operator flows, and the concept graph for what is already tagged and what is still upcoming | One story file, so a later reader does not re-derive the order. Upcoming items stay upcoming. |
 | Client verify follows stage | Bind-ready packet is prove before compile. Fingerprints after compile. Hub `release-audit` is ship-check. Fail text is ADR 0018. | v0.8.0 pin on an uncompiled app failed prove for missing `goals/` and fingerprints. That delivered no value. |
+| Hub prove is the commit | Hub `./nlc verify` / `ci_fitness.py` is NOT_MET while `git status --porcelain` is non-empty. | Local MET then GitHub red: content-tree stamp hashed `git ls-files` before `git add` (`c321b42`). Docs and regen checklists did not make prove and CI the same object. |
 
 ---
 

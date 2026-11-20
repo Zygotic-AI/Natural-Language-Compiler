@@ -3,15 +3,15 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "todo-rca-adr-0018-verify-fail-shape",
-    "docs-nlc-FEATURES-current-ship",
-    "findings-last-pass",
-    "describe-current-ship"
+    "fitness-findings-last-pass-fresh-porcelain",
+    "assert-porcelain-dirty-fails",
+    "gitignore-planit-in-progress",
+    "docs-nlc-VERIFY-AND-SHIP-hub-porcelain"
   ],
-  "ssot_exit_status": "plan-audit-pass-v081-rca-0018-current-ship",
+  "ssot_exit_status": "plan-audit-pass-porcelain-refuse",
   "quality_snapshot": {
-    "opportunities": 8,
-    "ops": 8,
+    "opportunities": 7,
+    "ops": 7,
     "defects": 0,
     "quality": 1.0
   },
@@ -19,52 +19,43 @@
     {
       "id": "GATE-STD",
       "result": "PASS",
-      "note": "RCA record uses the ten-section RCA standard as its gate; packet uses validate-rca-packet.py; FEATURES/FINDINGS/DESCRIBE honesty uses grep stop predicates plus F1 on FINDINGS/DESCRIBE."
+      "note": "last-pass-fresh porcelain refuse is a machine gate (RESULT:MET/NOT_MET). Landmine is ASSERT:PASS/FAIL. Docs name the same stop predicate."
     },
     {
       "id": "CONTROL-LIFECYCLE",
       "result": "N/A",
-      "note": "No pin, sidecar, hook, verifier, registry, or trusted-key list is designed or changed."
+      "note": "Extends an existing fitness binder. No new pin, sidecar, hook, verifier, registry, or trusted-key list. Planit SKILL.md is not edited so the identity registry is not rewritten."
     },
     {
-      "id": "RCA-one-thing-not-preselected",
+      "id": "one-thing-porcelain",
       "result": "PASS",
-      "note": "Execute runs RCA procedure before writing section 6. emit_gap is a candidate only. Unlanded one-thing stays an open TODO and stops."
+      "note": "Scope is the RCA one thing: hub verify NOT_MET unless git status --porcelain is empty. Not a regen checklist. Not hashing untracked files into the digest."
     },
     {
-      "id": "current-ship-vs-version-file",
+      "id": "session-gitignore",
       "result": "PASS",
-      "note": "This release line stays v0.8.0 to match nlc-version.json. Last tagged ship becomes v0.8.0. v0.8.1 is the next tag identity, not current-ship prose on this branch."
+      "note": "gitignore .nlc/planit-in-progress.json so a live Planit session can prove a clean HEAD. Porcelain already omits gitignored paths."
     },
     {
-      "id": "describe-in-touch-list",
+      "id": "no-planit-skill-identity",
       "result": "PASS",
-      "note": "DESCRIBE.md Current ship is in the plan because F1 grades it. Not a silent extra product."
+      "note": "PROCESS.md and VERIFY-AND-SHIP document the gate. Planit SKILL.md stays unedited to avoid planit-skill-registry pin churn."
     },
     {
       "id": "no-release-on-feature-branch",
       "result": "PASS",
-      "note": "Plan forbids merge to main, ./release, nlc-version bump, ADR 0021 owner sign, and adopter pin bump."
+      "note": "No merge to main, no ./release, no nlc-version bump."
     },
     {
       "id": "charter-class-C",
       "result": "PASS",
-      "note": "Records and current-ship prose around existing verify/RCA process. No new noun, verb, or charter rule. No new ADR."
-    },
-    {
-      "id": "pipeline-wire-skip",
-      "result": "PASS",
-      "note": "nlc-pipeline-wire is for goal emit. This change writes RCA records and ship-identity prose only. skip: no goals/domain emit."
+      "note": "Tightens existing hub verify around ADR 0050 content freshness. No new noun, verb, or charter rule. No new ADR."
     }
   ],
   "evidence": [
-    "TODO",
-    "docs/nlc/FEATURES.md",
-    "FINDINGS.md",
-    "DESCRIBE.md",
-    "integrity/nlc-version.json",
-    "adrs/0018-human-cli-interview-on-gap.md",
-    "adrs/0025-belief-no-blame-climb.md",
-    ".agents/skills/planit/references/root-cause-analysis-standard.md"
+    "docs/rca/2026-11-20-verify-process-dirty-tree-met.md",
+    "adrs/0050-evidence-identity-content-not-history.md",
+    "tools/nouns/fitness_findings_last_pass_fresh/fitness_findings_last_pass_fresh.py",
+    "docs/nlc/VERIFY-AND-SHIP.md"
   ]
 }

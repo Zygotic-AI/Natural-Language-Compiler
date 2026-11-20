@@ -7,7 +7,7 @@ Two stages. One rule ([ADR 0021](../../adrs/0021-verify-fast-and-deep.md)).
 
 **Ship** is separate: `./nlc ship-check` (hub `release-audit.py` plus human `Released-by:`). Prove is not ship.
 
-[Hub](../TERMS.md#hub) specimens use `ci_fitness.py`. Failures on a human path use [ADR 0018](../../adrs/0018-human-cli-interview-on-gap.md) (problem, what’s wrong, ask, choices, examples).
+[Hub](../TERMS.md#hub) specimens use `ci_fitness.py`. Hub MET requires empty `git status --porcelain` (the committed tree). Failures on a human path use [ADR 0018](../../adrs/0018-human-cli-interview-on-gap.md) (problem, what’s wrong, ask, choices, examples).
 
 ## Optional: custom fitness command
 

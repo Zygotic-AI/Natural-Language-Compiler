@@ -415,7 +415,7 @@ Honest queue for active work. Do **not** `@done` until the stop predicate is MET
 ### RCA — hub prove METs a dirty tree GitHub will not grade
 
 - ✔ **RCA-VERIFY-PROCESS-DIRTY-TREE** — Why local hub prove keeps MET then GitHub fitness goes red on the content-tree stamp (this class: `c321b42` hash `b938ecd5…` ≠ digest `c17252f2…`). Operator framing: the entire release verification process is too complicated, not correctly documented, and defective. Record: [`docs/rca/2026-11-20-verify-process-dirty-tree-met.md`](docs/rca/2026-11-20-verify-process-dirty-tree-met.md). Packet MET. @done(26-11-20 23:15)
-- ☐ **RCA-VERIFY-PROCESS-DIRTY-TREE preventive** — Hub `./nlc verify` / `ci_fitness.py` NOT_MET when `git status --porcelain` is non-empty, so prove grades the committed tree CI grades. Landmine: untracked digest-eligible file cannot MET last-pass-fresh. See record §9. Do not implement until asked.
+- ✔ **RCA-VERIFY-PROCESS-DIRTY-TREE preventive** — Hub `./nlc verify` / `ci_fitness.py` NOT_MET when `git status --porcelain` is non-empty. Landmine `assert-porcelain-dirty-fails` (untracked file cannot MET last-pass-fresh). `.nlc/planit-in-progress.json` gitignored. Verify: `python3 tools/assert-porcelain-dirty-fails.py` → `ASSERT:PASS`; `python3 tools/fitness-findings-last-pass-fresh.py` → `RESULT:MET` on a clean HEAD. @done(26-11-20 23:30)
 
 ### RCA — v0.7.0 ship session (one RCA per row)
 

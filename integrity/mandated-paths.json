@@ -2171,6 +2171,9 @@
     "tools/assert-planit-other-skill-fails.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-porcelain-dirty-fails.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-produce-handoff-refused.py": [
       "gate_set_manifest"
     ],
@@ -5412,6 +5415,12 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_planit_identity_loaded_skill/assert_planit_identity_loaded_skill.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_porcelain_dirty_fails/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_porcelain_dirty_fails/assert_porcelain_dirty_fails.py": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_produce_handoff_refused/README.md": [

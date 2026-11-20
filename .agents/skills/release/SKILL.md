@@ -73,11 +73,11 @@ Execute **in order** (fix and retry on NOT_MET; do not dump steps on the user):
 
 1. **Stale `release/v*` only** — for each name in **`stale_release_branches`** (missing record on merge, not **`closed_release_branches`**): `git branch -D <branch>`; `git push origin --delete <branch>` when remote exists (no force-push to `main`).
 2. **Stage and commit** ship-intent changes on the **release line branch** (never `main`). If user is on `main` with work, create/checkout `release/v*` first, then commit. Use repo commit message style; never `--no-verify`.
-3. **Content-tree stamp only** — `python3 tools/sync-hub-content-tree-hash.py`, then `python3 tools/fitness-findings-last-pass-fresh.py` → MET. Do not rewrite `FINDINGS.md` or `DESCRIBE.md` unless a sentence contradicts `integrity/hub-release-record.json` or `integrity/nlc-version.json`. Commit the stamp if it changed.
+3. **Content-tree stamp only** — `python3 tools/sync-hub-content-tree-hash.py`. Commit the stamp if it changed. Do not rewrite `FINDINGS.md` or `DESCRIBE.md` unless a sentence contradicts `integrity/hub-release-record.json` or `integrity/nlc-version.json`. Do not run last-pass-fresh until porcelain is empty.
 4. **Inference record** — update `integrity/full-nlc-audit-inference-record.json` only when `audit_tree_hash` would change. Do not rewrite it to repeat the release record.
 5. **TODO continuity** — mark completed closeout rows `@done` when predicates MET (same commit or follow-up).
-6. **Prove once** — `./nlc verify` → `Verify passed.` on the final HEAD. This is the only suite run in closeout. Do not prove before the commit and again after. If FAIL, fix until it passes, then commit that fix and prove once more.
-7. **Clean tree** — `git status --porcelain` empty. Do not run `./nlc verify-deep` after the owner gate-set signature. That command is a writer; `./nlc verify` is the read-only merge check.
+6. **Prove once** — `git status --porcelain` empty, then `./nlc verify` → `Verify passed.` on that HEAD. The gate is NOT_MET while dirty. This is the only suite run in closeout. If FAIL, fix, commit, prove once more.
+7. **Clean tree** — already required by prove. Do not run `./nlc verify-deep` after the owner gate-set signature. That command is a writer; `./nlc verify` is the read-only merge check.
 
 **Stop / NO-GO only if:** CI cannot MET after fix attempts; git push rejected; P0/P1 inference; user refused product residuals.
 

@@ -34,13 +34,22 @@ def _copy_surface(tmp: Path, rel: str) -> None:
     dest.write_bytes((ROOT / rel).read_bytes())
 
 
+def _insert_untagged(text: str, version: str) -> str:
+    prefix = f"This release line is **v{version}**. It is not tagged yet. "
+    if _RELEASE_LINE.search(text):
+        return text
+    return prefix + text
+
+
 def main() -> int:
     from nouns.release_prep_surfaces.release_prep_surfaces import (
         DESCRIBE_REL,
         FINDINGS_REL,
         RECORD_REL,
         VERSION_REL,
+        line_is_tagged,
         match_errors,
+        read_version,
     )
 
     tmp = Path(tempfile.mkdtemp())
@@ -50,21 +59,34 @@ def main() -> int:
     if clean:
         return _fail(f"clean copy should match script output: {clean}")
 
+    version = read_version(ROOT)
+    tagged = line_is_tagged(ROOT, version)
+
     findings = (tmp / FINDINGS_REL).read_text(encoding="utf-8")
-    stripped_findings = _strip_release_line(findings)
-    if stripped_findings is None:
-        return _fail("FINDINGS missing the untagged release-line sentence for the hand-edit landmine")
-    (tmp / FINDINGS_REL).write_text(stripped_findings, encoding="utf-8")
+    if tagged:
+        (tmp / FINDINGS_REL).write_text(_insert_untagged(findings, version), encoding="utf-8")
+    else:
+        stripped_findings = _strip_release_line(findings)
+        if stripped_findings is None:
+            return _fail(
+                "FINDINGS missing the untagged release-line sentence for the hand-edit landmine"
+            )
+        (tmp / FINDINGS_REL).write_text(stripped_findings, encoding="utf-8")
     bad_findings = match_errors(tmp)
     if not bad_findings:
         return _fail("hand-edited FINDINGS matched script output")
 
     _copy_surface(tmp, FINDINGS_REL)
     describe = (tmp / DESCRIBE_REL).read_text(encoding="utf-8")
-    stripped_describe = _strip_release_line(describe)
-    if stripped_describe is None:
-        return _fail("DESCRIBE missing the untagged release-line sentence for the hand-edit landmine")
-    (tmp / DESCRIBE_REL).write_text(stripped_describe, encoding="utf-8")
+    if tagged:
+        (tmp / DESCRIBE_REL).write_text(_insert_untagged(describe, version), encoding="utf-8")
+    else:
+        stripped_describe = _strip_release_line(describe)
+        if stripped_describe is None:
+            return _fail(
+                "DESCRIBE missing the untagged release-line sentence for the hand-edit landmine"
+            )
+        (tmp / DESCRIBE_REL).write_text(stripped_describe, encoding="utf-8")
     bad_describe = match_errors(tmp)
     if not bad_describe:
         return _fail("hand-edited DESCRIBE matched script output")

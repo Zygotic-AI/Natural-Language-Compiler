@@ -9,7 +9,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | On this release line (today **v0.8.0**, not tagged yet). Last tagged ship is **v0.7.0**. |
+| [Released](#released) | On this release line (today **v0.8.0**). Last tagged ship is **v0.8.0**. |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
@@ -43,7 +43,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 
 ## Released
 
-This release line is **v0.8.0**. It is not tagged yet. Last tagged ship is **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
+This release line is **v0.8.0**. Last tagged ship is **v0.8.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -108,7 +108,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
 | Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
 
-### v0.8.0 (this release line, not tagged yet)
+### v0.8.0 (this release line)
 
 | Feature | What the customer gets | Why it is here |
 | ------- | ---------------------- | -------------- |

@@ -100,6 +100,10 @@ def _load_manifest(root: Path) -> dict | None:
 
 
 def fingerprint_mismatches(root: Path) -> list[str]:
+    from nlc_uc_blockers import compiled_surface
+
+    if not compiled_surface(root):
+        return []
     data = _load_manifest(root)
     if data is None:
         return ["no fingerprint record — run ./nlc verify-deep once"]
@@ -159,7 +163,7 @@ def verify_fast(root: Path) -> tuple[bool, list[str]]:
     from nlc_pipeline import is_hub_repo
 
     # The hub merge command is ./nlc verify, which runs the fitness suite.
-    # App repos still use this fingerprint file. The hub uses the content-tree stamp.
+    # App repos fingerprint only after compile output exists (ADR 0021 R2).
     if not is_hub_repo(root):
         reasons.extend(fingerprint_mismatches(root))
     if reasons:
@@ -174,19 +178,21 @@ def verify_fast(root: Path) -> tuple[bool, list[str]]:
 
 
 def emit_verify_fail(reasons: list[str], *, root: Path | None = None) -> None:
-    print("Verify failed.", file=sys.stderr)
-    for r in reasons[:12]:
-        print(f"  {r}", file=sys.stderr)
-    if len(reasons) > 12:
-        print(f"  … and {len(reasons) - 12} more", file=sys.stderr)
-    tree = root or Path.cwd()
-    try:
-        rel = tree.resolve().relative_to(Path(__file__).resolve().parents[3])
-        tree_arg = str(rel) if str(rel) != "." else "."
-    except ValueError:
-        tree_arg = str(tree.resolve())
-    print(f"Reproduce: ./nlc verify --project {tree_arg}", file=sys.stderr)
-    print("  Or: ./nlc verify-deep  (full release gates + refresh fingerprints)", file=sys.stderr)
+    from nlc_human_gap import emit_gap
+
+    _ = root
+    emit_gap(
+        "Verify could not pass.",
+        missing=list(reasons[:12]),
+        ask="Fix each item, then run ./nlc verify again.",
+        choices=[
+            "If interview is not done: /interview",
+            "If compile has not started: /planit",
+            "If generated files changed: ./nlc verify-deep then ./nlc verify",
+        ],
+        examples=["/interview", "/planit", "./nlc verify-deep", "./nlc verify"],
+        machine="NLC:NOT_MET",
+    )
 
 
 def _run_verify_suite(root: Path) -> int | None:
@@ -208,48 +214,7 @@ def _run_verify_suite(root: Path) -> int | None:
     return subprocess.run([str(x) for x in cmd], cwd=str(work)).returncode
 
 
-def verify_deep(root: Path, hub: Path, hub_version: str) -> int:
-    from nlc_pipeline import is_hub_repo
-
-    suite_code = _run_verify_suite(root)
-    if suite_code is not None and suite_code != 0:
-        print("Verify-deep failed (app verify-suite).", file=sys.stderr)
-        print("  See docs/nlc/APP-VERIFY.md", file=sys.stderr)
-        return suite_code
-
-    if is_hub_repo(root):
-        sys.path.insert(0, str(hub / "tools"))
-        from nouns.releasable_gates.releasable_gates import run_profile
-
-        code = run_profile("release", root.resolve())
-    elif (root / ".nlc" / "lock.json").is_file():
-        audit = hub / "tools" / "release-audit.py"
-        if audit.is_file():
-            code = subprocess.run(
-                [sys.executable, str(audit), str(root)],
-                cwd=str(root),
-            ).returncode
-        else:
-            code = 0
-    else:
-        print(
-            "verify-deep: recording fingerprints only (add .nlc/lock.json for full gates).",
-            file=sys.stderr,
-        )
-        code = 0
-
-    if code != 0:
-        print("Verify-deep failed (compile gates).", file=sys.stderr)
-        emit_verify_fail(["release profile failed"], root=root)
-        return code
-
-    from nlc_compliance import verify_deep_extra_blockers
-
-    extra = verify_deep_extra_blockers(root)
-    if extra:
-        emit_verify_fail(extra)
-        return 1
-
+def _finish_fingerprints(root: Path, hub_version: str) -> int:
     path = verified_path(root)
     before = path.read_bytes() if path.is_file() else None
     path = write_verified(root, hub_version)
@@ -262,6 +227,50 @@ def verify_deep(root: Path, hub: Path, hub_version: str) -> int:
     state = "updated" if changed else "unchanged"
     print(f"Verify-deep passed. Fingerprints {state}: {path}")
     return 0
+
+
+def verify_deep(root: Path, hub: Path, hub_version: str) -> int:
+    from nlc_pipeline import is_hub_repo
+    from nlc_uc_blockers import compiled_surface, interview_packet_blockers
+
+    if is_hub_repo(root):
+        sys.path.insert(0, str(hub / "tools"))
+        from nouns.releasable_gates.releasable_gates import run_profile
+
+        code = run_profile("release", root.resolve())
+        if code != 0:
+            print("Verify-deep failed (compile gates).", file=sys.stderr)
+            emit_verify_fail(["release profile failed"], root=root)
+            return code
+        return _finish_fingerprints(root, hub_version)
+
+    packet = interview_packet_blockers(root)
+    if packet:
+        emit_verify_fail(packet, root=root)
+        return 1
+
+    if not compiled_surface(root):
+        print(
+            "Verify-deep: interview is bound; compile has not started. "
+            "Fingerprints skipped. Next: /planit",
+            file=sys.stderr,
+        )
+        return 0
+
+    suite_code = _run_verify_suite(root)
+    if suite_code is not None and suite_code != 0:
+        print("Verify-deep failed (app verify-suite).", file=sys.stderr)
+        print("  See docs/nlc/APP-VERIFY.md", file=sys.stderr)
+        return suite_code
+
+    from nlc_compliance import verify_deep_extra_blockers
+
+    extra = verify_deep_extra_blockers(root)
+    if extra:
+        emit_verify_fail(extra, root=root)
+        return 1
+
+    return _finish_fingerprints(root, hub_version)
 
 
 def assert_hash_ledger_stable() -> int:

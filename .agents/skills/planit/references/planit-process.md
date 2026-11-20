@@ -33,7 +33,7 @@ BBP is bound on every statement by default (`CHARTER.md` is always on).
 
 ## Prove (both required — compile, not ship)
 
-1. **Machine gate** — hub: `python3 tools/ci_fitness.py`. Adopter: that tree’s bound fitness suite. Non-zero exit = fail.
+1. **Machine gate** — hub: `python3 tools/ci_fitness.py`. Adopter: `./nlc verify` (packet before compile; fingerprints after). Non-zero exit = fail.
 2. **Adversarial audit** — separate from the generator: statements done, bindings held, no second copy of an adjective inside a goal.
 
 Fail → step **1** or **5**, then step **6** again.

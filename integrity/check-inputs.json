@@ -2813,6 +2813,7 @@
         "tools/nlc_cli_help.py",
         "tools/nlc_distribution.py",
         "tools/nlc_requirements.py",
+        "tools/nlc_verify.py",
         "tools/nouns/fitness_interview_gap_shape/README.md",
         "tools/nouns/fitness_interview_gap_shape/__init__.py",
         "tools/nouns/fitness_interview_gap_shape/adjectives.txt",
@@ -3689,6 +3690,20 @@
     },
     {
       "label": "no-noun-field-writes agent-ratified",
+      "script": "tools/fitness-no-noun-field-writes.py",
+      "kind": "fitness",
+      "inputs": [
+        "tools/fitness-no-noun-field-writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/README.md",
+        "tools/nouns/fitness_no_noun_field_writes/__init__.py",
+        "tools/nouns/fitness_no_noun_field_writes/adjectives.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fields.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fitness_no_noun_field_writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "no-noun-field-writes bind-ready-uncompiled",
       "script": "tools/fitness-no-noun-field-writes.py",
       "kind": "fitness",
       "inputs": [

@@ -50,8 +50,8 @@ Greenfield **compiled system** under Natural Language Compiler (NLC).
 ## Verify and ship
 
 ```bash
-./nlc verify-deep
 ./nlc verify
+./nlc verify-deep   # after compile output exists
 ./nlc ship-check
 ```
 

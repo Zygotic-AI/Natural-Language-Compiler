@@ -6,9 +6,10 @@
 
 | When | Command | Pass means |
 | ---- | ------- | ---------- |
-| CI / before release artifact | `./nlc verify` | Fingerprints match `.nlc/verified.json`; pipeline blockers clear |
-| After material change | `./nlc verify-deep` | Full gates + refresh fingerprints when a recorded file hash changed |
-| Promotion | `./nlc ship-check` | Bundle check + human `Released-by:` when required |
+| CI / before compile | `./nlc verify` | Interview packet is bind-ready |
+| CI / after compile | `./nlc verify` | Fingerprints match `.nlc/verified.json`; pipeline blockers clear |
+| After generated files change | `./nlc verify-deep` | Optional app `verify-suite.json`, then refresh fingerprints |
+| Promotion | `./nlc ship-check` | Hub `release-audit.py` + human `Released-by:` when required |
 
 On [verify](../TERMS.md#verify) failure: **`/verify`** in your agent — not a ping-pong of scripts.
 
@@ -16,13 +17,13 @@ On [verify](../TERMS.md#verify) failure: **`/verify`** in your agent — not a p
 
 1. Generate one artifact (`/planit`).
 2. [Gate](../TERMS.md#gate) that artifact immediately (ADR 0010).
-3. **`./nlc verify-deep`** then **`./nlc verify`** on the tree.
-4. Promotion gates on merge to main / QA.
+3. **`./nlc verify`** (packet, then fingerprints once compiled). **`./nlc verify-deep`** after generate to write fingerprints.
+4. Promotion: **`./nlc ship-check`**.
 
 ## [Hub](../TERMS.md#hub) vs [app repo](../TERMS.md#adopter)
 
-- **[Hub](../TERMS.md#hub)** — `verify-deep` runs `ci_fitness.py`.
-- **[App repo](../TERMS.md#adopter)** — `verify-deep` runs `release-audit.py` on your tree (wire `./nlc verify` in CI; template `templates/adopter/github-workflows-nlc-verify.yml`).
+- **[Hub](../TERMS.md#hub)** — `./nlc verify` runs `ci_fitness.py`.
+- **[App repo](../TERMS.md#adopter)** — packet before compile; fingerprints after. `ship-check` is hub `release-audit.py`. Template `templates/adopter/github-workflows-nlc-verify.yml`.
 
 [Verify](../TERMS.md#verify) PASS is compile-ready. [Ship](../TERMS.md#ship) needs human `Released-by:` on `CONFIRM.md` when your class requires it.
 

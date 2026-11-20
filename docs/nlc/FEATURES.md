@@ -58,7 +58,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Plain-English interview | `/interview` splits what they said into named goals; no emit until goals, requirements, and facts are bound | Site “describe functionality.” Emit from unbound chat is how slop ships. |
 | Incremental compile | `/planit` compiles one bound goal; small-context code; stop when a gate fails | Site “compile.” Whole-app dumps hide defects. |
 | Tightly scoped emit and refuse | Atomic units; defects at compile time; do not hand-patch generated files | First slice of “no code slop.” Full precise rewrite is still upcoming. |
-| Verify path | `./nlc verify` and `./nlc verify-deep`; red comes with next steps | Compile green is not hope. |
+| Verify path | `./nlc verify` and `./nlc verify-deep`; red uses the five-part ask (problem, what’s wrong, ask, choices, example). Before compile, verify only checks the interview packet. After compile, it checks fingerprints. Hub `release-audit` is `./nlc ship-check`, not prove. | Compile green is not hope. An uncompiled bind-ready app is not a failed compile. |
 | Impact graph | Which goals call which noun verbs | Size a change before regenerating. Not yet the three-query trace graph. |
 | Delta regeneration | Change one requirement; regen queue for the blast radius | First slice of “update.” Not architecture swap. |
 | Human CLI dashboard | `./nlc` shows the queue and a short command map | Humans should not memorize maintainer flags. |
@@ -114,6 +114,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | ------- | ---------------------- | -------------- |
 | Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or any other answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
 | Product story pack | Feature narratives, operator flows, and the concept graph for what is already tagged and what is still upcoming | One story file, so a later reader does not re-derive the order. Upcoming items stay upcoming. |
+| Client verify follows stage | Bind-ready packet is prove before compile. Fingerprints after compile. Hub `release-audit` is ship-check. Fail text is ADR 0018. | v0.8.0 pin on an uncompiled app failed prove for missing `goals/` and fingerprints. That delivered no value. |
 
 ---
 

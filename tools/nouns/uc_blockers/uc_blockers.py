@@ -31,8 +31,11 @@ def _hub_skip(root: Path) -> bool:
     return is_hub_repo(root)
 
 
-def _compiled_surface(root: Path) -> bool:
-    if (root / "goals").is_dir() and any((root / "goals").iterdir()):
+def compiled_surface(root: Path) -> bool:
+    """True when this app has compile output (non-empty goals/ or domain/*.py)."""
+    if (root / "goals").is_dir() and any(
+        p.is_file() for p in (root / "goals").rglob("*")
+    ):
         return True
     domain = root / "domain"
     if domain.is_dir():
@@ -42,11 +45,13 @@ def _compiled_surface(root: Path) -> bool:
     return False
 
 
+def _compiled_surface(root: Path) -> bool:
+    return compiled_surface(root)
+
+
 def interview_packet_blockers(root: Path) -> list[str]:
-    """UC1: bind-ready interview packet before compiled product exists."""
+    """UC1: bind-ready interview packet (compiled or not)."""
     if _hub_skip(root):
-        return []
-    if not _compiled_surface(root):
         return []
     path = root / ".nlc" / "interview-packet.json"
     if not path.is_file():

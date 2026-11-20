@@ -173,9 +173,13 @@ def cmd_verify(args: argparse.Namespace) -> int:
         suite = ROOT / "tools" / "ci_fitness.py"
         proc = subprocess.run([sys.executable, str(suite)], cwd=str(root))
         if proc.returncode != 0:
-            print("Verify failed.", file=sys.stderr)
-            print("  hub fitness suite failed (tools/ci_fitness.py)", file=sys.stderr)
-            print("Reproduce: ./nlc verify --project .", file=sys.stderr)
+            emit_gap(
+                "Verify could not pass.",
+                missing=["hub fitness suite failed (tools/ci_fitness.py)"],
+                ask="Fix each FAILED line from the suite, then run ./nlc verify again.",
+                examples=["./nlc verify --project ."],
+                machine="NLC:NOT_MET",
+            )
             return proc.returncode
         print("Verify passed.")
         return 0

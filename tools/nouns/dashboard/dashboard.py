@@ -18,6 +18,7 @@ from nlc_pipeline import (
 
 from markdown_plain import strip_links
 from nlc_adr_scan import list_pending_adrs
+from nlc_uc_blockers import compiled_surface
 RELEASED = re.compile(r"^Released-by:\s*(.*)$", re.I | re.M)
 AGENT = re.compile(
     r"\b(agent|ai|bot|assistant|grok|confirmer|claude|gpt|copilot)\b",
@@ -29,6 +30,17 @@ def _read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
 
+def _packet_bind_ready(root: Path) -> bool:
+    path = root / ".nlc" / "interview-packet.json"
+    if not path.is_file():
+        return False
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return False
+    return data.get("bind_ready") is True
+
+
 def requirements_incomplete(root: Path) -> bool:
     # Hub Proposed ADRs are not adopter unfinished-requirements (ADR 0029: ACTIVE is bind-time).
     if list_pending_adrs(root / "adrs") and not is_hub_repo(root):
@@ -36,11 +48,7 @@ def requirements_incomplete(root: Path) -> bool:
     if (root / ".nlc" / "requirements-sync-pending.json").is_file():
         return True
     if not is_hub_repo(root) and (root / ".nlc" / "lock.json").is_file():
-        goals = root / "goals"
-        domain = root / "domain"
-        has_goal = goals.is_dir() and any(goals.iterdir()) if goals.is_dir() else False
-        has_domain = domain.is_dir() and any(domain.iterdir()) if domain.is_dir() else False
-        if not has_goal and not has_domain:
+        if not _packet_bind_ready(root):
             return True
     return False
 
@@ -119,21 +127,21 @@ def scan_requirements_work(root: Path) -> list[dict]:
             }
         )
 
-    if not is_hub_repo(root) and (root / ".nlc" / "lock.json").is_file():
-        goals = root / "goals"
-        domain = root / "domain"
-        has_goal = goals.is_dir() and any(goals.iterdir()) if goals.is_dir() else False
-        has_domain = domain.is_dir() and any(domain.iterdir()) if domain.is_dir() else False
-        if not has_goal and not has_domain and not pending:
-            items.append(
-                {
-                    "id": "requirements-new-app",
-                    "stage": "requirements",
-                    "label": "New requirements — what you're building",
-                    "next": "/interview in your agent",
-                    "priority": 5,
-                }
-            )
+    if (
+        not is_hub_repo(root)
+        and (root / ".nlc" / "lock.json").is_file()
+        and not pending
+        and not _packet_bind_ready(root)
+    ):
+        items.append(
+            {
+                "id": "requirements-new-app",
+                "stage": "requirements",
+                "label": "Interview is not finished",
+                "next": "/interview in your agent",
+                "priority": 5,
+            }
+        )
 
     flag = root / ".nlc" / "requirements-sync-pending.json"
     if flag.is_file() and not pending:
@@ -169,8 +177,7 @@ def scan_build_pending(root: Path) -> list[dict]:
 
     goals = root / "goals"
     has_impl = goals.is_dir() and any(goals.rglob("implementation.py"))
-    adrs = list((root / "adrs").glob("*.md"))
-    if adrs and not has_impl:
+    if _packet_bind_ready(root) and not has_impl and not compiled_surface(root):
         return [
             {
                 "id": "build-after-bind",
@@ -207,7 +214,7 @@ def scan_verify_pending(root: Path) -> list[dict]:
             "id": "verify-waiting",
             "stage": "verify",
             "label": "Verify before prod",
-            "next": "./nlc verify  (if fail: run the printed Reproduce command)",
+            "next": "./nlc verify  (if fail: follow What's wrong / Option / Example)",
             "priority": 30,
         }
     ]

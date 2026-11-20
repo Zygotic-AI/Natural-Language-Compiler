@@ -1,0 +1,70 @@
+{
+  "producer_role": "bbp-proposer",
+  "adversarial_auditor_role": "bbp-reviewer",
+  "verdict": "PASS",
+  "ssot_leaf_ids": [
+    "todo-rca-adr-0018-verify-fail-shape",
+    "docs-nlc-FEATURES-current-ship",
+    "findings-last-pass",
+    "describe-current-ship"
+  ],
+  "ssot_exit_status": "plan-audit-pass-v081-rca-0018-current-ship",
+  "quality_snapshot": {
+    "opportunities": 8,
+    "ops": 8,
+    "defects": 0,
+    "quality": 1.0
+  },
+  "findings": [
+    {
+      "id": "GATE-STD",
+      "result": "PASS",
+      "note": "RCA record uses the ten-section RCA standard as its gate; packet uses validate-rca-packet.py; FEATURES/FINDINGS/DESCRIBE honesty uses grep stop predicates plus F1 on FINDINGS/DESCRIBE."
+    },
+    {
+      "id": "CONTROL-LIFECYCLE",
+      "result": "N/A",
+      "note": "No pin, sidecar, hook, verifier, registry, or trusted-key list is designed or changed."
+    },
+    {
+      "id": "RCA-one-thing-not-preselected",
+      "result": "PASS",
+      "note": "Execute runs RCA procedure before writing section 6. emit_gap is a candidate only. Unlanded one-thing stays an open TODO and stops."
+    },
+    {
+      "id": "current-ship-vs-version-file",
+      "result": "PASS",
+      "note": "This release line stays v0.8.0 to match nlc-version.json. Last tagged ship becomes v0.8.0. v0.8.1 is the next tag identity, not current-ship prose on this branch."
+    },
+    {
+      "id": "describe-in-touch-list",
+      "result": "PASS",
+      "note": "DESCRIBE.md Current ship is in the plan because F1 grades it. Not a silent extra product."
+    },
+    {
+      "id": "no-release-on-feature-branch",
+      "result": "PASS",
+      "note": "Plan forbids merge to main, ./release, nlc-version bump, ADR 0021 owner sign, and adopter pin bump."
+    },
+    {
+      "id": "charter-class-C",
+      "result": "PASS",
+      "note": "Records and current-ship prose around existing verify/RCA process. No new noun, verb, or charter rule. No new ADR."
+    },
+    {
+      "id": "pipeline-wire-skip",
+      "result": "PASS",
+      "note": "nlc-pipeline-wire is for goal emit. This change writes RCA records and ship-identity prose only. skip: no goals/domain emit."
+    }
+  ],
+  "evidence": [
+    "TODO",
+    "docs/nlc/FEATURES.md",
+    "FINDINGS.md",
+    "DESCRIBE.md",
+    "integrity/nlc-version.json",
+    "adrs/0018-human-cli-interview-on-gap.md",
+    "adrs/0025-belief-no-blame-climb.md",
+    ".agents/skills/planit/references/root-cause-analysis-standard.md"
+  ]
+}

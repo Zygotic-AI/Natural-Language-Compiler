@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "defect_summary": "Adopter ./nlc verify on pin v0.8.0 printed two labels and Reproduce: instead of ADR 0018 five-part fail text.",
+  "unsuitable_process": "The ADR 0018 fitness binder omitted the adopter verify fail printer. emit_verify_fail could print Verify failed. and Reproduce: while hub fitness stayed MET. The packet landmine did not assert fail shape.",
+  "climb_steps": [
+    "Adopter ./nlc verify on pin v0.8.0 printed labels plus Reproduce:.",
+    "emit_verify_fail at that tag printed Verify failed. and Reproduce: and did not call emit_gap.",
+    "fitness_interview_gap_shape EMIT_GAP_MODULES omitted tools/nlc_verify.py, so read_tool never graded the noun printer.",
+    "assert_interview_packet_fails checked the packet blocker only, not captured stderr shape."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0018"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-interview-gap-shape", "assert-interview-packet-fails"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-20",
+  "queue_id": "RCA-ADR-0018-verify-fail-shape"
+}

@@ -25,7 +25,7 @@ If `nlc-pipeline-wire.py` exits non-zero at any stage, **do not emit** (before) 
 
 ## CI (app repo)
 
-On every PR, run **`./nlc verify`**. [Workflow](../TERMS.md#workflow) template: `.github/workflows/nlc-verify.yml` from `nlc-init`.
+On every PR, run **`./nlc verify`**. Before compile that is the interview packet. After compile that is fingerprints. [Workflow](../TERMS.md#workflow) template: `.github/workflows/nlc-verify.yml` from `nlc-init`.
 
 **No harness hooks:** [NLC](../TERMS.md#nlc) does not register editor or harness hooks ([ADR 0058](../../adrs/0058-harness-and-model-agnostic.md)). `.nlc/hooks.example.json` documents the [UC18](../TERMS.md#uc18) before-generate command; it is not Cursor (or any other editor) wiring. `./nlc verify` on the files is the notice path. Story: [`FEATURES.md`](FEATURES.md).
 

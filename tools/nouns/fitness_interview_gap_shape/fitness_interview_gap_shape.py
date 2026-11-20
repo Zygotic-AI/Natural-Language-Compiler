@@ -18,6 +18,7 @@ EMIT_GAP_MODULES = (
     "tools/nlc_cli_help.py",
     "tools/nlc-pack-export.py",
     "tools/nlc-pack-install.py",
+    "tools/nlc_verify.py",
 )
 
 INTERVIEW_SHAPE_MODULES = (

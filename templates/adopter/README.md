@@ -9,12 +9,12 @@ This repository is a **[compiled system](../../docs/TERMS.md#compiled-system)** 
 ## [Verify](../../docs/TERMS.md#verify) and [ship](../../docs/TERMS.md#ship)
 
 ```bash
-./nlc verify          # PR / fast gate — fingerprints in .nlc/verified.json
-./nlc verify-deep     # main / after material compile — full gates + refresh fingerprints
-./nlc ship-check      # human Released-by: when required
+./nlc verify          # packet before compile; fingerprints after
+./nlc verify-deep     # after compile — refresh fingerprints (optional verify-suite.json)
+./nlc ship-check      # hub release-audit + human Released-by: when required
 ```
 
-Commit **`.nlc/verified.json`** when `verify-deep` [MET](../../docs/TERMS.md#met) on main (or your release branch) so PR `verify` can compare fingerprints. CI template: `templates/adopter/github-workflows-nlc-verify.yml` (PR = `verify`; push to `main` = `verify-deep`).
+Commit **`.nlc/verified.json`** when `verify-deep` [MET](../../docs/TERMS.md#met) after the first generate so PR `verify` can compare fingerprints. CI template: `templates/adopter/github-workflows-nlc-verify.yml` (PR = `verify`; push to `main` = `verify-deep`).
 
 [Prove](../../docs/TERMS.md#prove) PASS ≠ shipped. Add `Released-by:` per [hub](../../docs/TERMS.md#hub) `release-audit.py` / `CONFIRM.md`.
 

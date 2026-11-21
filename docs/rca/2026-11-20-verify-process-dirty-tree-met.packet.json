@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "defect_summary": "Hub prove printed CI:MET on a dirty worktree, then GitHub ./nlc verify on the commit failed findings-last-pass-fresh because the content-tree hash was stamped before git add of new files.",
+  "unsuitable_process": "Hub verify is allowed to MET on a tree GitHub will not grade. The stamp hashes git ls-files only. Planit prove-then-commit, release-skill regen checklists, and adopter-centric verify docs do not make prove and CI the same object. The process is too many undocumented steps around a defective gate.",
+  "climb_steps": [
+    "GitHub fitness on c321b42: hub-content-tree-hash b938ecd5… != digest c17252f2…; NLC:NOT_MET.",
+    "Local ci_fitness.py had MET before git add of the new RCA files.",
+    "content_digest_excluding uses git ls-files; untracked paths do not change the digest; last-pass-fresh can MET while porcelain is dirty.",
+    "S14 already named regen-before-prove as skill text; that preventive is still open; Planit prove does not run release Step 1A.",
+    "APP-VERIFY and VERIFY-AND-SHIP do not document hash-after-add or porcelain; two hash models exist (ls-files vs worktree_tree_hash)."
+  ],
+  "repo_touch": {
+    "belief": "ADR 0025 — defects name unsuitable process, not agents",
+    "adr_ids": ["0050", "0025"],
+    "rule_ids": ["NLC-0025-01"],
+    "gate_ids": ["fitness-findings-last-pass-fresh"]
+  },
+  "certified_by": "role:producer-session",
+  "recorded_at": "2026-11-20",
+  "queue_id": "RCA-VERIFY-PROCESS-DIRTY-TREE"
+}

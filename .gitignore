@@ -34,6 +34,9 @@ venv/
 # Release prepare observation cache (rebuilt by the release executor)
 .nlc/release-prepare-facts.json
 
+# Planit session flag (must not be committed; hub porcelain refuse ignores gitignored paths)
+.nlc/planit-in-progress.json
+
 # Local install hub bytes (ADR 0060). The lock file stays committable.
 .nlc/hub
 .nlc/versions/

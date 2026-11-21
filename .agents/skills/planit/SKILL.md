@@ -197,10 +197,10 @@ Run approved plan steps **in order**. Bind gate must already **PASS**. This phas
 
 **Both** required:
 
-1. **Machine gate** — hub: **`bbp-confirmer`** (`python3 tools/ci_fitness.py` + charter §11 with evidence). Adopter: the fitness suite that tree bound. Exit non-zero = fail.
+1. **Machine gate** — hub: **`bbp-confirmer`** (`python3 tools/ci_fitness.py` + charter §11 with evidence). Adopter: `./nlc verify` (interview packet before compile; fingerprints after). Exit non-zero = fail.
 2. **Adversarial audit** — separate from the generator: statements done, bindings held, no second copy of an adjective inside a goal.
 
-Compile-green is not released. **Ship** is later: `python3 tools/release-audit.py <tree>` after a human writes `Released-by:` (and `Ratified-by:` when class A/B/D/E/F). Do not treat prove PASS as ship. Do not write those lines as the confirmer.
+Compile-green is not released. **Ship** is later: `./nlc ship-check` after a human writes `Released-by:` (and `Ratified-by:` when class A/B/D/E/F). Do not treat prove PASS as ship. Do not write those lines as the confirmer.
 
 Emit **`## Verdict — Planit prove`** per §4 when step 7 completes.
 
@@ -280,7 +280,7 @@ From the adopter app repo root, **you** run machine steps; do not ask the human 
 
 - `./nlc` — refresh queue after durable writes
 - `./nlc maintainer requirements` after requirements ratified
-- `./nlc verify-deep` then `./nlc verify` at PLANIT step 7
+- `./nlc verify` at PLANIT step 7 (packet before compile; fingerprints after). `./nlc verify-deep` only after `goals/` or `domain/**/*.py` exist
 - `./nlc maintainer guide planit-start --label "…"` while a build session is open; `./nlc maintainer guide planit-end` when done
 - **UC9 regen queue:** `./nlc maintainer regen-continue` → one goal via PLANIT → `./nlc maintainer regen-advance`
 

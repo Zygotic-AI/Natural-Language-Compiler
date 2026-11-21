@@ -3,12 +3,15 @@
   "adversarial_auditor_role": "bbp-reviewer",
   "verdict": "PASS",
   "ssot_leaf_ids": [
-    "tools-fitness-c10-schema-files"
+    "fitness-findings-last-pass-fresh-porcelain",
+    "assert-porcelain-dirty-fails",
+    "gitignore-planit-in-progress",
+    "docs-nlc-VERIFY-AND-SHIP-hub-porcelain"
   ],
-  "ssot_exit_status": "plan-audit-pass-skip-nlc-in-schema-files",
+  "ssot_exit_status": "plan-audit-pass-porcelain-refuse",
   "quality_snapshot": {
-    "opportunities": 6,
-    "ops": 6,
+    "opportunities": 7,
+    "ops": 7,
     "defects": 0,
     "quality": 1.0
   },
@@ -16,37 +19,43 @@
     {
       "id": "GATE-STD",
       "result": "PASS",
-      "note": "The guard exits 0 only when schema_files returns the product schema and no path part is .nlc, and acceptance_blockers and contract_change_blockers are empty."
+      "note": "last-pass-fresh porcelain refuse is a machine gate (RESULT:MET/NOT_MET). Landmine is ASSERT:PASS/FAIL. Docs name the same stop predicate."
     },
     {
       "id": "CONTROL-LIFECYCLE",
-      "result": "PASS",
-      "note": "fitness_c10.py is not in the self-ref set. The existing staging landmine stays. The gate-set manifest moves in the same change. ADR 0057: owner signature is the tag gate, not a branch incomplete."
+      "result": "N/A",
+      "note": "Extends an existing fitness binder. No new pin, sidecar, hook, verifier, registry, or trusted-key list. Planit SKILL.md is not edited so the identity registry is not rewritten."
     },
     {
-      "id": "oracle",
+      "id": "one-thing-porcelain",
       "result": "PASS",
-      "note": "The guard checks path parts from schema_files. It does not match the rel() string, which is examples/... when the walker is loaded from the pin."
+      "note": "Scope is the RCA one thing: hub verify NOT_MET unless git status --porcelain is empty. Not a regen checklist. Not hashing untracked files into the digest."
     },
     {
-      "id": "runner",
+      "id": "session-gitignore",
       "result": "PASS",
-      "note": "assert-*-passes.py wired from ci_fitness. Not pytest. Not assert-*-fails.py."
+      "note": "gitignore .nlc/planit-in-progress.json so a live Planit session can prove a clean HEAD. Porcelain already omits gitignored paths."
     },
     {
-      "id": "skip-set",
+      "id": "no-planit-skill-identity",
       "result": "PASS",
-      "note": "Add .nlc only. Do not copy verify.py's set. dist and venv stay as they are."
+      "note": "PROCESS.md and VERIFY-AND-SHIP document the gate. Planit SKILL.md stays unedited to avoid planit-skill-registry pin churn."
     },
     {
-      "id": "schema-identity",
+      "id": "no-release-on-feature-branch",
       "result": "PASS",
-      "note": "fitness_schema_identity is out of scope. Adopter fast verify does not call it."
+      "note": "No merge to main, no ./release, no nlc-version bump."
+    },
+    {
+      "id": "charter-class-C",
+      "result": "PASS",
+      "note": "Tightens existing hub verify around ADR 0050 content freshness. No new noun, verb, or charter rule. No new ADR."
     }
   ],
   "evidence": [
-    "docs/rca/2026-11-16-adopter-verify-walks-pin-examples.md",
-    "tools/nouns/fitness_c10/fitness_c10.py",
-    "tools/nouns/contract_change/contract_change.py"
+    "docs/rca/2026-11-20-verify-process-dirty-tree-met.md",
+    "adrs/0050-evidence-identity-content-not-history.md",
+    "tools/nouns/fitness_findings_last_pass_fresh/fitness_findings_last_pass_fresh.py",
+    "docs/nlc/VERIFY-AND-SHIP.md"
   ]
 }

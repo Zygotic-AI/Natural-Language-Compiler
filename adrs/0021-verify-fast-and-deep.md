@@ -1,35 +1,44 @@
 # [ADR](../docs/TERMS.md#adr) 0021 — [Verify](../docs/TERMS.md#verify) fast (fingerprints) and [verify-deep](../docs/TERMS.md#verify-deep) (full gates)
 
 - Status: Accepted
-- Date: 2026-09-20
+- Date: 2026-11-20
+- Revision: 2
 - Deciders: Human manager
 - Class: F (product UX)
+- Version class of this change: **patch** (wrong client prove before compile; no new requirement)
 
 ## Context
 
-[ADR](../docs/TERMS.md#adr) 0020 splits human shell from agent workflows. **[Verify](../docs/TERMS.md#verify)** is the exception: CI and release pipelines need a **machine true/false** without inference. `prove` mixed compile gates with the human label “[verify](../docs/TERMS.md#verify).” Re-reading the whole tree on every pipeline run is too slow.
+[ADR](../docs/TERMS.md#adr) 0020 splits human shell from agent workflows. **[Verify](../docs/TERMS.md#verify)** is the exception: CI and release pipelines need a **machine true/false** without inference. Revision 1 made client `verify-deep` run hub `release-audit.py` and treated missing `goals/` / `domain/` as unfinished interview. A bind-ready app that had not compiled yet failed prove for folders compile has not written, and printed `Reproduce:` instead of [ADR 0018](0018-human-cli-interview-on-gap.md).
 
 ## Decision
 
-1. **Human and CI command:** `./nlc verify` (replaces `./nlc prove` for adopters). Exit **0** = pass, **non-zero** = fail. No inference required on pass.
+1. **Human and CI command:** `./nlc verify`. Exit **0** = pass, **non-zero** = fail.
 
-2. **Fast path (`verify`):** Compare current sha256 fingerprints of intent + compiled paths (`adrs/`, `rules/`, `knowledge/`, `goals/`, `domain/`) to **`.nlc/verified.json`**, plus cheap pipeline blockers (unfinished requirements, open regen queue), plus the hub **`verify`** profile from [`integrity/releasable-gates.json`](../integrity/releasable-gates.json) (strict subset of **`release`**).
+2. **Compiled** means the app has compile output: a non-empty `goals/` or any `domain/**/*.py`. Empty dirs from `nlc-init` do not count.
 
-3. **Deep path (`verify-deep`):** Run the hub **`release`** profile from the same manifest (includes full compile fitness), then **rewrite** `.nlc/verified.json`. Use after material changes or when fast [verify](../docs/TERMS.md#verify) reports stale/missing fingerprints.
+3. **Client, not compiled:** `./nlc verify` checks the interview packet only (`.nlc/interview-packet.json`, bind-ready schema). No fingerprints. `./nlc verify-deep` does not run hub `release-audit.py` and does not write `.nlc/verified.json`. Next step is `/planit` generate.
 
-4. **On failure:** Print plain reasons and a **Reproduce** command (`./nlc verify`, `./nlc gate …`, or `./nlc verify-deep`). Exit non-zero so CI stops.
+4. **Client, compiled:** `./nlc verify` compares fingerprints in `.nlc/verified.json` plus pipeline blockers. `./nlc verify-deep` runs `.nlc/verify-suite.json` when that file exists, then rewrites fingerprints. It does **not** default to hub `release-audit.py`.
 
-5. **`prove`:** Removed from the human CLI. [PLANIT](../docs/TERMS.md#planit) step 7 still means “[verify](../docs/TERMS.md#verify)” internally. `nlc prove` prints removal guidance (hidden from help).
+5. **Client ship:** `./nlc ship-check` runs hub `release-audit.py`. Prove is not ship.
 
-6. **Agent skill `/verify`:** Walks fixes and runs `verify-deep` when fingerprints should be refreshed.
+6. **Hub:** `./nlc verify` runs `tools/ci_fitness.py`. `./nlc verify-deep` runs the hub **`release`** profile, then the content-tree stamp. Unchanged.
+
+7. **On failure:** [ADR 0018](0018-human-cli-interview-on-gap.md) shape (`emit_gap`): problem, what’s wrong, ask, choices, copy-paste examples. Machine token last. `Reproduce:` is not the human surface.
+
+8. **`prove`:** Removed from the human CLI. [PLANIT](../docs/TERMS.md#planit) step 7 still means “[verify](../docs/TERMS.md#verify)” internally.
+
+9. **Agent skill `/verify`:** Uses the same stage rule. Runs `verify-deep` only after compiled files exist.
 
 ## Consequences
 
-- [`tools/nlc_verify.py`](../tools/nlc_verify.py), schema [`nlc-verified.schema.json`](../integrity/schemas/nlc-verified.schema.json).
-- [`.agents/skills/verify/SKILL.md`](../.agents/skills/verify/SKILL.md).
-- Menu and queue use `./nlc verify` only.
+- [`tools/nlc_verify.py`](../tools/nlc_verify.py), [`docs/nlc/APP-VERIFY.md`](../docs/nlc/APP-VERIFY.md), [`.agents/skills/verify/SKILL.md`](../.agents/skills/verify/SKILL.md), [`.agents/skills/planit/SKILL.md`](../.agents/skills/planit/SKILL.md), [`.agents/skills/interview/SKILL.md`](../.agents/skills/interview/SKILL.md).
+- Menu: missing packet → `/interview`. Bind-ready, not compiled → `/planit`. Compiled, fingerprints stale → `./nlc verify-deep`.
 
 ## Rejected
 
-- Fast [verify](../docs/TERMS.md#verify) re-running full `ci_fitness.py` every time.
-- Human-only [verify](../docs/TERMS.md#verify) with no agent path on failure.
+- Defaulting client `verify-deep` to hub `release-audit.py`.
+- Treating missing `goals/` / `domain/` as unfinished interview when the packet is bind-ready.
+- `Reproduce:` as the human fail surface.
+- Fast [verify](../docs/TERMS.md#verify) re-running full `ci_fitness.py` on an app repo.

@@ -407,6 +407,16 @@ Machine: `FULL_NLC_AUDIT:MET`. Inference: **PASS with residuals**. RCA: [`docs/r
 
 Honest queue for active work. Do **not** `@done` until the stop predicate is MET. SSOT for X4 counts: [`integrity/hub-x4-remainder.json`](integrity/hub-x4-remainder.json); tranche ids: [`integrity/hub-x4-tranche-plan.json`](integrity/hub-x4-tranche-plan.json).
 
+### RCA — v0.8.0 client verify human surface (ADR 0018)
+
+- ✔ **RCA-ADR-0018-verify-fail-shape** — On client `upgrade-your-prompt` (pin v0.8.0), `./nlc verify` printed two labels (`New requirements — what you're building`; `no fingerprint record — run ./nlc verify-deep once`) and `Reproduce: ./nlc verify`. That is not [ADR 0018](adrs/0018-human-cli-interview-on-gap.md) (problem, what’s missing, ask, remediation choices, copy-paste next step). Record: [`docs/rca/2026-11-20-adr-0018-verify-fail-shape.md`](docs/rca/2026-11-20-adr-0018-verify-fail-shape.md). Packet MET. @done(26-11-20 22:55)
+- ✔ **RCA-ADR-0018 preventive** — Bind `emit_verify_fail` to `emit_gap`; list `tools/nlc_verify.py` in `fitness_interview_gap_shape`; landmine captured stderr (`What's wrong:` / `Option:` / `Example:`; no `Reproduce:` lead). Already landed at `204c120`: `tools/nouns/verify/verify.py`, `tools/nouns/fitness_interview_gap_shape/fitness_interview_gap_shape.py`, `tools/nouns/assert_interview_packet_fails/assert_interview_packet_fails.py`. Verify: `python3 tools/assert-interview-packet-fails.py` → `ASSERT:PASS`. @done(26-11-20 22:55)
+
+### RCA — hub prove METs a dirty tree GitHub will not grade
+
+- ✔ **RCA-VERIFY-PROCESS-DIRTY-TREE** — Why local hub prove keeps MET then GitHub fitness goes red on the content-tree stamp (this class: `c321b42` hash `b938ecd5…` ≠ digest `c17252f2…`). Operator framing: the entire release verification process is too complicated, not correctly documented, and defective. Record: [`docs/rca/2026-11-20-verify-process-dirty-tree-met.md`](docs/rca/2026-11-20-verify-process-dirty-tree-met.md). Packet MET. @done(26-11-20 23:15)
+- ✔ **RCA-VERIFY-PROCESS-DIRTY-TREE preventive** — Hub `./nlc verify` / `ci_fitness.py` NOT_MET when `git status --porcelain` is non-empty. Landmine `assert-porcelain-dirty-fails` (untracked file cannot MET last-pass-fresh). `.nlc/planit-in-progress.json` gitignored. Verify: `python3 tools/assert-porcelain-dirty-fails.py` → `ASSERT:PASS`; `python3 tools/fitness-findings-last-pass-fresh.py` → `RESULT:MET` on a clean HEAD. @done(26-11-20 23:30)
+
 ### RCA — v0.7.0 ship session (one RCA per row)
 
 Working packet: [`docs/rca/2026-11-11-v070-ship-session-rca-queue.md`](docs/rca/2026-11-11-v070-ship-session-rca-queue.md).

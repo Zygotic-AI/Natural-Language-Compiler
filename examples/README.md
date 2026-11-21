@@ -35,6 +35,7 @@ These trees exist so a [gate](../docs/TERMS.md#gate) has something to scan. They
 | [`rule-coverage-missing/`](rule-coverage-missing/) | ADR 0023 verify `rule_coverage_blockers` |
 | [`adopter-verify-fast-green/`](adopter-verify-fast-green/) | ADR 0021/0023 adopter `verify_fast` MET |
 | [`interview-packet-missing/`](interview-packet-missing/) | UC1 `./nlc verify` blocks missing interview-packet |
+| [`bind-ready-uncompiled/`](bind-ready-uncompiled/) | ADR 0021 bind-ready, not compiled — `./nlc verify` pass |
 | [`rule-marker-domain/`](rule-marker-domain/) | ADR 0023 marker without gate-record |
 | [`noun-without-tests/`](noun-without-tests/) | R25 no tests next to [noun](../docs/TERMS.md#noun) |
 | [`adjective-untested/`](adjective-untested/) | C16 [adjective](../docs/TERMS.md#adjective) never named in tests |

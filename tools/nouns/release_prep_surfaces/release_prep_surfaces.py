@@ -88,13 +88,37 @@ def _untagged_line_prefix(version: str) -> str:
     return f"This release line is **v{version}**. It is not tagged yet. "
 
 
+def shipped_version(root: Path) -> str | None:
+    """Newest origin/main (then main) tag version, or None."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    from nlc_release_tags import last_shipped_version  # noqa: E402
+
+    for ref in ("origin/main", "main"):
+        ver = last_shipped_version(ref, root=root)
+        if ver:
+            return ver
+    return None
+
+
+def line_is_tagged(root: Path, version: str) -> bool:
+    """True when nlc-version.json matches the newest shipped tag."""
+    shipped = shipped_version(root)
+    return bool(shipped and shipped == version)
+
+
+def _strip_untagged_line(text: str) -> str:
+    return _RELEASE_LINE.sub("", text, count=1)
+
+
 def render_findings(text: str, version: str) -> str:
-    # Shipped git tag stays the last real tag. Do not rewrite it to the
-    # untagged release line. If the file already says the line is untagged,
-    # leave that sentence. Otherwise put the release-line sentence in front
-    # of the shipped-tag phrase once.
+    # When the version file still equals the newest tag, the line is tagged:
+    # do not write "not tagged yet". When the version has moved past the tag,
+    # keep one untagged release-line sentence and leave "Shipped git tag" as
+    # the last real tag.
     out = text
-    if not _RELEASE_LINE.search(out):
+    if line_is_tagged(ROOT, version):
+        out = _strip_untagged_line(out)
+    elif not _RELEASE_LINE.search(out):
         out = _SHIPPED_GIT_TAG.sub(
             lambda m: _untagged_line_prefix(version) + m.group(0),
             out,
@@ -114,7 +138,10 @@ def render_findings(text: str, version: str) -> str:
 def render_describe(text: str, version: str) -> str:
     # Do not retarget "Last tagged ship". On an untagged release line that
     # sentence is the previous tag. Insert the release-line sentence once
-    # when the Current ship section does not already say it.
+    # when the Current ship section does not already say it. When the version
+    # file equals the newest tag, strip "not tagged yet".
+    if line_is_tagged(ROOT, version):
+        return _strip_untagged_line(text)
     prefix = _untagged_line_prefix(version)
     if _RELEASE_LINE.search(text):
         return text

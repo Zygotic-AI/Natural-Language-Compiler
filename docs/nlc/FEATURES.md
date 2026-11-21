@@ -9,7 +9,7 @@ This file is not an architecture decision record. Records that must be enforced 
 | Section | Meaning |
 | ------- | ------- |
 | [Words](#words) | Operator terms used in this file |
-| [Released](#released) | On this release line (today **v0.8.0**, not tagged yet). Last tagged ship is **v0.7.0**. |
+| [Released](#released) | On this release line (today **v0.8.0**). Last tagged ship is **v0.8.0**. |
 | [Upcoming](#upcoming) | Features we are thinking about. Longer than what we will put on milestones. Order here is the intended sequence, not a frozen calendar. |
 | [Also on the thinking list](#also-on-the-thinking-list-not-sequenced-into-113) | Features we want, not ordered into 1–13 yet |
 | [Milestones](#milestones) | Slices we are actually scheduling. High confidence in the next one. Each further slice is more likely to move. We do not invent a long chain of milestones we already know will be wrong by the time we get there. |
@@ -43,7 +43,7 @@ Companion maps (what the practice *does*, live gaps, task log): [`docs/JOBS-TO-B
 
 ## Released
 
-This release line is **v0.8.0**. It is not tagged yet. Last tagged ship is **v0.7.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
+This release line is **v0.8.0**. Last tagged ship is **v0.8.0**. First public cut was described as v0.1.0 in README history (install, lock, greenfield, interview, compile one step at a time, verify, impact graph, regen of the blast radius). GitHub Releases start at v0.3.0. If a released capability has no tighter version story, it is listed on this line.
 
 The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the full-job names (trace graph, rewrite MySQL to Oracle, HIPAA as code). Several of those names have a **first slice** in Released and a **full job** in Upcoming. NLC does not ship HIPAA, GDPR, PCI-DSS, or FedRAMP texts. Adopters bring packs.
 
@@ -58,7 +58,7 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Plain-English interview | `/interview` splits what they said into named goals; no emit until goals, requirements, and facts are bound | Site “describe functionality.” Emit from unbound chat is how slop ships. |
 | Incremental compile | `/planit` compiles one bound goal; small-context code; stop when a gate fails | Site “compile.” Whole-app dumps hide defects. |
 | Tightly scoped emit and refuse | Atomic units; defects at compile time; do not hand-patch generated files | First slice of “no code slop.” Full precise rewrite is still upcoming. |
-| Verify path | `./nlc verify` and `./nlc verify-deep`; red comes with next steps | Compile green is not hope. |
+| Verify path | `./nlc verify` and `./nlc verify-deep`; red uses the five-part ask (problem, what’s wrong, ask, choices, example). Before compile, verify only checks the interview packet. After compile, it checks fingerprints. Hub `release-audit` is `./nlc ship-check`, not prove. | Compile green is not hope. An uncompiled bind-ready app is not a failed compile. |
 | Impact graph | Which goals call which noun verbs | Size a change before regenerating. Not yet the three-query trace graph. |
 | Delta regeneration | Change one requirement; regen queue for the blast radius | First slice of “update.” Not architecture swap. |
 | Human CLI dashboard | `./nlc` shows the queue and a short command map | Humans should not memorize maintainer flags. |
@@ -108,12 +108,14 @@ The public site (naturallanguagecoding.ai / naturallanguagecompiler.ai) uses the
 | Python-first compiled systems | v0.5.0 | Python apps compile and gate; other languages are listed, not equal | Honesty until “other languages” upcoming. |
 | Install into a specific repo | after [ADR 0060](../../adrs/0060-install-scope-and-path-dispatch.md) | Installer asks global or local. Local pins `.nlc/hub` in that git repo. PATH `nlc` execs the repo copy with the same args. | Greenfield and a bad self-rewrite both need a pin that a later global upgrade does not drag. |
 
-### v0.8.0 (this release line, not tagged yet)
+### v0.8.0 (this release line)
 
 | Feature | What the customer gets | Why it is here |
 | ------- | ---------------------- | -------------- |
 | Lazy-load skills | On an interactive terminal the installer asks `Lazy-load skills (disable-model-invocation)? y/N`. Enter, `n`, or any other answer writes `disable-model-invocation: false` on the skills this install copies. `y` or `yes` writes `true`. Piped install and CI do not ask and write `false`. Skills already in the folder that this install did not copy stay as they are. Hub source skills stay `true`. | Auto-invoke is the install default. Slash-only lazy load is the opt-in. The repo copy stays slash-only until install applies the choice. |
 | Product story pack | Feature narratives, operator flows, and the concept graph for what is already tagged and what is still upcoming | One story file, so a later reader does not re-derive the order. Upcoming items stay upcoming. |
+| Client verify follows stage | Bind-ready packet is prove before compile. Fingerprints after compile. Hub `release-audit` is ship-check. Fail text is ADR 0018. | v0.8.0 pin on an uncompiled app failed prove for missing `goals/` and fingerprints. That delivered no value. |
+| Hub prove is the commit | Hub `./nlc verify` / `ci_fitness.py` is NOT_MET while `git status --porcelain` is non-empty. | Local MET then GitHub red: content-tree stamp hashed `git ls-files` before `git add` (`c321b42`). Docs and regen checklists did not make prove and CI the same object. |
 
 ---
 

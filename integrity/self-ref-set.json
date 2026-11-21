@@ -5,7 +5,6 @@
   "members": [
     ".agents/skills/bbp-confirmer/SKILL.md",
     ".agents/skills/planit/SKILL.md",
-    ".agents/skills/verify/SKILL.md",
     ".nlc/planit-change-evidence.json",
     "integrity/gate-set-baseline.manifest.sha256",
     "integrity/nlc-install-hashes.json",

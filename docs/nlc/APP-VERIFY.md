@@ -1,13 +1,13 @@
 # [App repo](../TERMS.md#adopter) [verify](../TERMS.md#verify)
 
-[Hub](../TERMS.md#hub) specimens use `ci_fitness.py`. **Your app** uses a layered [verify](../TERMS.md#verify) story:
+Two stages. One rule ([ADR 0021](../../adrs/0021-verify-fast-and-deep.md)).
 
-1. **`./nlc verify`** — on an app repo, fast fingerprints (`.nlc/verified.json`) + pipeline blockers. On the hub, this is the one merge command: it runs `tools/ci_fitness.py`. The hub does not also fail on `.nlc/verified.json`; the content-tree stamp covers those bytes.
-2. **`./nlc verify-deep`** — full gates, then refresh fingerprints. The fingerprint file and its `recorded_at` are rewritten only when a recorded file hash changed. A second run on the same bytes leaves `.nlc/verified.json` untouched. Run it once before an owner gate-set signature, not after.
+1. **Interview done, not compiled yet** — no files under `goals/`, no `domain/**/*.py`. `./nlc verify` checks `.nlc/interview-packet.json` only. `./nlc verify-deep` does not run hub `release-audit.py` and does not write fingerprints. Next step is `/planit`.
+2. **Compiled** — `goals/` has files or `domain/` has Python. `./nlc verify` checks fingerprints (`.nlc/verified.json`) plus pipeline blockers. `./nlc verify-deep` runs `.nlc/verify-suite.json` when you added one, then refreshes fingerprints.
 
-## Default deep [gate](../TERMS.md#gate) (app with `.nlc/lock.json`)
+**Ship** is separate: `./nlc ship-check` (hub `release-audit.py` plus human `Released-by:`). Prove is not ship.
 
-`verify-deep` runs [hub](../TERMS.md#hub) **`release-audit.py`** on your repo tree (compile + promotion bundle checks).
+[Hub](../TERMS.md#hub) specimens use `ci_fitness.py`. Hub MET requires empty `git status --porcelain` (the committed tree). Failures on a human path use [ADR 0018](../../adrs/0018-human-cli-interview-on-gap.md) (problem, what’s wrong, ask, choices, examples).
 
 ## Optional: custom fitness command
 
@@ -21,10 +21,10 @@ Create **`.nlc/verify-suite.json`**:
 }
 ```
 
-`verify-deep` runs this **before** `release-audit` when the file exists. Use the same command in CI as in `.github/workflows/nlc-verify.yml`.
+`verify-deep` runs this on a compiled app when the file exists. Use the same command in CI as in `.github/workflows/nlc-verify.yml`.
 
 ## CI
 
 `nlc-init` copies `github-workflows-nlc-verify.yml` → `.github/workflows/nlc-verify.yml`.
 
-After first green deep [verify](../TERMS.md#verify) locally, commit **`.nlc/verified.json`** so PRs can run **`./nlc verify`** only.
+PRs can run `./nlc verify` before compile: bind-ready packet → pass. After first generate, run `./nlc verify-deep` once and commit **`.nlc/verified.json`** so later PRs compare fingerprints.

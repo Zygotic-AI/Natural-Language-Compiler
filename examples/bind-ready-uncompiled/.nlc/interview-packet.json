@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "outcome": "Bind-ready app that has not compiled yet.",
+  "goals": ["demo"],
+  "requirements": ["adr:0021"],
+  "knowledge_domains": ["demo"],
+  "bind_ready": true,
+  "recorded_at": "2026-11-20T00:00:00Z"
+}

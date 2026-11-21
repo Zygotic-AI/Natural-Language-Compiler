@@ -265,6 +265,118 @@ def one_owned_main() -> int:
     return 0
 
 
+def landmine_second_skill_fails_main() -> int:
+    """Landmine: a second planit/SKILL.md must fail one-owned fitness."""
+    root = Path(__file__).resolve().parents[3]
+    extra = Path("staging/_landmine_second_planit/planit/SKILL.md")
+    dest = root / extra
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    proc: subprocess.CompletedProcess[str]
+    try:
+        dest.write_text("# landmine second planit\n", encoding="utf-8")
+        proc = subprocess.run(
+            [sys.executable, str(root / "tools" / "fitness-planit-one-owned.py")],
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    finally:
+        if dest.is_file():
+            dest.unlink()
+        for directory in (
+            root / "staging" / "_landmine_second_planit" / "planit",
+            root / "staging" / "_landmine_second_planit",
+        ):
+            if directory.is_dir() and not any(directory.iterdir()):
+                directory.rmdir()
+    combined = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        print("ASSERT:FAIL second planit SKILL.md must fail one-owned fitness")
+        print(combined[-800:])
+        return 1
+    if "multiple planit SKILL.md" not in combined:
+        print("ASSERT:FAIL expected duplicate planit violation")
+        print(combined[-800:])
+        return 1
+    print("ASSERT:PASS second planit SKILL.md is refused")
+    return 0
+
+
+def landmine_external_route_fails_main() -> int:
+    """Landmine: a ~/.agents/skills/planit route must fail one-owned fitness."""
+    root = Path(__file__).resolve().parents[3]
+    probe = Path(".agents/skills/_landmine_external_planit_route.md")
+    dest = root / probe
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    proc: subprocess.CompletedProcess[str]
+    try:
+        dest.write_text("route to `~/.agents/skills/planit`\n", encoding="utf-8")
+        proc = subprocess.run(
+            [sys.executable, str(root / "tools" / "fitness-planit-one-owned.py")],
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    finally:
+        if dest.is_file():
+            dest.unlink()
+    combined = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        print("ASSERT:FAIL external Planit route must fail one-owned fitness")
+        print(combined[-800:])
+        return 1
+    if "~/.agents/skills/planit" not in combined and "external Planit" not in combined:
+        print("ASSERT:FAIL expected external Planit violation")
+        print(combined[-800:])
+        return 1
+    print("ASSERT:PASS external Planit route is refused")
+    return 0
+
+
+def landmine_stale_evidence_fails_main() -> int:
+    """Landmine: stale planit-change-evidence must fail --check-evidence."""
+    root = Path(__file__).resolve().parents[3]
+    evidence = root / EVIDENCE_REL
+    if not evidence.is_file():
+        print("ASSERT:FAIL missing planit-change-evidence.json")
+        return 1
+    original = evidence.read_text(encoding="utf-8")
+    proc: subprocess.CompletedProcess[str]
+    try:
+        record = json.loads(original)
+        record["source_tree_sha256"] = "0" * 64
+        evidence.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+        proc = subprocess.run(
+            [
+                sys.executable,
+                str(root / "tools" / "fitness-planit-identity.py"),
+                "--skill-only",
+                "--loaded",
+                CANONICAL_PATH,
+                "--check-evidence",
+            ],
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    finally:
+        evidence.write_text(original, encoding="utf-8")
+    combined = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        print("ASSERT:FAIL stale planit change evidence must fail --check-evidence")
+        print(combined[-800:])
+        return 1
+    if "Planit change evidence does not match the current tree" not in combined:
+        print("ASSERT:FAIL expected stale evidence violation")
+        print(combined[-800:])
+        return 1
+    print("ASSERT:PASS stale planit change evidence is refused")
+    return 0
+
+
 def resolve_root(argv: list[str]) -> Path:
     """Hub tree under test: optional path argv before flags."""
     args = list(argv)

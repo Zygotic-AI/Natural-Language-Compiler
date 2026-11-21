@@ -4,7 +4,7 @@
 
 **Result:** PASS (remediation applied 2026-11-16)
 
-**Evidence:** RCA record structure complete (verdict, error condition, causation, fix list).
+**Evidence:** At record time, `node metaprompts/scripts/validate-rca-record.mjs` (zyprompt) on this file → exit 0.
 
 **The one thing:** `schema_files` in `fitness_c10.py` must skip `.nlc` so adopter verify cannot fail on vendored examples.
 

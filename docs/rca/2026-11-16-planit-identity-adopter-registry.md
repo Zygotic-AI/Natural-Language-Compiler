@@ -4,7 +4,7 @@
 
 **Result:** PASS (analysis completeness — not “fix applied”)
 
-**Evidence:** RCA record structure complete (verdict, error condition, causation, fix list).
+**Evidence:** At record time, `node metaprompts/scripts/validate-rca-record.mjs` (zyprompt) on this file → exit 0.
 
 **The one thing:** ./nlc planit-identity is the only run of this check; it hashes the loaded planit SKILL.md against the hub registry and exits non-zero on mismatch
 

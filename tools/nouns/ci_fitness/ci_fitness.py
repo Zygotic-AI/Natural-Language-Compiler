@@ -996,6 +996,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-planit-external-route-fails.py")],
     )
     run(
+        "assert-planit-one-owned-landmines",
+        [sys.executable, str(TOOLS / "assert-planit-one-owned-landmines.py")],
+    )
+    run(
         "assert-planit-stale-evidence",
         [sys.executable, str(TOOLS / "assert-planit-stale-evidence-fails.py")],
     )

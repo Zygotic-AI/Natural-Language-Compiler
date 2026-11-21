@@ -213,7 +213,7 @@ Separate from Phase 5 prose — **fresh section or subagent pass**. Use AWL **Ap
 
 Re-check bindings vs diff; prove evidence is the **artifact under test**. **Hub:** charter §11 rows and fitness output present.
 
-**Domain instances** (orchestration hooks — use global Planit when primary):
+**Domain instances** (orchestration hooks under this skill):
 
 - **DSI converge** — [`references/local-dsi-converge-audit-template.md`](references/local-dsi-converge-audit-template.md)
 - **Vault PR (ai vault)** — follow [`references/knowledge-change-review-standard.md`](references/knowledge-change-review-standard.md) under this skill

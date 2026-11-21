@@ -15,9 +15,9 @@ CANONICAL_PATH = ".agents/skills/planit/SKILL.md"
 REGISTRY_REL = "integrity/planit-skill-registry.json"
 EVIDENCE_REL = ".nlc/planit-change-evidence.json"
 _SKIP = {".git", "__pycache__", ".venv", "venv", "node_modules", "dist"}
-_EXTERNAL_PLANIT_MARKERS = ("~/.agents/skills/planit",)
 _ROUTE_SCAN_PREFIXES = (
     ".agents/",
+    ".cursor/",
     "docs/",
     "integrity/",
     "adrs/",
@@ -25,18 +25,25 @@ _ROUTE_SCAN_PREFIXES = (
     "agents/",
 )
 _ROUTE_SCAN_EXCLUDE_PREFIXES = (
-    "docs/rca/",
     "docs/history/",
     "adrs/history/",
 )
-_ROUTE_SCAN_ROOT_FILES = ("AGENTS.md", "CHARTER.md", "TODO", "DESCRIBE.md")
+_ROUTE_SCAN_ROOT_FILES = ("AGENTS.md", "CHARTER.md", "TODO", "DESCRIBE.md", "README.md")
 _ROUTE_IGNORE_FILES = (
     "tools/assert-planit-second-skill-fails.py",
     "tools/assert-planit-external-route-fails.py",
     "tools/assert-planit-other-skill-fails.py",
+    "tools/assert-planit-one-owned-landmines.py",
     "tools/nouns/planit_identity/planit_identity.py",
 )
-_PLANIT_SKILL_REF = re.compile(r"(?<![\w-])([\w./~-]+/planit/SKILL\.md)")
+_PLANIT_SKILL_REF = re.compile(r"(?<![\w-])([\w./$~-]+/[Pp]lanit/SKILL\.md)")
+_EXTERNAL_MARKER_RES = (
+    re.compile(r"~/.agents/skills/planit", re.I),
+    re.compile(r"\$HOME/.agents/skills/planit", re.I),
+    re.compile(r"/home/[\w.-]+/\.agents/skills/planit", re.I),
+    re.compile(r"route\s+to\s+global\s+planit", re.I),
+    re.compile(r"use\s+global\s+planit", re.I),
+)
 
 
 def content_hash(body: bytes) -> str:
@@ -143,24 +150,11 @@ def loaded_skill_errors(hub: Path, loaded_file: Path) -> list[str]:
     return []
 
 
-def _git_ls_files(root: Path, *extra: str) -> list[str]:
-    proc = subprocess.run(
-        ["git", "ls-files", *extra],
-        cwd=str(root),
-        capture_output=True,
-        text=True,
-        check=False,
-    )
-    if proc.returncode != 0:
-        return []
-    return [ln.strip().replace("\\", "/") for ln in (proc.stdout or "").splitlines() if ln.strip()]
-
-
 def on_disk_planit_skill_paths(root: Path) -> list[str]:
-    """Return repo-relative paths to every planit/SKILL.md on disk."""
+    """Return repo-relative paths to every planit/SKILL.md on disk (any casing)."""
     found: list[str] = []
     for path in root.rglob("SKILL.md"):
-        if path.parent.name != "planit":
+        if path.parent.name.lower() != "planit":
             continue
         if any(part in _SKIP for part in path.parts):
             continue
@@ -184,15 +178,60 @@ def duplicate_planit_skill_errors(root: Path) -> list[str]:
     return [f"multiple planit SKILL.md files on disk ({detail})"]
 
 
-def _planit_skill_reference_ok(ref: str) -> bool:
-    norm = ref.replace("\\", "/")
-    if norm == CANONICAL_PATH or norm.endswith(CANONICAL_PATH):
+def _resolve_in_repo(root: Path, ref: str) -> Path | None:
+    """Resolve a skill reference; None when outside the repo root."""
+    norm = ref.strip().replace("\\", "/")
+    if norm.startswith("~/"):
+        return None
+    try:
+        if norm.startswith("/"):
+            resolved = Path(norm).resolve()
+        else:
+            resolved = (root / norm).resolve()
+        resolved.relative_to(root.resolve())
+    except (OSError, ValueError):
+        return None
+    return resolved
+
+
+def _planit_skill_reference_ok(root: Path, ref: str) -> bool:
+    norm = ref.strip().replace("\\", "/")
+    if norm.startswith("~/") or "$HOME" in norm or norm.startswith("/home/"):
+        return False
+    if "zyprompt" in norm.lower():
+        return False
+    if re.fullmatch(r"\.\./planit/SKILL\.md", norm, flags=re.I):
         return True
-    if norm == ".cursor/skills/planit/SKILL.md":
-        return True
-    if norm.endswith("../planit/SKILL.md"):
+    allowed_tails = (CANONICAL_PATH, ".cursor/skills/planit/SKILL.md")
+    if not any(norm.lower().endswith(tail.lower()) for tail in allowed_tails):
+        return False
+    if norm.lower().endswith(CANONICAL_PATH.lower()) and "staging/" in norm.lower():
+        return False
+    if ".." not in norm and not norm.startswith("/"):
+        resolved = _resolve_in_repo(root, norm)
+        if resolved is not None:
+            canonical = (root / CANONICAL_PATH).resolve()
+            if resolved == canonical:
+                return True
+            cursor = root / ".cursor/skills/planit/SKILL.md"
+            if cursor.is_file():
+                try:
+                    if resolved == cursor.resolve():
+                        return True
+                except OSError:
+                    pass
+    canonical = (root / CANONICAL_PATH).resolve()
+    if canonical.is_file():
         return True
     return False
+
+
+def _external_marker_hits(text: str) -> list[str]:
+    hits: list[str] = []
+    for pattern in _EXTERNAL_MARKER_RES:
+        if pattern.search(text):
+            hits.append(pattern.pattern)
+    return hits
 
 
 def _route_scan_paths(root: Path) -> list[str]:
@@ -226,11 +265,12 @@ def external_planit_route_errors(root: Path) -> list[str]:
             text = (root / rel).read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
-        for marker in _EXTERNAL_PLANIT_MARKERS:
-            if marker in text:
-                errors.append(f"{rel} references external Planit ({marker})")
+        for marker in _external_marker_hits(text):
+            errors.append(f"{rel} references external Planit ({marker})")
         for match in _PLANIT_SKILL_REF.findall(text):
-            if not _planit_skill_reference_ok(match):
+            if rel.startswith("docs/rca/"):
+                continue
+            if not _planit_skill_reference_ok(root, match):
                 errors.append(f"{rel} references non-canonical Planit skill ({match})")
     return errors
 
@@ -265,10 +305,51 @@ def one_owned_main() -> int:
     return 0
 
 
+def _run_one_owned_landmine(root: Path, rel: str, body: str, expect: tuple[str, ...]) -> int:
+    """Write a probe file, run one-owned fitness, require failure with expected text."""
+    dest = root / rel
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    existed = dest.is_file()
+    original = dest.read_text(encoding="utf-8") if existed else None
+    proc: subprocess.CompletedProcess[str]
+    try:
+        if existed:
+            dest.write_text(original + "\n" + body, encoding="utf-8")
+        else:
+            dest.write_text(body, encoding="utf-8")
+        proc = subprocess.run(
+            [sys.executable, str(root / "tools" / "fitness-planit-one-owned.py")],
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    finally:
+        if existed and original is not None:
+            dest.write_text(original, encoding="utf-8")
+        elif dest.is_file():
+            dest.unlink()
+            parent = dest.parent
+            while parent != root and parent.is_dir() and not any(parent.iterdir()):
+                parent.rmdir()
+                parent = parent.parent
+    combined = (proc.stdout or "") + (proc.stderr or "")
+    if proc.returncode == 0:
+        print(f"ASSERT:FAIL probe {rel} must fail one-owned fitness")
+        print(combined[-800:])
+        return 1
+    if not any(fragment in combined for fragment in expect):
+        print(f"ASSERT:FAIL probe {rel} missing expected violation ({expect!r})")
+        print(combined[-800:])
+        return 1
+    print(f"ASSERT:PASS probe {rel}")
+    return 0
+
+
 def landmine_second_skill_fails_main() -> int:
     """Landmine: a second planit/SKILL.md must fail one-owned fitness."""
     root = Path(__file__).resolve().parents[3]
-    extra = Path("staging/_landmine_second_planit/planit/SKILL.md")
+    extra = Path("staging/x/Planit/SKILL.md")
     dest = root / extra
     dest.parent.mkdir(parents=True, exist_ok=True)
     proc: subprocess.CompletedProcess[str]
@@ -285,10 +366,11 @@ def landmine_second_skill_fails_main() -> int:
         if dest.is_file():
             dest.unlink()
         for directory in (
-            root / "staging" / "_landmine_second_planit" / "planit",
-            root / "staging" / "_landmine_second_planit",
+            root / "staging" / "x" / "Planit",
+            root / "staging" / "x",
+            root / "staging",
         ):
-            if directory.is_dir() and not any(directory.iterdir()):
+            if directory.is_dir() and directory != root and not any(directory.iterdir()):
                 directory.rmdir()
     combined = (proc.stdout or "") + (proc.stderr or "")
     if proc.returncode == 0:
@@ -306,33 +388,59 @@ def landmine_second_skill_fails_main() -> int:
 def landmine_external_route_fails_main() -> int:
     """Landmine: a ~/.agents/skills/planit route must fail one-owned fitness."""
     root = Path(__file__).resolve().parents[3]
-    probe = Path(".agents/skills/_landmine_external_planit_route.md")
-    dest = root / probe
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    proc: subprocess.CompletedProcess[str]
-    try:
-        dest.write_text("route to `~/.agents/skills/planit`\n", encoding="utf-8")
-        proc = subprocess.run(
-            [sys.executable, str(root / "tools" / "fitness-planit-one-owned.py")],
-            cwd=str(root),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-    finally:
-        if dest.is_file():
-            dest.unlink()
-    combined = (proc.stdout or "") + (proc.stderr or "")
-    if proc.returncode == 0:
-        print("ASSERT:FAIL external Planit route must fail one-owned fitness")
-        print(combined[-800:])
-        return 1
-    if "~/.agents/skills/planit" not in combined and "external Planit" not in combined:
-        print("ASSERT:FAIL expected external Planit violation")
-        print(combined[-800:])
-        return 1
-    print("ASSERT:PASS external Planit route is refused")
-    return 0
+    return _run_one_owned_landmine(
+        root,
+        ".agents/skills/_landmine_external_planit_route.md",
+        "route to `~/.agents/skills/planit`\n",
+        ("external Planit", "~/.agents/skills/planit"),
+    )
+
+
+def landmine_one_owned_probes_main() -> int:
+    """Landmines for each one-owned spelling class (default-closed)."""
+    root = Path(__file__).resolve().parents[3]
+    probes: tuple[tuple[str, str, tuple[str, ...]], ...] = (
+        (
+            ".agents/skills/_landmine_home_route.md",
+            "prefer $HOME/.agents/skills/planit for KCR\n",
+            ("external Planit", "$HOME"),
+        ),
+        (
+            ".agents/skills/_landmine_abs_home_skill.md",
+            "see /home/rpickett/.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "rpickett"),
+        ),
+        (
+            ".agents/skills/_landmine_traversal_skill.md",
+            "vendored from ../../../zyprompt/skills/../planit/SKILL.md\n",
+            ("non-canonical", "zyprompt"),
+        ),
+        (
+            "docs/rca/_landmine_global_planit_prose.md",
+            "DSI Phase 6 instance (route to global Planit)\n",
+            ("external Planit", "global"),
+        ),
+        (
+            ".agents/skills/_landmine_case_tilde.md",
+            "sync from ~/.agents/skills/Planit\n",
+            ("external Planit", "Planit"),
+        ),
+        (
+            ".cursor/rules/_landmine_planit_route.mdc",
+            "invoke ~/.agents/skills/planit before planit\n",
+            ("external Planit",),
+        ),
+        (
+            "README.md",
+            "\n<!-- landmine: route to `~/.agents/skills/planit` -->\n",
+            ("external Planit", "README.md"),
+        ),
+    )
+    exit_code = 0
+    for rel, body, expect in probes:
+        if _run_one_owned_landmine(root, rel, body, expect) != 0:
+            exit_code = 1
+    return exit_code
 
 
 def landmine_stale_evidence_fails_main() -> int:

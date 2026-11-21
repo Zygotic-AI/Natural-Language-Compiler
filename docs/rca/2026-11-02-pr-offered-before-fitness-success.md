@@ -4,7 +4,7 @@
 
 **Result:** PASS
 
-**Evidence:** RCA record structure complete (verdict, error condition, causation, fix list).
+**Evidence:** At record time, `node metaprompts/scripts/validate-rca-record.mjs` (zyprompt) on this file → exit 0.
 
 **The one thing:** release/SKILL.md gate exits non-zero and blocks gh pr create until pr-offer-gate.py reports nlc verify and fitness success on that HEAD.
 

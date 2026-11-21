@@ -20,7 +20,7 @@ NLC owns these reference files under `.agents/skills/planit/references/` and rea
 | `root-cause-analysis-standard.md` | Failure handling |
 | `knowledge-change-review-standard.md` | KCR sub-gate (ai vault durable layers) |
 | `domain-first-authoring.md` | Phase 7 back-propagation |
-| `local-dsi-converge-audit-template.md` | DSI Phase 6 instance (route to global Planit) |
+| `local-dsi-converge-audit-template.md` | DSI Phase 6 instance under this skill |
 
 Orchestration map for this repo: `docs/nlc/compiler/PLANIT-ORCHESTRATION.md`.
 

@@ -2165,10 +2165,19 @@
     "tools/assert-piped-install-smoke-passes.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-planit-external-route-fails.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-planit-identity-loaded-skill.py": [
       "gate_set_manifest"
     ],
     "tools/assert-planit-other-skill-fails.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-planit-second-skill-fails.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-planit-stale-evidence-fails.py": [
       "gate_set_manifest"
     ],
     "tools/assert-porcelain-dirty-fails.py": [
@@ -2943,6 +2952,9 @@
       "gate_set_manifest"
     ],
     "tools/fitness-planit-noun-shape.py": [
+      "gate_set_manifest"
+    ],
+    "tools/fitness-planit-one-owned.py": [
       "gate_set_manifest"
     ],
     "tools/fitness-produce-ssot-binder.py": [

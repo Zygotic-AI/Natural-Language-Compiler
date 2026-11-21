@@ -185,7 +185,7 @@ Run approved plan steps **in order**. Bind gate must already **PASS**. This phas
 6. **PLANIT step 6.5 — Gate that artifact:** run the named metrics immediately. Default fail. FAIL → stop; do not start the next row. PASS → `./nlc maintainer gate-record --artifact <path> --gate-id <id> --command "<fitness cmd>"` then next statement only.
 
 7. **Inline step** — cite commands and exit codes of the **artifact under test**. INCONCLUSIVE is BLOCKED.
-8. **KCR sub-gate** — if step touches durable **ai vault** layers, **stop** until KCR accepted ([`references/knowledge-change-review-standard.md`](references/knowledge-change-review-standard.md)); prefer routing to **`~/.agents/skills/planit`**.
+8. **KCR sub-gate** — if step touches durable **ai vault** layers, **stop** until KCR accepted ([`references/knowledge-change-review-standard.md`](references/knowledge-change-review-standard.md)); execute KCR under this repo's Planit references only.
 9. **Failure** — jidoka: stop; RCA if non-trivial ([`references/root-cause-analysis-standard.md`](references/root-cause-analysis-standard.md) or `/conduct-root-cause-analysis`); then PLANIT **1** or **5**, then **6** again. Do not patch generated files to silence audits.
 10. **Handoff between steps** — AWL Appendix D step handoff template.
 11. **Pre-write check** — no durable file write until target artifact’s **Gate** (§2) is defined in plan or draft.
@@ -216,7 +216,7 @@ Re-check bindings vs diff; prove evidence is the **artifact under test**. **Hub:
 **Domain instances** (orchestration hooks — use global Planit when primary):
 
 - **DSI converge** — [`references/local-dsi-converge-audit-template.md`](references/local-dsi-converge-audit-template.md)
-- **Vault PR (ai vault)** — `/local-review-pr` via **`~/.agents/skills/planit`**
+- **Vault PR (ai vault)** — follow [`references/knowledge-change-review-standard.md`](references/knowledge-change-review-standard.md) under this skill
 
 **Required:** `GATE-STD` row **PASS** for every produced artifact path, or **FAIL** with fix list.
 
@@ -256,7 +256,7 @@ Emit **`## Verdict — Planit process`** (process-level §5 rollup). **PASS** on
 | Knowledge domain facts / gaps | `agents/knowledge-steward` |
 | Root cause | `/conduct-root-cause-analysis` or `references/root-cause-analysis-standard.md` |
 | Hub continuity / completeness audit | `full-nlc-audit` (`tools/full-nlc-audit.py` + inference phases) |
-| DSI, greenfield WO, make-a-skill, ai vault `local-*` | **`~/.agents/skills/planit`** |
+| DSI, greenfield WO, make-a-skill, ai vault `local-*` | This skill (`.agents/skills/planit/SKILL.md`) |
 
 When no leaf skill fits, execute inline under this procedure with full AWL audits and §2 on all outputs.
 

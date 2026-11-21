@@ -6,6 +6,8 @@ BOUNDARY = "bba-emit"
 
 import hashlib
 import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -13,6 +15,28 @@ CANONICAL_PATH = ".agents/skills/planit/SKILL.md"
 REGISTRY_REL = "integrity/planit-skill-registry.json"
 EVIDENCE_REL = ".nlc/planit-change-evidence.json"
 _SKIP = {".git", "__pycache__", ".venv", "venv", "node_modules", "dist"}
+_EXTERNAL_PLANIT_MARKERS = ("~/.agents/skills/planit",)
+_ROUTE_SCAN_PREFIXES = (
+    ".agents/",
+    "docs/",
+    "integrity/",
+    "adrs/",
+    "content-types/",
+    "agents/",
+)
+_ROUTE_SCAN_EXCLUDE_PREFIXES = (
+    "docs/rca/",
+    "docs/history/",
+    "adrs/history/",
+)
+_ROUTE_SCAN_ROOT_FILES = ("AGENTS.md", "CHARTER.md", "TODO", "DESCRIBE.md")
+_ROUTE_IGNORE_FILES = (
+    "tools/assert-planit-second-skill-fails.py",
+    "tools/assert-planit-external-route-fails.py",
+    "tools/assert-planit-other-skill-fails.py",
+    "tools/nouns/planit_identity/planit_identity.py",
+)
+_PLANIT_SKILL_REF = re.compile(r"(?<![\w-])([\w./~-]+/planit/SKILL\.md)")
 
 
 def content_hash(body: bytes) -> str:
@@ -117,6 +141,128 @@ def loaded_skill_errors(hub: Path, loaded_file: Path) -> list[str]:
     if content_hash(loaded_file.read_bytes()) != expected:
         return [f"loaded Planit skill hash does not match hub registry {registry_path}"]
     return []
+
+
+def _git_ls_files(root: Path, *extra: str) -> list[str]:
+    proc = subprocess.run(
+        ["git", "ls-files", *extra],
+        cwd=str(root),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        return []
+    return [ln.strip().replace("\\", "/") for ln in (proc.stdout or "").splitlines() if ln.strip()]
+
+
+def on_disk_planit_skill_paths(root: Path) -> list[str]:
+    """Return repo-relative paths to every planit/SKILL.md on disk."""
+    found: list[str] = []
+    for path in root.rglob("SKILL.md"):
+        if path.parent.name != "planit":
+            continue
+        if any(part in _SKIP for part in path.parts):
+            continue
+        found.append(path.relative_to(root).as_posix())
+    return sorted(set(found))
+
+
+def duplicate_planit_skill_errors(root: Path) -> list[str]:
+    """Fail when more than one distinct on-disk planit/SKILL.md exists."""
+    by_inode: dict[tuple[int, int], list[str]] = {}
+    for rel in on_disk_planit_skill_paths(root):
+        path = root / rel
+        if not path.is_file():
+            continue
+        st = path.stat()
+        key = (st.st_dev, st.st_ino)
+        by_inode.setdefault(key, []).append(rel)
+    if len(by_inode) <= 1:
+        return []
+    detail = "; ".join(f"{', '.join(rels)}" for rels in by_inode.values())
+    return [f"multiple planit SKILL.md files on disk ({detail})"]
+
+
+def _planit_skill_reference_ok(ref: str) -> bool:
+    norm = ref.replace("\\", "/")
+    if norm == CANONICAL_PATH or norm.endswith(CANONICAL_PATH):
+        return True
+    if norm == ".cursor/skills/planit/SKILL.md":
+        return True
+    if norm.endswith("../planit/SKILL.md"):
+        return True
+    return False
+
+
+def _route_scan_paths(root: Path) -> list[str]:
+    rels: set[str] = set()
+    for prefix in _ROUTE_SCAN_PREFIXES:
+        base = root / prefix.rstrip("/")
+        if not base.is_dir():
+            continue
+        for path in base.rglob("*"):
+            if not path.is_file() or path.suffix not in {".md", ".mdc"}:
+                continue
+            if any(part in _SKIP for part in path.parts):
+                continue
+            rel = path.relative_to(root).as_posix()
+            if any(rel.startswith(ex) for ex in _ROUTE_SCAN_EXCLUDE_PREFIXES):
+                continue
+            if rel in _ROUTE_IGNORE_FILES:
+                continue
+            rels.add(rel)
+    for name in _ROUTE_SCAN_ROOT_FILES:
+        if (root / name).is_file():
+            rels.add(name)
+    return sorted(rels)
+
+
+def external_planit_route_errors(root: Path) -> list[str]:
+    """Fail when skills or docs route outside the canonical in-repo Planit."""
+    errors: list[str] = []
+    for rel in _route_scan_paths(root):
+        try:
+            text = (root / rel).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+        for marker in _EXTERNAL_PLANIT_MARKERS:
+            if marker in text:
+                errors.append(f"{rel} references external Planit ({marker})")
+        for match in _PLANIT_SKILL_REF.findall(text):
+            if not _planit_skill_reference_ok(match):
+                errors.append(f"{rel} references non-canonical Planit skill ({match})")
+    return errors
+
+
+def one_owned_errors(root: Path) -> list[str]:
+    """Default-closed: exactly one owned Planit skill and no external routes."""
+    errors: list[str] = []
+    errors.extend(duplicate_planit_skill_errors(root))
+    errors.extend(external_planit_route_errors(root))
+    canonical = root / CANONICAL_PATH
+    if not canonical.is_file():
+        errors.append(f"missing canonical Planit skill ({CANONICAL_PATH})")
+    return errors
+
+
+def one_owned_main() -> int:
+    """Fitness entry: one owned in-repo Planit (ADR 0046 extension)."""
+    root = Path(__file__).resolve().parents[3]
+    sys.path.insert(0, str(root / "tools"))
+    from nlc_pipeline import is_hub_repo
+
+    if not is_hub_repo(root):
+        print("PLANIT_ONE_OWNED:MET skip (hub-only gate, not hub tree)")
+        return 0
+    errors = one_owned_errors(root)
+    if errors:
+        for item in errors:
+            print(f"VIOLATION {item}")
+        print("PLANIT_ONE_OWNED:NOT_MET")
+        return 1
+    print("PLANIT_ONE_OWNED:MET")
+    return 0
 
 
 def resolve_root(argv: list[str]) -> Path:

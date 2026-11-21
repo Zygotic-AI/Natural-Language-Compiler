@@ -7,9 +7,9 @@
 | [`planit-process.md`](planit-process.md) | PLANIT steps 0–7 (points at `docs/nlc/compiler/PROCESS.md`) |
 | [`hub-charter-loop.md`](hub-charter-loop.md) | Charter §6 when this practice hub is in scope |
 
-## AWL / gate norms (vendored)
+## AWL / gate norms (owned in-repo)
 
-Copied from org-global **`~/.agents/skills/planit/references/`** so clones work without that path. When both exist, prefer **newer** of the two on conflict; after editing global Planit, refresh copies here.
+NLC owns these reference files under `.agents/skills/planit/references/` and reads no outside Planit copy.
 
 | File | Role |
 |------|------|

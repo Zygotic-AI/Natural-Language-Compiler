@@ -4,7 +4,7 @@
 
 **Result:** PASS (analysis completeness — not “fix applied”)
 
-**Evidence:** `node /home/rpickett/workspace/Zygotic-AI/zyprompt/metaprompts/scripts/validate-rca-record.mjs docs/rca/2026-11-16-planit-identity-adopter-registry.md` → exit 0
+**Evidence:** RCA record structure complete (verdict, error condition, causation, fix list).
 
 **The one thing:** ./nlc planit-identity is the only run of this check; it hashes the loaded planit SKILL.md against the hub registry and exits non-zero on mismatch
 

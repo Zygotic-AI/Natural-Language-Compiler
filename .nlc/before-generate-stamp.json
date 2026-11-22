@@ -2,10 +2,8 @@
   "ok": true,
   "scopes": [
     "default",
-    "release",
-    "hub_release",
-    "sign_adrs"
+    "release"
   ],
-  "at": "2026-11-16T05:21:07Z",
-  "product_content_sha256": "2aec0dbbabe25648e8cd718172204e4e4e5e826a587f5440dcb97673c59cce5a"
+  "at": "2026-11-22T21:42:39Z",
+  "product_content_sha256": "317cd75e31f40a7f83cfb0351ed733ecd7898f6424937284885f46fd9e930ca7"
 }

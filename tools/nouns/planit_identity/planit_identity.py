@@ -39,8 +39,13 @@ _ROUTE_IGNORE_FILES = (
 _PLANIT_SKILL_REF = re.compile(r"(?<![\w-])([\w./$~-]+/[Pp]lanit/SKILL\.md)")
 _EXTERNAL_MARKER_RES = (
     re.compile(r"~/.agents/skills/planit", re.I),
-    re.compile(r"\$HOME/.agents/skills/planit", re.I),
+    re.compile(r"~[\w.-]+/\.agents/skills/planit", re.I),
+    re.compile(r"\$[\{]?HOME\}?/.agents/skills/planit", re.I),
+    re.compile(r"%USERPROFILE%[/\\]\.agents/skills/planit", re.I),
     re.compile(r"/home/[\w.-]+/\.agents/skills/planit", re.I),
+    re.compile(r"/Users/[\w.-]+/\.agents/skills/planit", re.I),
+    re.compile(r"(?i)c:[/\\]users[/\\][\w.-]+[/\\]\.agents[/\\]skills[/\\]planit"),
+    re.compile(r"file://[^\s]*/\.agents/skills/planit", re.I),
     re.compile(r"route\s+to\s+global\s+planit", re.I),
     re.compile(r"use\s+global\s+planit", re.I),
 )
@@ -178,51 +183,79 @@ def duplicate_planit_skill_errors(root: Path) -> list[str]:
     return [f"multiple planit SKILL.md files on disk ({detail})"]
 
 
-def _resolve_in_repo(root: Path, ref: str) -> Path | None:
-    """Resolve a skill reference; None when outside the repo root."""
+def _normalize_planit_skill_ref(ref: str) -> str:
+    """Normalize a Planit skill reference for resolve/deny checks."""
     norm = ref.strip().replace("\\", "/")
-    if norm.startswith("~/"):
+    if norm.lower().startswith("file://"):
+        norm = norm[7:]
+    return norm
+
+
+def _planit_skill_ref_excluded(norm: str) -> bool:
+    """Default-deny spelling classes that must never resolve to owned Planit."""
+    lower = norm.lower()
+    if lower.startswith("~/") or re.match(r"~[\w.-]+/", norm):
+        return True
+    if "$HOME" in norm or "%USERPROFILE%" in norm:
+        return True
+    if lower.startswith("/home/") or lower.startswith("/users/"):
+        return True
+    if re.match(r"(?i)[a-z]:/users/", norm):
+        return True
+    if "zyprompt" in lower:
+        return True
+    return False
+
+
+def _resolve_in_repo(root: Path, ref: str, *, source_rel: str | None = None) -> Path | None:
+    """Resolve a skill reference; None when outside the repo root."""
+    norm = _normalize_planit_skill_ref(ref)
+    if _planit_skill_ref_excluded(norm):
         return None
+    root_resolved = root.resolve()
     try:
-        if norm.startswith("/"):
-            resolved = Path(norm).resolve()
+        if norm.startswith("/") or re.match(r"(?i)[a-z]:/", norm):
+            candidate = Path(norm)
+        elif norm.startswith("../") or norm.startswith("./"):
+            if source_rel is not None:
+                base = (root / source_rel).resolve().parent
+                candidate = base / norm
+            else:
+                candidate = root / norm
         else:
-            resolved = (root / norm).resolve()
-        resolved.relative_to(root.resolve())
+            candidate = root / norm
+        resolved = candidate.resolve()
+        resolved.relative_to(root_resolved)
     except (OSError, ValueError):
         return None
     return resolved
 
 
-def _planit_skill_reference_ok(root: Path, ref: str) -> bool:
-    norm = ref.strip().replace("\\", "/")
-    if norm.startswith("~/") or "$HOME" in norm or norm.startswith("/home/"):
+def _planit_skill_reference_ok(root: Path, ref: str, *, source_rel: str | None = None) -> bool:
+    """Accept only refs that resolve inside the repo to canonical Planit or .cursor alias."""
+    norm = _normalize_planit_skill_ref(ref)
+    if _planit_skill_ref_excluded(norm):
         return False
-    if "zyprompt" in norm.lower():
+    if not norm.lower().endswith("planit/skill.md"):
         return False
-    if re.fullmatch(r"\.\./planit/SKILL\.md", norm, flags=re.I):
-        return True
-    allowed_tails = (CANONICAL_PATH, ".cursor/skills/planit/SKILL.md")
-    if not any(norm.lower().endswith(tail.lower()) for tail in allowed_tails):
+    if "staging/" in norm.lower():
         return False
-    if norm.lower().endswith(CANONICAL_PATH.lower()) and "staging/" in norm.lower():
+    resolved = _resolve_in_repo(root, norm, source_rel=source_rel)
+    if resolved is None:
         return False
-    if ".." not in norm and not norm.startswith("/"):
-        resolved = _resolve_in_repo(root, norm)
-        if resolved is not None:
-            canonical = (root / CANONICAL_PATH).resolve()
-            if resolved == canonical:
-                return True
-            cursor = root / ".cursor/skills/planit/SKILL.md"
-            if cursor.is_file():
-                try:
-                    if resolved == cursor.resolve():
-                        return True
-                except OSError:
-                    pass
     canonical = (root / CANONICAL_PATH).resolve()
-    if canonical.is_file():
-        return True
+    try:
+        if resolved == canonical:
+            return True
+    except OSError:
+        return False
+    cursor = root / ".cursor/skills/planit/SKILL.md"
+    if cursor.is_file():
+        try:
+            if resolved == cursor.resolve():
+                return True
+        except OSError:
+            pass
     return False
 
 
@@ -270,7 +303,7 @@ def external_planit_route_errors(root: Path) -> list[str]:
         for match in _PLANIT_SKILL_REF.findall(text):
             if rel.startswith("docs/rca/"):
                 continue
-            if not _planit_skill_reference_ok(root, match):
+            if not _planit_skill_reference_ok(root, match, source_rel=rel):
                 errors.append(f"{rel} references non-canonical Planit skill ({match})")
     return errors
 
@@ -434,6 +467,51 @@ def landmine_one_owned_probes_main() -> int:
             "README.md",
             "\n<!-- landmine: route to `~/.agents/skills/planit` -->\n",
             ("external Planit", "README.md"),
+        ),
+        (
+            ".agents/skills/_landmine_users_skill.md",
+            "load /Users/richard/.agents/skills/planit/SKILL.md on macOS\n",
+            ("non-canonical", "Users"),
+        ),
+        (
+            ".agents/skills/_landmine_home_env_dir.md",
+            "sync ${HOME}/.agents/skills/planit before compile\n",
+            ("external Planit", "$HOME"),
+        ),
+        (
+            ".agents/skills/_landmine_userprofile_skill.md",
+            "see %USERPROFILE%/.agents/skills/planit/SKILL.md on Windows\n",
+            ("external Planit", "USERPROFILE"),
+        ),
+        (
+            ".agents/skills/_landmine_file_url_skill.md",
+            "import file:///Users/x/.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "file"),
+        ),
+        (
+            "docs/_landmine_traversal_agents_skill.md",
+            "vendored ../../../.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "traversal"),
+        ),
+        (
+            ".agents/skills/_landmine_opt_outside_skill.md",
+            "/opt/planit/.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "opt"),
+        ),
+        (
+            ".agents/skills/_landmine_tmp_outside_skill.md",
+            "/tmp/outside/.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "outside"),
+        ),
+        (
+            ".agents/skills/_landmine_tilde_user_skill.md",
+            "~rpickett/.agents/skills/planit/SKILL.md\n",
+            ("external Planit", "rpickett"),
+        ),
+        (
+            ".agents/skills/_landmine_win_users_skill.md",
+            "use C:/Users/richard/.agents/skills/planit/SKILL.md\n",
+            ("non-canonical", "Users"),
         ),
     )
     exit_code = 0

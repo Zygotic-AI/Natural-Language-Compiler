@@ -9,3 +9,4 @@
 - ADR 0061 and the ADR records it supersedes or amends (C2a) (#137)
 - Release in seven commands; delete the checks they replace (C2b) (#138)
 - Docs say the seven commands (C2c) (#139)
+- Owner signs one printed block; sign takes the pasted signature (#140)

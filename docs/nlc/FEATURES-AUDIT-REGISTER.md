@@ -66,7 +66,7 @@ Working register for [`FEATURES-AUDIT-PLAN.md`](FEATURES-AUDIT-PLAN.md). Product
 | R37 | v0.2 | RCA packet | Correct | `docs/nlc/RCA-PACKET.md` exists | claim: Record the process miss, not a person |
 | R38 | v0.2 | TypeScript adapter specimen | Correct | `examples/non-python-with-adapter/`; `python3 tools/assert-non-python-adapter-fails.py` ASSERT:PASS; teaching/not convert-language | claim: Teaching example only |
 | R39 | v0.2 | Adopter CI template | Correct | `templates/adopter/github-workflows-nlc-verify.yml`; `nlc_init.py` copies to `.github/workflows/nlc-verify.yml` | claim: `nlc-init` writes a verify workflow |
-| R40 | v0.3-0.7 | Zero-parameter hub `./release` | Correct | `./release` → `scripts/nlc-release.sh`; usage is zero-arg (help only for overrides); `docs/adoption/RELEASE.md` + `RELEASE-v0.7.0.md` | claim: Hub maintainers cut a ship with no bump flags |
+| R40 | v0.3-0.7 | Hub release commands with no bump flags | Correct | `./release validate`, `sign`, `main`, `tag` → `scripts/nlc-release.sh` → `tools/nouns/nlc_release_tag_gate/`; the version comes from the branch name; `docs/adoption/RELEASE.md` | claim: Hub maintainers cut a ship with no bump flags |
 | R41 | v0.3-0.7 | No editor hooks | Correct | ADR 0058 Status: Accepted; `.cursor/hooks.json` / `.cursor/hooks` absent; FEATURES Released cites verify-on-files | claim: Same compile rules in every harness; `./nlc verify` notices |
 | R42 | v0.3-0.7 | Loadable published skills | Correct | `.agents/skills/{interview,planit,verify}/SKILL.md` present; install copies skills via hub_install | claim: `/interview`, `/planit`, `/verify` load after install |
 | R43 | v0.3-0.7 | Tag-time checker signature | Correct | ADR 0057; `integrity/checker-digest.sha256` + `.approval.asc` present | claim: Owner signs the checker digest at tag |
@@ -175,7 +175,7 @@ _Append dated notes when slices complete._
 ### 2026-11-14 — Stage B3 (v0.3.0–v0.7.0)
 
 - 7/7 current-ship rows dispositioned **Correct**.
-- Evidence: `./release` zero-arg; hooks absent + ADR 0058; skills present; checker-digest + approval; GitHub slug; Python-first honesty; local install ASSERT:PASS ×2 + RESULT:MET.
+- Evidence: `./release validate` takes the version from the branch name; hooks absent + ADR 0058; skills present; checker-digest + approval; GitHub slug; Python-first honesty; local install ASSERT:PASS ×2 + RESULT:MET.
 - **Released audit complete:** 46/46 Correct; zero Overclaim/Underclaim so far → Stage C may be a no-op FINDINGS rollup.
 
 ### 2026-11-14 — Stage C

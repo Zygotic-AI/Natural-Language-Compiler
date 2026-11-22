@@ -11,7 +11,7 @@
     {
       "id": "NLC-0025-02",
       "condition": "RCA is performed",
-      "obligation": "Climb to the process that produced the process; stop only at this repo",
+      "obligation": "Climb to the process that produced the process, to the top of the chain within our control; name the failed level; fix at or above it, judged against the area's written target, retiring at least what the fix adds unless the owner signs an exception",
       "gate": "tools/validate-rca-packet.py"
     },
     {

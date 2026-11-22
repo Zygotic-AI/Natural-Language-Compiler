@@ -1,7 +1,7 @@
 [
   {
     "name": "release-state-closure-member-tamper",
-    "document_rel": "tools/nouns/release_state/release_state.py",
+    "document_rel": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
     "tamper_suffix": "# tamper\n"
   },
   {

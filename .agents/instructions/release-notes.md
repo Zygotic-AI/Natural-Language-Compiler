@@ -21,4 +21,4 @@ Validate:
 python3 tools/nlc_release_notes.py --check --version "${VER}"
 ```
 
-`./release` runs this flow after release class is chosen and **before** `verify-deep` ([ADR 0022](../../adrs/0022-hub-release-fail-early.md)). Changelog baseline is the **last shipped git [tag](../../docs/TERMS.md#tag)**, not `integrity/nlc-version.json`.
+`./release validate` rewrites the notes file on every run from the titles of PRs merged with `gh pr merge --merge` since the previous tag ([ADR 0061](../../adrs/0061-release-in-seven-steps.md)). Changelog baseline is the **last shipped git [tag](../../docs/TERMS.md#tag)**, not `integrity/nlc-version.json`.

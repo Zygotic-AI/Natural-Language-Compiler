@@ -1,2 +1,0 @@
-# adjectives for release_main_purity
-emit-owned

@@ -1,5 +1,0 @@
-{
-  "schema": 1,
-  "description": "Negative fixture: commit id is not resolvable; gates must REFUSE, not NOT_MET for another reason.",
-  "dangling_commit_ref": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef"
-}

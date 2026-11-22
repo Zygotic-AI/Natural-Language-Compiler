@@ -30,7 +30,7 @@ def main() -> int:
         rels = [sys.argv[1].replace("\\", "/").lstrip("./")]
     elif len(sys.argv) == 1:
         rels = [
-            "tools/nouns/release_state/release_state.py",
+            "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
             "tools/nouns/nlc_requirements/__init__.py",
         ]
     else:

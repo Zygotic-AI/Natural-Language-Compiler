@@ -1,2 +1,0 @@
-# adjectives for release_state
-emit-owned

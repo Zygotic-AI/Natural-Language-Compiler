@@ -1,2 +1,0 @@
-# adjectives for assert_release_context_passes
-emit-owned

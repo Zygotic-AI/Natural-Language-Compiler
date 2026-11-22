@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 
-MEMBER_REL = "tools/nouns/release_state/release_state.py"
+MEMBER_REL = "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py"
 
 
 def _as_fail_closed(value: object, *, label: str) -> bool:

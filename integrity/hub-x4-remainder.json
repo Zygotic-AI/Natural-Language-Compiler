@@ -258,10 +258,6 @@
       "class": "noun-backed-assert"
     },
     {
-      "file": "assert-evidence-unresolved-ref-refuses.py",
-      "class": "noun-backed-assert"
-    },
-    {
       "file": "assert-executable-kernel-exempt-fails.py",
       "class": "noun-backed-assert"
     },
@@ -287,10 +283,6 @@
     },
     {
       "file": "assert-guide-orchestration-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-history-rewrite-invariant-passes.py",
       "class": "noun-backed-assert"
     },
     {
@@ -446,47 +438,11 @@
       "class": "noun-backed-assert"
     },
     {
-      "file": "assert-release-context-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-infer-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-main-purity-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-main-purity-remediation-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-planner-ownership-fails.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-preflight-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-resume-invariant-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
       "file": "assert-release-signed-passes.py",
       "class": "noun-backed-assert"
     },
     {
       "file": "assert-release-smoke-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-state-passes.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-release-tag-gate-fails.py",
       "class": "noun-backed-assert"
     },
     {
@@ -554,10 +510,6 @@
       "class": "noun-backed-assert"
     },
     {
-      "file": "assert-shipped-tag-audit-fails.py",
-      "class": "noun-backed-assert"
-    },
-    {
       "file": "assert-sql-escape-fails.py",
       "class": "noun-backed-assert"
     },
@@ -579,10 +531,6 @@
     },
     {
       "file": "assert-todo-use-cases-ssot-fails.py",
-      "class": "noun-backed-assert"
-    },
-    {
-      "file": "assert-unresolvable-refuses-passes.py",
       "class": "noun-backed-assert"
     },
     {
@@ -719,10 +667,6 @@
     },
     {
       "file": "fitness-adr-0038-no-memory.py",
-      "class": "noun-backed-fitness"
-    },
-    {
-      "file": "fitness-adr-0039-release-binder.py",
       "class": "noun-backed-fitness"
     },
     {
@@ -870,10 +814,6 @@
       "class": "noun-backed-fitness"
     },
     {
-      "file": "fitness-findings-shipped-tag-sync.py",
-      "class": "noun-backed-fitness"
-    },
-    {
       "file": "fitness-findings-ssot-sync.py",
       "class": "noun-backed-fitness"
     },
@@ -959,10 +899,6 @@
     },
     {
       "file": "fitness-jobs-todo-sync.py",
-      "class": "noun-backed-fitness"
-    },
-    {
-      "file": "fitness-landmine-self-contained.py",
       "class": "noun-backed-fitness"
     },
     {
@@ -1115,10 +1051,6 @@
     },
     {
       "file": "fitness-r4.py",
-      "class": "noun-backed-fitness"
-    },
-    {
-      "file": "fitness-release-planner-ownership.py",
       "class": "noun-backed-fitness"
     },
     {
@@ -1402,15 +1334,7 @@
       "class": "noun-backed-lib"
     },
     {
-      "file": "nlc_release_preflight.py",
-      "class": "noun-backed-lib"
-    },
-    {
       "file": "nlc_release_tags.py",
-      "class": "noun-backed-lib"
-    },
-    {
-      "file": "nlc_release_target_preflight.py",
       "class": "noun-backed-lib"
     },
     {
@@ -1929,14 +1853,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "assert_evidence_unresolved_ref_refuses",
-      "path": "tools/nouns/assert_evidence_unresolved_ref_refuses/",
-      "adapters": [
-        "assert-evidence-unresolved-ref-refuses.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "assert_full_nlc_audit_emit_checklist_passes",
       "path": "tools/nouns/assert_full_nlc_audit_emit_checklist_passes/",
       "adapters": [
@@ -1981,14 +1897,6 @@
       "path": "tools/nouns/assert_guide_orchestration_passes/",
       "adapters": [
         "assert-guide-orchestration-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_history_rewrite_invariant_passes",
-      "path": "tools/nouns/assert_history_rewrite_invariant_passes/",
-      "adapters": [
-        "assert-history-rewrite-invariant-passes.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
@@ -2289,62 +2197,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "assert_release_context_passes",
-      "path": "tools/nouns/assert_release_context_passes/",
-      "adapters": [
-        "assert-release-context-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_infer_passes",
-      "path": "tools/nouns/assert_release_infer_passes/",
-      "adapters": [
-        "assert-release-infer-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_main_purity_passes",
-      "path": "tools/nouns/assert_release_main_purity_passes/",
-      "adapters": [
-        "assert-release-main-purity-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_main_purity_remediation",
-      "path": "tools/nouns/assert_release_main_purity_remediation/",
-      "adapters": [
-        "assert-release-main-purity-remediation-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_planner_ownership_fails",
-      "path": "tools/nouns/assert_release_planner_ownership_fails/",
-      "adapters": [
-        "assert-release-planner-ownership-fails.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_preflight_passes",
-      "path": "tools/nouns/assert_release_preflight_passes/",
-      "adapters": [
-        "assert-release-preflight-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_resume_invariant_passes",
-      "path": "tools/nouns/assert_release_resume_invariant_passes/",
-      "adapters": [
-        "assert-release-resume-invariant-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "assert_release_signed_passes",
       "path": "tools/nouns/assert_release_signed_passes/",
       "adapters": [
@@ -2357,22 +2209,6 @@
       "path": "tools/nouns/assert_release_smoke_passes/",
       "adapters": [
         "assert-release-smoke-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_state_passes",
-      "path": "tools/nouns/assert_release_state_passes/",
-      "adapters": [
-        "assert-release-state-passes.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_release_tag_gate_fails",
-      "path": "tools/nouns/assert_release_tag_gate_fails/",
-      "adapters": [
-        "assert-release-tag-gate-fails.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
@@ -2505,14 +2341,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "assert_shipped_tag_audit_fails",
-      "path": "tools/nouns/assert_shipped_tag_audit_fails/",
-      "adapters": [
-        "assert-shipped-tag-audit-fails.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "assert_sql_escape_fails",
       "path": "tools/nouns/assert_sql_escape_fails/",
       "adapters": [
@@ -2557,14 +2385,6 @@
       "path": "tools/nouns/assert_todo_use_cases_ssot_fails/",
       "adapters": [
         "assert-todo-use-cases-ssot-fails.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "assert_unresolvable_refuses_passes",
-      "path": "tools/nouns/assert_unresolvable_refuses_passes/",
-      "adapters": [
-        "assert-unresolvable-refuses-passes.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
@@ -2939,14 +2759,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "fitness_adr_0039_release_binder",
-      "path": "tools/nouns/fitness_adr_0039_release_binder/",
-      "adapters": [
-        "fitness-adr-0039-release-binder.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "fitness_adr_enforcement_table_sync",
       "path": "tools/nouns/fitness_adr_enforcement_table_sync/",
       "adapters": [
@@ -3211,14 +3023,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "fitness_findings_shipped_tag_sync",
-      "path": "tools/nouns/fitness_findings_shipped_tag_sync/",
-      "adapters": [
-        "fitness-findings-shipped-tag-sync.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "fitness_findings_ssot_sync",
       "path": "tools/nouns/fitness_findings_ssot_sync/",
       "adapters": [
@@ -3399,14 +3203,6 @@
       "path": "tools/nouns/fitness_jobs_todo_sync/",
       "adapters": [
         "fitness-jobs-todo-sync.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "fitness_landmine_self_contained",
-      "path": "tools/nouns/fitness_landmine_self_contained/",
-      "adapters": [
-        "fitness-landmine-self-contained.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
@@ -3703,14 +3499,6 @@
       "path": "tools/nouns/fitness_r4/",
       "adapters": [
         "fitness-r4.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "fitness_release_planner_ownership",
-      "path": "tools/nouns/fitness_release_planner_ownership/",
-      "adapters": [
-        "fitness-release-planner-ownership.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
@@ -4139,46 +3927,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "nlc_release_context",
-      "path": "tools/nouns/nlc_release_context/",
-      "adapters": [
-        "nlc_release_context.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "nlc_release_record",
-      "path": "tools/nouns/nlc_release_record/",
-      "adapters": [
-        "nlc_release_record.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "nlc_release_resume",
-      "path": "tools/nouns/nlc_release_resume/",
-      "adapters": [
-        "nlc_release_resume.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "nlc_release_shipped_tag_audit",
-      "path": "tools/nouns/nlc_release_shipped_tag_audit/",
-      "adapters": [
-        "nlc_release_shipped_tag_audit.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "nlc_release_state",
-      "path": "tools/nouns/nlc_release_state/",
-      "adapters": [
-        "nlc_release_state.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "nlc_release_tag_gate",
       "path": "tools/nouns/nlc_release_tag_gate/",
       "adapters": [
@@ -4308,22 +4056,6 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "release_infer",
-      "path": "tools/nouns/release_infer/",
-      "adapters": [
-        "nlc_release_infer.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "release_main_purity",
-      "path": "tools/nouns/release_main_purity/",
-      "adapters": [
-        "nlc_release_main_purity.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "release_notes",
       "path": "tools/nouns/release_notes/",
       "adapters": [
@@ -4332,34 +4064,10 @@
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },
     {
-      "noun": "release_preflight",
-      "path": "tools/nouns/release_preflight/",
-      "adapters": [
-        "nlc_release_preflight.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "release_remediate",
-      "path": "tools/nouns/release_remediate/",
-      "adapters": [
-        "nlc_release_remediate.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
       "noun": "release_tags",
       "path": "tools/nouns/release_tags/",
       "adapters": [
         "nlc_release_tags.py"
-      ],
-      "fitness": "tools/fitness-hub-x4-noun-pilot.py"
-    },
-    {
-      "noun": "release_target_preflight",
-      "path": "tools/nouns/release_target_preflight/",
-      "adapters": [
-        "nlc_release_target_preflight.py"
       ],
       "fitness": "tools/fitness-hub-x4-noun-pilot.py"
     },

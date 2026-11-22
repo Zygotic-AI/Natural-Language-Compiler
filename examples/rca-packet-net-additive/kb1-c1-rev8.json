@@ -1,0 +1,18 @@
+{
+ "schema": 1,
+ "defect_summary": "Releases repeat validate many times: a file left unsigned, a file still naming the old version, a tag cut before a signature.",
+ "unsuitable_process": "Release state is spread over many rules (planner gates, per-branch CI, ruleset check, per-file ADR signatures, release record, ship sentences, drill, tag checks), each holding part of the state and failing at its own time; no single command owns the order.",
+ "climb_steps": [
+  "Issue #126: many turns in step 3 for unsigned files, stale version text and tags cut before signing.",
+  "Each past release defect added a rule with its own file and its own failure time.",
+  "No one command writes every derived file and runs every check before the one signature."
+ ],
+ "repo_touch": {
+  "belief": "ADR 0025: defects name unsuitable process, not agents",
+  "adr_ids": ["0025", "0061"],
+  "gate_ids": ["nlc_release_tag_gate"]
+ },
+ "certified_by": "role:producer-session",
+ "recorded_at": "2026-11-21",
+ "queue_id": "RCA-126-RELEASE-STATE-SPREAD"
+}

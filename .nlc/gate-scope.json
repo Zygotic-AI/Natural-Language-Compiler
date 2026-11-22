@@ -1,12 +1,8 @@
 {
   "schema": 1,
   "artifacts": [
-    "adrs/0049-release-planner-owns-stops.md",
+    "adrs/history/0049-release-planner-owns-stops-1.md",
     "goals/hub_install/execute.ps1",
-    "goals/hub_install/execute.sh",
-    "tools/assert-release-context-passes.py",
-    "tools/assert-release-planner-ownership-fails.py",
-    "tools/fitness-release-planner-ownership.py",
-    "tools/nouns/fitness_release_planner_ownership/fitness_release_planner_ownership.py"
+    "goals/hub_install/execute.sh"
   ]
 }

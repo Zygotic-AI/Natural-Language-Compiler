@@ -25,18 +25,14 @@
     "integration-leaves",
     "findings-ssot-sync",
     "findings-last-pass-fresh",
-    "release-preflight",
-    "skill-author-check",
-    "shipped-tag"
+    "skill-author-check"
   ],
   "hub_only_fitness": [
     "fitness-planit-identity.py",
     "fitness-no-history-ids-in-evidence.py",
-    "fitness-landmine-self-contained.py",
     "fitness-findings-last-pass-fresh.py",
     "fitness-product-completion-p8-inference.py",
     "fitness-product-completion-p8-closeout.py",
-    "fitness-adr-0039-release-binder.py",
     "fitness-full-nlc-audit-binder.py",
     "fitness-full-nlc-audit-manifest.py",
     "fitness-hub-no-product-requirements.py",
@@ -47,7 +43,6 @@
     "fitness-adr-approval.py",
     "fitness-verb-set-lineage.py",
     "fitness-executable-shape.py",
-    "fitness-release-planner-ownership.py",
     "fitness-adr-0029-tools.py",
     "fitness-hub-x4-tranche-t3.py",
     "fitness-hub-x4-tranche-t4.py",
@@ -76,7 +71,6 @@
     "fitness-derived-release-state.py",
     "fitness-control-lifecycle.py",
     "fitness-check-inputs-declaration.py",
-    "fitness-release-prep-script-match.py",
     "fitness-adr-history.py"
   ],
   "gates": {

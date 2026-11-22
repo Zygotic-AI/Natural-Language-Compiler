@@ -6,7 +6,10 @@
     "defect_summary",
     "unsuitable_process",
     "climb_steps",
-    "repo_touch"
+    "repo_touch",
+    "failed_level",
+    "domain_definition",
+    "fix"
   ],
   "properties": {
     "schema": { "const": 1 },
@@ -27,6 +30,25 @@
         "gate_ids": { "type": "array", "items": { "type": "string" } }
       },
       "additionalProperties": false
+    },
+    "failed_level": { "enum": ["Principle", "Policy", "Standard", "Rule", "Codified constraint"] },
+    "domain_definition": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "fix": {
+      "type": "object",
+      "required": ["level", "adds", "retires"],
+      "properties": {
+        "level": { "enum": ["Principle", "Policy", "Standard", "Rule", "Codified constraint"] },
+        "adds": { "type": "array", "items": { "type": "string" } },
+        "retires": { "type": "array", "items": { "type": "string" } },
+        "exception": { "type": "string", "minLength": 1 }
+      }
     },
     "certified_by": { "type": "string" },
     "recorded_at": { "type": "string" }

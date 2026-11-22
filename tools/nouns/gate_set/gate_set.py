@@ -340,13 +340,13 @@ def _store_run_cache(paths: list[str]) -> None:
 
 
 def _compute_gate_set_paths(root: Path) -> list[str]:
-    """Transitive load closure of CI workflow seeds (v2 rules, sorted repo-relative paths)."""
+    """Transitive load closure of CI workflow seeds and scripts/nlc-release.sh (ADR 0061; v2 rules, sorted repo-relative paths)."""
     global _COMPUTE_COUNT
     _COMPUTE_COUNT += 1
     tracked_list = _git_tracked_files(root)
     tracked = set(tracked_list)
     dirs = _closure_dirs(tracked_list)
-    seeds = {f for f in tracked if f.startswith(".github/workflows/")}
+    seeds = {f for f in tracked if f.startswith(".github/workflows/") or f == "scripts/nlc-release.sh"}
     todo, seen = list(seeds), set()
     while todo:
         f = todo.pop()

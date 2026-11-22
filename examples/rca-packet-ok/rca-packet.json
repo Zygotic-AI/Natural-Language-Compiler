@@ -9,10 +9,30 @@
   ],
   "repo_touch": {
     "belief": "ADR 0025 — defects name unsuitable process, not agents",
-    "adr_ids": ["0021"],
-    "rule_ids": ["NLC-0025-01"],
-    "gate_ids": ["assert-interview-packet-fails"]
+    "adr_ids": [
+      "0021"
+    ],
+    "rule_ids": [
+      "NLC-0025-01"
+    ],
+    "gate_ids": [
+      "assert-interview-packet-fails"
+    ]
   },
   "certified_by": "role:human-manager",
-  "recorded_at": "2026-09-23"
+  "recorded_at": "2026-09-23",
+  "failed_level": "Standard",
+  "domain_definition": {
+    "path": "adrs/0021-verify-fast-and-deep.md",
+    "sha256": "438045253198bc22abb53d31f38d5876ab4bc8861aaa16f9ed64343edda93c91"
+  },
+  "fix": {
+    "level": "Standard",
+    "adds": [
+      "assert-interview-packet-fails in the adopter verify-fast path"
+    ],
+    "retires": [
+      "hand-run UC1 interview-packet export step"
+    ]
+  }
 }

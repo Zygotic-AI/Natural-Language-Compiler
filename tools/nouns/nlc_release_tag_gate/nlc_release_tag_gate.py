@@ -33,10 +33,17 @@ VERIFIER_REL = "tools/check-checker-digest-signature.py"
 ANCHOR = "4c201315267781c179d99da8e56afa638b53ee6b"  # v0.8.0, the last release before ADR 0061
 BEGIN = "-----BEGIN PGP SIGNED MESSAGE-----"
 END = "-----END PGP SIGNATURE-----"
+USAGE = "usage: ./release validate|sign [--armor FILE]|main|tag"
+SIGN_BEGIN = (
+    "RELEASE_SIGN_BLOCK:BEGIN owner: sign exactly the lines between these markers "
+    "as a clearsigned message and paste the result back"
+)
+SIGN_END = "RELEASE_SIGN_BLOCK:END"
+MEMBERS_HEAD = "Members (not signed; the Tree line fixes them):"
 
 
-def git(*args: str, cwd: Path = ROOT, env: dict[str, str] | None = None) -> str:
-    out = subprocess.run(["git", *args], cwd=cwd, env=env, check=True, capture_output=True, text=True)
+def git(*args: str, cwd: Path | None = None, env: dict[str, str] | None = None) -> str:
+    out = subprocess.run(["git", *args], cwd=cwd or ROOT, env=env, check=True, capture_output=True, text=True)
     return out.stdout.strip()
 
 
@@ -188,6 +195,26 @@ def previous_tag(rev: str, ver: str | None = None) -> tuple[str | None, str]:
     return None, "no release tag on the first-parent line"
 
 
+def verify_clearsigned_with_previous_tag(armor: str, prev: str) -> tuple[str | None, str]:
+    """Plaintext of armor, verified with prev's trusted fingerprints and owner key.
+
+    Same path signed_tree uses. Returns (plaintext, "") or (None, one-line reason).
+    """
+    trusted, terr = load_trusted_fingerprints_from_text(git("show", f"{prev}:{TRUSTED_REL}"))
+    if terr:
+        return None, f"{prev} keys: {terr}"
+    with tempfile.TemporaryDirectory() as tmp:
+        asc, key = Path(tmp) / "armor.asc", Path(tmp) / "owner.asc"
+        asc.write_text(armor if armor.endswith("\n") else armor + "\n", encoding="utf-8")
+        key.write_text(git("show", f"{prev}:{OWNER_KEY_REL}") + "\n", encoding="utf-8")
+        _, plaintext, errors = gpg_verify_clearsigned_plaintext(
+            asc, trusted_fingerprints=trusted, key_import_paths=[key]
+        )
+    if errors:
+        return None, f"armor does not verify with {prev} keys"
+    return plaintext, ""
+
+
 def signed_tree(rev: str) -> tuple[str | None, str]:
     """Tree field from the armor at rev, read only from plaintext gpg verified with the previous tag's keys."""
     prev, why = previous_tag(rev)
@@ -199,16 +226,9 @@ def signed_tree(rev: str) -> tuple[str | None, str]:
         return None, f"no {ARMOR_REL} at {rev}"
     if not armor.startswith(BEGIN + "\n") or not armor.rstrip().endswith(END):
         return None, "armor has bytes outside the clearsigned block"
-    trusted, terr = load_trusted_fingerprints_from_text(git("show", f"{prev}:{TRUSTED_REL}"))
-    if terr:
-        return None, f"{prev} keys: {terr}"
-    with tempfile.TemporaryDirectory() as tmp:
-        asc, key = Path(tmp) / "armor.asc", Path(tmp) / "owner.asc"
-        asc.write_text(armor, encoding="utf-8")
-        key.write_text(git("show", f"{prev}:{OWNER_KEY_REL}") + "\n", encoding="utf-8")
-        _, plaintext, errors = gpg_verify_clearsigned_plaintext(asc, trusted_fingerprints=trusted, key_import_paths=[key])
-    if errors:
-        return None, f"armor does not verify with {prev} keys"
+    plaintext, why = verify_clearsigned_with_previous_tag(armor, prev)
+    if plaintext is None:
+        return None, why
     trees = re.findall(r"^Tree: ([0-9a-f]{40})$", plaintext, re.M)
     if len(trees) != 1:
         return None, "verified statement has no single Tree line"
@@ -243,24 +263,81 @@ def notes() -> int:
     return 0
 
 
-def statement() -> int:
-    """Print the statement validate leaves for the owner: six fields, Tree, members."""
+def sign_block() -> str:
+    """The seven lines sign() signs: six fields and Tree, each ending in a newline."""
     digest = (ROOT / DIGEST_REL).read_bytes()
-    print(f"Repo: {REPO}")
-    print(f"Document: {DIGEST_REL}")
-    print(f"Content-SHA256: {hashlib.sha256(digest).hexdigest()}")
-    print("Decision: Accepted")
-    print(f"Date: {datetime.date.today().isoformat()}")
-    print(f"Summary: Ratify release v{version('HEAD')}. This signature covers only these exact bytes.")
-    print(f"Tree: {tree_without_armor('HEAD')}")
+    lines = (
+        f"Repo: {REPO}",
+        f"Document: {DIGEST_REL}",
+        f"Content-SHA256: {hashlib.sha256(digest).hexdigest()}",
+        "Decision: Accepted",
+        f"Date: {datetime.date.today().isoformat()}",
+        f"Summary: Ratify release v{version('HEAD')}. This signature covers only these exact bytes.",
+        f"Tree: {tree_without_armor('HEAD')}",
+    )
+    return "".join(f"{line}\n" for line in lines)
+
+
+def _signed_lines(text: str) -> list[str]:
+    """Line text after stripping trailing whitespace, which gpg clearsign does."""
+    return [line.rstrip() for line in text.splitlines()]
+
+
+def _armor_has_outside_bytes(raw: bytes) -> bool:
+    """True when any byte sits before BEGIN or after END (a single line ending after END is the line itself)."""
+    begin, end = BEGIN.encode("ascii"), END.encode("ascii")
+    if not raw.startswith(begin):
+        return True
+    end_at = raw.rfind(end)
+    if end_at < 0:
+        return True
+    return raw[end_at + len(end):] not in (b"", b"\n", b"\r\n")
+
+
+def pasted_armor(path: Path) -> bytes:
+    """Read a pasted clearsigned message. Raises Refused and writes nothing."""
+    try:
+        raw = path.read_bytes()
+    except OSError:
+        raise Refused(f"cannot read armor file {path}") from None
+    if _armor_has_outside_bytes(raw):
+        raise Refused("armor has bytes outside the clearsigned block")
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        raise Refused("armor is not utf-8") from None
+    prev, why = previous_tag("HEAD")
+    if prev is None:
+        raise Refused(why)
+    plaintext, why = verify_clearsigned_with_previous_tag(text, prev)
+    if plaintext is None:
+        raise Refused(why)
+    if _signed_lines(plaintext) != _signed_lines(sign_block()):
+        raise Refused("verified plaintext is not the sign block")
+    return raw
+
+
+def statement() -> int:
+    """Print the sign block between markers, then the member list, which is not signed."""
+    sys.stdout.write(SIGN_BEGIN + "\n")
+    sys.stdout.write(sign_block())
+    sys.stdout.write(SIGN_END + "\n")
     print("")
+    print(MEMBERS_HEAD)
     for rel in digest_paths(ROOT):
         print(f"Member: {rel}")
     return 0
 
 
-def sign() -> int:
-    """Step 4, owner only: re-prove validate on the pushed HEAD, then clearsign the statement, commit, push."""
+def sign(argv: list[str] | None = None) -> int:
+    """Step 4: re-prove validate on the pushed HEAD, then clearsign or take pasted armor, commit, push."""
+    args = [] if argv is None else list(argv)
+    armor_path: Path | None = None
+    if args:
+        if len(args) != 2 or args[0] != "--armor":
+            print(USAGE)
+            return 1
+        armor_path = Path(args[1])
     try:
         branch, ver = release_branch()
         head = git("rev-parse", "HEAD")
@@ -269,12 +346,15 @@ def sign() -> int:
         if version("HEAD") != ver:
             raise Refused(f"HEAD version is {version('HEAD')}, not {ver}; run ./release validate")
         prove(head, ver)
+        if armor_path is None:
+            armor = subprocess.run(
+                ["gpg", "--clearsign"], input=sign_block(), check=True, capture_output=True, text=True
+            ).stdout
+            (ROOT / ARMOR_REL).write_text(armor, encoding="utf-8")
+        else:
+            (ROOT / ARMOR_REL).write_bytes(pasted_armor(armor_path))
     except Refused as why:
         return refuse(str(why))
-    text = subprocess.run([sys.executable, __file__, "statement"], check=True, capture_output=True, text=True).stdout
-    head_text = text.split("\n\n", 1)[0] + "\n"
-    armor = subprocess.run(["gpg", "--clearsign"], input=head_text, check=True, capture_output=True, text=True).stdout
-    (ROOT / ARMOR_REL).write_text(armor, encoding="utf-8")
     git("add", ARMOR_REL)
     git("commit", "-q", "-m", f"release: sign v{ver}")
     git("push", "-q", "origin", f"HEAD:{branch}")
@@ -324,11 +404,17 @@ def tag() -> int:
 def main(argv: list[str] | None = None) -> int:
     hub_tool()
     args = sys.argv[1:] if argv is None else argv
-    commands = {"validate": validate, "sign": sign, "main": main_push, "tag": tag, "notes": notes, "statement": statement}
-    if len(args) != 1 or args[0] not in commands:
-        print("usage: ./release validate|sign|main|tag")
+    if not args:
+        print(USAGE)
         return 1
-    return commands[args[0]]()
+    cmd, rest = args[0], args[1:]
+    if cmd == "sign":
+        return sign(rest)
+    commands = {"validate": validate, "main": main_push, "tag": tag, "notes": notes, "statement": statement}
+    if rest or cmd not in commands:
+        print(USAGE)
+        return 1
+    return commands[cmd]()
 
 
 if __name__ == "__main__":

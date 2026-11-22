@@ -25,6 +25,6 @@ python3 tools/ci_fitness.py
 
 Windows: `powershell -File tools/ci-fitness.ps1`.
 
-Hub versions ship with **`./release`** ([release guide](docs/adoption/RELEASE.md)), not ad-hoc tags.
+Hub versions ship with the seven commands of the [release guide](docs/adoption/RELEASE.md) (`./release validate`, `sign`, `main`, `tag`), not ad-hoc tags.
 
 Install layout and checksums: [`docs/nlc/README.md`](docs/nlc/README.md) (distribution section).

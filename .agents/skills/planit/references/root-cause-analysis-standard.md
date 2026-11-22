@@ -35,7 +35,7 @@ Run RCA **before** declaring a failure handled, **before** passing work downstre
 | **Error condition** | A **bounded**, **reproducible** description of what went wrong: observable signal, failing command, exit code, log excerpt, or incident symptom. Not a judgment ("bad code"). |
 | **Symptom** | What you noticed first (red CI, exception, user report). May differ from the earliest preventable point. |
 | **Contributing factor** | Something that made the failure more likely or worse; **not** sufficient alone to answer the core question. |
-| **Root (the one thing)** | The **single** change that would have made this **exact error condition** impossible under the same inputs and environment, per §3. |
+| **Root (the one thing)** | The **single** change, at the level that failed (principle, policy, standard, rule or codified constraint), that would have made this error condition impossible under the same inputs and environment, judged against the area's written target and retiring what it replaces, per §3 (ADR 0025). |
 | **Output defect** | The failing artifact you see first: code, YAML, config, test result, deployed state. A **symptom** until upstream process is ruled out. |
 | **Process defect** | A flaw in **how** work is produced: standard, prompt, skill, validator, playbook, template, gate, or handoff. Often the true root when agents or pipelines generated the output. |
 | **Upstream chain** | Ordered producers from symptom to origin — e.g. defective code ← skill B ← skill A ← prompt. RCA walks this chain **away from the symptom**. |
@@ -78,7 +78,7 @@ A valid answer must satisfy **all** of:
 | --------- | ---- |
 | **One** | Exactly one change — not a list, not "and also." If several changes seem necessary, pick the **earliest controllable** point in the causal chain (§5). |
 | **Deterministic** | Under the same preconditions, this change makes the error condition **impossible**, not merely less likely. |
-| **Actionable** | A specific artifact or behavior someone can implement: add a check, fix a script, change a standard, add a test, correct a config key, update a validator. |
+| **Actionable** | A specific artifact or behavior someone can implement: remove or replace a check, fix a script, change a policy or standard, correct a config key, update a validator. A new check or rule counts only if the fix retires at least what it adds, or the owner signs an exception (ADR 0025). |
 | **Preventive** | Stops the condition **before** it arises — not only faster detection, logging, or cleanup after the fact. |
 | **In scope** | Within team control — not "if the user had not asked for X" or "if the vendor had not shipped a bug" unless the preventive action is a **documented guard** (pin, contract test, feature flag). |
 
@@ -128,9 +128,9 @@ Execute in order. Do not skip to fixes before step 6 (the one thing).
 
 When several changes seem required:
 
-1. Prefer the **earliest** point where a **single gate** would have blocked the chain.
+1. Prefer the **earliest** point, at the level that failed, where a **single** change would have blocked the chain; of those, prefer the one that leaves the fewest rules, checks and state holders.
 2. If failures are **independent** (two unrelated defects surfaced at once), run **two RCAs** — do not blend into one vague root.
-3. If prevention truly requires a **compound** change (e.g. code + CI), the "one thing" is the **highest-leverage gate** that would have caught it before impact — usually an automated check over manual process.
+3. If prevention truly requires a **compound** change (e.g. code + CI), the "one thing" is the **highest-leverage** change at the failed level that would have prevented it before impact, and it retires what it replaces.
 
 ---
 

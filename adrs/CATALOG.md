@@ -27,7 +27,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0019 | Guided flow: queue, resume unfinished work | active | L-0019 |
 | 0020 | Human shell vs agent-invoked tools | active | L-0020 |
 | 0021 | verify fingerprints; verify-deep; /verify skill | active | L-0021 |
-| 0022 | release preflight, notes gate before verify | active | L-0022 |
+| 0022 | release preflight, notes gate before verify | superseded by 0061 | L-0022 |
 | 0023 | Compiler rule receipts, instant audit scope | active | L-0023 |
 | 0024 | NLC factory spine: bind-or-remove, two corpora, fractal emit | active | L-0024 |
 | 0025 | Belief layer: perfect code via process, no blame, factory | active | L-0025 |
@@ -44,7 +44,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0036 | Inference-only human surface: goal + policy only | active | L-0036 |
 | 0037 | Charter non-R surfaces §6 / §16 ratification pointers | active | L-0037 |
 | 0038 | No memory in process — gates or TODO, never “remember” | active | L-0038 |
-| 0039 | Single-command human surfaces (resumable `./release`) | active | L-0039 |
+| 0039 | Single-command human surfaces (one command per step, e.g. `./release validate`) | active | L-0039 |
 | 0040 | Process preflight + remediation on NOT_MET | active | L-0040 |
 | 0041 | Product completion scope SSOT + hub pack registry v1 | active | L-0041 |
 | 0042 | Rule IR hub product boundary (ADR 0007 v1 vs semantic expansion) | active | L-0042 |
@@ -52,15 +52,16 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0046 | This repository's Planit skill is the one that plans | rejected | L-0046 |
 | 0047 | Active ADR approval is a hash receipt | superseded | L-0047 |
 | 0048 | Every executable file has one Boundary-Based shape | active | L-0048 |
-| 0049 | Release planner owns every intentional stop | active | L-0049 |
+| 0049 | Release planner owns every intentional stop | superseded by 0061 | L-0049 |
 | 0050 | Evidence binds to content fingerprints, not git commit ids | active | L-0050 |
 | 0051 | Hub-own produce principles SG1–SG3 | accepted | L-0051 |
 | 0052 | Owner OpenPGP ratification amends 0051 | accepted | L-0052 |
 | 0053 | Text retrofit for stale 0051/0052 sentences | rejected | L-0053 |
 | 0054 | Published-skill author contract (one checklist, pre-release and post-install) | accepted | L-0054 |
 | 0055 | Staged activation of gate machinery | accepted | L-0055 |
-| 0056 | Per-file detached owner signatures for ADRs; manifest stays single-signed | active | L-0056 |
+| 0056 | Per-file detached owner signatures for ADRs; manifest stays single-signed | superseded by 0061 | L-0056 |
 | 0057 | One tag-time signature over the checker digest | active | L-0057 |
 | 0058 | Harness- and model-agnostic | active | L-0058 |
 | 0059 | ADR revision and history | active | L-0059 |
 | 0060 | Install scope (global or local) and PATH dispatch | active | L-0060 |
+| 0061 | Release in seven steps | active | L-0061 |

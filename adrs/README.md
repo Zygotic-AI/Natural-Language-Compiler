@@ -29,7 +29,7 @@ Deciders are role names (CG-R4). Who holds a role is attribution (`CONTRIBUTORS.
 | [`0019-guided-orchestration.md`](0019-guided-orchestration.md) | Guided flow: queue, resume unfinished work | Accepted |
 | [`0020-human-vs-agent-commands.md`](0020-human-vs-agent-commands.md) | Human shell vs agent-invoked tools (requirements/build) | Accepted |
 | [`0021-verify-fast-and-deep.md`](0021-verify-fast-and-deep.md) | `./nlc verify` packet then fingerprints; `verify-deep`; `/verify` skill | Accepted |
-| [`0022-hub-release-fail-early.md`](0022-hub-release-fail-early.md) | `./release` preflight, notes [gate](../docs/TERMS.md#gate) before [verify](../docs/TERMS.md#verify), [tag](../docs/TERMS.md#tag) baseline | Accepted |
+| [`0022-hub-release-fail-early.md`](history/0022-hub-release-fail-early-1.md) | `./release` preflight, notes [gate](../docs/TERMS.md#gate) before [verify](../docs/TERMS.md#verify), [tag](../docs/TERMS.md#tag) baseline | Superseded by 0061 |
 | [`0023-rule-instance-trace-and-instant-audit-scope.md`](0023-rule-instance-trace-and-instant-audit-scope.md) | [Compiler](../docs/TERMS.md#compiler) [rule](../docs/TERMS.md#rule) receipts, instant [audit](../docs/TERMS.md#audit) scope (prescribed path only) | Accepted |
 | [`0024-nlc-factory-spine.md`](0024-nlc-factory-spine.md) | [NLC](../docs/TERMS.md#nlc) factory spine: corpora, bind-or-remove, action bind, emit audit | Accepted |
 | [`0025-belief-no-blame-climb.md`](0025-belief-no-blame-climb.md) | Belief: no blame, climb upstream, buck stops here | Accepted |
@@ -46,27 +46,27 @@ Deciders are role names (CG-R4). Who holds a role is attribution (`CONTRIBUTORS.
 | [`0036-inference-only-human-surface.md`](0036-inference-only-human-surface.md) | Human surface: goal + policy only; derived artifacts are inference | Accepted |
 | [`0037-charter-non-r-surfaces.md`](0037-charter-non-r-surfaces.md) | Ratify charter §6 / §16 via existing ADR cluster (A1 non-R close) | Accepted |
 | [`0038-no-memory-in-process.md`](0038-no-memory-in-process.md) | Memory is not a process step; encode gates or TODO | Accepted |
-| [`0039-single-command-human-surfaces.md`](0039-single-command-human-surfaces.md) | One resumable human command per process (e.g. `./release`) | Accepted |
+| [`0039-single-command-human-surfaces.md`](0039-single-command-human-surfaces.md) | One command per step (e.g. `./release validate`) | Accepted |
 | [`0040-process-preflight-remediation.md`](0040-process-preflight-remediation.md) | Preflight all known errors; exit early with remediation | Accepted |
 | [`0041-product-completion-scope.md`](0041-product-completion-scope.md) | Product completion scope SSOT; hub pack registry v1 | Accepted |
 | [`0042-rule-ir-hub-product-boundary.md`](0042-rule-ir-hub-product-boundary.md) | Rule IR v1 product vs semantic expansion | Accepted |
 | [`0043-uc14-composable-adopt-boundary.md`](0043-uc14-composable-adopt-boundary.md) | UC14 adopt-time composable v1 | Accepted |
 | [`0044-hub-release-production-trunk.md`](0044-hub-release-production-trunk.md) | Production trunk: unreleased work stays off `main` | Accepted |
-| [`0045-hub-release-identity.md`](0045-hub-release-identity.md) | One release identity, one planner action | Accepted |
+| [`0045-hub-release-identity.md`](history/0045-hub-release-identity-1.md) | One release identity, one planner action | Superseded by 0061 |
 | [`history/0046-repository-planit-identity-1.md`](history/0046-repository-planit-identity-1.md) | This repository's Planit skill is the one that plans | Rejected |
 | [`history/0047-adr-approval-receipts-1.md`](history/0047-adr-approval-receipts-1.md) | Active ADR approval is a hash receipt | Superseded |
 | [`0048-executable-shape.md`](0048-executable-shape.md) | Every executable file has one Boundary-Based shape | Accepted |
-| [`0049-release-planner-owns-stops.md`](0049-release-planner-owns-stops.md) | Release planner owns every intentional stop | Accepted |
+| [`0049-release-planner-owns-stops.md`](history/0049-release-planner-owns-stops-1.md) | Release planner owns every intentional stop | Superseded by 0061 |
 | [`0050-evidence-identity-content-not-history.md`](0050-evidence-identity-content-not-history.md) | Evidence binds to content fingerprints, not commit ids | Accepted |
 | [`0051-hub-own-produce-principles.md`](0051-hub-own-produce-principles.md) | Hub-own produce principles (SG1–SG3) | Accepted |
 | [`0052-owner-openpgp-ratification-amends-0051.md`](0052-owner-openpgp-ratification-amends-0051.md) | Owner OpenPGP ratification (amends 0051) | Accepted |
 | [`history/0053-0051-0052-text-retrofit-1.md`](history/0053-0051-0052-text-retrofit-1.md) | Text retrofit for stale 0051/0052 sentences | Rejected |
 | [`0054-published-skill-author-contract.md`](0054-published-skill-author-contract.md) | Published-skill author contract (one checklist, pre-release and post-install) | Accepted |
 | [`0055-staged-activation-of-gate-machinery.md`](0055-staged-activation-of-gate-machinery.md) | Staged activation of gate machinery | Accepted |
-| [`0056-per-file-adr-detached-signatures.md`](0056-per-file-adr-detached-signatures.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Accepted |
+| [`0056-per-file-adr-detached-signatures.md`](history/0056-per-file-adr-detached-signatures-1.md) | Per-file detached owner signatures for ADRs; manifest stays single-signed | Superseded by 0061 |
 | [`0057-tag-time-checker-digest.md`](0057-tag-time-checker-digest.md) | One tag-time signature over the checker digest; branch suite does not require armor | Accepted |
 | [`0058-harness-and-model-agnostic.md`](0058-harness-and-model-agnostic.md) | Harness- and model-agnostic | Accepted |
 | [`0059-adr-revision-and-history.md`](0059-adr-revision-and-history.md) | ADR revision and history | Accepted |
 | [`0060-install-scope-and-path-dispatch.md`](0060-install-scope-and-path-dispatch.md) | Install scope (global or local) and PATH dispatch | Accepted |
+| [`0061-release-in-seven-steps.md`](0061-release-in-seven-steps.md) | Release in seven steps | Accepted |
 
-Record 0045 is not edited when a later record amends it. The readable result of decision 2 after record 0048 is [`docs/nlc/effective-decisions.md`](../docs/nlc/effective-decisions.md). Record 0049 does not fold into record 0048.

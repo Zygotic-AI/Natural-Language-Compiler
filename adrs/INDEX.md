@@ -33,7 +33,7 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](
 | 0019 | 2026-01-01 | charter | active | — | L-0019 |
 | 0020 | 2026-01-01 | charter | active | — | L-0020 |
 | 0021 | 2026-01-01 | charter | active | — | L-0021 |
-| 0022 | 2026-01-01 | charter | active | — | L-0022 |
+| 0022 | 2026-01-01 | charter | superseded | 0061 | L-0022 |
 | 0023 | 2026-01-01 | charter | active | — | L-0023 |
 | 0024 | 2026-09-22 | session | active | — | L-0024 |
 | 0025 | 2026-09-22 | session | active | — | L-0025 |
@@ -56,22 +56,23 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](
 | 0042 | 2026-09-23 | session | active | — | L-0042 |
 | 0043 | 2026-09-23 | session | active | — | L-0043 |
 | 0044 | 2026-09-25 | session | active | — | L-0044 |
-| 0045 | 2026-09-26 | session | active | — | L-0045 |
+| 0045 | 2026-09-26 | session | superseded | 0061 | L-0045 |
 | 0046 | 2026-10-08 | session | rejected | — | L-0046 |
 | 0047 | 2026-10-08 | session | superseded | 0052 | L-0047 |
 | 0048 | 2026-10-08 | session | active | — | L-0048 |
-| 0049 | 2026-10-09 | RCA 2026-10-09 release stops outside planner | active | — | L-0049 |
+| 0049 | 2026-10-09 | RCA 2026-10-09 release stops outside planner | superseded | 0061 | L-0049 |
 | 0050 | 2026-10-10 | RCA 2026-10-10 SHA-pinned evidence / content identity | active | — | L-0050 |
 | 0051 | 2026-10-11 | hub-own produce principles | accepted | — | L-0051 |
 | 0052 | 2026-10-11 | owner OpenPGP ratification amends 0051 | accepted | — | L-0052 |
 | 0053 | 2026-10-13 | text retrofit for stale 0051/0052 sentences | rejected | — | L-0053 |
 | 0054 | 2026-10-24 | RCA 2026-10-20 published-skill author contract | active | — | L-0054 |
 | 0055 | 2026-10-25 | staged activation of gate machinery | active | — | L-0055 |
-| 0056 | 2026-10-25 | per-file detached owner signatures for ADRs | active | — | L-0056 |
+| 0056 | 2026-10-25 | per-file detached owner signatures for ADRs | superseded | 0061 | L-0056 |
 | 0057 | 2026-10-31 | one tag-time signature over the checker digest | active | — | L-0057 |
 | 0058 | 2026-11-07 | harness- and model-agnostic | active | — | L-0058 |
 | 0059 | 2026-11-07 | ADR revision and history | active | — | L-0059 |
 | 0060 | 2026-11-10 | install scope global or local; PATH nlc execs the repo copy | active | — | L-0060 |
+| 0061 | 2026-11-21 | issue #126 release in seven steps | active | — | L-0061 |
 
 ## Lineage format
 

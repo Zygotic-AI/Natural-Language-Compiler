@@ -2,7 +2,7 @@
 
 - Status: Accepted
 - Date: 2026-10-11
-- Revision: 2
+- Revision: 3
 - Deciders: Human manager
 - Class: F (integrity / hub produce)
 - Corpus: nlc
@@ -38,7 +38,7 @@ The signed artifact is committed **unchanged** beside the document:
 
 Example: `adrs/0052-owner-openpgp-ratification-amends-0051.approval.asc` next to this file.
 
-**Zyprompt consistency:** The document **Status** line is **Accepted** before merge. Non-ADR Accepted documents need a sidecar `<document-path>.approval.asc` that is a valid clearsignature from a pinned fingerprint, whose Content-SHA256 equals the document bytes, and whose Decision equals Status (C6). Numbered ADRs are signed per revision under [ADR 0059](0059-adr-revision-and-history.md). Whether the branch suite verifies those ADR signatures is [ADR 0056](0056-per-file-adr-detached-signatures.md) / [ADR 0057](0057-tag-time-checker-digest.md).
+**Zyprompt consistency:** The document **Status** line is **Accepted** before merge. Non-ADR Accepted documents need a sidecar `<document-path>.approval.asc` that is a valid clearsignature from a pinned fingerprint, whose Content-SHA256 equals the document bytes, and whose Decision equals Status (C6). Numbered ADRs are ratified by the one release signature of [ADR 0061](0061-release-in-seven-steps.md); per-revision signatures under [ADR 0059](0059-adr-revision-and-history.md) are not asked.
 
 ## Decision
 
@@ -50,7 +50,7 @@ Example: `adrs/0052-owner-openpgp-ratification-amends-0051.approval.asc` next to
 
 4. **Stamp / fitness (completion confirmation only):** Checks verify: (a) valid clearsignature from a pinned fingerprint; (b) **Content-SHA256** in the statement matches the document (or manifest) bytes in the tree; (c) **Decision** matches the document **Status**. Unsigned, wrong key, hash mismatch, tampered manifest, or **pending** → **NOT_MET**. **No tool may write a ratified entry.** Enforced for non-ADR Accepted documents by C6 (`fitness-adr-owner-sidecar`), C7 (`fitness-pending-ratification`), C8 (`fitness-no-tool-writes-ratification`), and for the gate-set batch by `fitness-gate-set-manifest`.
 
-5. **Replace hash-only receipts:** The OpenPGP sidecar model replaces hash-only ADR 0047 JSON and ADR 0051 SG2 hash-only gate-set receipts. Gate-set batches use the signed manifest. Numbered ADR signatures follow ADR 0059 (each revision independently).
+5. **Replace hash-only receipts:** The OpenPGP sidecar model replaces hash-only ADR 0047 JSON and ADR 0051 SG2 hash-only gate-set receipts. Gate-set batches use the signed manifest. Numbered ADRs are ratified by the one release signature of ADR 0061, not per revision.
 
 6. **PM independent verify:** At each review and release, the PM re-verifies signatures with an **out-of-repo copy** of the owner public key (not only CI), before treating ratification as real.
 

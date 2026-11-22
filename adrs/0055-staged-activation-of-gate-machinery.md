@@ -2,7 +2,8 @@
 
 - Status: Accepted
 - Date: 2026-10-25
-- Revision: 2
+- Revision: 3
+- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 3)
 - Deciders: Human manager
 - Class: F (integrity / hub produce)
 - Corpus: nlc
@@ -15,6 +16,8 @@ The 2026-10-25 unregistered Planit skill land showed four stacked failures: Skil
 Owner-approved remediation (2026-10-24 / 2026-10-25): members of the self-referential set change only through a staging area. The live signed machinery verifies the staged candidate and the owner's signature. One activation commit moves staged bytes into live paths together with the regenerated registry, install hashes, manifest, and the owner's sidecar — or nothing lands.
 
 ## Decision
+
+Amended by [ADR 0061](0061-release-in-seven-steps.md): the owner signature in decisions 3 to 5 is the one release signature; no separate activation armor is asked.
 
 1. **Derived self-referential set.** Membership is computed by `python3 tools/derive-self-ref-set.py` from role detectors (gating skills, owner hook, identity tool and registry, gate-set membership derivation, manifest generator, sidecar verifier, C8, owner keys, install hashes, and the staging/activation tools themselves). The list is not hand-kept. Snapshot: `integrity/self-ref-set.json`.
 

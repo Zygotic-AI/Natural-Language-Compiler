@@ -2,6 +2,8 @@
 
 - Status: Accepted
 - Date: 2026-09-20
+- Revision: 2
+- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
 - Deciders: Human manager
 - Class: F (process / distribution)
 
@@ -29,7 +31,7 @@ Two supported layouts:
 
 5. **Upgrade:** [`tools/nlc-update.py`](../tools/nlc-update.py) advances the lock along the published semver catalog, one hop at a time, per [ADR 0014](0014-semver-upgrade-steps-and-noop-migrations.md). Migration units [ship](../docs/TERMS.md#ship) in the **target** release tree.
 
-6. **Release build:** [Tag](../docs/TERMS.md#tag) `vX.Y.Z` triggers CI fitness + [`tools/nlc-release-build.py`](../tools/nlc-release-build.py) + GitHub Release asset upload.
+6. **Release build:** [Tag](../docs/TERMS.md#tag) `vX.Y.Z` triggers [`tools/nlc-release-build.py`](../tools/nlc-release-build.py) and the GitHub Release asset upload ([ADR 0061](0061-release-in-seven-steps.md) step 7).
 
 7. **[Greenfield](../docs/TERMS.md#greenfield):** [`tools/nlc-init.py`](../tools/nlc-init.py) writes `.nlc/lock.json` pinned to the installed [hub](../docs/TERMS.md#hub) version.
 

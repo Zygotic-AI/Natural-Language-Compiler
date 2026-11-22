@@ -33,7 +33,6 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0019 | L-0019 | charter | 2026-01-01 |
 | 0020 | L-0020 | charter | 2026-01-01 |
 | 0021 | L-0021 | charter | 2026-01-01 |
-| 0022 | L-0022 | charter | 2026-01-01 |
 | 0023 | L-0023 | charter | 2026-01-01 |
 | 0024 | L-0024 | session | 2026-09-22 |
 | 0025 | L-0025 | session | 2026-09-22 |
@@ -56,16 +55,14 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0042 | L-0042 | session | 2026-09-23 |
 | 0043 | L-0043 | session | 2026-09-23 |
 | 0044 | L-0044 | session | 2026-09-25 |
-| 0045 | L-0045 | session | 2026-09-26 |
 | 0048 | L-0048 | session | 2026-11-07 |
-| 0049 | L-0049 | RCA 2026-10-09 release stops outside planner | 2026-11-07 |
 | 0050 | L-0050 | RCA 2026-10-10 SHA-pinned evidence / content identity | 2026-10-10 |
 | 0054 | L-0054 | RCA 2026-10-20 published-skill author contract | 2026-10-24 |
 | 0055 | L-0055 | RCA 2026-10-25 staged activation of gate machinery | 2026-10-25 |
-| 0056 | L-0056 | session | 2026-11-07 |
 | 0057 | L-0057 | session | 2026-11-07 |
 | 0058 | L-0058 | session | 2026-11-07 |
 | 0059 | L-0059 | session | 2026-11-07 |
 | 0060 | L-0060 | session | 2026-11-10 |
+| 0061 | L-0061 | issue #126 release in seven steps | 2026-11-21 |
 
 When an ADR is superseded, remove it from this table and add its successor. Update INDEX status in the same change.

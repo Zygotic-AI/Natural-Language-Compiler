@@ -54,8 +54,8 @@
       "fixture": "tools/assert-requirements-hub-entrypoints-passes.py"
     },
     "0014": {
-      "gate": "tools/assert-release-preflight-passes.py",
-      "fixture": "tools/assert-release-preflight-passes.py"
+      "gate": "tools/assert-migration-catalog-passes.py",
+      "fixture": "tools/assert-migration-step-noop-passes.py"
     },
     "0015": {
       "gate": "tools/fitness-distribution-binder.py",
@@ -84,10 +84,6 @@
     "0021": {
       "gate": "tools/assert-verify-deep-produce-refused.py",
       "fixture": "tools/assert-verify-deep-produce-refused.py"
-    },
-    "0022": {
-      "gate": "tools/fitness-adr-0039-release-binder.py",
-      "fixture": "tools/assert-release-preflight-passes.py"
     },
     "0023": {
       "gate": "tools/nlc_rule_emit.py",
@@ -154,12 +150,12 @@
       "fixture": "tools/fitness-adr-0038-no-memory.py"
     },
     "0039": {
-      "gate": "tools/nlc_release_tag_gate.py",
-      "fixture": "tools/fitness-adr-0039-release-binder.py"
+      "gate": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
     },
     "0040": {
-      "gate": "tools/nlc_release_shipped_tag_audit.py",
-      "fixture": "tools/assert-shipped-tag-audit-fails.py"
+      "gate": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
     },
     "0041": {
       "gate": "tools/fitness-product-completion-scope.py",
@@ -174,12 +170,8 @@
       "fixture": "tools/fitness-uc14-product-boundary.py"
     },
     "0044": {
-      "gate": "tools/nlc_release_main_purity.py",
-      "fixture": "tools/fitness-adr-0039-release-binder.py"
-    },
-    "0045": {
-      "gate": "tools/nlc_release_state.py",
-      "fixture": "tools/assert-release-state-passes.py"
+      "gate": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
     },
     "0046": {
       "gate": "tools/fitness-planit-identity.py",
@@ -193,13 +185,9 @@
       "gate": "tools/fitness-executable-shape.py",
       "fixture": "tools/assert-executable-kernel-exempt-fails.py"
     },
-    "0049": {
-      "gate": "tools/fitness-release-planner-ownership.py",
-      "fixture": "tools/assert-release-planner-ownership-fails.py"
-    },
     "0050": {
       "gate": "tools/fitness-no-history-ids-in-evidence.py",
-      "fixture": "tools/assert-history-rewrite-invariant-passes.py"
+      "fixture": "tools/fitness-no-history-ids-in-evidence.py"
     },
     "0051": {
       "gate": "tools/fitness-hub-scope-derived.py",
@@ -208,6 +196,10 @@
     "0052": {
       "gate": "tools/fitness-adr-owner-sidecar.py",
       "fixture": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md"
+    },
+    "0061": {
+      "gate": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
+      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
     }
   },
   "constraints": {
@@ -360,8 +352,8 @@
       "known_bad": "KB-pending-ratified"
     },
     "0052:DEC-5": {
-      "check": "C6",
-      "known_bad": "GAP-0051-unsigned"
+      "check": "fitness-gate-set-manifest",
+      "known_bad": "KB-SG2-closure-member"
     },
     "0052:DEC-7": {
       "check": "fitness-adr-owner-sidecar",

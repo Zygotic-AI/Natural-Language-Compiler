@@ -1,1 +1,0 @@
-# fields for assert_shipped_tag_audit_fails

@@ -162,7 +162,6 @@ Policy lives in ADRs + PROCESS + planit; this section is **machine wiring** so c
 - ✔ ADR 0014 explicit noop migrations + `UPGRADE:*` log lines — [`migrations/README.md`](migrations/README.md) @done(26-09-20 09:15)
 - ✔ `nlc-update.py` v0 (artifact store, lock pin, semver chain, noop migrations) — extend for interview/script migrations @done(26-09-20 09:30)
 - ✔ `docs/nlc/` doc map + [`PROVE-AND-SHIP.md`](docs/nlc/PROVE-AND-SHIP.md) @done(26-09-20 11:15)
-- ✔ `scripts/nlc-release-prep.sh` dummy-proof pre-tag @done(26-09-20 11:15)
 - ✔ Public install **checksum** in install scripts (sh + ps1) @done(26-09-20 09:00)
 - ✔ **Last (human):** hub ship via **`./release`** — same as consumable-grade row; **v0.2.0** tag pushed @done(26-09-23 14:00)
 - ✔ **Version class on every change** — SSOT [`.agents/instructions/change-version-class.md`](.agents/instructions/change-version-class.md); wired into `AGENTS.md`, `/interview`, `/planit`, `.cursor/rules/change-version-class.mdc` @done(26-09-20 20:10)
@@ -364,7 +363,6 @@ Machine: `FULL_NLC_AUDIT:MET`. Inference: **PASS with residuals**. RCA: [`docs/r
 
 | ID | Symptom (now) | Preventive one thing |
 | ---- | ------------- | -------------------- |
-| F1 | ✔ FINDINGS ship/tag prose aligned (no false “tagged on origin”) @done(26-09-23 18:05) | ✔ **`tools/fitness-findings-shipped-tag-sync.py`** via umbrella + manifest @done(26-09-23 18:05) |
 | F2 | ✔ `hub-content-tree-hash.txt` + Last pass narrative @done(26-09-23 18:05) | ✔ **`tools/fitness-findings-last-pass-fresh.py`** in manifest `findings-last-pass-fresh` @done(26-09-23 18:05) |
 | F3 | ✔ ADR **0029** row bound in ADR-ENFORCEMENT @done(26-09-23 18:05) | ✔ **`tools/fitness-adr-enforcement-table-sync.py`** via umbrella @done(26-09-23 18:05) |
 | F4 | ✔ **`integration-leaves-waive.json`** with reason + audit_sha @done(26-09-23 18:05) | ✔ **`tools/fitness-integration-leaves-hygiene.py`** + skill § When to write leaves @done(26-09-23 18:05) |
@@ -428,43 +426,39 @@ Run **every** id. Do not fold a later id into an earlier one. Do not name a prod
 Shared facts (tag `v0.7.0`, merge `2e868b1`, squash `cc43f3e`, PRs #69–#74) live in the packet.
 
 - ✔ **RCA-S01** — `gh workflow run start-release` returned HTTP 403; the producer then instructed a GitHub Actions click. Record: [`docs/rca/2026-11-11-s01-start-release-dispatch.md`](docs/rca/2026-11-11-s01-start-release-dispatch.md). Packet MET. @done(26-11-11 02:45)
-- ☐ **RCA-S01 preventive** — Make origin `release/v*` creation a planner action (dispatch start-release or `HUMAN_DECISION` quoting `docs/adoption/RELEASE.md`). See S01 record §9.
+- ✔ **RCA-S01 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S02** — After ship authorization, the producer dumped a human checklist instead of invoking `./release`. Record: [`docs/rca/2026-11-11-s02-checklist-instead-of-release.md`](docs/rca/2026-11-11-s02-checklist-instead-of-release.md). Packet MET. @done(26-11-11 03:05)
-- ☐ **RCA-S02 preventive** — After Ship: GO, invoke `./release` before any human checklist; skill Step 6 must forbid skipping the orchestrator when origin `release/v*` is missing. See S02 record §9.
+- ✔ **RCA-S02 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S03** — Ship pull request #71 was offered without a hard stop that a squash merge cannot be tagged. Record: [`docs/rca/2026-11-11-s03-ship-pr-no-squash-stop.md`](docs/rca/2026-11-11-s03-ship-pr-no-squash-stop.md). Packet MET. @done(26-11-11 03:10)
-- ☐ **RCA-S03 preventive** — Lock merge method for `release/v*` → `main` to merge commit only (ruleset or API). See S03 record §9.
+- ✔ **RCA-S03 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S04** — After #71 merged, the producer said the next step was the tag while containment and the tag-time signature both refused. Record: [`docs/rca/2026-11-11-s04-tag-next-after-squash.md`](docs/rca/2026-11-11-s04-tag-next-after-squash.md). Packet MET. @done(26-11-11 03:10)
-- ☐ **RCA-S04 preventive** — Forbid “tag after merge” in CREATE_PR / offer bodies; after a ship PR merges, quote `./release` stdout only. See S04 record §9.
+- ✔ **RCA-S04 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S05** — The producer counted “one more merge” while pull request #73 was `CONFLICTING`. Record: [`docs/rca/2026-11-11-s05-one-more-merge-while-conflicting.md`](docs/rca/2026-11-11-s05-one-more-merge-while-conflicting.md). Packet MET. @done(26-11-11 03:40)
 - ☐ **RCA-S05 preventive** — Require a live `mergeable` observation before any remaining-merge count; `CONFLICTING` is not counted. See S05 record §9.
 - ✔ **RCA-S06** — After `RELEASE:AWAIT publication`, the producer did not resume when GitHub Release `v0.7.0` already existed. Record: [`docs/rca/2026-11-11-s06-await-publication-silence.md`](docs/rca/2026-11-11-s06-await-publication-silence.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S06 preventive** — After AWAIT publication, wake on GitHub Release existence (not `github:ci:branch`) and resume `./release`. See S06 record §9.
+- ✔ **RCA-S06 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S07** — Ship pull request #71 opened before the tag-time checker-digest owner signature existed (ADR 0057 — one owner signature over the pass/fail checkers at tag time). Record: [`docs/rca/2026-11-11-s07-ship-pr-before-digest-signature.md`](docs/rca/2026-11-11-s07-ship-pr-before-digest-signature.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S07 preventive** — CREATE_PR / `pr-offer-gate.py` refuse `release/v*` → `main` unless `check-checker-digest-signature.py` is MET. See S07 record §9.
 - ✔ **RCA-S08** — Pull request #73 opened before `origin/main` was contained on `release/v0.7.0` (ADR 0049 `main_context` — whether `main` is contained on the release line). Record: [`docs/rca/2026-11-11-s08-pr73-before-contain-main.md`](docs/rca/2026-11-11-s08-pr73-before-contain-main.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S08 preventive** — `pr-offer-gate.py` refuse `release/v*` → `main` unless `main_context` is `contained`. See S08 record §9.
 - ✔ **RCA-S09** — Prep surfaces written before planner `WRITE_RECORD`, then `BLOCKED_WRITE_RECORD_STALLED`. Record: [`docs/rca/2026-11-11-s09-prep-before-write-record-stall.md`](docs/rca/2026-11-11-s09-prep-before-write-record-stall.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S09 preventive** — Candidate FINDINGS / DESCRIBE / record writes belong only to planner PREP / WRITE_RECORD. See S09 record §9.
+- ✔ **RCA-S09 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S10** — Prep committed on local `release/v0.7.0`; `git push` of that ref rejected by ruleset `25824126`. Recurrence of [`docs/rca/2026-10-31-release-line-push-without-pr.md`](docs/rca/2026-10-31-release-line-push-without-pr.md). Record: [`docs/rca/2026-11-11-s10-release-line-push-rejected.md`](docs/rca/2026-11-11-s10-release-line-push-rejected.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S10 preventive** — Implement the 2026-10-31 action: first publication of `release/v*` commits is a non-release branch + PR, not `PUSH_FAST_FORWARD`. See S10 record §9.
+- ✔ **RCA-S10 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S11** — Tag-time `./release` graded containment on a local `release/v0.7.0` behind origin. Record: [`docs/rca/2026-11-11-s11-stale-local-release-branch.md`](docs/rca/2026-11-11-s11-stale-local-release-branch.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S11 preventive** — `main_context` must grade `origin/release/v*` when that remote-tracking ref exists. See S11 record §9.
+- ✔ **RCA-S11 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S12** — First `WRITE_NOTES` stopped on empty Highlights (`RELEASE_NOTES:NOT_MET`). Record: [`docs/rca/2026-11-11-s12-empty-highlights.md`](docs/rca/2026-11-11-s12-empty-highlights.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S12 preventive** — Missing Highlights is HUMAN_DECISION before WRITE_NOTES; do not emit a placeholder `check_notes` rejects. See S12 record §9.
+- ✔ **RCA-S12 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S13** — `VERIFY_TARGET` failed after `ALIGN_VERSION` because FINDINGS / DESCRIBE / record still said 0.6.0. Record: [`docs/rca/2026-11-11-s13-verify-target-after-align-version.md`](docs/rca/2026-11-11-s13-verify-target-after-align-version.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S13 preventive** — PREP / WRITE_RECORD (or ALIGN that writes those surfaces) before VERIFY_TARGET. See S13 record §9.
+- ✔ **RCA-S13 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S14** — Closeout `./nlc verify` failed on a stale unsigned gate-set manifest after TODO / FEATURES edits; proved twice. Record: [`docs/rca/2026-11-11-s14-closeout-verify-twice.md`](docs/rca/2026-11-11-s14-closeout-verify-twice.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S14 preventive** — Regen derived release state after TODO / FEATURES change, then prove once. See S14 record §9.
+- ✔ **RCA-S14 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S15** — Pull request #71 was squashed (`cc43f3e`, one parent) and could not be tagged. Record: [`docs/rca/2026-11-11-s15-squash-not-taggable.md`](docs/rca/2026-11-11-s15-squash-not-taggable.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S15 preventive** — GitHub ruleset on `main` for head `release/v*`: merge commit only. See S15 record §9.
+- ✔ **RCA-S15 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S16** — Tag-time signature landed in pull request #72 after the first ship pull request. Record: [`docs/rca/2026-11-11-s16-signature-in-pr72-after-ship.md`](docs/rca/2026-11-11-s16-signature-in-pr72-after-ship.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S16 preventive** — Owner-signature HUMAN_DECISION completes on the release line before any ship PR to `main`. See S16 record §9.
+- ✔ **RCA-S16 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S17** — Pull request #74 existed only to contain the #71 squash so #73 could merge. Record: [`docs/rca/2026-11-11-s17-containment-pr74.md`](docs/rca/2026-11-11-s17-containment-pr74.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S17 preventive** — After a squash ship merge, `not_contained` is HUMAN_DECISION (do not invent a containment PR). See S17 record §9.
+- ✔ **RCA-S17 preventive**: closed by ADR 0061 (#126); the seven commands replace the planner, ruleset and ship-PR model it was written for. @done(26-11-22)
 - ✔ **RCA-S18** — First land of the install-scope slice (ADR 0060 — pin NLC in one repo) failed hub fitness / CI (stamp, `hub_tool()`, untracked landmines). Record: [`docs/rca/2026-11-11-s18-install-scope-first-land-fitness.md`](docs/rca/2026-11-11-s18-install-scope-first-land-fitness.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S18 preventive** — Bind `pr-offer-gate.py` (verify MET before `gh pr create`) on all hub PR creates, including feature slices. See S18 record §9.
 - ✔ **RCA-S19** — `docs/nlc/FEATURES.md` still said current ship v0.5.0 while the tag and version file were v0.6.0. Record: [`docs/rca/2026-11-11-s19-features-current-ship-lag.md`](docs/rca/2026-11-11-s19-features-current-ship-lag.md). Packet MET. @done(26-11-11 03:40)
-- ☐ **RCA-S19 preventive** — F1 / release-prep must require FEATURES current-ship to match `integrity/nlc-version.json`. See S19 record §9.
 
 ### Continuity (pre-ship)
 
@@ -578,9 +572,6 @@ Closed for **emit path**, **pilot nouns**, **`other_or_lib`**, **assert tranches
 
 **Incident (26-09-23):** An agent ran `./release finish --yes` and pushed **`v0.2.0`** without the full prepare ritual (verify-deep, prep, release branch commit). The script **permitted** a thin `finish` path — process defect per [ADR 0038](adrs/0038-no-memory-in-process.md), not operator memory.
 
-- ✔ **Hub release tag gate** — `nlc_release_tag_gate.py`, `hub-release-record.json`, `release.yml`, `assert-release-tag-gate-fails.py` @done(26-09-23 16:30)
-- ✔ **Single `./release` state machine** — `nlc_release_resume.py` + `cmd_release`; legacy prepare/finish forward @done(26-09-23 16:30)
-- ✔ **Release context wizard** — `nlc_release_context.py` + prepare prompts @done(26-09-23 16:30)
 - ✔ **No-memory binder (v1)** — `fitness-adr-0038-no-memory.py` + `rules/nlc-0038.json` @done(26-09-23 17:00)
 - ✔ **Remediate `origin/v0.2.0` tag** — tag **deleted** on origin (verified empty `git ls-remote`); mistaken push @ `397b1a0` not a valid ship @done(26-09-23 18:10)
 
@@ -678,7 +669,6 @@ Most older architecture decision records share `tools/assert-adr-approval-mismat
 
 ### Effective decision after an amendment
 
-Record 0045 (one release identity) still says the executor is `scripts/nlc-release.sh`. Record 0048 (executable shape) amends that location: policy lives in `goals/hub_release/execute.sh`, and the shell only starts that goal. Do not edit record 0045 in place.
 
 - ✔ Add an effective-decision view that shows record 0045 decision 2 as amended by record 0048. View: `docs/nlc/effective-decisions.md`. Record 0045 was not edited. @done(26-10-31 03:30)
 
@@ -686,7 +676,6 @@ Record 0045 (one release identity) still says the executor is `scripts/nlc-relea
 
 The planner can return `PREPARE_DRAFT` with action `VERIFY_SHIPPED_BASELINE` (confirm the already shipped baseline). The shell does not stop there. It falls through to the resume detector, which can print that it is tagging because an older remote release tip is already merged, then the planner-backed gate refuses the tag.
 
-- ✔ Make the release-state planner the only phase authority. @done(26-10-09 22:31)
 - ✔ Remove the resume detector’s independent phase selection, or make it only a presentation of the planner decision. @done(26-10-09 22:31)
 - ✔ Handle `PREPARE_DRAFT` explicitly instead of falling through. @done(26-10-09 22:31)
 - ✔ Observe real verification facts. Do not hard-code `shipped_verify_met`, `target_verify_met`, and `prep_met` to false. @done(26-10-09 22:31)
@@ -708,8 +697,6 @@ The planner can return `PREPARE_DRAFT` with action `VERIFY_SHIPPED_BASELINE` (co
 
 `v0.3.1` git tag peel `50b6b6d` is shipped. This line is `release/v0.3.2`. Identity, notes, and record must say **0.3.2** before the next merge into `main` is tagged. Do not tag merge `3ce4ab8` (that tree still says 0.3.1). Do not move `v0.3.0` or `v0.3.1`.
 
-- ✔ Widen F1 (FINDINGS/DESCRIBE current-ship) + leftover fixture; keep F1 out of shipped-tag `check_static` @done(26-10-18 19:20)
-- ✔ Align `nlc-version.json`, `hub-release-record.json`, `RELEASE-v0.3.2.md`, FINDINGS, DESCRIBE to **0.3.2** @done(26-10-18 19:45)
 - ✔ Owner clearsign of the unsigned gate-set manifest (sidecar last; no verify-deep after sidecar) @done(26-10-18 19:49)
 - ✔ `./release` one PR `release/v0.3.2` → `main`; merge when all checks green; tag `v0.3.2` on that merge only @done(26-10-18 21:04)
 - ✔ Confirm GitHub Release `v0.3.2` exists; `v0.3.0` peel still `d4abf9a`; `v0.3.1` peel still `50b6b6d` @done(26-10-18 21:12)
@@ -721,7 +708,6 @@ The planner can return `PREPARE_DRAFT` with action `VERIFY_SHIPPED_BASELINE` (co
 
 - ✔ Strip notes draft footer from the helper and from `RELEASE-v0.3.2.md`; `--check` refuses the footer @done(26-10-18 22:13)
 - ✔ Drop stale binding-matrix percentage in DESCRIBE; label README Status history @done(26-10-18 22:13)
-- ✔ Align `nlc-version.json`, `hub-release-record.json`, `RELEASE-v0.3.3.md`, FINDINGS, DESCRIBE to **0.3.3** @done(26-10-18 22:28)
 - ✔ Prune closed `release/v*` remotes and locals; keep tags and GitHub Releases @done(26-10-18 23:40)
 - ✔ ADR 0051 merge-base default is immutable tag `v0.3.0` (not `origin/release/v0.3.0`) @done(26-10-18 23:50)
 - ✔ Not shipped. v0.4.0 is already the tagged ship, so this line does not get a v0.3.3 owner signature, pull request, or tag. @done(26-10-31 03:30)
@@ -746,17 +732,13 @@ v0.3.3 install copies skills whose `SKILL.md` YAML `name:` fields were rewritten
 - ✔ Unsigned owner signing statement at `adrs/owner-approvals/staged-signing.statement.txt` (ADR 0055 + regenerated gate-set manifest; waits on owner clearsign) @done(26-10-25 02:15)
 - ✔ ADR 0055 Status Accepted in bytes before the owner statement exists (C6 batch requires Accepted) @done(26-10-25 03:35)
 - ✔ Not signed. That statement names the 2026-10-25 manifest hash. ADR 0057 (tag-time checker digest) makes the manifest sidecar not the release signature. @done(26-10-31 03:30)
-- ✔ Apply the `release/*` GitHub ruleset when the token allows. Live ruleset `25824126` updated from `docs/github-ruleset-release.json`. @done(26-10-31 03:30)
 
 ### Per-file ADR detached signatures (ADR 0056, owner-directed 2026-10-25)
 
-- ✔ `scripts/sign-adrs.sh` (idempotent, dry-run, test-key override, no stored passphrase) @done(26-10-25 17:20)
 - ✔ Accepted ADR check requires per-file detached signature by the pinned key; batch no longer covers @done(26-10-25 17:20)
 - ✔ Delete batch-ratification statement/signature files and batch-only landmine @done(26-10-25 17:20)
 - ✔ ADR 0056 Proposed: per-file detached signatures; gate-set manifest stays single-signed @done(26-10-25 17:20)
 - ✔ Stage verifier candidate (ADR 0055); regenerate unsigned manifest; do not sign @done(26-10-25 17:20)
-- ✔ `scripts/sign-adrs.sh` thin entry to `goals/sign_adrs/execute.sh`; `staging/` is a contained fixture (executable-shape MET) @done(26-10-25 17:30)
-- ✔ Owner run of `scripts/sign-adrs.sh` on `cursor/per-file-adr-sigs-54bd` (catch-up `.md.asc` files) @done(26-10-25 19:11)
 - ✔ Not signed. Same manifest sidecar as the v0.4.0 prepare row. ADR 0057 moves the owner signature to `integrity/checker-digest.sha256` at tag time, and this closeout is the bootstrap (the checker is not on `main` yet). @done(26-10-31 03:30)
 
 ### Complete v0.4.0 release on `cursor/per-file-adr-sigs-54bd` (2026-10-25)
@@ -771,19 +753,16 @@ v0.3.3 install copies skills whose `SKILL.md` YAML `name:` fields were rewritten
 
 - ✔ Cached gate-set lookup once per run; checks reuse the cache @done(26-10-27 21:10)
 - ✔ Touched-files check selection on PRs; landmines scoped to own files; fail-closed to full suite @done(26-10-27 21:10)
-- ✔ Script-only release prep for FINDINGS, DESCRIBE, and hub-release-record @done(26-10-27 21:10)
 - ✔ Self-derived committed check-inputs list + declaration test @done(26-10-27 21:10)
 - ✔ Known-bad: unmapped file, selection error, hand-edit FINDINGS/DESCRIBE, landmine file change @done(26-10-27 21:10)
 - ✔ Cache-once proof test @done(26-10-27 21:10)
 
 ### v0.4.1 item 2 — fail-open sweep of 22 release-tool checks (2026-10-27)
 
-- ✔ `release_main_purity` empty tag peel is NOT_MET; remaining 21 release-tool probes refuse missing tool / empty / unexpected error @done(26-10-27 15:00)
 - ✔ One known-bad + one known-good thin adapter per instance (`assert-release-probe-*-fails|passes.py`) @done(26-10-27 15:00)
 
 ### v0.4.0 prepare identity before owner sign (2026-10-25)
 
-- ✔ Write `integrity/hub-release-record.json` 0.4.0 / `release/v0.4.0` and set DESCRIBE/FINDINGS last-tagged-ship to v0.4.0 so tag-time F1 and the record do not move after the owner signs @done(26-10-25 20:00)
 - ✔ Refresh hub-content-tree-hash / stamps and regenerate the gate-set manifest once after those prepare edits @done(26-10-25 20:01)
 
 ## Product features (story and order)
@@ -818,5 +797,4 @@ Upcoming list (full requirement import, trace graph, precise rewrite, constraint
 - ☐ Tokens and cost of every agent/model call (FEATURES thinking list — not bundled with the graph).
 - ☐ Call envelopes: predefined JSON per call type; abandon and stop on nonconformance; file verify still wins.
 - ☐ `/nlc` skill routing so nothing in the system changes except through NLC.
-- ☐ Dirty predicates listed by `/release` when accept/code/recompile is still incomplete.
 - ☐ Constraint onboarding: each new constraint brings adjectives on data and verb bindings; rewrite existing units.

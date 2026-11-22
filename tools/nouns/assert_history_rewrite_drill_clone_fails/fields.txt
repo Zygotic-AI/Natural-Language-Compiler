@@ -1,1 +1,0 @@
-# assert_history_rewrite_drill_clone_fails

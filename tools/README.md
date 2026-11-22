@@ -25,7 +25,7 @@ Enforcement. Specimens in `examples/` are not a product.
 
 Hub compile also runs `fitness-agent-noun-structure.py` (ADR 0003) and `fitness-nlc-naming.py` (ADR 0011).
 
-Migration catalog (ADR 0014): `python3 tools/assert-migration-catalog-passes.py`; release `./release` preflight uses `nlc_migration_catalog.py`.
+Migration catalog (ADR 0014): `python3 tools/assert-migration-catalog-passes.py`; `./release validate` writes the noop migration (`tools/nlc_release_bump.py --align-to`).
 
 Hub boundary (ADR 0016): `fitness-hub-no-product-requirements.py`; landmine `assert-hub-no-product-requirements-passes.py`. P2 hub scope (ADR 0002): `fitness-p2-hub-scope.py`.
 
@@ -35,7 +35,7 @@ Meta binders (hub ADR coverage): `fitness-adr-0004-0005-binder.py`, `fitness-adr
 
 Consumer naming (ADR 0011): landmine `assert-nlc-naming-passes.py`. Gate binder (ADR 0010): `fitness-harness-gate-binder-sync.py`, `assert-gate-record-describe-passes.py`. SSOT produce (ADR 0005): `fitness-produce-ssot-binder.py`. Verify skill (ADR 0021/0023): `fitness-verify-skill-binders.py`.
 
-Distribution (ADR 0015 / **ADR 0060**): `fitness-distribution-binder.py`, `fitness-install-scope.py`; landmines install/lock/local-dispatch/local-pin/outside-repo/foreign-skills/hermetic/smoke. Release preflight (ADR 0014): `assert-release-preflight-passes.py`.
+Distribution (ADR 0015 / **ADR 0060**): `fitness-distribution-binder.py`, `fitness-install-scope.py`; landmines install/lock/local-dispatch/local-pin/outside-repo/foreign-skills/hermetic/smoke.
 
 Binding matrix (ADR 0001): `fitness-adr-0001-binder.py`, `assert-binding-matrix-met.py`. P2 scope (ADR 0002): `assert-p2-hub-scope-passes.py`. Agent nouns (ADR 0003): `assert-agent-noun-structure-passes.py`, `assert-validate-agent-nouns-passes.py`. Quality handoff (ADR 0004/0005): `assert-quality-metric-passes.py`.
 

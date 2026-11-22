@@ -67,7 +67,7 @@ Record each mismatch as a finding: severity, file, evidence, remediation.
 - [ ] Do `HOLES.md`, root `TODO`, and `USE-CASES.md` still coexist as live trackers?
 - [ ] Does FINDINGS Last pass point at `integrity/hub-content-tree-hash.txt` (ADR 0050 tree hash), not a commit SHA?
 - [ ] Are any FINDINGS rows stale (claiming a fix that already landed)?
-- [ ] On `main`, the tag on `origin/main`, `integrity/nlc-version.json`, and `integrity/hub-release-record.json` are the same ship. `FINDINGS.md` and `DESCRIBE.md` Current ship must match that tag. On a `release/v*` line the version file and the release record are the line being cut and may be ahead of the tag. Calling that untagged version the tagged ship, or naming a tag that is not on `origin/main`, is a factory FAIL (not a reader FAIL).
+- [ ] On `main`, the tag on `origin/main` and `integrity/nlc-version.json` are the same version. On a `release/v*` line the version file may be ahead of the tag. Naming a tag that is not on `origin/main` is a factory FAIL (not a reader FAIL).
 
 Record each as a finding.
 

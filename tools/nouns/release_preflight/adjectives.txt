@@ -1,2 +1,0 @@
-# adjectives for brownfield_inventory
-emit-owned

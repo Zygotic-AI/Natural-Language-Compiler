@@ -1,2 +1,0 @@
-# assert_release_prep_hand_edit_fails
-known-bad

@@ -22,7 +22,6 @@ def main() -> int:
     _ = sys.argv[1:]
     failed: list[str] = []
     for script in (
-        "fitness-findings-shipped-tag-sync.py",
         "fitness-adr-enforcement-table-sync.py",
     ):
         if run(script) != 0:

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""ADR 0022/0039: refuse tag unless merge commit passed full release gates."""
+"""ADR 0061: ./release validate|sign|main|tag (thin adapter)."""
 from __future__ import annotations
 
 import sys

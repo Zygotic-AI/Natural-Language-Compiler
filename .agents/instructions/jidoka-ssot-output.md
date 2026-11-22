@@ -21,7 +21,7 @@ Before telling the operator what a field “really means” or what to do next:
 
 ## Pass pattern
 
-- “Resume JSON overloaded `stale_release_branches`; SSOT says delete stale. **Fix:** split `closed_release_branches` — verify: `python3 tools/nlc_release_resume.py --emit json`.”
+- “Tool JSON overloaded one field; SSOT says otherwise. **Fix:** split the field in the tool, then re-run the tool that printed it.”
 
 ## Harness
 

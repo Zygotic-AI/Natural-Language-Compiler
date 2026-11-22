@@ -1,249 +1,335 @@
-#!/usr/bin/env python3
-"""ADR 0022/0039: refuse tag unless merge commit passed full release gates."""
-
+"""ADR 0061 steps 3-6: validate, sign, main, tag (plus notes and statement). One Tree comparison guards main and tag."""
 from __future__ import annotations
 
 BOUNDARY = "bba-emit"
 
-
-import argparse
+import datetime
+import hashlib
 import json
+import os
+import re
 import subprocess
 import sys
 import tempfile
+from contextlib import contextmanager
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "tools"))
 
-from nlc_release_record import git_show_json, read_version_at, validate_record  # noqa: E402
-from nlc_release_tags import resolve_shipped_version  # noqa: E402
 from nlc_requirements import hub_tool  # noqa: E402
-from nouns.evidence_ref.evidence_ref import refuse_gate, resolve_commit  # noqa: E402
-from nouns.release_probe.release_probe import ProbeFailure  # noqa: E402
-from nouns.fitness_findings_shipped_tag_sync import (  # noqa: E402
-    check_surfaces,
-    resolve_shipped_version as f1_shipped_version,
+from nouns.checker_digest.checker_digest import ARMOR_REL, DIGEST_REL, digest_paths  # noqa: E402
+from nouns.owner_sidecar.owner_sidecar import (  # noqa: E402
+    OWNER_KEY_REL,
+    TRUSTED_REL,
+    gpg_verify_clearsigned_plaintext,
+    load_trusted_fingerprints_from_text,
 )
 
-RECORD_REL = "integrity/hub-release-record.json"
+REPO = "Zygotic-AI/Natural-Language-Compiler"
+VERSION_REL = "integrity/nlc-version.json"
+KEYS_REL = "integrity/owner-keys"
+VERIFIER_REL = "tools/check-checker-digest-signature.py"
+ANCHOR = "4c201315267781c179d99da8e56afa638b53ee6b"  # v0.8.0, the last release before ADR 0061
+BEGIN = "-----BEGIN PGP SIGNED MESSAGE-----"
+END = "-----END PGP SIGNATURE-----"
 
 
-def _git(repo_root: Path, *args: str) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        ["git", *args],
-        cwd=str(repo_root),
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+def git(*args: str, cwd: Path = ROOT, env: dict[str, str] | None = None) -> str:
+    out = subprocess.run(["git", *args], cwd=cwd, env=env, check=True, capture_output=True, text=True)
+    return out.stdout.strip()
 
 
-def tag_from_version(ver: str) -> str:
-    return f"v{ver.lstrip('v')}"
+def refuse(msg: str) -> int:
+    print(f"RELEASE:REFUSED {msg}")
+    return 1
 
 
-def git_show_text(repo_root: Path, commit: str, rel_path: str) -> str | None:
-    proc = _git(repo_root, "show", f"{commit}:{rel_path}")
-    if proc.returncode != 0:
-        return None
-    return proc.stdout
+def tree_without_armor(rev: str) -> str:
+    """Tree of rev with the armor file removed: the bytes the owner signs (ADR 0061)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        env = {**os.environ, "GIT_INDEX_FILE": str(Path(tmp) / "index")}
+        git("read-tree", rev, env=env)
+        git("update-index", "--force-remove", ARMOR_REL, env=env)
+        return git("write-tree", env=env)
 
 
-def check_static(repo_root: Path, commit: str, tag: str) -> list[str]:
-    problems: list[str] = []
-    ver = tag.lstrip("v")
-    file_ver = read_version_at(commit, repo_root=repo_root)
-    if not file_ver:
-        problems.append("missing integrity/nlc-version.json at commit")
-    elif file_ver != ver:
-        problems.append(f"tag {tag} != nlc-version.json ({file_ver})")
+def release_branch() -> tuple[str, str]:
+    """On release/vX.Y.Z, clean, nothing local that origin lacks (R7-M2). Returns (branch, version) or raises."""
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    if not branch.startswith("release/v"):
+        raise Refused(f"run on release/vX.Y.Z, not {branch}")
+    if git("status", "--porcelain"):
+        raise Refused("worktree is not clean; commit through a change branch or stash")
+    git("fetch", "-q", "origin", branch)
+    if git("rev-list", "--count", f"origin/{branch}..HEAD") != "0":
+        raise Refused(f"HEAD has commits origin/{branch} does not; merge them with a change branch (step 2), then run this again")
+    return branch, branch[len("release/v"):]
 
-    record = git_show_json(commit, RECORD_REL, repo_root=repo_root)
-    if not record:
-        problems.append(f"missing {RECORD_REL} on commit (./release prepare leg)")
-    else:
-        problems.extend(validate_record(record, ver, f"release/v{ver}", commit=commit, repo_root=repo_root))
 
-    notes_rel = f"docs/adoption/RELEASE-v{ver}.md"
-    notes_text = git_show_text(repo_root, commit, notes_rel)
-    if not notes_text:
-        problems.append(f"missing {notes_rel} on commit")
-    else:
-        with tempfile.TemporaryDirectory(prefix="nlc-notes-") as tmp:
-            path = Path(tmp) / "RELEASE.md"
-            path.write_text(notes_text, encoding="utf-8")
-            proc = subprocess.run(
-                [sys.executable, str(ROOT / "tools" / "nlc_release_notes.py"), "--check", "--version", ver],
-                cwd=str(ROOT),
-                capture_output=True,
-                text=True,
-                check=False,
-                env={**__import__("os").environ, "NLC_RELEASE_NOTES_PATH": str(path)},
-            )
-            if proc.returncode != 0:
-                if "Replace this block with user-facing summary" in notes_text:
-                    problems.append("release notes Highlights still placeholder")
-                elif "## Highlights" not in notes_text:
-                    problems.append("release notes missing Highlights section")
+class Refused(Exception):
+    pass
 
-    from nlc_migration_catalog import migration_steps_blockers
 
+@contextmanager
+def worktree(rev: str):
+    """Fresh detached worktree of rev; always removed, even when setup fails."""
+    with tempfile.TemporaryDirectory() as tmp:
+        wt = Path(tmp) / "w"
+        try:
+            git("worktree", "add", "-q", "--detach", str(wt), rev)
+            yield wt
+        finally:
+            subprocess.run(["git", "worktree", "remove", "--force", str(wt)], cwd=ROOT, capture_output=True)
+            subprocess.run(["git", "worktree", "prune"], cwd=ROOT, capture_output=True)
+
+
+def run(wt: Path, *cmd: str, quiet: bool = False) -> int:
+    out = subprocess.run([sys.executable, *cmd], cwd=wt, stdout=subprocess.DEVNULL if quiet else None)
+    return out.returncode
+
+
+def write_all(wt: Path, ver: str) -> None:
+    """Every file validate writes, in order, then staged (the content digest reads tracked files)."""
+    steps = [
+        ["tools/nlc_release_bump.py", "--align-to", ver],
+        ["tools/nlc_release_tag_gate.py", "notes"],
+    ]
+    for cmd in steps:
+        if run(wt, *cmd):
+            raise Refused(f"{cmd[0]} failed")
+    if run(wt, "tools/nlc_release_notes.py", "--check", "--version", ver):
+        raise Refused(f"RELEASE_VALIDATE:CODE_DEFECT docs/adoption/RELEASE-v{ver}.md: merge PRs with gh pr merge --merge so their titles are the notes")
+    for cmd in (["tools/derive-check-inputs.py", "--write"], ["tools/nlc.py", "--project", ".", "maintainer", "guide", "before-generate"]):
+        if run(wt, *cmd):
+            raise Refused(f"{cmd[0]} failed")
+    git("add", "-A", cwd=wt)
+    for cmd in (["tools/regen-derived-release-state.py"], ["tools/fitness-planit-identity.py", "--record"]):
+        if run(wt, *cmd):
+            raise Refused(f"{cmd[0]} failed")
+    git("add", "-A", cwd=wt)
+
+
+def suite(wt: Path, log: Path | None = None) -> int:
+    cmd = [sys.executable, "tools/nlc.py", "--project", ".", "gate", "--profile", "release"]
+    if log is None:
+        return subprocess.run(cmd, cwd=wt).returncode
+    with log.open("w") as fh:
+        rc = subprocess.run(cmd, cwd=wt, stdout=fh, stderr=subprocess.STDOUT).returncode
+    if rc:
+        print("\n".join(sorted({l for l in log.read_text().splitlines() if l.startswith("CI:FAIL")})))
+    return rc
+
+
+def validate() -> int:
+    """Step 3: write everything, commit if anything changed, run the suite, push."""
     try:
-        shipped = resolve_shipped_version(commit, root=repo_root) or "0.0.0"
-    except ProbeFailure as exc:
-        problems.append(f"shipped-baseline probe refused: {exc}")
-        shipped = "0.0.0"
-    if shipped != ver:
-        problems.extend(migration_steps_blockers(ROOT, shipped, ver))
-
-    return problems
-
-
-def check_findings_describe_identity(repo_root: Path, commit: str, ver: str) -> list[str]:
-    """F1 on the commit being tagged. Not part of check_static: shipped-tag audit
-    reuses check_static on historical tags whose FINDINGS still have leftover prose."""
-    findings_text = git_show_text(repo_root, commit, "FINDINGS.md") or ""
-    describe_text = git_show_text(repo_root, commit, "DESCRIBE.md") or ""
-    return check_surfaces(
-        findings_text,
-        describe_text,
-        shipped_ver=f1_shipped_version(),
-        file_ver=ver,
-        on_main_or_tag=True,
-    )
+        branch, ver = release_branch()
+        with worktree(f"origin/{branch}") as wt:
+            write_all(wt, ver)
+            changed = subprocess.run(["git", "diff", "--cached", "--quiet"], cwd=wt).returncode != 0
+            if changed or git("log", "-1", "--format=%s", cwd=wt) != f"release: validate v{ver}":
+                git("commit", "-q", "--allow-empty", "-m", f"release: validate v{ver}", cwd=wt)
+            if suite(wt):
+                print("RELEASE_VALIDATE:CODE_DEFECT fix the failing check above in a change branch, then run ./release validate again")
+                return 1
+            git("push", "-q", "origin", f"HEAD:{branch}", cwd=wt)
+        git("merge", "-q", "--ff-only", f"origin/{branch}")
+    except Refused as why:
+        msg = str(why)
+        print(msg if msg.startswith("RELEASE_VALIDATE:") else f"RELEASE:REFUSED {msg}")
+        return 1
+    print("RELEASE_VALIDATE:ONLY_SIGNATURE_LEFT")
+    return statement()
 
 
-def checker_digest_signature_problems(repo_root: Path, commit: str) -> list[str]:
-    """Refuse a tag when main's checker says the digest armor is missing.
+def prove(head: str, ver: str) -> None:
+    """R7-B2: HEAD is a passed validate: validate's writes change nothing and the suite passes on HEAD."""
+    with worktree(head) as wt:
+        write_all(wt, ver)
+        changed = git("diff", "--cached", "--name-only", "HEAD", cwd=wt).split()
+        if changed:
+            raise Refused(f"HEAD is not a validated commit; validate would change {' '.join(changed[:5])}; run ./release validate")
+        if suite(wt, wt.parent / "gate.log"):
+            raise Refused("the release suite fails on HEAD; run ./release validate")
 
-    Bootstrap: if origin/main does not contain the checker script, add no problem.
-    The commit being tagged is not the process that runs the check.
+
+def version(rev: str) -> str:
+    return json.loads(git("show", f"{rev}:{VERSION_REL}"))["version"]
+
+
+def release_tag_at(commit: str) -> str | None:
+    """The tag at commit that names the commit's own version, if any."""
+    try:
+        want = f"v{version(commit)}"
+    except (subprocess.CalledProcessError, ValueError, KeyError):
+        return None
+    return want if want in git("tag", "--points-at", commit).split() else None
+
+
+def previous_tag(rev: str, ver: str | None = None) -> tuple[str | None, str]:
+    """Trust root for rev (R7-B1): the nearest release tag on rev's first-parent line, not rev's own version.
+
+    Side commits merged in (e.g. with -s ours) are never on the first-parent line. A tag found there is
+    trusted only if it is ANCHOR, or if its own commit carries a statement its previous tag's keys verify
+    with a Tree equal to that commit's tree. Anything else refuses; the walk never skips a bad tag.
     """
-    if repo_root != ROOT:
-        return []
-    main = _git(repo_root, "rev-parse", "--verify", "origin/main")
-    if main.returncode != 0 or not main.stdout.strip():
-        return []
-    main_sha = main.stdout.strip()
-    script = "tools/check-checker-digest-signature.py"
-    exists = _git(repo_root, "cat-file", "-e", f"{main_sha}:{script}")
-    if exists.returncode != 0:
-        return []
-    problems: list[str] = []
-    with tempfile.TemporaryDirectory(prefix="nlc-main-checker-") as tmp:
-        checker = Path(tmp) / "main"
-        subject = Path(tmp) / "subject"
-        added = _git(repo_root, "worktree", "add", "--detach", str(checker), main_sha)
-        if added.returncode != 0:
-            return [f"cannot check out main checker: {added.stderr.strip()}"]
-        added_subject = _git(repo_root, "worktree", "add", "--detach", str(subject), commit)
-        if added_subject.returncode != 0:
-            _git(repo_root, "worktree", "remove", "--force", str(checker))
-            return [f"cannot check out tag commit: {added_subject.stderr.strip()}"]
-        try:
-            proc = subprocess.run(
-                [
-                    sys.executable,
-                    str(checker / script),
-                    "--root",
-                    str(subject),
-                ],
-                cwd=str(checker),
-                capture_output=True,
-                text=True,
-                check=False,
-            )
-            if proc.returncode != 0:
-                problems.append("checker digest signature NOT_MET (verifier from origin/main)")
-                tail = ((proc.stdout or "") + (proc.stderr or "")).strip().splitlines()
-                for line in tail[-4:]:
-                    problems.append(f"  {line}")
-        finally:
-            _git(repo_root, "worktree", "remove", "--force", str(subject))
-            _git(repo_root, "worktree", "remove", "--force", str(checker))
-    return problems
+    ver = ver or version(rev)
+    for commit in git("rev-list", "--first-parent", rev).split():
+        tag = release_tag_at(commit)
+        if tag is None or tag == f"v{ver}":
+            continue
+        if commit == ANCHOR:
+            return tag, ""
+        want, why = signed_tree(commit)
+        if want is None or want != tree_without_armor(commit):
+            return None, f"{tag} on the first-parent line is not a verified release ({why or 'Tree differs'})"
+        return tag, ""
+    return None, "no release tag on the first-parent line"
 
 
-def run_verify_deep_at(commit: str) -> list[str]:
-    problems: list[str] = []
-    with tempfile.TemporaryDirectory(prefix="nlc-rel-wt-") as tmp:
-        wt = Path(tmp) / "wt"
-        proc = _git(ROOT, "worktree", "add", "--detach", str(wt), commit)
-        if proc.returncode != 0:
-            return [f"cannot create worktree at {commit[:12]}: {proc.stderr.strip()}"]
-        try:
-            # Grade the tag commit with that commit's tools, not the agent's worktree.
-            vproc = subprocess.run(
-                [sys.executable, str(wt / "tools" / "nlc.py"), "--project", ".", "verify"],
-                cwd=str(wt),
-                capture_output=True,
-                text=True,
-                check=False,
-            )
-            if vproc.returncode != 0:
-                problems.append("verify NOT_MET at tag commit")
-                tail = ((vproc.stdout or "") + (vproc.stderr or "")).strip().splitlines()
-                for line in tail[-6:]:
-                    problems.append(f"  {line}")
-        finally:
-            _git(ROOT, "worktree", "remove", "--force", str(wt))
-    return problems
+def signed_tree(rev: str) -> tuple[str | None, str]:
+    """Tree field from the armor at rev, read only from plaintext gpg verified with the previous tag's keys."""
+    prev, why = previous_tag(rev)
+    if prev is None:
+        return None, why
+    try:
+        armor = git("show", f"{rev}:{ARMOR_REL}") + "\n"
+    except subprocess.CalledProcessError:
+        return None, f"no {ARMOR_REL} at {rev}"
+    if not armor.startswith(BEGIN + "\n") or not armor.rstrip().endswith(END):
+        return None, "armor has bytes outside the clearsigned block"
+    trusted, terr = load_trusted_fingerprints_from_text(git("show", f"{prev}:{TRUSTED_REL}"))
+    if terr:
+        return None, f"{prev} keys: {terr}"
+    with tempfile.TemporaryDirectory() as tmp:
+        asc, key = Path(tmp) / "armor.asc", Path(tmp) / "owner.asc"
+        asc.write_text(armor, encoding="utf-8")
+        key.write_text(git("show", f"{prev}:{OWNER_KEY_REL}") + "\n", encoding="utf-8")
+        _, plaintext, errors = gpg_verify_clearsigned_plaintext(asc, trusted_fingerprints=trusted, key_import_paths=[key])
+    if errors:
+        return None, f"armor does not verify with {prev} keys"
+    trees = re.findall(r"^Tree: ([0-9a-f]{40})$", plaintext, re.M)
+    if len(trees) != 1:
+        return None, "verified statement has no single Tree line"
+    return trees[0], ""
 
 
-def main() -> int:
-    hub_tool()
-    parser = argparse.ArgumentParser(description="Hub release tag gate")
-    parser.add_argument("--check", action="store_true")
-    parser.add_argument("--commit", required=True, help="Merge commit to tag")
-    parser.add_argument("--tag", default=None, help="vX.Y.Z (default from commit version file)")
-    parser.add_argument("--skip-verify-deep", action="store_true")
-    parser.add_argument(
-        "--repo-root",
-        default=None,
-        help="Git root for object reads (default hub checkout; landmines use synthetic repos)",
-    )
-    args = parser.parse_args()
-
-    if not args.check:
-        parser.print_help()
-        return 2
-
-    repo_root = Path(args.repo_root).resolve() if args.repo_root else ROOT
-    commit = args.commit.strip()
-    _, err = resolve_commit(repo_root, commit)
-    if err:
-        return refuse_gate("RELEASE_TAG_GATE", commit, err)
-
-    ver = read_version_at(commit, repo_root=repo_root)
-    if not ver:
-        print("RELEASE_TAG_GATE:NOT_MET", file=sys.stderr)
-        print("  What's wrong: no nlc-version.json at commit", file=sys.stderr)
-        print("  Fix: merge a release branch that bumps integrity/nlc-version.json", file=sys.stderr)
-        return 1
-    tag = args.tag or tag_from_version(ver)
-    if tag.lstrip("v") != ver:
-        print("RELEASE_TAG_GATE:NOT_MET", file=sys.stderr)
-        print(f"  What's wrong: --tag {tag} != commit version {ver}", file=sys.stderr)
-        return 1
-
-    problems = check_static(repo_root, commit, tag)
-    problems.extend(check_findings_describe_identity(repo_root, commit, ver))
-    problems.extend(checker_digest_signature_problems(repo_root, commit))
-    if not problems and not args.skip_verify_deep and repo_root == ROOT:
-        problems.extend(run_verify_deep_at(commit))
-
-    if problems:
-        print("RELEASE_TAG_GATE:NOT_MET", file=sys.stderr)
-        print(f"  Commit: {commit[:12]}  Tag: {tag}", file=sys.stderr)
-        for p in problems:
-            print(f"  - {p}", file=sys.stderr)
-        print("  Fix: run ./release from main; merge release/v* with record + notes + verify-deep.", file=sys.stderr)
-        return 1
-
-    print(f"RELEASE_TAG_GATE:MET tag={tag} commit={commit[:12]}")
+def tree_guard(rev: str) -> int:
+    want, why = signed_tree(rev)
+    if want is None:
+        return refuse(f"{rev}: {why}")
+    have = tree_without_armor(rev)
+    if want != have:
+        return refuse(f"{rev} tree {have} is not the signed Tree {want}; validate and sign again")
     return 0
 
 
+def notes() -> int:
+    """Rewrite docs/adoption/RELEASE-vX.Y.Z.md from the titles of PRs merged (gh pr merge --merge) since the previous tag."""
+    ver = json.loads((ROOT / VERSION_REL).read_text(encoding="utf-8"))["version"]
+    prev, why = previous_tag("HEAD", ver)
+    if prev is None:
+        return refuse(why)
+    log = git("log", "--merges", "--first-parent", "--reverse", "--format=%s%x1f%b%x1e", f"{prev}..HEAD")
+    lines = []
+    for rec in log.split("\x1e"):
+        subject, _, body = rec.strip().partition("\x1f")
+        m = re.match(r"Merge pull request #(\d+) from ", subject)
+        if m and body.strip():
+            lines.append(f"- {body.strip().splitlines()[0]} (#{m.group(1)})")
+    path = ROOT / "docs" / "adoption" / f"RELEASE-v{ver}.md"
+    path.write_text(f"# Natural Language Compiler hub v{ver}\n\n## Highlights\n\n" + "\n".join(lines) + "\n", encoding="utf-8")
+    return 0
+
+
+def statement() -> int:
+    """Print the statement validate leaves for the owner: six fields, Tree, members."""
+    digest = (ROOT / DIGEST_REL).read_bytes()
+    print(f"Repo: {REPO}")
+    print(f"Document: {DIGEST_REL}")
+    print(f"Content-SHA256: {hashlib.sha256(digest).hexdigest()}")
+    print("Decision: Accepted")
+    print(f"Date: {datetime.date.today().isoformat()}")
+    print(f"Summary: Ratify release v{version('HEAD')}. This signature covers only these exact bytes.")
+    print(f"Tree: {tree_without_armor('HEAD')}")
+    print("")
+    for rel in digest_paths(ROOT):
+        print(f"Member: {rel}")
+    return 0
+
+
+def sign() -> int:
+    """Step 4, owner only: re-prove validate on the pushed HEAD, then clearsign the statement, commit, push."""
+    try:
+        branch, ver = release_branch()
+        head = git("rev-parse", "HEAD")
+        if head != git("rev-parse", f"origin/{branch}"):
+            raise Refused(f"HEAD is not origin/{branch}; sign only the pushed, validated head")
+        if version("HEAD") != ver:
+            raise Refused(f"HEAD version is {version('HEAD')}, not {ver}; run ./release validate")
+        prove(head, ver)
+    except Refused as why:
+        return refuse(str(why))
+    text = subprocess.run([sys.executable, __file__, "statement"], check=True, capture_output=True, text=True).stdout
+    head_text = text.split("\n\n", 1)[0] + "\n"
+    armor = subprocess.run(["gpg", "--clearsign"], input=head_text, check=True, capture_output=True, text=True).stdout
+    (ROOT / ARMOR_REL).write_text(armor, encoding="utf-8")
+    git("add", ARMOR_REL)
+    git("commit", "-q", "-m", f"release: sign v{ver}")
+    git("push", "-q", "origin", f"HEAD:{branch}")
+    print("RELEASE_SIGN:DONE")
+    return 0
+
+
+def main_push() -> int:
+    """Step 5: push release to main only if it is exactly the signed Tree."""
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
+    if not branch.startswith("release/v"):
+        return refuse(f"run on release/vX.Y.Z, not {branch}")
+    git("fetch", "-q", "--tags", "origin")
+    ref = f"origin/{branch}"
+    if tree_guard(ref):
+        return 1
+    git("push", "-q", "origin", f"{ref}:refs/heads/main")
+    print(f"RELEASE_MAIN:DONE {branch} -> main")
+    return 0
+
+
+def tag() -> int:
+    """Step 6: Tree must match; previous tag's checker and keys grade origin/main; then tag."""
+    git("fetch", "-q", "--tags", "origin")
+    if tree_guard("origin/main"):
+        return 1
+    ver, (prev, _) = version("origin/main"), previous_tag("origin/main")
+    with tempfile.TemporaryDirectory() as tmp:
+        checker, graded = Path(tmp) / "checker", Path(tmp) / "graded"
+        git("worktree", "add", "-q", "--detach", str(checker), prev)
+        git("worktree", "add", "-q", "--detach", str(graded), "origin/main")
+        try:
+            subprocess.run(["rm", "-rf", str(graded / KEYS_REL)], check=True)
+            subprocess.run(["cp", "-r", str(checker / KEYS_REL), str(graded / KEYS_REL)], check=True)
+            rc = subprocess.run([sys.executable, str(checker / VERIFIER_REL), "--root", str(graded)]).returncode
+        finally:
+            git("worktree", "remove", "--force", str(checker))
+            git("worktree", "remove", "--force", str(graded))
+    if rc != 0:
+        return refuse(f"{prev} checker did not return MET for origin/main")
+    git("tag", "-a", f"v{ver}", "-m", f"v{ver}", "origin/main")
+    git("push", "-q", "origin", f"v{ver}")
+    print(f"RELEASE_TAG:DONE v{ver} verified by {prev}")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    hub_tool()
+    args = sys.argv[1:] if argv is None else argv
+    commands = {"validate": validate, "sign": sign, "main": main_push, "tag": tag, "notes": notes, "statement": statement}
+    if len(args) != 1 or args[0] not in commands:
+        print("usage: ./release validate|sign|main|tag")
+        return 1
+    return commands[args[0]]()
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

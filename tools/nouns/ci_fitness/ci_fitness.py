@@ -134,10 +134,6 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "fitness-no-history-ids-in-evidence.py")],
     )
     run(
-        "fitness-landmine-self-contained",
-        [sys.executable, str(TOOLS / "fitness-landmine-self-contained.py")],
-    )
-    run(
         "fitness-root-session-artifacts",
         [sys.executable, str(TOOLS / "fitness-root-session-artifacts.py")],
     )
@@ -164,14 +160,6 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
     run(
         "assert-field-write-bypass-fails",
         [sys.executable, str(TOOLS / "assert-field-write-bypass-fails.py")],
-    )
-    run(
-        "assert-unresolvable-refuses-passes",
-        [sys.executable, str(TOOLS / "assert-unresolvable-refuses-passes.py")],
-    )
-    run(
-        "assert-evidence-unresolved-ref-refuses",
-        [sys.executable, str(TOOLS / "assert-evidence-unresolved-ref-refuses.py")],
     )
 
     print("=== designed-fail landmines (assert exit 0 = landmine live) ===")
@@ -636,34 +624,6 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-validate-agent-nouns-passes.py")],
     )
     run(
-        "assert-release-preflight",
-        [sys.executable, str(TOOLS / "assert-release-preflight-passes.py")],
-    )
-    run(
-        "assert-release-main-purity",
-        [sys.executable, str(TOOLS / "assert-release-main-purity-passes.py")],
-    )
-    run(
-        "assert-release-infer",
-        [sys.executable, str(TOOLS / "assert-release-infer-passes.py")],
-    )
-    run(
-        "assert-release-state",
-        [sys.executable, str(TOOLS / "assert-release-state-passes.py")],
-    )
-    run(
-        "assert-release-context",
-        [sys.executable, str(TOOLS / "assert-release-context-passes.py")],
-    )
-    run(
-        "fitness-release-planner-ownership",
-        [sys.executable, str(TOOLS / "fitness-release-planner-ownership.py")],
-    )
-    run(
-        "assert-release-planner-ownership",
-        [sys.executable, str(TOOLS / "assert-release-planner-ownership-fails.py")],
-    )
-    run(
         "assert-jidoka-ssot-agents-link",
         [sys.executable, str(TOOLS / "assert-jidoka-ssot-agents-link-passes.py")],
     )
@@ -671,33 +631,16 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         "assert-goal-write-hook-landmine",
         [sys.executable, str(TOOLS / "assert-goal-write-hook-landmine-passes.py")],
     )
-    run(
-        "assert-release-main-purity-remediation",
-        [sys.executable, str(TOOLS / "assert-release-main-purity-remediation-passes.py")],
-    )
     for _probe_name in (
-        "main-purity",
         "tag-exists",
         "list-version-tags",
         "tag-is-ancestor",
         "remote-tag-commit-only",
         "align-local-tag-to-remote",
         "changelog-tag-exists",
-        "branch-exists",
-        "remote-branch-exists",
-        "resolve-ref-sha",
-        "tag-on-commit",
         "is-resolvable-commit",
-        "release-state-out",
-        "remote-branch-sha",
-        "remote-known",
-        "pull-requests",
-        "publish-status",
-        "publish-decision",
         "git-changed-paths",
         "github-latest-tag",
-        "create-release-line-show-ref",
-        "sig-ok",
     ):
         run(
             f"assert-release-probe-{_probe_name}-fails",
@@ -829,10 +772,6 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "assert-adr-detached-sig-fails.py")],
     )
     run(
-        "assert-sign-adrs-script",
-        [sys.executable, str(TOOLS / "assert-sign-adrs-script-passes.py")],
-    )
-    run(
         "assert-adr-status-heading",
         [sys.executable, str(TOOLS / "assert-adr-status-heading-fails.py")],
     )
@@ -909,7 +848,7 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [
             sys.executable,
             str(TOOLS / "assert-gate-set-closure-member-tamper-fails.py"),
-            "tools/nouns/release_state/release_state.py",
+            "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
         ],
     )
     run(
@@ -962,14 +901,6 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
     run(
         "assert-landmine-file-change-triggers-landmine",
         [sys.executable, str(TOOLS / "assert-landmine-file-change-triggers-landmine-passes.py")],
-    )
-    run(
-        "fitness-release-prep-script-match",
-        [sys.executable, str(TOOLS / "fitness-release-prep-script-match.py")],
-    )
-    run(
-        "assert-release-prep-hand-edit",
-        [sys.executable, str(TOOLS / "assert-release-prep-hand-edit-fails.py")],
     )
     run(
         "fitness-adr-record-gate",

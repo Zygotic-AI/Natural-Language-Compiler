@@ -1,6 +1,6 @@
 ---
 name: full-nlc-audit
-description: Full NLC continuity audit — machine manifest plus inference phases. ./release step 0c uses profile release-prep (docs/adoption/RELEASE.md). Otherwise python3 tools/full-nlc-audit.py --check --profile quick|release-prep|full.
+description: Full NLC continuity audit — machine manifest plus inference phases. python3 tools/full-nlc-audit.py --check --profile quick|release-prep|full.
 disable-model-invocation: true
 ---
 
@@ -32,7 +32,7 @@ Do **not** emit the final audit report until every **blocking** row is true.
 | Input | Default |
 | ----- | ------- |
 | Repo root | Workspace root |
-| Profile | `quick` (CI landmine); `release-prep` on `./release` prepare; `full` adds clean-tree + verify stages (`docs/adoption/RELEASE.md`) |
+| Profile | `quick` (CI landmine); `release-prep`; `full` adds clean-tree + verify stages (`docs/adoption/RELEASE.md`) |
 | Prior findings | Optional diff |
 
 ## Procedure
@@ -43,7 +43,7 @@ From repo root:
 
 ```bash
 python3 tools/full-nlc-audit.py --check --profile quick
-# ./release prepare (no duplicate verify-deep):
+# release-prep profile:
 python3 tools/full-nlc-audit.py --check --profile release-prep
 # local pre-ship sweep (clean tree; adds verify-deep + verify):
 python3 tools/full-nlc-audit.py --check --profile full
@@ -79,7 +79,7 @@ Follow [`references/inference-phases.md`](references/inference-phases.md) in ord
 ## Hard rules
 
 - Machine output is evidence — do not claim MET without the command exit code.
-- `FINDINGS.md` is the live **gap** queue (undone work), not the shipped-version SSOT. Continuity means **present-complete**, **parked (`gate missing`)**, or **absent** — not partial. What is shipped? = semver tag reachable from `origin/main` + `integrity/nlc-version.json` + `integrity/hub-release-record.json` at that commit. If default-branch FINDINGS or DESCRIBE Current ship disagrees with those three, that is a factory FAIL, not a reader FAIL.
+- `FINDINGS.md` is the live **gap** queue (undone work), not the shipped-version SSOT. Continuity means **present-complete**, **parked (`gate missing`)**, or **absent** — not partial. What is shipped? = semver tag reachable from `origin/main` + `integrity/nlc-version.json` at that commit. If a default-branch file names another shipped version, that is a factory FAIL, not a reader FAIL.
 - Integration units: record in `integrity/integration-leaves.json` before deleting long-lived branches.
 
 ## When to write leaves

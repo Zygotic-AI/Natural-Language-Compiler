@@ -289,6 +289,21 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "fitness-planit-noun-shape.py")],
     )
     run(
+        "fitness-planit-one-owned",
+        [sys.executable, str(TOOLS / "fitness-planit-one-owned.py")],
+    )
+    run(
+        "fitness-planit-identity-evidence",
+        [
+            sys.executable,
+            str(TOOLS / "fitness-planit-identity.py"),
+            "--skill-only",
+            "--loaded",
+            ".agents/skills/planit/SKILL.md",
+            "--check-evidence",
+        ],
+    )
+    run(
         "fitness-harness-gate-binder-sync",
         [sys.executable, str(TOOLS / "fitness-harness-gate-binder-sync.py")],
     )
@@ -971,6 +986,22 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
     run(
         "assert-planit-other-skill",
         [sys.executable, str(TOOLS / "assert-planit-other-skill-fails.py")],
+    )
+    run(
+        "assert-planit-second-skill",
+        [sys.executable, str(TOOLS / "assert-planit-second-skill-fails.py")],
+    )
+    run(
+        "assert-planit-external-route",
+        [sys.executable, str(TOOLS / "assert-planit-external-route-fails.py")],
+    )
+    run(
+        "assert-planit-one-owned-landmines",
+        [sys.executable, str(TOOLS / "assert-planit-one-owned-landmines.py")],
+    )
+    run(
+        "assert-planit-stale-evidence",
+        [sys.executable, str(TOOLS / "assert-planit-stale-evidence-fails.py")],
     )
     run(
         "assert-planit-identity-loaded-skill",

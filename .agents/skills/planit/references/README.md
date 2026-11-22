@@ -7,9 +7,9 @@
 | [`planit-process.md`](planit-process.md) | PLANIT steps 0–7 (points at `docs/nlc/compiler/PROCESS.md`) |
 | [`hub-charter-loop.md`](hub-charter-loop.md) | Charter §6 when this practice hub is in scope |
 
-## AWL / gate norms (vendored)
+## AWL / gate norms (owned in-repo)
 
-Copied from org-global **`~/.agents/skills/planit/references/`** so clones work without that path. When both exist, prefer **newer** of the two on conflict; after editing global Planit, refresh copies here.
+NLC owns these reference files under `.agents/skills/planit/references/` and reads no outside Planit copy.
 
 | File | Role |
 |------|------|
@@ -20,7 +20,7 @@ Copied from org-global **`~/.agents/skills/planit/references/`** so clones work 
 | `root-cause-analysis-standard.md` | Failure handling |
 | `knowledge-change-review-standard.md` | KCR sub-gate (ai vault durable layers) |
 | `domain-first-authoring.md` | Phase 7 back-propagation |
-| `local-dsi-converge-audit-template.md` | DSI Phase 6 instance (route to global Planit) |
+| `local-dsi-converge-audit-template.md` | DSI Phase 6 instance under this skill |
 
 Orchestration map for this repo: `docs/nlc/compiler/PLANIT-ORCHESTRATION.md`.
 

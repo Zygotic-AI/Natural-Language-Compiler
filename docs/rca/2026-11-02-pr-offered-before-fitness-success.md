@@ -4,7 +4,7 @@
 
 **Result:** PASS
 
-**Evidence:** `node /home/rpickett/workspace/Zygotic-AI/zyprompt/metaprompts/scripts/validate-rca-record.mjs docs/rca/2026-11-02-pr-offered-before-fitness-success.md` → exit 0
+**Evidence:** At record time, `node metaprompts/scripts/validate-rca-record.mjs` (zyprompt) on this file → exit 0.
 
 **The one thing:** release/SKILL.md gate exits non-zero and blocks gh pr create until pr-offer-gate.py reports nlc verify and fitness success on that HEAD.
 
@@ -16,7 +16,7 @@
 
 error_condition: A hub pull request is offered as the merge step when the GitHub `fitness` check on that head is not success.
 
-Repo: `/home/rpickett/workspace/Zygotic-AI/Natural-Language-Compiler`. Subpath: `.agents/skills/release/SKILL.md` offer path and `gh pr create`. Severity: incident.
+Repo: this hub (`Natural-Language-Compiler`). Subpath: `.agents/skills/release/SKILL.md` offer path and `gh pr create`. Severity: incident.
 
 Not every recent pull request failed. Of the last 15, these heads have a `fitness` conclusion of success and are merged: #38, #40, #41, #42, #45, #48, #51. The defect is the offer that precedes a failure.
 

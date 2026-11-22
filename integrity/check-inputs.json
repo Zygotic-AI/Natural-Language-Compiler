@@ -806,11 +806,35 @@
       ]
     },
     {
+      "label": "assert-planit-external-route-fails",
+      "script": "tools/assert-planit-external-route-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-external-route-fails.py"
+      ]
+    },
+    {
       "label": "assert-planit-other-skill-fails",
       "script": "tools/assert-planit-other-skill-fails.py",
       "kind": "landmine",
       "inputs": [
         "tools/assert-planit-other-skill-fails.py"
+      ]
+    },
+    {
+      "label": "assert-planit-second-skill-fails",
+      "script": "tools/assert-planit-second-skill-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-second-skill-fails.py"
+      ]
+    },
+    {
+      "label": "assert-planit-stale-evidence-fails",
+      "script": "tools/assert-planit-stale-evidence-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-stale-evidence-fails.py"
       ]
     },
     {
@@ -3134,6 +3158,16 @@
         "tools/nouns/fitness_planit_noun_shape/fields.txt",
         "tools/nouns/fitness_planit_noun_shape/fitness_planit_noun_shape.py",
         "tools/nouns/fitness_planit_noun_shape/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "fitness-planit-one-owned.py invoice-correct",
+      "script": "tools/fitness-planit-one-owned.py",
+      "kind": "fitness",
+      "inputs": [
+        ".agents/skills/planit/SKILL.md",
+        "tools/fitness-planit-one-owned.py",
+        "tools/nouns/planit_identity/planit_identity.py"
       ]
     },
     {
@@ -5832,11 +5866,35 @@
       ]
     },
     {
+      "label": "tools/assert-planit-external-route-fails.py",
+      "script": "tools/assert-planit-external-route-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-external-route-fails.py"
+      ]
+    },
+    {
       "label": "tools/assert-planit-other-skill-fails.py",
       "script": "tools/assert-planit-other-skill-fails.py",
       "kind": "landmine",
       "inputs": [
         "tools/assert-planit-other-skill-fails.py"
+      ]
+    },
+    {
+      "label": "tools/assert-planit-second-skill-fails.py",
+      "script": "tools/assert-planit-second-skill-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-second-skill-fails.py"
+      ]
+    },
+    {
+      "label": "tools/assert-planit-stale-evidence-fails.py",
+      "script": "tools/assert-planit-stale-evidence-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-planit-stale-evidence-fails.py"
       ]
     },
     {

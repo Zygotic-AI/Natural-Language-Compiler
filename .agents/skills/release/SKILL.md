@@ -11,7 +11,7 @@ The hub release is seven steps, one command each (ADR 0061). Run them in order. 
 1. `gh workflow run start-release.yml -f version=vX.Y.Z` (on the owner's go).
 2. `gh pr merge <PR> --merge` for one change branch cut from `release/vX.Y.Z`; cut the next one after it merges.
 3. `./release validate` on `release/vX.Y.Z`. On `RELEASE_VALIDATE:CODE_DEFECT`, fix the named check in a change branch (step 2) and run it again.
-4. The owner runs `./release sign` (it re-proves validate on HEAD, then signs). Give the owner the statement validate printed. Never create armor.
+4. Give the owner only the text between the `RELEASE_SIGN_BLOCK` markers, never commands. The owner returns a clearsigned message. Save it to a file and run `./release sign --armor <file>` (it re-proves validate on HEAD, then takes that file). Never create armor.
 5. `./release main`.
 6. `./release tag`.
 7. The tag push runs `.github/workflows/release.yml`, which builds and publishes. Report the Release link.

@@ -2,7 +2,8 @@
 
 - Status: Accepted
 - Date: 2026-11-07
-- Revision: 1
+- Revision: 2
+- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
 - Deciders: Human manager
 - Ratified-by: Human manager (ADR revision and history, 2026-11-07)
 - Class: F (process)
@@ -31,7 +32,7 @@ Shadow records that say what an earlier accepted record “really means” are e
 
 6. **Proposed.** A Proposed record may be edited in `adrs/` with no history copy. History starts when it is Accepted, or when it is rejected and moved.
 
-7. **Sign independently.** The old bytes and the new bytes each get their own owner signature. An agent does not create those signatures. This record does not decide whether the branch suite verifies them; that stays [ADR 0056](0056-per-file-adr-detached-signatures.md) / [ADR 0057](0057-tag-time-checker-digest.md).
+7. **Signatures.** An agent does not create owner signatures. Per-revision ADR signatures are not asked; the one release signature of [ADR 0061](0061-release-in-seven-steps.md) ratifies the new bytes.
 
 8. **New number means new decision.** A new `NNNN` is a different law, not a reword of an existing one.
 

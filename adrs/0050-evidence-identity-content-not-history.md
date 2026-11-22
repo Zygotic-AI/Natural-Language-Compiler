@@ -2,6 +2,8 @@
 
 - Status: Accepted
 - Date: 2026-10-10
+- Revision: 2
+- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
 - Deciders: Human manager
 - Ratified-by: Human manager (evidence identity content-not-history ADR, 2026-10-10)
 - Class: F (integrity / gates), A (release and audit evidence)
@@ -26,7 +28,7 @@ Hub proof mixed two evidence regimes: content fingerprints (for example `.nlc/ve
 2. **Unresolvable input → REFUSE.** When a gate cannot resolve a declared reference (missing object, dangling label), it stops with **REFUSE** and prints the unresolved reference. It does not emit NOT_MET/FAIL for a different substantive reason.
 3. **Freshness is content freshness.** “Fresh” means the recorded content hash equals the current content hash of the audited paths, not “an ancestor of HEAD”.
 4. **Landmines are self-contained.** Designed-fail fixtures build the world they test (synthetic repository or tree) and assert the specific failure token. Passing for any other reason is a defect.
-5. **Enforcement.** Hub CI runs: `fitness-no-history-ids-in-evidence`, `fitness-landmine-self-contained`, `assert-unresolvable-refuses-passes`, and a history-rewrite invariant job that must yield the same fitness verdict before and after rewriting a scratch copy (including shallow clone).
+5. **Enforcement.** `./release validate` runs `fitness-no-history-ids-in-evidence` inside `./nlc gate --profile release` ([ADR 0061](0061-release-in-seven-steps.md)).
 
 ## Consequences
 

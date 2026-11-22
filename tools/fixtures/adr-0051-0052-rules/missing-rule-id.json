@@ -307,8 +307,8 @@
       "id": "0052:DEC-5",
       "location": "adrs/0052-owner-openpgp-ratification-amends-0051.md:52",
       "status": "BUILT",
-      "check_id": "C6",
-      "known_bad_id": "GAP-0051-unsigned"
+      "check_id": "fitness-gate-set-manifest",
+      "known_bad_id": "KB-SG2-closure-member"
     },
     {
       "id": "0052:DEC-6",

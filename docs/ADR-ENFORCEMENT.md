@@ -19,14 +19,13 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0011 | `fitness-nlc-naming.py` + landmine | bound |
 | 0012 | `check-rule-adoption.py` + conflict landmine | bound |
 | 0013 | `hub_tool` fitness + landmine | bound |
-| 0014 | migration + `assert-release-preflight-passes.py` | bound |
+| 0014 | migration + `assert-migration-step-noop-passes.py` | bound |
 | 0015 | `fitness-distribution-binder.py` + install landmines | bound |
 | 0016 | `fitness-hub-no-product-requirements.py` + landmine | bound |
 | 0017–0018 | `fitness-human-surface-binder.py` + interview landmines | bound |
 | 0019 | `fitness-guide-orchestration.py` + landmine | bound |
 | 0020 | (with 0017–0018) MENU/HARNESS + dashboard fitness | bound |
 | 0021 | `nlc verify` / `verify-deep` | bound |
-| 0022 | `./release`, release workflow, preflight | bound |
 | 0023 | `rule_coverage_blockers` + `nlc_rule_emit.py` + binder fitness + landmines | bound |
 | 0024 | `fitness-adr-0024-binder.py` + `nlc-action-plan-gate.py` + `nlc-reverse-audit.py` + `nlc-emit-manifest-enforce.py` (ADR 0026) | bound |
 | 0025 | `rules/nlc-0025.json` + `validate-rca-packet.py` + `fitness-adr-0025-rca-packet.py` + landmine | bound |
@@ -39,25 +38,23 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0036 | `fitness-nlc-0036-inference-only.py` + `rules/nlc-0036.json` | bound |
 | 0037 | `integrity/charter-ratify-backlog.json` non_r_residuals + ADR text | bound (docs/backlog) |
 | 0038 | `fitness-adr-0038-no-memory.py` + `rules/nlc-0038.json` | bound (v1) |
-| 0039 | `nlc_release_tag_gate.py` + `nlc_release_resume.py` + `fitness-adr-0039-release-binder.py` + landmine | bound (v1) |
-| 0040 | `nlc_release_context.py` + `nlc_release_shipped_tag_audit.py` + landmine + RELEASE.md | bound (v1) |
+| 0039 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
+| 0040 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
 | 0041 | `product-completion-scope.json` + `hub-pack-registry.json` + `fitness-product-completion-scope.py` + `fitness-hub-pack-registry.py` | bound (v1) |
 | 0042 | `rule-ir-product-boundary.json` + `fitness-adr-0007-product-boundary.py` + rule-runner landmines | bound (v1) |
 | 0043 | `uc14-product-boundary.json` + `fitness-uc14-product-boundary.py` + rule-adoption landmines | bound (v1) |
-| 0044 | `nlc_release_main_purity.py` + `fitness-adr-0039-release-binder.py` | bound (v1) |
-| 0045 | `nlc_release_state.py` + `assert-release-state-passes.py` + `fitness-adr-0039-release-binder.py` | bound (v1) |
+| 0044 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
 | 0046 | `fitness-planit-identity.py` + `assert-planit-other-skill-fails.py` | bound |
 | 0047 | `fitness-adr-approval.py` + `assert-adr-approval-mismatch-fails.py` | bound |
 | 0048 | `fitness-executable-shape.py` + `assert-executable-kernel-exempt-fails.py` | bound |
-| 0049 | `fitness-release-planner-ownership.py` + `assert-release-planner-ownership-fails.py` + `assert-release-context-passes.py` | bound |
-| 0050 | `fitness-no-history-ids-in-evidence.py` + `fitness-landmine-self-contained.py` + history-rewrite invariant job + landmines | bound |
+| 0050 | `fitness-no-history-ids-in-evidence.py` (inside `./release validate`) | bound |
 | 0054 | `fitness-skill-author-check-presence.py` + `fitness-skill-author-checklist.py` + `fitness-skill-content-type.py` + `assert-skill-author-check-fails.py` | bound |
 | 0055 | `fitness-live-self-ref-activation.py` + `assert-live-self-ref-direct-edit-fails.py` | bound |
-| 0056 | `fitness-adr-owner-sidecar.py` + `assert-adr-detached-sig-fails.py` | bound |
 | 0057 | `fitness-derived-release-state.py` + `assert-tag-digest-signature-required-fails.py` | bound |
 | 0058 | `fitness-goal-write-hook.py` + `assert-goal-write-hook-landmine-passes.py` | bound |
 | 0059 | `fitness-adr-history.py` + `assert-adr-history-fails.py` | bound |
 | 0060 | `fitness-install-scope.py` + `assert-install-local-dispatch-passes.py` + local-pin / outside-repo landmines | bound |
+| 0061 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
 
 **0007/0009:** semantic rule application and the verb-to-primitive inventory are bound. The pan-return landmine and the inventory mismatch landmine are the failing fixtures. ADR 0023 marker emit stays bound via `rule-emit` / `goal-scaffold` / verify audit.
 

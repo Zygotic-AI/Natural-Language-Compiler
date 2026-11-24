@@ -2566,6 +2566,9 @@
       "script": "tools/fitness-interview-prompt-shape.py",
       "kind": "fitness",
       "inputs": [
+        ".agents/skills/bbp-proposer/SKILL.md",
+        ".agents/skills/interview/SKILL.md",
+        "integrity/schemas/interview-packet.schema.json",
         "tools/fitness-interview-prompt-shape.py",
         "tools/nouns/fitness_interview_prompt_shape/README.md",
         "tools/nouns/fitness_interview_prompt_shape/__init__.py",

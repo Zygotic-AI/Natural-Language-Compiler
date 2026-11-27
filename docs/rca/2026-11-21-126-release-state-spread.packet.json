@@ -28,7 +28,7 @@
  "failed_level": "Policy",
  "domain_definition": {
   "path": "adrs/0061-release-in-seven-steps.md",
-  "sha256": "3600854041cabf6a3ce5b95e88dfd58a40bfa2394e6ff9e2665716cb87845f06"
+  "sha256": "dd1bc49b26fd8e0afab491e94e52906efd4ceb19d044c59d6bdd549016e94eeb"
  },
  "fix": {
   "level": "Policy",

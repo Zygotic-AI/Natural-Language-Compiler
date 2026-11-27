@@ -1,25 +1,9 @@
 # Hub release
 
-The hub release is seven steps, one command each ([ADR 0061](../../adrs/0061-release-in-seven-steps.md)). Nothing else runs in a release.
+The hub release is an **executable goal** (`goals/hub_release/`). [ADR 0061](../../adrs/0061-release-in-seven-steps.md) is the readiness checklist that goal checks. This page explains; it does not copy the steps.
 
-| # | Step | Command | Who |
-| --- | --- | --- | --- |
-| 1 | main to release branch | `gh workflow run start-release.yml -f version=vX.Y.Z` | agent |
-| 2 | change branch cut from `release/vX.Y.Z`, merged back, one at a time | `gh pr merge <PR> --merge` | agent |
-| 3 | validate | `./release validate` | agent |
-| 4 | sign, once, after validate | `./release sign --armor <file>` | agent |
-| 5 | release to main | `./release main` | agent |
-| 6 | tag main | `./release tag` | agent |
-| 7 | artifacts from the tag trigger | [`.github/workflows/release.yml`](../../.github/workflows/release.yml) | CI |
+Unreleased work stays on `release/v*`. `main` is tagged production ([ADR 0044](../../adrs/0044-hub-release-production-trunk.md)). Agents load the steps from [`.agents/skills/release/SKILL.md`](../../.agents/skills/release/SKILL.md) and run the goal. `./release` is a thin entrypoint ([ADR 0048](../../adrs/0048-executable-shape.md)).
 
-## What the commands do
-
-- `./release validate`, on `release/vX.Y.Z`: in a fresh worktree of `origin/release/vX.Y.Z` it writes `integrity/nlc-version.json` and the noop migration, rewrites `docs/adoption/RELEASE-vX.Y.Z.md` from the titles of PRs merged since the previous tag (step 2's `--merge` keeps each title in its merge commit) and checks it, regenerates derived files, commits, then runs `./nlc gate --profile release`. Green: pushes and prints `RELEASE_VALIDATE:ONLY_SIGNATURE_LEFT` and the statement (also on a branch already validated). The owner signs only the lines between the `RELEASE_SIGN_BLOCK` markers. Red: prints `RELEASE_VALIDATE:CODE_DEFECT` and pushes nothing; fix it in a change branch and run validate again.
-- `./release sign --armor <file>`: the agent gives the owner only the text between the `RELEASE_SIGN_BLOCK` markers, never commands. The owner returns a clearsigned message. The agent saves it to a file and runs this command. The agent never creates armor. On a clean `release/vX.Y.Z` whose HEAD is `origin/release/vX.Y.Z`, it reruns validate's writes on HEAD (they must change nothing) and the release suite (it must pass), then reads that file. It exits 1 with one line and writes and pushes nothing when the file has a byte before `-----BEGIN PGP SIGNED MESSAGE-----` or after `-----END PGP SIGNATURE-----`, when it does not verify with the previous release tag's trusted fingerprints and owner key, or when the verified plaintext is not the sign block. Otherwise it writes the file as `integrity/checker-digest.sha256.approval.asc`, commits `release: sign vX.Y.Z`, pushes, and prints `RELEASE_SIGN:DONE`. `./release sign` without `--armor` still clearsigns that block on a machine that has the owner key.
-- `./release main`: pushes `origin/release/vX.Y.Z` to `main` only if its tree, without the armor file, is the signed `Tree` (read from the statement gpg verifies with the previous release tag's keys; that tag is the nearest release tag on the first-parent line, v0.8.0 or a tag whose own statement verifies). Git refuses if `main` moved.
-- `./release tag`: tags `origin/main` with the version in `integrity/nlc-version.json` only if its tree, without the armor file, is the signed `Tree` and the previous release tag's checker, with that tag's owner keys, returns MET.
-- `release.yml` stops before building unless the tag is `v` plus the version in `integrity/nlc-version.json`.
-- Validate and sign refuse a dirty worktree or local commits `origin` does not have.
-- Bare `./release` prints the commands and exits 1.
+The first readiness gate asks whether every issue for this milestone is completed; it fails and names each open milestone issue.
 
 Release notes format: [`.agents/instructions/release-notes.md`](../../.agents/instructions/release-notes.md).

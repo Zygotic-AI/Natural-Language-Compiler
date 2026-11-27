@@ -4,7 +4,6 @@ from __future__ import annotations
 
 BOUNDARY = "bba-emit"
 
-import json
 from pathlib import Path
 
 # Guide (/interview) is not a stage — it is always-on. Queue buckets only:
@@ -36,35 +35,21 @@ def is_hub_repo(root: Path) -> bool:
     )
 
 
-def _pipeline_path(root: Path) -> Path:
-    return root / ".nlc" / "pipeline-state.json"
-
-
 def load_persisted_items(root: Path) -> list[dict]:
-    path = _pipeline_path(root)
-    if not path.is_file():
-        return []
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return []
-    raw = data.get("items")
-    if not isinstance(raw, list):
-        return []
+    from nouns.compile_guide_session.compile_guide_session import load_items
+
     out: list[dict] = []
-    for item in raw:
-        if isinstance(item, dict) and item.get("id") and item.get("stage"):
-            row = dict(item)
-            row["stage"] = normalize_stage(str(row["stage"]))
-            out.append(row)
+    for item in load_items(root):
+        row = dict(item)
+        row["stage"] = normalize_stage(str(row["stage"]))
+        out.append(row)
     return out
 
 
 def save_persisted_items(root: Path, items: list[dict]) -> None:
-    nlc = root / ".nlc"
-    nlc.mkdir(parents=True, exist_ok=True)
-    payload = {"schema": 1, "items": items}
-    _pipeline_path(root).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    from nouns.compile_guide_session.compile_guide_session import save_items
+
+    save_items(root, items)
 
 
 def upsert_persisted_item(root: Path, item: dict) -> None:

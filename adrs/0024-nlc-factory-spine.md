@@ -1,10 +1,12 @@
 # [ADR](../docs/TERMS.md#adr) 0024 — [NLC](../docs/TERMS.md#nlc) factory spine
 
-- Status: Accepted
-- Date: 2026-09-22
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 2
 - Deciders: Human manager
 - Class: F (process)
 - Corpus: nlc
+- Decision-point: nlc-factory-spine
 
 ## Context
 
@@ -14,7 +16,7 @@ Unbound prose is not a [rule](../docs/TERMS.md#rule). [Emit](../docs/TERMS.md#co
 
 ## Decision
 
-1. **One [ADR](../docs/TERMS.md#adr) list** in a repo. Two [rule](../docs/TERMS.md#rule) corpora: `nlc` (process) and `bba` (emit shape). [BBP](../docs/TERMS.md#bbp) is a BBA profile, not a third corpus.
+1. **One [ADR](../docs/TERMS.md#adr) list** in a repo. Two [rule](../docs/TERMS.md#rule) corpora: `nlc` (process) and `bba` (emit shape). [BBP](../docs/TERMS.md#bbp) is a BBA profile, not a third corpus. The **names** of BBP and BBA shapes are [ADR 0048](0048-executable-shape.md).
 2. **Bind or remove.** A published [rule](../docs/TERMS.md#rule) or [ADR](../docs/TERMS.md#adr) has testable [gates](../docs/TERMS.md#gate) or is deleted. Parked is legal only as a bound gap row.
 3. A **[rule](../docs/TERMS.md#rule)** is an adopted if/then: **condition** (`if`) + **obligation** (`then`) + **[gate](../docs/TERMS.md#gate)**.
 4. **Pipeline**

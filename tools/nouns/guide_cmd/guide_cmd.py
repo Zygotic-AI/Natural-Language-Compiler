@@ -76,7 +76,7 @@ def dispatch_guide(args: argparse.Namespace, root: Path, hub: Path) -> int:
         return 0
     if cmd == "handoff-build":
         handoff_build(root)
-        print("Build handoff queued (pipeline-state).")
+        print("Build handoff queued (compile-guide session header).")
         return 0
     if cmd == "before-generate":
         if args.scope:

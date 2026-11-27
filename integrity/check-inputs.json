@@ -793,6 +793,16 @@
       ]
     },
     {
+      "label": "assert-open-milestone-issue-fails",
+      "script": "tools/assert-open-milestone-issue-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-open-milestone-issue-fails.py",
+        "tools/nouns/assert_open_milestone_issue_fails/__init__.py",
+        "tools/nouns/assert_open_milestone_issue_fails/assert_open_milestone_issue_fails.py"
+      ]
+    },
+    {
       "label": "assert-planit-external-route-fails",
       "script": "tools/assert-planit-external-route-fails.py",
       "kind": "landmine",
@@ -1223,6 +1233,16 @@
       ]
     },
     {
+      "label": "assert-rule-adoption-tier-diff-fails",
+      "script": "tools/assert-rule-adoption-tier-diff-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-rule-adoption-tier-diff-fails.py",
+        "tools/nouns/assert_rule_adoption_tier_diff_fails/__init__.py",
+        "tools/nouns/assert_rule_adoption_tier_diff_fails/assert_rule_adoption_tier_diff_fails.py"
+      ]
+    },
+    {
       "label": "assert-rule-coverage-fails",
       "script": "tools/assert-rule-coverage-fails.py",
       "kind": "landmine",
@@ -1330,6 +1350,16 @@
       ]
     },
     {
+      "label": "assert-state-walk-child-drop-fails",
+      "script": "tools/assert-state-walk-child-drop-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-state-walk-child-drop-fails.py",
+        "tools/nouns/assert_state_walk_child_drop_fails/__init__.py",
+        "tools/nouns/assert_state_walk_child_drop_fails/assert_state_walk_child_drop_fails.py"
+      ]
+    },
+    {
       "label": "assert-tag-digest-signature-required-fails",
       "script": "tools/assert-tag-digest-signature-required-fails.py",
       "kind": "landmine",
@@ -1406,6 +1436,16 @@
         "tools/nouns/assert_todo_use_cases_ssot_fails/assert_todo_use_cases_ssot_fails.py",
         "tools/nouns/assert_todo_use_cases_ssot_fails/fields.txt",
         "tools/nouns/assert_todo_use_cases_ssot_fails/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "assert-unsigned-codified-does-not-bind-fails",
+      "script": "tools/assert-unsigned-codified-does-not-bind-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-unsigned-codified-does-not-bind-fails.py",
+        "tools/nouns/assert_unsigned_codified_does_not_bind_fails/__init__.py",
+        "tools/nouns/assert_unsigned_codified_does_not_bind_fails/assert_unsigned_codified_does_not_bind_fails.py"
       ]
     },
     {
@@ -1576,6 +1616,16 @@
         "tools/nouns/assert_verify_stale_stamp_fails/assert_verify_stale_stamp_fails.py",
         "tools/nouns/assert_verify_stale_stamp_fails/fields.txt",
         "tools/nouns/assert_verify_stale_stamp_fails/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "assert-work-queue-json-not-ssot-fails",
+      "script": "tools/assert-work-queue-json-not-ssot-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-work-queue-json-not-ssot-fails.py",
+        "tools/nouns/assert_work_queue_json_not_ssot_fails/__init__.py",
+        "tools/nouns/assert_work_queue_json_not_ssot_fails/assert_work_queue_json_not_ssot_fails.py"
       ]
     },
     {
@@ -4334,6 +4384,20 @@
       ]
     },
     {
+      "label": "no-noun-field-writes rule-adoption-tier-diff",
+      "script": "tools/fitness-no-noun-field-writes.py",
+      "kind": "fitness",
+      "inputs": [
+        "tools/fitness-no-noun-field-writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/README.md",
+        "tools/nouns/fitness_no_noun_field_writes/__init__.py",
+        "tools/nouns/fitness_no_noun_field_writes/adjectives.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fields.txt",
+        "tools/nouns/fitness_no_noun_field_writes/fitness_no_noun_field_writes.py",
+        "tools/nouns/fitness_no_noun_field_writes/schemas/verbs.schema.json"
+      ]
+    },
+    {
       "label": "no-noun-field-writes rule-coverage-minimal",
       "script": "tools/fitness-no-noun-field-writes.py",
       "kind": "fitness",
@@ -5558,6 +5622,16 @@
       ]
     },
     {
+      "label": "tools/assert-open-milestone-issue-fails.py",
+      "script": "tools/assert-open-milestone-issue-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-open-milestone-issue-fails.py",
+        "tools/nouns/assert_open_milestone_issue_fails/__init__.py",
+        "tools/nouns/assert_open_milestone_issue_fails/assert_open_milestone_issue_fails.py"
+      ]
+    },
+    {
       "label": "tools/assert-planit-external-route-fails.py",
       "script": "tools/assert-planit-external-route-fails.py",
       "kind": "landmine",
@@ -5916,6 +5990,16 @@
       ]
     },
     {
+      "label": "tools/assert-rule-adoption-tier-diff-fails.py",
+      "script": "tools/assert-rule-adoption-tier-diff-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-rule-adoption-tier-diff-fails.py",
+        "tools/nouns/assert_rule_adoption_tier_diff_fails/__init__.py",
+        "tools/nouns/assert_rule_adoption_tier_diff_fails/assert_rule_adoption_tier_diff_fails.py"
+      ]
+    },
+    {
       "label": "tools/assert-rule-coverage-fails.py",
       "script": "tools/assert-rule-coverage-fails.py",
       "kind": "landmine",
@@ -6023,6 +6107,16 @@
       ]
     },
     {
+      "label": "tools/assert-state-walk-child-drop-fails.py",
+      "script": "tools/assert-state-walk-child-drop-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-state-walk-child-drop-fails.py",
+        "tools/nouns/assert_state_walk_child_drop_fails/__init__.py",
+        "tools/nouns/assert_state_walk_child_drop_fails/assert_state_walk_child_drop_fails.py"
+      ]
+    },
+    {
       "label": "tools/assert-tag-digest-signature-required-fails.py",
       "script": "tools/assert-tag-digest-signature-required-fails.py",
       "kind": "landmine",
@@ -6099,6 +6193,16 @@
         "tools/nouns/assert_todo_use_cases_ssot_fails/assert_todo_use_cases_ssot_fails.py",
         "tools/nouns/assert_todo_use_cases_ssot_fails/fields.txt",
         "tools/nouns/assert_todo_use_cases_ssot_fails/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "tools/assert-unsigned-codified-does-not-bind-fails.py",
+      "script": "tools/assert-unsigned-codified-does-not-bind-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-unsigned-codified-does-not-bind-fails.py",
+        "tools/nouns/assert_unsigned_codified_does_not_bind_fails/__init__.py",
+        "tools/nouns/assert_unsigned_codified_does_not_bind_fails/assert_unsigned_codified_does_not_bind_fails.py"
       ]
     },
     {
@@ -6269,6 +6373,16 @@
         "tools/nouns/assert_verify_stale_stamp_fails/assert_verify_stale_stamp_fails.py",
         "tools/nouns/assert_verify_stale_stamp_fails/fields.txt",
         "tools/nouns/assert_verify_stale_stamp_fails/schemas/verbs.schema.json"
+      ]
+    },
+    {
+      "label": "tools/assert-work-queue-json-not-ssot-fails.py",
+      "script": "tools/assert-work-queue-json-not-ssot-fails.py",
+      "kind": "landmine",
+      "inputs": [
+        "tools/assert-work-queue-json-not-ssot-fails.py",
+        "tools/nouns/assert_work_queue_json_not_ssot_fails/__init__.py",
+        "tools/nouns/assert_work_queue_json_not_ssot_fails/assert_work_queue_json_not_ssot_fails.py"
       ]
     }
   ]

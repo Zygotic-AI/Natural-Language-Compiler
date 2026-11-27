@@ -1,12 +1,13 @@
 # ADR 0051 — Hub-own produce compiles NLC principles
 
-- Status: Accepted
-- Date: 2026-10-11
-- Revision: 2
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 3
 - Deciders: Human manager
-- Ratified-by: Human manager (hub-own produce principles ADR, 2026-10-11)
 - Class: F (integrity / hub produce), A (release stabilization scope)
 - Corpus: nlc
+- Decision-point: hub-own-produce-property-goals
+- Version class of this change: **minor** (new policy; not a published-contract break)
 - RCA: RCA 4 (agents weakening checks), root confirmed by the human manager 2026-10-11; the RCA record is kept outside this repository.
 
 ## Context
@@ -102,6 +103,7 @@ Edits under `docs/history/`, `docs/rca/`, and `reviews/` are provenance, not gat
 3. Define **gate set** paths in the table above.
 4. Gate-set ratification uses the signed manifest, not a hash-only JSON registry.
 5. Codified constraints under SG1–SG3 are wired in hub fitness. This record is Accepted law, not a deferral.
+6. **Goals are checked against real end states.** CI green is never the finish line (SG1). How an owner signature file is made is [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md).
 
 ## Consequences
 

@@ -17,14 +17,14 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0009 | Primitives are interior functions | active | L-0009 |
 | 0010 | Gate immediately after every generate | active | L-0010 |
 | 0011 | NLC product naming (compiler vs compiled system) | active | L-0011 |
-| 0012 | ADR precedence tiers and adopt-time rule conflicts | active | L-0012 |
+| 0012 | Halt on constraint conflict; overrides file; notes follow | active | L-0012 |
 | 0013 | Requirements checked at entry; list all missing | active | L-0013 |
 | 0014 | Semver upgrade chain; explicit noop migrations | active | L-0014 |
 | 0015 | Version store, lock file, tarball install | active | L-0015 |
 | 0016 | Hub has no built-in compliance; packs v0.2 | active | L-0016 |
 | 0017 | Human surface: jargon-free UX, menu/order | active | L-0017 |
 | 0018 | Interview on gap/failure for all human surfaces | active | L-0018 |
-| 0019 | Guided flow: queue, resume unfinished work | active | L-0019 |
+| 0019 | Guided flow: queue is a scan of document headers | active | L-0019 |
 | 0020 | Human shell vs agent-invoked tools | active | L-0020 |
 | 0021 | verify fingerprints; verify-deep; /verify skill | active | L-0021 |
 | 0022 | release preflight, notes gate before verify | superseded by 0061 | L-0022 |
@@ -33,15 +33,15 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0025 | Belief layer: perfect code via process, no blame, factory | active | L-0025 |
 | 0026 | X1–X3 real runners: action-plan, reverse-audit, manifest enforce | active | L-0026 |
 | 0027 | Emit-from-prose compiler: constrained Step/Action/Emit → pipeline JSON | active | L-0027 |
-| 0028 | Verb set baseline + policy lineage to ADRs | active | L-0028 |
-| 0029 | ADR lineage, three-document split, bind snapshot | active | L-0029 |
+| 0028 | Closed atomic verb set (hub baseline, adopter extends) | active | L-0028 |
+| 0029 | INDEX, CATALOG, ACTIVE; bind reads only ACTIVE | active | L-0029 |
 | 0030 | Pipeline wire: sequence X1/X2/X3/X5/X6 around every emit | active | L-0030 |
 | 0031 | Charter ratification program + backlog SSOT | active | L-0031 |
 | 0032 | Charter ownership and mutation (R1–R8) | active | L-0032 |
 | 0033 | Charter contracts (R9–R12) | active | L-0033 |
 | 0034 | Charter goal shape and composition (R13–R19) | active | L-0034 |
 | 0035 | Charter knowledge and enforcement (R20–R25, R32–R33) | active | L-0035 |
-| 0036 | Inference-only human surface: goal + policy only | active | L-0036 |
+| 0036 | Humans write goals, requirements, and knowledge domains | active | L-0036 |
 | 0037 | Charter non-R surfaces §6 / §16 ratification pointers | active | L-0037 |
 | 0038 | No memory in process — gates or TODO, never “remember” | active | L-0038 |
 | 0039 | Single-command human surfaces (one command per step, e.g. `./release validate`) | active | L-0039 |
@@ -54,8 +54,8 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0048 | Every executable file has one Boundary-Based shape | active | L-0048 |
 | 0049 | Release planner owns every intentional stop | superseded by 0061 | L-0049 |
 | 0050 | Evidence binds to content fingerprints, not git commit ids | active | L-0050 |
-| 0051 | Hub-own produce principles SG1–SG3 | accepted | L-0051 |
-| 0052 | Owner OpenPGP ratification amends 0051 | accepted | L-0052 |
+| 0051 | Hub-own produce principles SG1–SG3 | active | L-0051 |
+| 0052 | Owner OpenPGP sidecar format; one signature per ADR | active | L-0052 |
 | 0053 | Text retrofit for stale 0051/0052 sentences | rejected | L-0053 |
 | 0054 | Published-skill author contract (one checklist, pre-release and post-install) | accepted | L-0054 |
 | 0055 | Staged activation of gate machinery | accepted | L-0055 |
@@ -64,4 +64,8 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0058 | Harness- and model-agnostic | active | L-0058 |
 | 0059 | ADR revision and history | active | L-0059 |
 | 0060 | Install scope (global or local) and PATH dispatch | active | L-0060 |
-| 0061 | Release in seven steps | active | L-0061 |
+| 0061 | Release readiness checklist | active | L-0061 |
+| 0062 | Constraint stack: intake → extract → codified if/then | active | L-0062 |
+| 0063 | One named decision point per ADR; overlap fails | active | L-0063 |
+| 0064 | Lifecycle state lives in the document header | active | L-0064 |
+| 0065 | Type-dependency file and upward fingerprint walk | active | L-0065 |

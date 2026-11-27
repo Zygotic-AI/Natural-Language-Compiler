@@ -124,7 +124,7 @@ Humans do not maintain [noun](docs/TERMS.md#noun) files. They hire the [compiler
 
 ## Division of labor (summary)
 
-**Humans focus on three things:** goals, requirements (standards and policies live here until adopted as ADRs/rules), and [knowledge domains](docs/TERMS.md#knowledge-domain).
+**Humans write exactly three things** ([ADR 0036](adrs/0036-inference-only-human-surface.md)): goals, requirements, and [knowledge domains](docs/TERMS.md#knowledge-domain). ADRs, rules, plans, and tags are inferred or the compile refuses.
 
 **Humans approve:** adopted ADRs, adopted if/then rules (and tag/primitive extensions when the closed set must grow), ratification and release when class requires it, certified [RCA](docs/TERMS.md#rca), accepted [audit](docs/TERMS.md#audit) findings.
 

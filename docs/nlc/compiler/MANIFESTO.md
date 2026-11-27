@@ -124,7 +124,7 @@ Humans do not maintain [noun](../../TERMS.md#noun) files. They hire the [compile
 
 ## Division of labor (summary)
 
-**Humans contribute goal and policy only** ([ADR 0036](../../../adrs/0036-inference-only-human-surface.md)): the outcome they want, and the constraints that govern the build. Requirements, [knowledge domains](../../TERMS.md#knowledge-domain), ADRs, and rules are **inferred** from policy or the compile refuses.
+**Humans write exactly three things** ([ADR 0036](../../../adrs/0036-inference-only-human-surface.md)): goals, requirements, and [knowledge domains](../../TERMS.md#knowledge-domain). ADRs, rules, plans, and tags are inferred or the compile refuses.
 
 **Humans approve:** adopted ADRs, adopted if/then rules (and tag/primitive extensions when the closed set must grow), ratification and release when class requires it, certified [RCA](../../TERMS.md#rca), accepted [audit](../../TERMS.md#audit) findings — judgment over derived artifacts, not authorship of them.
 

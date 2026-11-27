@@ -1,4 +1,4 @@
-"""Dashboard: scan app repo state and refresh .nlc/work-queue.json."""
+"""Dashboard: scan app repo state from document headers (ADR 0064)."""
 
 from __future__ import annotations
 
@@ -45,7 +45,9 @@ def requirements_incomplete(root: Path) -> bool:
     # Hub Proposed ADRs are not adopter unfinished-requirements (ADR 0029: ACTIVE is bind-time).
     if list_pending_adrs(root / "adrs") and not is_hub_repo(root):
         return True
-    if (root / ".nlc" / "requirements-sync-pending.json").is_file():
+    from nouns.compile_guide_session.compile_guide_session import sync_pending
+
+    if sync_pending(root):
         return True
     if not is_hub_repo(root) and (root / ".nlc" / "lock.json").is_file():
         if not _packet_bind_ready(root):
@@ -143,8 +145,9 @@ def scan_requirements_work(root: Path) -> list[dict]:
             }
         )
 
-    flag = root / ".nlc" / "requirements-sync-pending.json"
-    if flag.is_file() and not pending:
+    from nouns.compile_guide_session.compile_guide_session import sync_pending
+
+    if sync_pending(root) and not pending:
         items.append(
             {
                 "id": "requirements-sync",
@@ -312,11 +315,6 @@ def refresh_work_queue(root: Path, installed_hub: str | None) -> dict:
     items = merge_queue_items(scanned, persisted)
 
     payload = {"schema": 1, "items": items}
-    nlc = root / ".nlc"
-    nlc.mkdir(parents=True, exist_ok=True)
-    (nlc / "work-queue.json").write_text(
-        json.dumps(payload, indent=2) + "\n", encoding="utf-8"
-    )
     return payload
 
 

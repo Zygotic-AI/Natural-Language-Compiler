@@ -1,30 +1,22 @@
 # ADR 0044 — Hub release production trunk
 
-- Status: Accepted
-- Date: 2026-09-25
-- Revision: 2
-- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 3
 - Deciders: Human manager
-- Ratified-by: Human manager (hub F process; Planit production-trunk plan)
 - Class: F (process)
 - Corpus: nlc
+- Decision-point: production-trunk
+- Version class of this change: **minor** (new policy; not a published-contract break)
 
 ## Context
 
-[ADR 0022](history/0022-hub-release-fail-early-1.md) orders release gates and keeps version bumps on `release/v*`. [ADR 0039](0039-single-command-human-surfaces.md) requires one command per step (as amended by [ADR 0061](0061-release-in-seven-steps.md)). [ADR 0040](0040-process-preflight-remediation.md) requires preflight and copy-paste remediation.
-
-Operators still had to remember branch policy: feature work landed on `main`, then release tooling expected a different shape (`release/v*`, merge commit tagging). The human contract should be:
-
-1. Never commit to `main` (only merges).
-2. `main` HEAD equals last tagged release.
-3. Branch from `main`, work on the release line, sync `main` into that branch when others ship.
-4. Run the seven commands of [ADR 0061](0061-release-in-seven-steps.md); each prints success or `RELEASE:REFUSED` with the fix.
+Operators still had to remember branch policy: feature work landed on `main`, then release tooling expected a different shape. The human contract should be: never commit to `main` (only merges); `main` HEAD equals last tagged release; unreleased work lives on `release/v*`.
 
 ## Decision
 
 1. **Production trunk.** `main` is **tagged production only**: `main` HEAD commit must equal the newest reachable `v*.*.*` tag commit (or there is no tag yet). Unreleased work lives on **`release/v*`** (release line), not on `main`.
-
-2. **Release steps.** A release line is cut from `main`, filled one change branch at a time, validated, signed, pushed to `main` and tagged by the commands of [ADR 0061](0061-release-in-seven-steps.md).
+2. **Release steps.** Cutting the line, filling it, validating, signing, pushing to `main`, and tagging are the **release goal**. This ADR points at that goal. It does not list the steps.
 
 ## Acceptance criteria
 
@@ -33,10 +25,19 @@ Operators still had to remember branch policy: feature work landed on `main`, th
 
 ## Consequences
 
-- [`scripts/nlc-release.sh`](../scripts/nlc-release.sh) and [`tools/nouns/nlc_release_tag_gate/`](../tools/nouns/nlc_release_tag_gate/) carry the commands.
-- [`.agents/skills/release/SKILL.md`](../.agents/skills/release/SKILL.md): agent closeout on the release line; no ship commits to `main`.
+- [`scripts/nlc-release.sh`](../scripts/nlc-release.sh) stays a thin entrypoint ([ADR 0048](0048-executable-shape.md)) that calls the release goal.
+- [`.agents/skills/release/SKILL.md`](../.agents/skills/release/SKILL.md) points at the same goal.
 
 ## Rejected
 
-- **Feature integration on `main` between tags** — unreleased commits on `main` break production-trunk preflight.
-- **Release branch tree is not the signed tree**: `./release main` prints `RELEASE:REFUSED` and pushes nothing.
+- **Feature integration on `main` between tags.**
+- A second copy of the release step table in this record.
+
+## Proposal (G-PROPOSE)
+
+- **Change class:** F
+- **Nouns / verbs / goals touched:** release goal pointer. After accept: this file has no step table.
+- **Adjectives that must hold:** `main` is tagged production; unreleased work is on `release/v*`.
+- **Non-goals:** readiness checklist (0061).
+- **Tests:** release goal tree guards (existing `nlc_release_tag_gate`).
+- **Impact:** trunk rule unchanged; steps live on the goal.

@@ -1,26 +1,22 @@
-# ADR 0059 — ADR revision and history
+# ADR 0059 — ADR revision, history, and status words
 
-- Status: Accepted
-- Date: 2026-11-07
-- Revision: 2
-- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 3
 - Deciders: Human manager
-- Ratified-by: Human manager (ADR revision and history, 2026-11-07)
 - Class: F (process)
 - Corpus: nlc
-- Amends: [ADR 0028](0028-closed-atomic-verb-set-and-policy-adr-lineage.md) (how a lineage tip is rewritten), [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) (same number stays the name of the law)
+- Decision-point: adr-revision-history-status-words
 - Related: charter R22 (superseded records are marked, not deleted)
 - Version class of this change: **minor** (new policy; not a published-contract break)
 
 ## Context
 
-Shadow records that say what an earlier accepted record “really means” are extra context. Current law should be one file. The past should be opt-in.
-
-[ADR 0028](0028-closed-atomic-verb-set-and-policy-adr-lineage.md) already wanted only the tip active. It used a new ADR number as the mechanism. That leaves agents loading the old number and the new number to know what is in force.
+Shadow records that say what an earlier accepted record “really means” are extra context. Current law should be one file. The past should be opt-in. The in-force word is **Accepted** everywhere. Where that word sits (the header) is [ADR 0064](0064-lifecycle-state-in-document-header.md). This ADR is the **words**, the history copy/move, and that Accepted means constraints built plus the ADR’s own signature.
 
 ## Decision
 
-1. **Current law lives in `adrs/`.** Numbered files `adrs/NNNN-slug.md` are the only current records. The binder still reads only [`ACTIVE.md`](ACTIVE.md).
+1. **Current law lives in `adrs/`.** Numbered files `adrs/NNNN-slug.md` are the only current records. The binder still reads only [`ACTIVE.md`](ACTIVE.md) ([ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md)).
 
 2. **Revision field.** Each current ADR has `Revision:` in the header, an integer starting at 1. A file with no field is revision 1.
 
@@ -30,16 +26,18 @@ Shadow records that say what an earlier accepted record “really means” are e
 
 5. **Revoked, superseded, rejected, removed.** Put that status in the header, then move the file to `adrs/history/` with the revision suffix. No current file remains in `adrs/`. [`INDEX.md`](INDEX.md) keeps the row and points at history. No stub in `adrs/`.
 
-6. **Proposed.** A Proposed record may be edited in `adrs/` with no history copy. History starts when it is Accepted, or when it is rejected and moved.
+6. **Proposed.** A Proposed record may be edited in `adrs/` with no history copy. History starts when it is Accepted, or when it is rejected and moved. Agents never write approval stamps.
 
-7. **Signatures.** An agent does not create owner signatures. Per-revision ADR signatures are not asked; the one release signature of [ADR 0061](0061-release-in-seven-steps.md) ratifies the new bytes.
+7. **Accepted.** The only in-force status word is **Accepted**. Proposed, Superseded, and Rejected stay. **Accepted** means: constraints built ([ADR 0062](0062-constraint-stack.md)) and human accept recorded by **this ADR’s own** OpenPGP sidecar ([ADR 0052](0052-owner-openpgp-ratification-amends-0051.md)). This ADR does **not** say that a release signature ratifies new ADR bytes. The one release signature is [ADR 0061](0061-release-in-seven-steps.md).
 
-8. **New number means new decision.** A new `NNNN` is a different law, not a reword of an existing one.
+8. **New number means new decision.** A new `NNNN` is a different law, not a reword of an existing one. Overlap of names is [ADR 0063](0063-adr-decision-point-register.md).
+
+9. **TODO is not a status source.** INDEX, CATALOG, ACTIVE, and the file header are the status sources. [`TODO`](../TODO) is a task queue.
 
 ## Consequences
 
-- [ADR 0028](0028-closed-atomic-verb-set-and-policy-adr-lineage.md) decision 2 no longer requires a new number for a rewrite. The history copy is the immutable snapshot.
-- [ADR 0053](history/0053-0051-0052-text-retrofit-1.md) (text retrofit) is rejected and moved to history. [ADR 0051](0051-hub-own-produce-principles.md) and [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md) are rewritten as revision 2.
+- [ADR 0028](0028-closed-atomic-verb-set-and-policy-adr-lineage.md) no longer owns copy/move.
+- [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) displays Accepted for in-force; it does not invent a second vocabulary.
 - Charter R22 still holds: the trail is `adrs/history/`, not a second current file.
 
 ## Rejected
@@ -47,13 +45,14 @@ Shadow records that say what an earlier accepted record “really means” are e
 - A shadow ADR whose only job is the intended wording of another accepted ADR.
 - Editing an accepted current file with no history copy.
 - A stub in `adrs/` for a revoked record.
-- Folding the 0056/0057 signing walk into this record.
+- “The one release signature ratifies new ADR bytes.”
+- Amend-without-edit (a note that changes law without changing the current file).
 
 ## Proposal (G-PROPOSE)
 
 - **Change class:** F
-- **Nouns / verbs / goals touched:** `adr_history` fitness. After accept: `adrs/history/`, header `Revision:`, current-law scans ignore history.
+- **Nouns / verbs / goals touched:** `adr_history` fitness. After accept: Accepted = sidecar + constraints built.
 - **Adjectives that must hold:** current `adrs/NNNN-*.md` are not Rejected, Superseded, Revoked, or Removed; history filenames end in `-<revision>.md`.
-- **Non-goals:** deciding branch vs tag signature checks (0056/0057); removing Cursor hooks (0058); bumping the shipped version.
+- **Non-goals:** sidecar format (0052); header location (0064).
 - **Tests:** `tools/fitness-adr-history.py`; `tools/assert-adr-history-fails.py`.
-- **Impact:** agents read one current file per decision; past bytes stay in `adrs/history/` when someone needs them.
+- **Impact:** agents read one current file per decision; past bytes stay in `adrs/history/`.

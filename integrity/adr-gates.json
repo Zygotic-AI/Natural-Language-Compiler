@@ -195,7 +195,7 @@
     },
     "0052": {
       "gate": "tools/fitness-adr-owner-sidecar.py",
-      "fixture": "tools/fixtures/owner-ratification-sidecar/accepted-doc-no-sidecar.md"
+      "fixture": "tools/assert-unsigned-codified-does-not-bind-fails.py"
     },
     "0054": {
       "gate": "tools/fitness-skill-author-check-presence.py",
@@ -222,8 +222,24 @@
       "fixture": "tools/assert-install-local-dispatch-passes.py"
     },
     "0061": {
-      "gate": "tools/nouns/nlc_release_tag_gate/nlc_release_tag_gate.py",
-      "fixture": "tools/assert-tag-digest-signature-required-fails.py"
+      "gate": "tools/fitness-release-readiness.py",
+      "fixture": "tools/assert-open-milestone-issue-fails.py"
+    },
+    "0062": {
+      "gate": "tools/fitness-constraint-stack.py",
+      "fixture": "tools/assert-unsigned-codified-does-not-bind-fails.py"
+    },
+    "0063": {
+      "gate": "tools/fitness-adr-decision-point-register.py",
+      "fixture": "tools/fitness-adr-decision-point-register.py"
+    },
+    "0064": {
+      "gate": "tools/fitness-lifecycle-state-headers.py",
+      "fixture": "tools/assert-work-queue-json-not-ssot-fails.py"
+    },
+    "0065": {
+      "gate": "tools/fitness-type-dependency.py",
+      "fixture": "tools/assert-state-walk-child-drop-fails.py"
     }
   },
   "constraints": {

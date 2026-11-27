@@ -37,23 +37,21 @@ def end_planit(root: Path) -> None:
 
 
 def policy_change(root: Path, change: str) -> None:
-    _write_json(_nlc(root) / "last-requirement-change.json", {"change": change})
-    _write_json(_nlc(root) / "requirements-sync-pending.json", {"pending": True})
+    from nouns.compile_guide_session.compile_guide_session import set_sync_pending
+
+    set_sync_pending(root, True, change=change)
 
 
 def requirements_dirty(root: Path) -> None:
-    _write_json(_nlc(root) / "requirements-sync-pending.json", {"pending": True})
+    from nouns.compile_guide_session.compile_guide_session import set_sync_pending
+
+    set_sync_pending(root, True)
 
 
 def handoff_build(root: Path) -> None:
-    items = []
-    path = _nlc(root) / "pipeline-state.json"
-    if path.is_file():
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-            items = [i for i in (data.get("items") or []) if i.get("id") != "handoff-build"]
-        except json.JSONDecodeError:
-            items = []
+    from nouns.compile_guide_session.compile_guide_session import load_items, save_items
+
+    items = [i for i in load_items(root) if i.get("id") != "handoff-build"]
     items.append(
         {
             "id": "handoff-build",
@@ -63,7 +61,7 @@ def handoff_build(root: Path) -> None:
             "priority": 20,
         }
     )
-    _write_json(path, {"schema": 1, "items": items})
+    save_items(root, items)
 
 
 def before_generate_ok(root: Path, scopes: list[str]) -> int:

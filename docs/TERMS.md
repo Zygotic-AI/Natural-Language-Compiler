@@ -612,7 +612,7 @@ Explicit waiver line in handoff/ADR; empty `Waived:` fails **verify**.
 
 ### Work queue
 
-`.nlc/work-queue.json`—dashboard scan of next human/agent steps.
+Dashboard scan of next human/agent steps from **document headers** ([ADR 0064](../adrs/0064-lifecycle-state-in-document-header.md)). Session resume that is not a per-item fact lives in `.nlc/compile-guide-session.md`. `.nlc/work-queue.json` is not the SSOT.
 
 ### Workflow
 

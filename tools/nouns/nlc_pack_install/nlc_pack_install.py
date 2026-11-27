@@ -107,20 +107,9 @@ def main() -> int:
     print(f"PACK_INSTALL:MET name={name} version={version}")
     print(f"  consume-status: {status_path.relative_to(root)}")
     if (root / "rules" / "adopted.json").is_file():
-        pending = root / ".nlc" / "requirements-sync-pending.json"
-        pending.parent.mkdir(parents=True, exist_ok=True)
-        pending.write_text(
-            json.dumps(
-                {
-                    "reason": "requirement pack install",
-                    "pack": f"{name}@{version}",
-                    "uc9_hint": UC9_HINT,
-                },
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
-        )
+        from nouns.compile_guide_session.compile_guide_session import set_sync_pending
+
+        set_sync_pending(root, True, change=f"pack:{name}@{version}")
     print("  next: review ADRs/rules, ratify, run UC9 delta-regen if rules changed")
     print(f"  uc9 hint: {UC9_HINT}")
     return 0

@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "adr": "0065",
+  "types": {
+    "source_document": { "depends_on": [] },
+    "extract": { "depends_on": ["source_document"] },
+    "codified_constraint": { "depends_on": ["extract"] },
+    "adr": { "depends_on": ["codified_constraint"] },
+    "goal": { "depends_on": ["adr"] },
+    "compile-guide-session": { "depends_on": ["adr", "goal"] },
+    "release": { "depends_on": ["adr", "goal", "codified_constraint", "source_document"] }
+  }
+}

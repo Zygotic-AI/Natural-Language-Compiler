@@ -768,7 +768,11 @@
       "label": "assert-milestone-title-suffix-fails",
       "script": "tools/assert-milestone-title-suffix-fails.py",
       "kind": "landmine",
-      "inputs": []
+      "inputs": [
+        "tools/assert-milestone-title-suffix-fails.py",
+        "tools/nouns/assert_milestone_title_suffix_fails/__init__.py",
+        "tools/nouns/assert_milestone_title_suffix_fails/assert_milestone_title_suffix_fails.py"
+      ]
     },
     {
       "label": "assert-non-python-adapter-fails",
@@ -1056,7 +1060,11 @@
       "label": "assert-release-not-on-release-branch-fails",
       "script": "tools/assert-release-not-on-release-branch-fails.py",
       "kind": "landmine",
-      "inputs": []
+      "inputs": [
+        "tools/assert-release-not-on-release-branch-fails.py",
+        "tools/nouns/assert_release_not_on_release_branch_fails/__init__.py",
+        "tools/nouns/assert_release_not_on_release_branch_fails/assert_release_not_on_release_branch_fails.py"
+      ]
     },
     {
       "label": "assert-release-probe-align-local-tag-to-remote-fails",
@@ -5610,7 +5618,11 @@
       "label": "tools/assert-milestone-title-suffix-fails.py",
       "script": "tools/assert-milestone-title-suffix-fails.py",
       "kind": "landmine",
-      "inputs": []
+      "inputs": [
+        "tools/assert-milestone-title-suffix-fails.py",
+        "tools/nouns/assert_milestone_title_suffix_fails/__init__.py",
+        "tools/nouns/assert_milestone_title_suffix_fails/assert_milestone_title_suffix_fails.py"
+      ]
     },
     {
       "label": "tools/assert-non-python-adapter-fails.py",
@@ -5898,7 +5910,11 @@
       "label": "tools/assert-release-not-on-release-branch-fails.py",
       "script": "tools/assert-release-not-on-release-branch-fails.py",
       "kind": "landmine",
-      "inputs": []
+      "inputs": [
+        "tools/assert-release-not-on-release-branch-fails.py",
+        "tools/nouns/assert_release_not_on_release_branch_fails/__init__.py",
+        "tools/nouns/assert_release_not_on_release_branch_fails/assert_release_not_on_release_branch_fails.py"
+      ]
     },
     {
       "label": "tools/assert-release-probe-align-local-tag-to-remote-fails.py",

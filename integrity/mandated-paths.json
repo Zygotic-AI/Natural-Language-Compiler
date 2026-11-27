@@ -1295,6 +1295,9 @@
     "goals/hub_install/execute.sh": [
       "gate_set_manifest"
     ],
+    "goals/hub_release/README.md": [
+      "gate_set_manifest"
+    ],
     "goals/hub_release/execute.sh": [
       "gate_set_manifest"
     ],
@@ -2225,6 +2228,9 @@
     "tools/assert-migration-step-noop-passes.py": [
       "gate_set_manifest"
     ],
+    "tools/assert-milestone-title-suffix-fails.py": [
+      "gate_set_manifest"
+    ],
     "tools/assert-nlc-naming-passes.py": [
       "gate_set_manifest"
     ],
@@ -2331,6 +2337,9 @@
       "gate_set_manifest"
     ],
     "tools/assert-releasable-home-invariant-passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/assert-release-not-on-release-branch-fails.py": [
       "gate_set_manifest"
     ],
     "tools/assert-release-probe-align-local-tag-to-remote-fails.py": [
@@ -5204,6 +5213,12 @@
     "tools/nouns/assert_migration_step_noop_passes/schemas/verbs.schema.json": [
       "gate_set_manifest"
     ],
+    "tools/nouns/assert_milestone_title_suffix_fails/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_milestone_title_suffix_fails/assert_milestone_title_suffix_fails.py": [
+      "gate_set_manifest"
+    ],
     "tools/nouns/assert_nlc_naming_passes/README.md": [
       "gate_set_manifest"
     ],
@@ -5676,6 +5691,12 @@
       "gate_set_manifest"
     ],
     "tools/nouns/assert_releasable_home_invariant_passes/assert_releasable_home_invariant_passes.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_release_not_on_release_branch_fails/__init__.py": [
+      "gate_set_manifest"
+    ],
+    "tools/nouns/assert_release_not_on_release_branch_fails/assert_release_not_on_release_branch_fails.py": [
       "gate_set_manifest"
     ],
     "tools/nouns/assert_release_probe_fail_closed/README.md": [

@@ -24,12 +24,18 @@ def version_file_of(root: Path) -> str:
     return json.loads((root / VERSION_REL).read_text(encoding="utf-8"))["version"]
 
 
-def release_ref_name(*, head: str | None = None, github_ref_name: str | None = None) -> str:
+def release_ref_name(
+    *,
+    head: str | None = None,
+    github_ref_name: str | None = None,
+    root: Path | None = None,
+) -> str:
     """Branch this process is on. Detached HEAD uses GITHUB_REF_NAME."""
+    cwd = str(root or ROOT)
     if head is None:
         proc = subprocess.run(
             ["git", "rev-parse", "--abbrev-ref", "HEAD"],
-            cwd=str(ROOT),
+            cwd=cwd,
             capture_output=True,
             text=True,
         )
@@ -386,7 +392,7 @@ def readiness_report(
     fails: list[str] = []
     pending: list[str] = []
     met: list[str] = []
-    ref = release_ref_name(head=head, github_ref_name=github_ref_name)
+    ref = release_ref_name(head=head, github_ref_name=github_ref_name, root=root)
     version, branch_err = parse_release_version(ref)
     if milestones is not None and gh_error is None and issues is None and version:
         issues, gh_error = list_open_milestone_issues(

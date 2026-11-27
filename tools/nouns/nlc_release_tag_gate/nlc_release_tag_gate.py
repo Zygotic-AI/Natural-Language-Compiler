@@ -65,7 +65,7 @@ def release_branch() -> tuple[str, str]:
     """On release/vX.Y.Z, clean, nothing local that origin lacks (R7-M2). Returns (branch, version) or raises."""
     from nouns.hub_release.hub_release import parse_release_version, release_ref_name
 
-    branch = release_ref_name()
+    branch = release_ref_name(root=ROOT)
     version, err = parse_release_version(branch)
     if err or not version:
         raise Refused(err or f"saw branch {branch}; a release runs only on release/vX.Y.Z")

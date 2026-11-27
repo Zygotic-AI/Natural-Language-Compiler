@@ -181,17 +181,20 @@ def unsigned_accepted_adrs(root: Path) -> list[str]:
     sys.path.insert(0, str(root / "tools"))
     from nouns.document_header.document_header import header_fields
 
+    from nouns.owner_sidecar.owner_sidecar import sidecar_path_for_document
+
     errors: list[str] = []
     adrs = root / "adrs"
     for path in sorted(adrs.glob("[0-9][0-9][0-9][0-9]-*.md")):
         status = header_fields(path.read_text(encoding="utf-8")).get("Status", "")
         if status != "Accepted":
             continue
-        sidecar = Path(str(path) + ".approval.asc")
-        alt = path.with_suffix(path.suffix + ".approval.asc")
-        if sidecar.is_file() or alt.is_file():
+        rel = path.relative_to(root).as_posix()
+        sidecar = root / sidecar_path_for_document(rel)
+        legacy = Path(str(path) + ".approval.asc")
+        if sidecar.is_file() or legacy.is_file():
             continue
-        errors.append(path.relative_to(root).as_posix())
+        errors.append(rel)
     if errors:
         return [
             "0061.2/10 unsigned Accepted ADR: " + ", ".join(errors)

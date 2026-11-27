@@ -204,11 +204,17 @@
     "TODO": [
       "gate_set_manifest"
     ],
+    "adrs/0001-zero-variance-integrity.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0001-zero-variance-integrity.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0001-zero-variance-integrity.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0002-p2-scope.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0002-p2-scope.md": [
@@ -218,11 +224,17 @@
     "adrs/0002-p2-scope.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0003-systems-extension-agent-nouns.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0003-systems-extension-agent-nouns.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0003-systems-extension-agent-nouns.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0004-produce-fitness-handoff.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0004-produce-fitness-handoff.md": [
@@ -232,11 +244,17 @@
     "adrs/0004-produce-fitness-handoff.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0005-ssot-exit-evidence.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0005-ssot-exit-evidence.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0005-ssot-exit-evidence.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0006-contract-change-notice.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0006-contract-change-notice.md": [
@@ -252,6 +270,9 @@
     "adrs/0007-tags-primitives-reduced-adrs.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0008-no-noun-inheritance.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0008-no-noun-inheritance.md": [
       "gate_set_manifest",
       "owner_sidecar"
@@ -259,11 +280,17 @@
     "adrs/0008-no-noun-inheritance.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0009-primitive-interior-functions.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0009-primitive-interior-functions.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0009-primitive-interior-functions.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0010-gate-after-every-generate.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0010-gate-after-every-generate.md": [
@@ -285,11 +312,17 @@
     "adrs/0012-rule-adoption-conflicts.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0013-requirements-preflight.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0013-requirements-preflight.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0013-requirements-preflight.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0014-semver-upgrade-steps-and-noop-migrations.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0014-semver-upgrade-steps-and-noop-migrations.md": [
@@ -299,9 +332,15 @@
     "adrs/0014-semver-upgrade-steps-and-noop-migrations.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0015-distribution-lock-and-version-store.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0015-distribution-lock-and-version-store.md": [
       "gate_set_manifest",
       "owner_sidecar"
+    ],
+    "adrs/0016-hub-carries-no-product-requirements.approval.asc": [
+      "gate_set_manifest"
     ],
     "adrs/0016-hub-carries-no-product-requirements.md": [
       "gate_set_manifest",
@@ -310,11 +349,17 @@
     "adrs/0016-hub-carries-no-product-requirements.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0017-human-command-surface.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0017-human-command-surface.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0017-human-command-surface.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0018-human-cli-interview-on-gap.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0018-human-cli-interview-on-gap.md": [
@@ -330,6 +375,9 @@
     "adrs/0019-guided-orchestration.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0020-human-vs-agent-commands.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0020-human-vs-agent-commands.md": [
       "gate_set_manifest",
       "owner_sidecar"
@@ -337,11 +385,17 @@
     "adrs/0020-human-vs-agent-commands.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0021-verify-fast-and-deep.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0021-verify-fast-and-deep.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0021-verify-fast-and-deep.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0023-rule-instance-trace-and-instant-audit-scope.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0023-rule-instance-trace-and-instant-audit-scope.md": [
@@ -357,9 +411,15 @@
     "adrs/0024-nlc-factory-spine.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0025-belief-no-blame-climb.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0025-belief-no-blame-climb.md": [
       "gate_set_manifest",
       "owner_sidecar"
+    ],
+    "adrs/0026-promote-x1-x3-runners.approval.asc": [
+      "gate_set_manifest"
     ],
     "adrs/0026-promote-x1-x3-runners.md": [
       "gate_set_manifest",
@@ -386,11 +446,17 @@
     "adrs/0030-pipeline-wiring.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0031-charter-ratification-program.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0031-charter-ratification-program.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0031-charter-ratification-program.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0032-charter-ownership-and-mutation.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0032-charter-ownership-and-mutation.md": [
@@ -400,11 +466,17 @@
     "adrs/0032-charter-ownership-and-mutation.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0033-charter-contracts.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0033-charter-contracts.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0033-charter-contracts.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0034-charter-goal-shape-and-composition.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0034-charter-goal-shape-and-composition.md": [
@@ -426,11 +498,17 @@
     "adrs/0036-inference-only-human-surface.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0037-charter-non-r-surfaces.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0037-charter-non-r-surfaces.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0037-charter-non-r-surfaces.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0038-no-memory-in-process.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0038-no-memory-in-process.md": [
@@ -443,9 +521,15 @@
     "adrs/0039-single-command-human-surfaces.md": [
       "gate_set_manifest"
     ],
+    "adrs/0040-process-preflight-remediation.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0040-process-preflight-remediation.md": [
       "gate_set_manifest",
       "owner_sidecar"
+    ],
+    "adrs/0041-product-completion-scope.approval.asc": [
+      "gate_set_manifest"
     ],
     "adrs/0041-product-completion-scope.md": [
       "gate_set_manifest",
@@ -454,11 +538,17 @@
     "adrs/0041-product-completion-scope.md.asc": [
       "gate_set_manifest"
     ],
+    "adrs/0042-rule-ir-hub-product-boundary.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0042-rule-ir-hub-product-boundary.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0042-rule-ir-hub-product-boundary.md.asc": [
+      "gate_set_manifest"
+    ],
+    "adrs/0043-uc14-composable-adopt-boundary.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0043-uc14-composable-adopt-boundary.md": [
@@ -472,6 +562,9 @@
       "gate_set_manifest"
     ],
     "adrs/0048-executable-shape.md": [
+      "gate_set_manifest"
+    ],
+    "adrs/0050-evidence-identity-content-not-history.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0050-evidence-identity-content-not-history.md": [
@@ -500,11 +593,17 @@
     "adrs/0057-tag-time-checker-digest.md": [
       "gate_set_manifest"
     ],
+    "adrs/0058-harness-and-model-agnostic.approval.asc": [
+      "gate_set_manifest"
+    ],
     "adrs/0058-harness-and-model-agnostic.md": [
       "gate_set_manifest",
       "owner_sidecar"
     ],
     "adrs/0059-adr-revision-and-history.md": [
+      "gate_set_manifest"
+    ],
+    "adrs/0060-install-scope-and-path-dispatch.approval.asc": [
       "gate_set_manifest"
     ],
     "adrs/0060-install-scope-and-path-dispatch.md": [

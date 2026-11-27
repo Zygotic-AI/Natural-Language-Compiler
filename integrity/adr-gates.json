@@ -295,7 +295,7 @@
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
     },
-    "0051:L82": {
+    "0051:L83": {
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
     },
@@ -331,35 +331,35 @@
       "check": "fitness-gate-set-manifest",
       "known_bad": "KB-SG2-closure-member"
     },
-    "0051:L109": {
+    "0051:L111": {
       "check": "C3",
       "known_bad": "KB-brief-forbid"
     },
-    "0051:REJ-115": {
+    "0051:REJ-117": {
       "check": "C4",
       "known_bad": "KB-check-on-check"
     },
-    "0051:REJ-116": {
+    "0051:REJ-118": {
       "check": "C1",
       "known_bad": "KB-SG1-exit"
     },
-    "0051:REJ-117": {
+    "0051:REJ-119": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0051:REJ-118": {
+    "0051:REJ-120": {
       "check": "C1",
       "known_bad": "GAP-self-declared-diff"
     },
-    "0052:L10": {
+    "0052:L11": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0052:L16": {
+    "0052:L18": {
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
     },
-    "0052:L28": {
+    "0052:L30": {
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
     },
@@ -391,17 +391,29 @@
       "check": "fitness-adr-owner-sidecar",
       "known_bad": "KB-0052-unsigned"
     },
-    "0052:REJ-69": {
+    "0052:REJ-72": {
       "check": "C6",
       "known_bad": "GAP-0051-unsigned"
     },
-    "0052:REJ-70": {
+    "0052:REJ-73": {
       "check": "C8",
       "known_bad": "KB-write-approval"
     },
-    "0052:REJ-71": {
+    "0052:REJ-74": {
       "check": "C9",
       "known_bad": "KB-retired-trusted"
+    },
+    "0051:DEC-6": {
+      "check": "C1",
+      "known_bad": "GAP-self-declared-scope"
+    },
+    "0052:L43": {
+      "check": "fitness-adr-owner-sidecar",
+      "known_bad": "KB-0052-unsigned"
+    },
+    "0052:REJ-75": {
+      "check": "C6",
+      "known_bad": "GAP-0051-unsigned"
     }
   }
 }

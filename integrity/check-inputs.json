@@ -2208,7 +2208,8 @@
         "tools/nouns/fitness_compiled_system_uc_binder/adjectives.txt",
         "tools/nouns/fitness_compiled_system_uc_binder/fields.txt",
         "tools/nouns/fitness_compiled_system_uc_binder/fitness_compiled_system_uc_binder.py",
-        "tools/nouns/fitness_compiled_system_uc_binder/schemas/verbs.schema.json"
+        "tools/nouns/fitness_compiled_system_uc_binder/schemas/verbs.schema.json",
+        "tools/nouns/nlc_pack_install/nlc_pack_install.py"
       ]
     },
     {

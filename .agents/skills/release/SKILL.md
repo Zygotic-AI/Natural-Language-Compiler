@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Full steps live in this skill so they are not standing agent context (`AGENTS.md` only points here).
 
-Run the **release goal** and report the result. Do not re-list every check in chat. The goal checks [ADR 0061](../../../adrs/0061-release-in-seven-steps.md) (readiness checklist; first gate names each open milestone issue) then runs the machine steps, gates, and release record. The goal imports the derived mandated-path list (`integrity/mandated-paths.json` from `python3 tools/derive-mandated-paths.py`).
+Run the **release goal** and report the result. Do not re-list every check in chat. The goal checks ADR 0061 (readiness checklist; first gate names each open milestone issue) then runs the machine steps, gates, and release record. The goal imports the derived mandated-path list (`integrity/mandated-paths.json` from `python3 tools/derive-mandated-paths.py`).
 
 ```bash
 ./goals/hub_release/execute.sh

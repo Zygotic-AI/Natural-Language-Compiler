@@ -915,6 +915,10 @@ def run_ci_fitness_suite(*, include_releasable_verify: bool = False) -> int:
         [sys.executable, str(TOOLS / "fitness-executable-shape.py")],
     )
     run(
+        "fitness-release-readiness",
+        [sys.executable, str(TOOLS / "fitness-release-readiness.py")],
+    )
+    run(
         "assert-planit-other-skill",
         [sys.executable, str(TOOLS / "assert-planit-other-skill-fails.py")],
     )

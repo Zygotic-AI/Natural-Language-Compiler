@@ -2,7 +2,7 @@
 
 - Status: Proposed
 - Date: 2026-11-27
-- Revision: 2
+- Revision: 3
 - Deciders: Human manager
 - Class: F (process / hub release)
 - Corpus: nlc
@@ -25,7 +25,7 @@ Any future item that can be tested as an indicator of the repo’s readiness is 
 
 ### Checklist (order is the gate order)
 
-1. **Milestone issues.** All issues for this milestone completed. The goal’s first gate fails and **names each open milestone issue**.
+1. **Milestone issues.** Do we have all the issues for this milestone competed? (this would be in the top of the checklist of the release, btw) All issues for this milestone completed. The goal’s first gate fails and **names each open milestone issue**. Method: the release goal reads the branch it is run on: `git rev-parse --abbrev-ref HEAD`. In GitHub Actions, where HEAD is detached, it reads `GITHUB_REF_NAME` instead. That name must match exactly `^release/v(\d+)\.(\d+)\.(\d+)$`. The captured vX.Y.Z is the version being released. Any other result (main, a change branch, detached HEAD with no ref name) refuses, saying which branch it saw and that a release runs only on release/vX.Y.Z. Milestone: exactly one GitHub milestone (any state) whose title ends with " - vX.Y.Z". Zero or more than one refuses and names what it found. integrity/nlc-version.json is not used to pick the milestone.
 2. **Constraints.** Every source document is completed, every ADR is Accepted with its own signature, and every codified constraint is Accepted. Nothing is still imported but unconfirmed. ([ADR 0062](0062-constraint-stack.md), [ADR 0052](0052-owner-openpgp-ratification-amends-0051.md), [ADR 0059](0059-adr-revision-and-history.md).)
 3. **Goals.** Every goal is complete. Each atomic action is implemented, bound to its constraints, and passes its gate.
 4. **Manifests and audits.** Every producer run in the release has a final manifest whose audit result is pass.

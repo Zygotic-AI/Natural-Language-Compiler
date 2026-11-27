@@ -765,6 +765,12 @@
       ]
     },
     {
+      "label": "assert-milestone-title-suffix-fails",
+      "script": "tools/assert-milestone-title-suffix-fails.py",
+      "kind": "landmine",
+      "inputs": []
+    },
+    {
       "label": "assert-non-python-adapter-fails",
       "script": "tools/assert-non-python-adapter-fails.py",
       "kind": "landmine",
@@ -1045,6 +1051,12 @@
         "tools/nouns/assert_releasable_gate_list_duplicate_fails/__init__.py",
         "tools/nouns/assert_releasable_gate_list_duplicate_fails/assert_releasable_gate_list_duplicate_fails.py"
       ]
+    },
+    {
+      "label": "assert-release-not-on-release-branch-fails",
+      "script": "tools/assert-release-not-on-release-branch-fails.py",
+      "kind": "landmine",
+      "inputs": []
     },
     {
       "label": "assert-release-probe-align-local-tag-to-remote-fails",
@@ -5595,6 +5607,12 @@
       ]
     },
     {
+      "label": "tools/assert-milestone-title-suffix-fails.py",
+      "script": "tools/assert-milestone-title-suffix-fails.py",
+      "kind": "landmine",
+      "inputs": []
+    },
+    {
       "label": "tools/assert-non-python-adapter-fails.py",
       "script": "tools/assert-non-python-adapter-fails.py",
       "kind": "landmine",
@@ -5875,6 +5893,12 @@
         "tools/nouns/assert_releasable_gate_list_duplicate_fails/__init__.py",
         "tools/nouns/assert_releasable_gate_list_duplicate_fails/assert_releasable_gate_list_duplicate_fails.py"
       ]
+    },
+    {
+      "label": "tools/assert-release-not-on-release-branch-fails.py",
+      "script": "tools/assert-release-not-on-release-branch-fails.py",
+      "kind": "landmine",
+      "inputs": []
     },
     {
       "label": "tools/assert-release-probe-align-local-tag-to-remote-fails.py",

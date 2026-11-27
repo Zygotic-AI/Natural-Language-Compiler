@@ -63,15 +63,18 @@ def tree_without_armor(rev: str) -> str:
 
 def release_branch() -> tuple[str, str]:
     """On release/vX.Y.Z, clean, nothing local that origin lacks (R7-M2). Returns (branch, version) or raises."""
-    branch = git("rev-parse", "--abbrev-ref", "HEAD")
-    if not branch.startswith("release/v"):
-        raise Refused(f"run on release/vX.Y.Z, not {branch}")
+    from nouns.hub_release.hub_release import parse_release_version, release_ref_name
+
+    branch = release_ref_name()
+    version, err = parse_release_version(branch)
+    if err or not version:
+        raise Refused(err or f"saw branch {branch}; a release runs only on release/vX.Y.Z")
     if git("status", "--porcelain"):
         raise Refused("worktree is not clean; commit through a change branch or stash")
     git("fetch", "-q", "origin", branch)
     if git("rev-list", "--count", f"origin/{branch}..HEAD") != "0":
         raise Refused(f"HEAD has commits origin/{branch} does not; merge them with a change branch (step 2), then run this again")
-    return branch, branch[len("release/v"):]
+    return branch, version
 
 
 class Refused(Exception):

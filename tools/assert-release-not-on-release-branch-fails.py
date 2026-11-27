@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""Landmine ADR 0061: a change branch is refused and named."""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from nouns.assert_release_not_on_release_branch_fails import *  # noqa: F403
+
+if __name__ == "__main__":
+    raise SystemExit(main())

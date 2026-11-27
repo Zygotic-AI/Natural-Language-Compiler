@@ -6,7 +6,7 @@ Maintainers cut a compiler release by running the release goal. Readiness is the
 
 **Paragraph**
 
-Work stays on a release line. `main` moves only when the release goal pushes a signed tree. The first check is whether this milestone’s issues are completed. The owner signs the release once, after validate. The tag is production.
+Work stays on a release line. `main` moves only when the release goal pushes a signed tree. The first check is whether this milestone’s issues are completed. The version is the `release/vX.Y.Z` branch name, not the version file. The owner signs the release once, after validate. The tag is production.
 
 **Graph**
 

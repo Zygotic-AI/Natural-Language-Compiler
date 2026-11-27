@@ -344,11 +344,17 @@ def _check_version(root: Path, version: str | None, cmd: str) -> tuple[list[str]
     return fails, pending
 
 
-def _check_release_signature(root: Path) -> tuple[list[str], list[str]]:
+def _check_release_signature(root: Path, cmd: str) -> tuple[list[str], list[str]]:
+    """Item 10. Sign produces the one release signature; earlier steps stay pending.
+
+    A leftover armor file from a prior version is not MET for this release.
+    """
     armor = root / ARMOR_REL
-    if not armor.is_file():
-        return [], ["0061.10 release signature: pending until sign"]
-    return [], []
+    if cmd in {"main", "tag"}:
+        if not armor.is_file():
+            return [f"0061.10 release signature: missing {ARMOR_REL}"], []
+        return [], []
+    return [], ["0061.10 release signature: pending until sign"]
 
 
 def check_item_1(
@@ -464,7 +470,7 @@ def readiness_report(
     if not v_fail and not v_pend:
         met.append("0061.9 version")
 
-    sig_fail, sig_pend = _check_release_signature(root)
+    sig_fail, sig_pend = _check_release_signature(root, cmd)
     fails.extend(sig_fail)
     pending.extend(sig_pend)
     if unsigned:

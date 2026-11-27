@@ -26,14 +26,9 @@ def _run_check_rules(root: Path, hub: Path) -> int:
 
 
 def _maybe_regen_after_sync(root: Path, hub: Path) -> None:
-    change_path = root / ".nlc" / "last-requirement-change.json"
-    if not change_path.is_file():
-        return
-    try:
-        data = json.loads(change_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return
-    change = data.get("change")
+    from nouns.compile_guide_session.compile_guide_session import last_requirement_change
+
+    change = last_requirement_change(root)
     if not change:
         return
     script = hub / "tools" / "nlc-delta-regen.py"
@@ -68,10 +63,11 @@ def run_requirements(root: Path, hub: Path) -> int:
         print("Rule check failed — fix in /interview.", file=sys.stderr)
         return code
 
-    sync_flag = root / ".nlc" / "requirements-sync-pending.json"
-    if sync_flag.is_file():
-        sync_flag.unlink(missing_ok=True)
+    from nouns.compile_guide_session.compile_guide_session import set_sync_pending, sync_pending
+
+    if sync_pending(root):
         _maybe_regen_after_sync(root, hub)
+        set_sync_pending(root, False)
 
     regen = root / ".nlc" / "delta-regen-queue.json"
     if regen.is_file():

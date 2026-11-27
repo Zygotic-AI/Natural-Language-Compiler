@@ -86,7 +86,7 @@ These letters on [requirement](docs/TERMS.md#requirement) ids are not interchang
 | **S** / **CS** | Systems / confirmation-systems | Agent-noun package structure (identity, verbs, handoff). |
 | **Q** | [Quality](docs/TERMS.md#quality) | Ops/opportunities metric at a [boundary](docs/TERMS.md#boundary). |
 
-`P-016`, `P-020` and other hyphenated **[P-0xx](docs/TERMS.md#p-0xx)** ids are *operating policies* in the companion bindings repo. They are not P1–P7.
+`P-016`, `P-020` and other hyphenated **[P-0xx](docs/TERMS.md#p-0xx)** ids are *operating policies* indexed in [`docs/OPERATING_BINDINGS.md`](docs/OPERATING_BINDINGS.md). They live in this hub. They are not P1–P7.
 
 An **R** can stand without a matching **C**. A **C** usually restates an **R** as something you can tick on *this* change.
 

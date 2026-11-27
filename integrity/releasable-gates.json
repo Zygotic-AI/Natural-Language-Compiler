@@ -71,7 +71,12 @@
     "fitness-derived-release-state.py",
     "fitness-control-lifecycle.py",
     "fitness-check-inputs-declaration.py",
-    "fitness-adr-history.py"
+    "fitness-adr-history.py",
+    "fitness-constraint-stack.py",
+    "fitness-adr-decision-point-register.py",
+    "fitness-lifecycle-state-headers.py",
+    "fitness-type-dependency.py",
+    "fitness-release-readiness.py"
   ],
   "gates": {
     "pipeline-blockers": {

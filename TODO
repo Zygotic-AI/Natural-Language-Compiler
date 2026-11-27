@@ -172,6 +172,7 @@ Policy lives in ADRs + PROCESS + planit; this section is **machine wiring** so c
 
 **ADR enforcement (every Accepted ADR → runnable binders)**
 
+- ✔ **0061–0065 + halt/header/0036 binders** — `docs/ADR-ENFORCEMENT.md` rows bound; ADRs Proposed until owner signs. @done(26-11-27 21:00)
 - ✔ **ADR enforcement SSOT** — hub table: all **bound** except **0007/0009** gap (`fitness-adr-gap-parked.py`) @done(26-09-20 20:10)
 - ✔ **Adopter verify depth** — `adopter-verify-fast-green` verify_fast + fingerprints; contract_change landmines on non-specimens @done(26-09-20 20:10)
 - ✔ **0004–0006** — hub binder fitness bound @done(26-09-20 23:15)

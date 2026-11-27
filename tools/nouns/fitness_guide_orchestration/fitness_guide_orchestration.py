@@ -40,8 +40,10 @@ def main() -> int:
     )
     if "YOUR QUEUE" not in dash or "Requirements" not in dash:
         violations.append("dashboard must show kanban YOUR QUEUE stages")
-    if "work-queue.json" not in dash:
-        violations.append("dashboard must persist work-queue.json")
+    if "work-queue.json" in dash and "write_text" in dash:
+        violations.append("dashboard must not persist work-queue.json (ADR 0064)")
+    if "compile_guide_session" not in dash and "sync_pending" not in dash:
+        violations.append("dashboard must scan compile-guide session headers")
     for v in violations:
         print(f"VIOLATION {v}")
     if violations:

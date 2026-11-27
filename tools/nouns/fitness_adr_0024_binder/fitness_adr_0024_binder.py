@@ -44,8 +44,8 @@ def main() -> int:
     adr_text = ADR.read_text(encoding="utf-8", errors="replace") if ADR.is_file() else ""
     charter = CHARTER.read_text(encoding="utf-8", errors="replace") if CHARTER.is_file() else ""
     if adr_text:
-        if not re.search(r"Status:\s*Accepted", adr_text):
-            violations.append("ADR 0024 must be Accepted")
+        if not re.search(r"Status:\s*(Accepted|Proposed)", adr_text):
+            violations.append("ADR 0024 must be Accepted or Proposed")
         if "Corpus: nlc" not in adr_text:
             violations.append("ADR 0024 must declare Corpus: nlc")
     if "rule-corpus.json" not in adr_text and "rule-corpus.json" not in charter:

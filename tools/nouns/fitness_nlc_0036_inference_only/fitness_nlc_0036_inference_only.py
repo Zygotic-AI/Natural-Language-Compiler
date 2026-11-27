@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""ADR 0036 gate: human surface asks for goal + policy only (default-closed scan)."""
+"""ADR 0036 gate: humans write goals, requirements, and knowledge domains."""
 
 from __future__ import annotations
 
-
+BOUNDARY = "bba-emit"
 
 import re
 import sys
@@ -36,13 +36,15 @@ VIOLATIONS = [
         "human asked to select ADR/rule/anchor/manifest",
     ),
     (
-        re.compile(r"humans? (?:focus on|contribute|provide) (?:three|3) things", re.I),
-        "human surface lists three inputs; ADR 0036 allows goal+policy only",
-    ),
-    (
         re.compile(r"structured fields? from the human", re.I),
         "human surface collects structured fields",
     ),
+]
+
+REQUIRED = [
+    (re.compile(r"\bgoals?\b", re.I), "goals"),
+    (re.compile(r"\brequirements?\b", re.I), "requirements"),
+    (re.compile(r"knowledge domains?", re.I), "knowledge domains"),
 ]
 
 
@@ -58,6 +60,9 @@ def main() -> int:
         for rx, label in VIOLATIONS:
             if rx.search(text):
                 failures.append(f"{rel}: {label}")
+        for rx, name in REQUIRED:
+            if not rx.search(text):
+                failures.append(f"{rel}: must name {name}")
     if failures:
         print("FAIL fitness-nlc-0036-inference-only")
         for item in failures:
@@ -69,10 +74,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
-
-
-
-BOUNDARY = "bba-emit"
-

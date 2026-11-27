@@ -62,8 +62,8 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](
 | 0048 | 2026-10-08 | session | active | — | L-0048 |
 | 0049 | 2026-10-09 | RCA 2026-10-09 release stops outside planner | superseded | 0061 | L-0049 |
 | 0050 | 2026-10-10 | RCA 2026-10-10 SHA-pinned evidence / content identity | active | — | L-0050 |
-| 0051 | 2026-10-11 | hub-own produce principles | accepted | — | L-0051 |
-| 0052 | 2026-10-11 | owner OpenPGP ratification amends 0051 | accepted | — | L-0052 |
+| 0051 | 2026-10-11 | hub-own produce principles | active | — | L-0051 |
+| 0052 | 2026-10-11 | owner OpenPGP ratification amends 0051 | active | — | L-0052 |
 | 0053 | 2026-10-13 | text retrofit for stale 0051/0052 sentences | rejected | — | L-0053 |
 | 0054 | 2026-10-24 | RCA 2026-10-20 published-skill author contract | active | — | L-0054 |
 | 0055 | 2026-10-25 | staged activation of gate machinery | active | — | L-0055 |
@@ -72,7 +72,11 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md) and [ADR 0059](
 | 0058 | 2026-11-07 | harness- and model-agnostic | active | — | L-0058 |
 | 0059 | 2026-11-07 | ADR revision and history | active | — | L-0059 |
 | 0060 | 2026-11-10 | install scope global or local; PATH nlc execs the repo copy | active | — | L-0060 |
-| 0061 | 2026-11-21 | issue #126 release in seven steps | active | — | L-0061 |
+| 0061 | 2026-11-21 | issue #126 release readiness checklist | active | — | L-0061 |
+| 0062 | 2026-11-27 | constraint stack (intake → extract → codified) | active | — | L-0062 |
+| 0063 | 2026-11-27 | one named decision point per ADR | active | — | L-0063 |
+| 0064 | 2026-11-27 | lifecycle state lives in the document header | active | — | L-0064 |
+| 0065 | 2026-11-27 | type-dependency file and upward state walk | active | — | L-0065 |
 
 ## Lineage format
 

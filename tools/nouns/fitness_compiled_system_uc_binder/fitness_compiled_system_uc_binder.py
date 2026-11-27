@@ -71,8 +71,10 @@ def main() -> int:
     )
     if "goals_for_rule_change" not in delta:
         violations.append("nlc-delta-regen must use goals_for_rule_change (UC9)")
-    packs = read_tool("tools/nlc-pack-install.py")
-    if "requirements-sync-pending" not in packs:
+    packs = read_tool("tools/nlc-pack-install.py") + read_tool(
+        "tools/nouns/nlc_pack_install/nlc_pack_install.py"
+    )
+    if "set_sync_pending" not in packs and "requirements-sync-pending" not in packs:
         violations.append("pack install must flag UC9 regen pending")
     for v in violations:
         print(f"VIOLATION {v}")

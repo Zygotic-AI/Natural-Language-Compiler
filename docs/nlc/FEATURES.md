@@ -135,7 +135,7 @@ Order accepted 2026-11-14 in [`FEATURES-AUDIT-REGISTER.md`](FEATURES-AUDIT-REGIS
 
 **Use cases.** Drop a policy PDF/markdown in; do not play twenty questions inside the chunk. Approve or fix the slice. Repeat. The same chain (extract → codified constraint → bind → compile) is generated as part of adapting that policy / standard / etc.
 
-**Why this order.** Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first. Pack ingest today produces candidates; this is the full job.
+**Why this order.** Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first. Pack ingest today produces candidates; this is the full job. [ADR 0062](../../adrs/0062-constraint-stack.md) is the stack that import will use (intake → extract → codified if/then). Naming that stack now keeps import from inventing a second shape later.
 
 ### 2. Trace graph
 
@@ -283,6 +283,8 @@ Only slices we are scheduling. Confidence is highest in the next one.
 
 ### Next (high confidence)
 
+**Planit sharpening (v0.10.0).** One decision per ADR, constraint stack named ([ADR 0062](../../adrs/0062-constraint-stack.md)), lifecycle in document headers ([ADR 0064](../../adrs/0064-lifecycle-state-in-document-header.md)), type-dependency walk ([ADR 0065](../../adrs/0065-type-dependency-and-upward-walk.md)), and hub release as an executable goal whose first gate names each open milestone issue ([ADR 0061](../../adrs/0061-release-in-seven-steps.md)). Why this order: import (item 1) and dirty-predicate release both need a named stack and a goal that re-checks readiness instead of a prose command table.
+
 **Full requirement import** (Upcoming item 1). Dogfood of this repo is “import our own policy / standard / etc.” That import has to exist first.
 
 Open work: [`TODO`](../../TODO) rows under “full requirement import.”
@@ -299,7 +301,11 @@ Everything else in Upcoming stays off the milestone list until scheduled. Enabli
 
 ## Outstanding branches
 
-Reviewed 2026-11-16. `origin` has `main` and the release lines only. No other branch name belongs, so there is no table.
+Reviewed 2026-11-27. Open besides `main` and the release lines:
+
+| Branch | Why it exists |
+| ------ | ------------- |
+| `cursor/adr-scope-release-goal-5ef0` | Planit pass 2: ADRs 0062–0065, release as a goal, 0061 milestone-issues first gate. PR into `release/v0.10.0`. Not merged. |
 
 These names were deleted because they do not belong:
 

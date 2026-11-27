@@ -19,4 +19,4 @@ Always on (charter §15): do not write the implementation in this pass. “Looks
 
 **Incomplete:** implementation in the same turn, or approval without rule numbers.
 
-Prefix trap: **P1–P7** are hub principles. Hyphenated `P-020` is an operating policy in the companion bindings repo.
+Prefix trap: **P1–P7** are hub principles. Hyphenated `P-020` is an operating policy indexed in `docs/OPERATING_BINDINGS.md`.

@@ -57,12 +57,18 @@ See [ADR 0029](0029-adr-lineage-active-set-and-bind-snapshot.md).
 | 0044 | L-0044 | session | 2026-09-25 |
 | 0048 | L-0048 | session | 2026-11-07 |
 | 0050 | L-0050 | RCA 2026-10-10 SHA-pinned evidence / content identity | 2026-10-10 |
+| 0051 | L-0051 | hub-own produce principles | 2026-10-11 |
+| 0052 | L-0052 | owner OpenPGP ratification amends 0051 | 2026-10-11 |
 | 0054 | L-0054 | RCA 2026-10-20 published-skill author contract | 2026-10-24 |
 | 0055 | L-0055 | RCA 2026-10-25 staged activation of gate machinery | 2026-10-25 |
 | 0057 | L-0057 | session | 2026-11-07 |
 | 0058 | L-0058 | session | 2026-11-07 |
 | 0059 | L-0059 | session | 2026-11-07 |
 | 0060 | L-0060 | session | 2026-11-10 |
-| 0061 | L-0061 | issue #126 release in seven steps | 2026-11-21 |
+| 0061 | L-0061 | issue #126 release readiness checklist | 2026-11-21 |
+| 0062 | L-0062 | constraint stack | 2026-11-27 |
+| 0063 | L-0063 | ADR decision-point register | 2026-11-27 |
+| 0064 | L-0064 | lifecycle state in document header | 2026-11-27 |
+| 0065 | L-0065 | type-dependency and upward walk | 2026-11-27 |
 
 When an ADR is superseded, remove it from this table and add its successor. Update INDEX status in the same change.

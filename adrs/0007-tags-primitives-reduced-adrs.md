@@ -1,9 +1,11 @@
 # [ADR](../docs/TERMS.md#adr) 0007 — Tags, primitives, and reduced ADRs
 
-- Status: Accepted
-- Date: 2026-09-16
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 2
 - Deciders: Human manager
 - Class: F (charter extension)
+- Decision-point: emit-rules-over-tags-primitives-facts
 
 ## Context
 
@@ -15,6 +17,8 @@ kinds of law. They are not: they are facts plus if-thens, if we name the facts.
 
 **Every adopted [ADR](../docs/TERMS.md#adr) that constrains emit reduces to rules over tags, primitives,
 and facts. The [ADR](../docs/TERMS.md#adr) remains the why. The if-then is what the [compiler](../docs/TERMS.md#compiler) runs.**
+The constraint stack (intake → extract → codified if/then) is [ADR 0062](0062-constraint-stack.md).
+The primitive **list** is [ADR 0009](0009-primitive-interior-functions.md). This ADR is the if/then shape.
 
 ### Citizens (not new design primitives)
 

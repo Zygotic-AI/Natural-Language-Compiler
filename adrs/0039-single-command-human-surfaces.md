@@ -1,33 +1,39 @@
 # ADR 0039 — Single-command human surfaces
 
-- Status: Accepted
-- Date: 2026-09-23
-- Revision: 2
-- Amended-by: [ADR 0061](0061-release-in-seven-steps.md) (revision 2)
+- Status: Proposed
+- Date: 2026-11-27
+- Revision: 3
 - Deciders: Human manager
 - Class: F (process)
 - Corpus: nlc
+- Decision-point: one-command-per-human-process
+- Version class of this change: **minor** (new policy; not a published-contract break)
 
 ## Context
 
-[ADR 0017](0017-human-command-surface.md) requires a jargon-free human menu. [ADR 0022](history/0022-hub-release-fail-early-1.md) orders release gates but today exposes multiple operator entry points (`./release`, `./release prepare`, `./release finish`) that imply the human must know which phase they are in and what was already done.
-
-Async work (PR review, merge, CI) is normal; the human surface must still be **one command** that resumes from durable state—not a checklist of separate verbs for verify, merge, push, tag, and test.
+[ADR 0017](0017-human-command-surface.md) requires a jargon-free human menu. Async work is normal; the human surface must still be **one command** that resumes from durable state.
 
 ## Decision
 
-1. **One primary command per human process.** A hub release is one command per step of [ADR 0061](0061-release-in-seven-steps.md). The owner's only command is `./release sign`.
-
-2. **State is git.** Release commands read branches, tags and committed files, never chat or operator memory.
-
-3. **Decompose internally.** Version, notes, regeneration and the checks are steps inside `./release validate`, aligned with [ADR 0020](0020-human-vs-agent-commands.md). Releasable gate profiles live only in [`integrity/releasable-gates.json`](../integrity/releasable-gates.json); `./release validate` and `./nlc gate` call the same runner.
+1. **One primary command per human process.** The release command list is the **release goal**. This ADR does not list those commands. It points at that goal.
+2. **State is git and document headers** ([ADR 0064](0064-lifecycle-state-in-document-header.md)). Commands do not read chat or operator memory ([ADR 0038](0038-no-memory-in-process.md)).
+3. **Decompose internally.** Releasable gate profiles live only in [`integrity/releasable-gates.json`](../integrity/releasable-gates.json); the release goal and `./nlc gate` call the same runner.
 
 ## Consequences
 
-- [`docs/adoption/RELEASE.md`](../docs/adoption/RELEASE.md) documents the seven commands.
+- [`docs/adoption/RELEASE.md`](../docs/adoption/RELEASE.md) explains without copying the steps. The steps live in [`.agents/skills/release/SKILL.md`](../.agents/skills/release/SKILL.md), which tells the agent to run the release goal.
 - Tag push remains the moment GitHub Actions builds release artifacts ([`.github/workflows/release.yml`](../.github/workflows/release.yml)).
 
 ## Rejected
 
-- Documenting a multi-command release ritual as the norm (“run prepare, then merge, then finish”).
-- Expecting humans to track release phase in a spreadsheet or chat.
+- Documenting a multi-command release ritual as this ADR’s law.
+- A second copy of the release step table in this record.
+
+## Proposal (G-PROPOSE)
+
+- **Change class:** F
+- **Nouns / verbs / goals touched:** release goal pointer. After accept: this file has no command table.
+- **Adjectives that must hold:** one command per human process; release steps are not duplicated here.
+- **Non-goals:** readiness checklist (0061); executable shape (0048).
+- **Tests:** `tools/fitness-executable-shape.py` (thin `./release` still classifies).
+- **Impact:** operators still run one command per process; the release goal owns the machine.

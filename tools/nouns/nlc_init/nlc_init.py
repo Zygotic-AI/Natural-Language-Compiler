@@ -150,10 +150,9 @@ def main() -> int:
     lock_path = write_project_lock(
         target, hub_version=hub_ver, store=args.store, store_path=store_path
     )
-    (target / ".nlc" / "work-queue.json").write_text(
-        json.dumps({"schema": 1, "items": []}, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    from nouns.compile_guide_session.compile_guide_session import ensure_session
+
+    ensure_session(target)
     hooks_src = ROOT / "templates" / "adopter" / "hooks.example.json"
     if not hooks_src.is_file():
         hooks_src = ROOT / ".nlc" / "hooks.example.json"

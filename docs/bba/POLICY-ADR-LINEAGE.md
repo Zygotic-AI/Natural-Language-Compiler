@@ -1,6 +1,6 @@
 # Policy → ADR lineage
 
-Policies are not runtime input. They are **compiled into ADRs**, and ADRs form **immutable lineages**.
+The constraint stack is [ADR 0062](../../adrs/0062-constraint-stack.md): intake document → English extracts → **codified** if/then. Only codified constraints bind. This page is the lineage story around that stack, not a second stack.
 
 ## The chain
 

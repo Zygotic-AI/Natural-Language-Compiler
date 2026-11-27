@@ -440,8 +440,9 @@ def interview_requirements_sync_blockers(root: Path) -> list[str]:
     """UC3: bind-ready interview cannot coexist with requirements-sync-pending."""
     if _hub_skip(root):
         return []
-    pending = root / ".nlc" / "requirements-sync-pending.json"
-    if not pending.is_file():
+    from nouns.compile_guide_session.compile_guide_session import sync_pending
+
+    if not sync_pending(root):
         return []
     packet = root / ".nlc" / "interview-packet.json"
     if not packet.is_file():

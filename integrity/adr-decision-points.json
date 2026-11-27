@@ -1,0 +1,296 @@
+{
+  "schema": 1,
+  "adr": "0063",
+  "points": [
+    {
+      "adr": "0001",
+      "decision_point": "ADR-0001",
+      "path": "adrs/0001-zero-variance-integrity.md"
+    },
+    {
+      "adr": "0002",
+      "decision_point": "ADR-0002",
+      "path": "adrs/0002-p2-scope.md"
+    },
+    {
+      "adr": "0003",
+      "decision_point": "ADR-0003",
+      "path": "adrs/0003-systems-extension-agent-nouns.md"
+    },
+    {
+      "adr": "0004",
+      "decision_point": "ADR-0004",
+      "path": "adrs/0004-produce-fitness-handoff.md"
+    },
+    {
+      "adr": "0005",
+      "decision_point": "ADR-0005",
+      "path": "adrs/0005-ssot-exit-evidence.md"
+    },
+    {
+      "adr": "0006",
+      "decision_point": "ADR-0006",
+      "path": "adrs/0006-contract-change-notice.md"
+    },
+    {
+      "adr": "0007",
+      "decision_point": "emit-rules-over-tags-primitives-facts",
+      "path": "adrs/0007-tags-primitives-reduced-adrs.md"
+    },
+    {
+      "adr": "0008",
+      "decision_point": "ADR-0008",
+      "path": "adrs/0008-no-noun-inheritance.md"
+    },
+    {
+      "adr": "0009",
+      "decision_point": "ADR-0009",
+      "path": "adrs/0009-primitive-interior-functions.md"
+    },
+    {
+      "adr": "0010",
+      "decision_point": "ADR-0010",
+      "path": "adrs/0010-gate-after-every-generate.md"
+    },
+    {
+      "adr": "0011",
+      "decision_point": "nlc-product-naming",
+      "path": "adrs/0011-natural-language-coding-naming.md"
+    },
+    {
+      "adr": "0012",
+      "decision_point": "constraint-conflict-halt",
+      "path": "adrs/0012-rule-adoption-conflicts.md"
+    },
+    {
+      "adr": "0013",
+      "decision_point": "ADR-0013",
+      "path": "adrs/0013-requirements-preflight.md"
+    },
+    {
+      "adr": "0014",
+      "decision_point": "ADR-0014",
+      "path": "adrs/0014-semver-upgrade-steps-and-noop-migrations.md"
+    },
+    {
+      "adr": "0015",
+      "decision_point": "ADR-0015",
+      "path": "adrs/0015-distribution-lock-and-version-store.md"
+    },
+    {
+      "adr": "0016",
+      "decision_point": "ADR-0016",
+      "path": "adrs/0016-hub-carries-no-product-requirements.md"
+    },
+    {
+      "adr": "0017",
+      "decision_point": "ADR-0017",
+      "path": "adrs/0017-human-command-surface.md"
+    },
+    {
+      "adr": "0018",
+      "decision_point": "ADR-0018",
+      "path": "adrs/0018-human-cli-interview-on-gap.md"
+    },
+    {
+      "adr": "0019",
+      "decision_point": "compile-guide-kanban-resume",
+      "path": "adrs/0019-guided-orchestration.md"
+    },
+    {
+      "adr": "0020",
+      "decision_point": "ADR-0020",
+      "path": "adrs/0020-human-vs-agent-commands.md"
+    },
+    {
+      "adr": "0021",
+      "decision_point": "ADR-0021",
+      "path": "adrs/0021-verify-fast-and-deep.md"
+    },
+    {
+      "adr": "0023",
+      "decision_point": "ADR-0023",
+      "path": "adrs/0023-rule-instance-trace-and-instant-audit-scope.md"
+    },
+    {
+      "adr": "0024",
+      "decision_point": "nlc-factory-spine",
+      "path": "adrs/0024-nlc-factory-spine.md"
+    },
+    {
+      "adr": "0025",
+      "decision_point": "ADR-0025",
+      "path": "adrs/0025-belief-no-blame-climb.md"
+    },
+    {
+      "adr": "0026",
+      "decision_point": "ADR-0026",
+      "path": "adrs/0026-promote-x1-x3-runners.md"
+    },
+    {
+      "adr": "0027",
+      "decision_point": "ADR-0027",
+      "path": "adrs/0027-emit-from-prose.md"
+    },
+    {
+      "adr": "0028",
+      "decision_point": "closed-atomic-verb-set",
+      "path": "adrs/0028-closed-atomic-verb-set-and-policy-adr-lineage.md"
+    },
+    {
+      "adr": "0029",
+      "decision_point": "adr-index-catalog-active",
+      "path": "adrs/0029-adr-lineage-active-set-and-bind-snapshot.md"
+    },
+    {
+      "adr": "0030",
+      "decision_point": "ADR-0030",
+      "path": "adrs/0030-pipeline-wiring.md"
+    },
+    {
+      "adr": "0031",
+      "decision_point": "ADR-0031",
+      "path": "adrs/0031-charter-ratification-program.md"
+    },
+    {
+      "adr": "0032",
+      "decision_point": "ADR-0032",
+      "path": "adrs/0032-charter-ownership-and-mutation.md"
+    },
+    {
+      "adr": "0033",
+      "decision_point": "ADR-0033",
+      "path": "adrs/0033-charter-contracts.md"
+    },
+    {
+      "adr": "0034",
+      "decision_point": "ADR-0034",
+      "path": "adrs/0034-charter-goal-shape-and-composition.md"
+    },
+    {
+      "adr": "0035",
+      "decision_point": "charter-r20-r25-r32-r33",
+      "path": "adrs/0035-charter-knowledge-and-enforcement.md"
+    },
+    {
+      "adr": "0036",
+      "decision_point": "human-writes-goals-requirements-knowledge",
+      "path": "adrs/0036-inference-only-human-surface.md"
+    },
+    {
+      "adr": "0037",
+      "decision_point": "ADR-0037",
+      "path": "adrs/0037-charter-non-r-surfaces.md"
+    },
+    {
+      "adr": "0038",
+      "decision_point": "ADR-0038",
+      "path": "adrs/0038-no-memory-in-process.md"
+    },
+    {
+      "adr": "0039",
+      "decision_point": "one-command-per-human-process",
+      "path": "adrs/0039-single-command-human-surfaces.md"
+    },
+    {
+      "adr": "0040",
+      "decision_point": "ADR-0040",
+      "path": "adrs/0040-process-preflight-remediation.md"
+    },
+    {
+      "adr": "0041",
+      "decision_point": "ADR-0041",
+      "path": "adrs/0041-product-completion-scope.md"
+    },
+    {
+      "adr": "0042",
+      "decision_point": "ADR-0042",
+      "path": "adrs/0042-rule-ir-hub-product-boundary.md"
+    },
+    {
+      "adr": "0043",
+      "decision_point": "ADR-0043",
+      "path": "adrs/0043-uc14-composable-adopt-boundary.md"
+    },
+    {
+      "adr": "0044",
+      "decision_point": "production-trunk",
+      "path": "adrs/0044-hub-release-production-trunk.md"
+    },
+    {
+      "adr": "0048",
+      "decision_point": "executable-file-shape",
+      "path": "adrs/0048-executable-shape.md"
+    },
+    {
+      "adr": "0050",
+      "decision_point": "ADR-0050",
+      "path": "adrs/0050-evidence-identity-content-not-history.md"
+    },
+    {
+      "adr": "0051",
+      "decision_point": "hub-own-produce-property-goals",
+      "path": "adrs/0051-hub-own-produce-principles.md"
+    },
+    {
+      "adr": "0052",
+      "decision_point": "owner-openpgp-sidecar-format",
+      "path": "adrs/0052-owner-openpgp-ratification-amends-0051.md"
+    },
+    {
+      "adr": "0054",
+      "decision_point": "ADR-0054",
+      "path": "adrs/0054-published-skill-author-contract.md"
+    },
+    {
+      "adr": "0055",
+      "decision_point": "staged-gate-activation",
+      "path": "adrs/0055-staged-activation-of-gate-machinery.md"
+    },
+    {
+      "adr": "0057",
+      "decision_point": "tag-time-checker-digest",
+      "path": "adrs/0057-tag-time-checker-digest.md"
+    },
+    {
+      "adr": "0058",
+      "decision_point": "ADR-0058",
+      "path": "adrs/0058-harness-and-model-agnostic.md"
+    },
+    {
+      "adr": "0059",
+      "decision_point": "adr-revision-history-status-words",
+      "path": "adrs/0059-adr-revision-and-history.md"
+    },
+    {
+      "adr": "0060",
+      "decision_point": "ADR-0060",
+      "path": "adrs/0060-install-scope-and-path-dispatch.md"
+    },
+    {
+      "adr": "0061",
+      "decision_point": "release-readiness-checklist",
+      "path": "adrs/0061-release-in-seven-steps.md"
+    },
+    {
+      "adr": "0062",
+      "decision_point": "constraint-stack",
+      "path": "adrs/0062-constraint-stack.md"
+    },
+    {
+      "adr": "0063",
+      "decision_point": "adr-decision-point-register",
+      "path": "adrs/0063-adr-decision-point-register.md"
+    },
+    {
+      "adr": "0064",
+      "decision_point": "lifecycle-state-location",
+      "path": "adrs/0064-lifecycle-state-in-document-header.md"
+    },
+    {
+      "adr": "0065",
+      "decision_point": "lifecycle-state-computation",
+      "path": "adrs/0065-type-dependency-and-upward-walk.md"
+    }
+  ]
+}

@@ -57,11 +57,14 @@ def winner(
     overrides: list[dict],
     key: str,
 ) -> str | None:
-    sa, sb = rule_strength(tiers, a), rule_strength(tiers, b)
-    if sa != sb:
-        return a["rule_id"] if sa > sb else b["rule_id"]
+    """Human-named winner only (ADR 0012 rev 2). Tiers do not auto-win."""
+    _ = tiers, a, b
+    ids = {a.get("rule_id"), b.get("rule_id")}
     for ov in overrides:
-        if ov.get("conflict_key") == key:
+        if ov.get("conflict_key") == key and ov.get("winner") in ids:
+            return ov.get("winner")
+        pair = {ov.get("a"), ov.get("b")}
+        if pair == ids and ov.get("winner") in ids:
             return ov.get("winner")
     return None
 
@@ -84,8 +87,11 @@ def main(argv: list[str] | None = None, hub_root: Path | None = None) -> int:
 
     prec = load_json(hub / "integrity" / "adr-precedence.json")
     tiers: list[str] = list(prec.get("tiers") or [])
-    overrides_doc = load_json(overrides_path)
-    overrides: list[dict] = list(overrides_doc.get("overrides") or [])
+    if overrides_path.is_file():
+        overrides_doc = load_json(overrides_path)
+        overrides = list(overrides_doc.get("overrides") or [])
+    else:
+        overrides = []
 
     doc = load_json(rules_path)
     adoptions: list[dict] = list(doc.get("adoptions") or [])
@@ -111,7 +117,7 @@ def main(argv: list[str] | None = None, hub_root: Path | None = None) -> int:
                 if w is None:
                     conflicts.append(
                         f"{key}: {a['rule_id']} vs {b['rule_id']} "
-                        "(tie; need precedence-overrides.json)"
+                        "(halt; need precedence-overrides.json)"
                     )
 
     if conflicts:

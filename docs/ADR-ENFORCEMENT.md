@@ -17,13 +17,13 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0009 | `nlc_call_tree.py --check` + `assert-verb-primitive-inventory-fails.py` | bound |
 | 0010 | `fitness-adr-0010-binder.py` + gate landmines | bound |
 | 0011 | `fitness-nlc-naming.py` + landmine | bound |
-| 0012 | `check-rule-adoption.py` + conflict landmine | bound |
+| 0012 | `check-rule-adoption.py` + conflict landmine + `assert-rule-adoption-tier-diff-fails.py` | bound |
 | 0013 | `hub_tool` fitness + landmine | bound |
 | 0014 | migration + `assert-migration-step-noop-passes.py` | bound |
 | 0015 | `fitness-distribution-binder.py` + install landmines | bound |
 | 0016 | `fitness-hub-no-product-requirements.py` + landmine | bound |
 | 0017–0018 | `fitness-human-surface-binder.py` + interview landmines | bound |
-| 0019 | `fitness-guide-orchestration.py` + landmine | bound |
+| 0019 | `fitness-guide-orchestration.py` + `fitness-lifecycle-state-headers.py` + landmine | bound |
 | 0020 | (with 0017–0018) MENU/HARNESS + dashboard fitness | bound |
 | 0021 | `nlc verify` / `verify-deep` | bound |
 | 0023 | `rule_coverage_blockers` + `nlc_rule_emit.py` + binder fitness + landmines | bound |
@@ -35,7 +35,7 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0029 | lineage-check + bind-snapshot + freshness + fitness | bound (v1) |
 | 0030 | `nlc-pipeline-wire.py` + `nlc-action-gates.py` + `nlc_emit_audit.py` + `fitness-nlc-pipeline-wire.py` | bound |
 | 0031–0035 | `integrity/charter-ratify-backlog.json` + `fitness-adr-record-gate.py` | bound (v1) |
-| 0036 | `fitness-nlc-0036-inference-only.py` + `rules/nlc-0036.json` | bound |
+| 0036 | `fitness-nlc-0036-inference-only.py` + `rules/nlc-0036.json` (goals, requirements, knowledge domains) | bound |
 | 0037 | `integrity/charter-ratify-backlog.json` non_r_residuals + ADR text | bound (docs/backlog) |
 | 0038 | `fitness-adr-0038-no-memory.py` + `rules/nlc-0038.json` | bound (v1) |
 | 0039 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
@@ -48,13 +48,19 @@ Every **Accepted** [ADR](../adrs/README.md) must map to **runnable** binders (to
 | 0047 | `fitness-adr-approval.py` + `assert-adr-approval-mismatch-fails.py` | bound |
 | 0048 | `fitness-executable-shape.py` + `assert-executable-kernel-exempt-fails.py` | bound |
 | 0050 | `fitness-no-history-ids-in-evidence.py` (inside `./release validate`) | bound |
+| 0051 | `fitness-hub-scope-derived.py` + `assert-produce-handoff-refused.py` | bound |
+| 0052 | `fitness-adr-owner-sidecar.py` + `assert-unsigned-codified-does-not-bind-fails.py` | bound |
 | 0054 | `fitness-skill-author-check-presence.py` + `fitness-skill-author-checklist.py` + `fitness-skill-content-type.py` + `assert-skill-author-check-fails.py` | bound |
 | 0055 | `fitness-live-self-ref-activation.py` + `assert-live-self-ref-direct-edit-fails.py` | bound |
 | 0057 | `fitness-derived-release-state.py` + `assert-tag-digest-signature-required-fails.py` | bound |
 | 0058 | `fitness-goal-write-hook.py` + `assert-goal-write-hook-landmine-passes.py` | bound |
 | 0059 | `fitness-adr-history.py` + `assert-adr-history-fails.py` | bound |
 | 0060 | `fitness-install-scope.py` + `assert-install-local-dispatch-passes.py` + local-pin / outside-repo landmines | bound |
-| 0061 | `nlc_release_tag_gate` noun + `assert-tag-digest-signature-required-fails.py` (ADR 0061) | bound |
+| 0061 | `fitness-release-readiness.py` + `assert-open-milestone-issue-fails.py` | bound |
+| 0062 | `fitness-constraint-stack.py` + `assert-unsigned-codified-does-not-bind-fails.py` | bound |
+| 0063 | `fitness-adr-decision-point-register.py` | bound |
+| 0064 | `fitness-lifecycle-state-headers.py` + `assert-work-queue-json-not-ssot-fails.py` | bound |
+| 0065 | `fitness-type-dependency.py` + `assert-state-walk-child-drop-fails.py` | bound |
 
 **0007/0009:** semantic rule application and the verb-to-primitive inventory are bound. The pan-return landmine and the inventory mismatch landmine are the failing fixtures. ADR 0023 marker emit stays bound via `rule-emit` / `goal-scaffold` / verify audit.
 
